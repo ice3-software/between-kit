@@ -180,15 +180,18 @@
     NSIndexPath* index = [self determineIndexForContainer:container
                                                   atPoint:point
                                                   forCell:&cell];
-    BOOL isDraggable = (BOOL)cell;
+    BOOL isDraggable = index != nil;
     
-    
+    NSLog(@"Dragging at item:%d section:%d", [index item], [index section]);
+        
     /* Check in the delegate whether its draggable */
     
     if(self.delegate && [self.delegate respondsToSelector:@selector(isCellAtIndexPathDraggable:inContainer:)]){
         
+        NSLog(@"Draggable %@ from delegate? %@", container, [self.delegate isCellAtIndexPathDraggable:index
+                                                                                          inContainer:container] ? @"YES" : @"NO");
         isDraggable = isDraggable && [self.delegate isCellAtIndexPathDraggable:index
-                                                                   inContainer:container];
+                                                                       inContainer:container];
     }
     
     if(!isDraggable){
@@ -205,27 +208,32 @@
     cellPoint.x += containerFrame.origin.x;
     cellPoint.y += containerFrame.origin.x;
     
-    if(makeCopy && [container isKindOfClass:[UITableView class]]){
+    if(makeCopy){
         
-        NSObject<UITableViewDataSource>* dataSource = [(UITableView*)container dataSource];
+        /* This is a bit hacky. Consider using KV coding to copy all the properties
+            of the CollectionView cell into the temporary dragging cell dynamically */
         
-        if(dataSource && [dataSource respondsToSelector:@selector(tableView:cellForRowAtIndexPath:)]){
-            
-            self.draggingView = [dataSource tableView:(UITableView*)container
-                                cellForRowAtIndexPath:index];
-        }
-    }
-    else if(makeCopy && [container isKindOfClass:[UICollectionView class]]){
-        
-        NSObject<UICollectionViewDataSource>* dataSource = [(UICollectionView*)container dataSource];
-        
-        if(dataSource && [dataSource respondsToSelector:@selector(collectionView:cellForItemAtIndexPath:)]){
-            
-            self.draggingView = [dataSource collectionView:(UICollectionView*)container
-                                    cellForItemAtIndexPath:index];
-        }
+        UIView* cellCopy;
 
-    
+        if([container isKindOfClass:[UICollectionView class]]){
+        
+            UICollectionViewCell* cell = [(UICollectionView*)container cellForItemAtIndexPath:index];
+            [cell setHighlighted:NO];
+            NSData* viewCopyData = [NSKeyedArchiver archivedDataWithRootObject:cell];
+            cellCopy = [NSKeyedUnarchiver unarchiveObjectWithData:viewCopyData];
+            
+        }
+        else if([container isKindOfClass:[UITableView class]]){
+        
+            UITableViewCell* cell = [(UITableView*)container cellForRowAtIndexPath:index];
+            [cell setHighlighted:NO];
+            NSData* viewCopyData = [NSKeyedArchiver archivedDataWithRootObject:cell];
+            cellCopy = [NSKeyedUnarchiver unarchiveObjectWithData:viewCopyData];
+
+        }
+        
+        self.draggingView = cellCopy;
+
     }
     else{
         self.draggingView = cell;
@@ -238,8 +246,9 @@
     
     self.draggingView.frame = [self.superview convertRect:cellFrame fromView:container];
     
-    
-    NSLog(@"Adding dragging data: %d", [index row]);
+    [self.draggingView setHidden:NO];
+    NSLog(@"Adding dragging data: %d, draggingView %@", [index row], self.draggingView);
+    NSLog(@"Dragging view opactiy %f, is hidden", self.draggingView.alpha);
     
     return YES;
 
@@ -426,7 +435,6 @@
 
 -(void) handleDragStarted:(UIPanGestureRecognizer*) gestureRecognizer{
     
-    
     CGPoint pointInDst = [gestureRecognizer locationInView:self.dstView];
     CGPoint pointInSrc = [gestureRecognizer locationInView:self.srcView];
     self.isDragging = YES;
@@ -561,7 +569,9 @@
         
         /* If its an invalid cell then no dragging is started */
         
-        self.isDragging = NO;
+        //self.isDragging = NO;
+        self.draggingView = nil;
+
     }
 
 }
@@ -599,19 +609,22 @@
                                                       atPoint:point
                                                       forCell:&cell];
         
-        BOOL isExchangable = (BOOL)cell;
+        BOOL isExchangable = YES;//(BOOL)cell;
         
         
         /* Check in the delegate whether its exchangable */
         
         if(self.delegate && [self.delegate respondsToSelector:@selector(isCellInSrcAtIndexPathExchangable:withCellAtIndexPath:)]){
             
-            isExchangable = isExchangable && [self.delegate isCellInSrcAtIndexPathExchangable:index
+            isExchangable = /*isExchangable &&*/ [self.delegate isCellInSrcAtIndexPathExchangable:index
                                                                           withCellAtIndexPath:self.draggingIndexPath];
         }
         
         if(!isExchangable){
             NSLog(@"Invalid Cell or not Exchangable.");
+            
+            [self handleDragFromSrcStoppedAtPoint:[self.superview convertPoint:point fromView:self.dstView]];
+
             return;
         }
         
@@ -647,8 +660,8 @@
                              }
                              
                              [self changeSuperviewForView:self.draggingView forSuperview:nil];
-                             //[self reloadDataInView:self.dstView atIndeces:@[index, self.draggingIndexPath]];
-                             [self reloadDataInView:self.srcView];
+                             [self reloadDataInView:self.dstView atIndeces:@[index, self.draggingIndexPath]];
+                             //[self reloadDataInView:self.srcView];
                              [self handleDragAnimationComplete];
                              
                          }];
@@ -728,7 +741,7 @@
 
         /* If its an invalid cell then no dragging is started */
 
-        self.isDragging = NO;
+        //self.isDragging = NO;
         self.draggingView = nil;
     }
     
@@ -812,14 +825,14 @@
                                                       atPoint:point
                                                       forCell:&cell];
         
-        BOOL isExchangable = (BOOL)cell;
+        BOOL isExchangable = YES;//(BOOL)cell;
         
         
         /* Check in the delegate whether its exchangable */
         
         if(self.delegate && [self.delegate respondsToSelector:@selector(isCellInDstAtIndexPathExchangable:withCellAtIndexPath:)]){
             
-            isExchangable = isExchangable && [self.delegate isCellInDstAtIndexPathExchangable:index
+            isExchangable = /*isExchangable &&*/ [self.delegate isCellInDstAtIndexPathExchangable:index
                                                                           withCellAtIndexPath:self.draggingIndexPath];
         }
         
@@ -986,38 +999,43 @@
         NSLog(@"Animation complete!");
         
         
+        [self changeSuperviewForView:view
+                        forSuperview:superview];
+        
+        
+        [self handleDragAnimationComplete];
+        
+        
         if(isFromSrc && self.delegate &&
            [self.delegate respondsToSelector:@selector(dragFromSrcSnappedBack:)]){
-
+            
             
 #pragma clang diagnostic push
 #pragma clang diagnostic ignored "-Warc-performSelector-leaks"
             [self.delegate performSelector:@selector(dragFromSrcSnappedBack:) withObject:view];
 #pragma clang diagnostic pop
-
+            
         }
         else if(!isFromSrc && self.delegate &&
                 [self.delegate respondsToSelector:@selector(dragFromDstSnappedBack:)]){
-        
+            
 #pragma clang diagnostic push
 #pragma clang diagnostic ignored "-Warc-performSelector-leaks"
             [self.delegate performSelector:@selector(dragFromDstSnappedBack:) withObject:view];
 #pragma clang diagnostic pop
-
+            
         }
         else{
-            NSLog(@"Selector not valid");
+            NSLog(@"Selector not valid, from Src %@, delegate %@, responds %@",
+                  isFromSrc ? @"YES" : @"NO",
+                  self.delegate,
+                  [self.delegate respondsToSelector:@selector(dragFromSrcSnappedBack:)] ? @"YES" : @"NO");
         }
-        
-        
-        [self changeSuperviewForView:view
-                        forSuperview:superview];
-        
+
+
         CGRect localFrame = [superview convertRect:frame fromView:self.superview];
         view.frame = localFrame;
         
-        
-        [self handleDragAnimationComplete];
 
     };
     

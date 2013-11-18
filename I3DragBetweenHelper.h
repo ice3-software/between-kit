@@ -147,7 +147,7 @@
 
 @interface I3DragBetweenHelper : NSObject
 
-@property (nonatomic, readonly) BOOL isDragging;
+@property (atomic, readonly) BOOL isDragging;
 
 @property (nonatomic, readonly, retain) UIPanGestureRecognizer* currentGestureRecognizer;
 
@@ -194,19 +194,19 @@
 
 /** The view that will contain the draggingView whilst dragging */
 
-@property (nonatomic, retain) UIView* superview;
+@property (nonatomic, weak) UIView* superview;
 
 /** Must be an instance of UITableView or UICollectionView */
 
-@property (nonatomic, retain) UIView* srcView;
+@property (nonatomic, weak) UIView* srcView;
 
 /** Must be an instance of UITableView or UICollectionView */
 
-@property (nonatomic, retain) UIView* dstView;
+@property (nonatomic, weak) UIView* dstView;
 
 /** Delegate object for the drag routing */
 
-@property (nonatomic, retain) NSObject<I3DragBetweenDelegate>* delegate;
+@property (nonatomic, weak) NSObject<I3DragBetweenDelegate>* delegate;
 
 
 
