@@ -15,7 +15,7 @@
 		46EF0552184FCB8D00B597AB /* I3AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 46EF0551184FCB8D00B597AB /* I3AppDelegate.m */; };
 		46EF0555184FCB8D00B597AB /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 46EF0553184FCB8D00B597AB /* Main.storyboard */; };
 		46EF0558184FCB8D00B597AB /* I32RearrangeableTablesViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 46EF0557184FCB8D00B597AB /* I32RearrangeableTablesViewController.m */; };
-		46EF055B184FCB8D00B597AB /* I3SecondViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 46EF055A184FCB8D00B597AB /* I3SecondViewController.m */; };
+		46EF055B184FCB8D00B597AB /* I32ExchangeableTableViewsController.m in Sources */ = {isa = PBXBuildFile; fileRef = 46EF055A184FCB8D00B597AB /* I32ExchangeableTableViewsController.m */; };
 		46EF055D184FCB8D00B597AB /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 46EF055C184FCB8D00B597AB /* Images.xcassets */; };
 		46EF0564184FCB8D00B597AB /* XCTest.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 46EF0563184FCB8D00B597AB /* XCTest.framework */; };
 		46EF0565184FCB8D00B597AB /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 46EF0541184FCB8D00B597AB /* Foundation.framework */; };
@@ -49,8 +49,8 @@
 		46EF0554184FCB8D00B597AB /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		46EF0556184FCB8D00B597AB /* I32RearrangeableTablesViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = I32RearrangeableTablesViewController.h; sourceTree = "<group>"; };
 		46EF0557184FCB8D00B597AB /* I32RearrangeableTablesViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = I32RearrangeableTablesViewController.m; sourceTree = "<group>"; };
-		46EF0559184FCB8D00B597AB /* I3SecondViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = I3SecondViewController.h; sourceTree = "<group>"; };
-		46EF055A184FCB8D00B597AB /* I3SecondViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = I3SecondViewController.m; sourceTree = "<group>"; };
+		46EF0559184FCB8D00B597AB /* I32ExchangeableTableViewsController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = I32ExchangeableTableViewsController.h; sourceTree = "<group>"; };
+		46EF055A184FCB8D00B597AB /* I32ExchangeableTableViewsController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = I32ExchangeableTableViewsController.m; sourceTree = "<group>"; };
 		46EF055C184FCB8D00B597AB /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
 		46EF0562184FCB8D00B597AB /* Test AppTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "Test AppTests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
 		46EF0563184FCB8D00B597AB /* XCTest.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = XCTest.framework; path = Library/Frameworks/XCTest.framework; sourceTree = DEVELOPER_DIR; };
@@ -85,6 +85,17 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		46D94776184FE67900CA6DC5 /* Controllers */ = {
+			isa = PBXGroup;
+			children = (
+				46EF0556184FCB8D00B597AB /* I32RearrangeableTablesViewController.h */,
+				46EF0557184FCB8D00B597AB /* I32RearrangeableTablesViewController.m */,
+				46EF0559184FCB8D00B597AB /* I32ExchangeableTableViewsController.h */,
+				46EF055A184FCB8D00B597AB /* I32ExchangeableTableViewsController.m */,
+			);
+			name = Controllers;
+			sourceTree = "<group>";
+		};
 		46EF0535184FCB8D00B597AB = {
 			isa = PBXGroup;
 			children = (
@@ -118,14 +129,11 @@
 		46EF0547184FCB8D00B597AB /* Test App */ = {
 			isa = PBXGroup;
 			children = (
+				46D94776184FE67900CA6DC5 /* Controllers */,
 				46EF0579184FCEF000B597AB /* Helper */,
 				46EF0550184FCB8D00B597AB /* I3AppDelegate.h */,
 				46EF0551184FCB8D00B597AB /* I3AppDelegate.m */,
 				46EF0553184FCB8D00B597AB /* Main.storyboard */,
-				46EF0556184FCB8D00B597AB /* I32RearrangeableTablesViewController.h */,
-				46EF0557184FCB8D00B597AB /* I32RearrangeableTablesViewController.m */,
-				46EF0559184FCB8D00B597AB /* I3SecondViewController.h */,
-				46EF055A184FCB8D00B597AB /* I3SecondViewController.m */,
 				46EF055C184FCB8D00B597AB /* Images.xcassets */,
 				46EF0548184FCB8D00B597AB /* Supporting Files */,
 			);
@@ -270,7 +278,7 @@
 			files = (
 				46EF0552184FCB8D00B597AB /* I3AppDelegate.m in Sources */,
 				46EF054E184FCB8D00B597AB /* main.m in Sources */,
-				46EF055B184FCB8D00B597AB /* I3SecondViewController.m in Sources */,
+				46EF055B184FCB8D00B597AB /* I32ExchangeableTableViewsController.m in Sources */,
 				46EF0558184FCB8D00B597AB /* I32RearrangeableTablesViewController.m in Sources */,
 				46EF057C184FCF0400B597AB /* I3DragBetweenHelper.m in Sources */,
 			);

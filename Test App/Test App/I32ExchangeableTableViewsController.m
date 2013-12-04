@@ -1,16 +1,16 @@
 //
-//  I3FirstViewController.m
+//  I3SecondViewController.m
 //  Test App
 //
 //  Created by Stephen Fortune on 04/12/2013.
 //  Copyright (c) 2013 IceCube Software Ltd. All rights reserved.
 //
 
-#import "I32RearrangeableTablesViewController.h"
+#import "I32ExchangeableTableViewsController.h"
 
 static NSString* DequeueReusableCell = @"DequeueReusableCell";
 
-@interface I32RearrangeableTablesViewController ()
+@interface I32ExchangeableTableViewsController()
 
 /** The one and only drag helper! */
 
@@ -18,14 +18,13 @@ static NSString* DequeueReusableCell = @"DequeueReusableCell";
 
 /** Dummy data */
 
-@property (nonatomic, strong) NSMutableArray* leftData;
+@property (nonatomic, strong) NSMutableOrderedSet* leftData;
 
-@property (nonatomic, strong) NSMutableArray* rightData;
+@property (nonatomic, strong) NSMutableOrderedSet* rightData;
 
 @end
 
-
-@implementation I32RearrangeableTablesViewController
+@implementation I32ExchangeableTableViewsController
 
 -(void) viewDidLoad{
     
@@ -51,9 +50,9 @@ static NSString* DequeueReusableCell = @"DequeueReusableCell";
                            @"Right 5",
                            ];
     
-    self.leftData = [NSMutableArray arrayWithArray:leftData];
-    self.rightData = [NSMutableArray arrayWithArray:rightData];
-
+    self.leftData = [NSMutableOrderedSet orderedSetWithArray:leftData];
+    self.rightData = [NSMutableOrderedSet orderedSetWithArray:rightData];
+    
     
     [self.leftTable registerClass:[UITableViewCell class] forCellReuseIdentifier:DequeueReusableCell];
     [self.rightTable registerClass:[UITableViewCell class] forCellReuseIdentifier:DequeueReusableCell];
@@ -61,7 +60,7 @@ static NSString* DequeueReusableCell = @"DequeueReusableCell";
     
     
     /* Configure the helper */
-
+    
     self.helper = [[I3DragBetweenHelper alloc] initWithSuperview:self.view // The UIView we're draggin around in
                                                          srcView:self.leftTable // The Src
                                                          dstView:self.rightTable]; // The Dst
@@ -70,64 +69,87 @@ static NSString* DequeueReusableCell = @"DequeueReusableCell";
     
     
     
-    /** The source table, by default, creates a duplicate view whilst dragging.
-         Changing the following property makes the Src table dragging view genuine. 
-        
-        Comment out the line to make the draggin Src views duplicates*/
+    /* See I32RearrangeableTablesViewController for notes on these properties */
     
     self.helper.isDragViewFromSrcDuplicate = NO;
-    
-    /** Similarly, uncomment this line to make the Dst table dragging view a duplicate */
-    
-    //self.helper.isDragViewFromDstDuplicate = YES;
-
+    self.helper.isDragViewFromDstDuplicate = NO;
     
     
-    /* Makes the Dst table rearrangeable. Also see droppedOnDstAtIndexPath:fromDstIndexPath: */
-
-    self.helper.isDstRearrangeable = YES;
+    /* Neither are rearrangeable */
+    
+    self.helper.isDstRearrangeable = NO;
+    self.helper.isSrcRearrangeable = NO;
     
     
-    /* Makes the Src table rearrangeable. Also see droppedOnDstAtIndexPath:fromDstIndexPath: */
+    /* Both are exchangeable - unless the appropriate Helper delegate methods
+        aren't implemented, this will have no affect */
     
-    self.helper.isSrcRearrangeable = YES;
+    self.helper.doesSrcRecieveDst = YES;
+    self.helper.doesDstRecieveSrc = YES;
     
 }
 
 -(void) didReceiveMemoryWarning{
     
     [super didReceiveMemoryWarning];
-
+    
 }
 
 
+#pragma mark - Drag n drop exchange delegate methods
 
-#pragma mark - Drag n Drop rearrange delegate methods
+-(void) droppedOnDstAtIndexPath:(NSIndexPath*) to fromSrcIndexPath:(NSIndexPath*)from{
 
-/** This is implemented in accordance with isDstRearrangeable */
-
--(void) droppedOnDstAtIndexPath:(NSIndexPath*) to fromDstIndexPath:(NSIndexPath*) from{
-
-    /** The drag helper handles all the view stuff for us, but it delegates
-         the data-handling responsibillity to us */
     
     NSInteger fromRow = [from row];
     NSInteger toRow = [to row];
     
-    [self.rightData exchangeObjectAtIndex:toRow withObjectAtIndex:fromRow];
+    
+    /* Grab the data we're adding to the Dst table */
+    
+    NSString* fromData = [self.leftData objectAtIndex:fromRow];
+    
+    
+    /* Add it to the Dst table data source */
+    
+    [self.rightData insertObject:fromData atIndex:toRow];
+    [self.leftData removeObjectAtIndex:fromRow];
+    
+    
+    /* Unlike with rearranging, we are left responsible for updating the
+        table view for exchanges.
+     
+       'Why?' you might ask. Well if the data is inconsistent with the
+         table view cell arrangement an exception will be throw by the 
+         table/collection view. We delegate this to the user so that the
+         helper isn't responsible for any hidden inconsistency exceptions */
+    
+    [self.rightTable insertRowsAtIndexPaths:@[to] withRowAnimation:UITableViewRowAnimationFade];
+    [self.leftTable deleteRowsAtIndexPaths:@[from] withRowAnimation:UITableViewRowAnimationFade];
+
 }
 
-/** This is implemented in accordance with isSrcRearrangeable */
 
--(void) droppedOnSrcAtIndexPath:(NSIndexPath*) to fromSrcIndexPath:(NSIndexPath*) from{
+-(void) droppedOnSrcAtIndexPath:(NSIndexPath*) to fromDstIndexPath:(NSIndexPath*) from{
 
-    /** The drag helper handles all the view stuff for us, but it delegates
-         the data-handling responsibillity to us */
     
     NSInteger fromRow = [from row];
     NSInteger toRow = [to row];
     
-    [self.leftData exchangeObjectAtIndex:toRow withObjectAtIndex:fromRow];
+    
+    /* Grab the data we're adding to the Dst table */
+    
+    NSString* fromData = [self.rightData objectAtIndex:fromRow];
+    
+    
+    /* Add it to the Dst table data source */
+    
+    [self.leftData insertObject:fromData atIndex:toRow];
+    [self.rightData removeObjectAtIndex:fromRow];
+    
+    [self.leftTable insertRowsAtIndexPaths:@[to] withRowAnimation:UITableViewRowAnimationFade];
+    [self.rightTable deleteRowsAtIndexPaths:@[from] withRowAnimation:UITableViewRowAnimationFade];
+    
 
 }
 
@@ -138,23 +160,23 @@ static NSString* DequeueReusableCell = @"DequeueReusableCell";
 -(NSInteger) tableView:(UITableView*) tableView numberOfRowsInSection:(NSInteger) section{
     
     if(tableView == self.leftTable){
-    
+        
         return [self.leftData count];
     }
     else{
-    
+        
         return [self.rightData count];
     }
 }
 
 
 -(UITableViewCell*) tableView:(UITableView*) tableView cellForRowAtIndexPath:(NSIndexPath*) indexPath{
-
+    
     UITableViewCell* cell = [tableView dequeueReusableCellWithIdentifier:DequeueReusableCell
                                                             forIndexPath:indexPath];
-
-    if(tableView == self.leftTable){
     
+    if(tableView == self.leftTable){
+        
         NSInteger row = [indexPath row];
         cell.textLabel.text = [self.leftData objectAtIndex:row];
         
@@ -163,12 +185,11 @@ static NSString* DequeueReusableCell = @"DequeueReusableCell";
         
         NSInteger row = [indexPath row];
         cell.textLabel.text = [self.rightData objectAtIndex:row];
-
+        
     }
     
     return cell;
 }
-
 
 
 @end

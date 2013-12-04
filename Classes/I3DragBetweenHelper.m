@@ -58,10 +58,6 @@
 
 -(void) reloadDataInView:(UIView*) view;
 
-/** Reload tabel/collection view rows */
-
--(void) reloadDataInView:(UIView*) view atIndeces:(NSArray*) indeces;
-
 
 /** Main entry point for pan recognition for routing */
 
@@ -374,26 +370,6 @@
     }
     
 }
-
-
--(void) reloadDataInView:(UIView*) view atIndeces:(NSArray*) indeces{
-
-    
-    if([view isKindOfClass:[UITableView class]]){
-        
-        [(UITableView*)view beginUpdates];
-        [(UITableView*)view reloadRowsAtIndexPaths:indeces withRowAnimation:UITableViewRowAnimationNone];
-        [(UITableView*)view endUpdates];
-     
-    }
-    else if([view isKindOfClass:[UICollectionView class]]){
-        
-        [(UICollectionView*)view reloadItemsAtIndexPaths:indeces];
-        
-    }
-
-}
-
 
 
 /* Handling and routing */

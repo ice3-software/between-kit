@@ -164,7 +164,9 @@
 @property (nonatomic, readonly) BOOL isDraggingFromSrcCollection;
 
 
-/** Indicates whether the source should be rearrangeable */
+/** Indicates whether the source should be rearrangeable. Does NOT
+     check for the delegate's implementation of droppedOnSrcAtIndexPath:fromSrcIndexPath: 
+     to determine whether the Src is rearrangeable. */
 
 @property (nonatomic) BOOL isSrcRearrangeable;
 
@@ -179,7 +181,9 @@
 
 @property (nonatomic) BOOL isDragViewFromDstDuplicate;
 
-/** Indicates whether the source should be rearrangeable */
+/** Indicates whether the source should be rearrangeable. Does NOT
+     check for the delegate's implementation of droppedOnDstAtIndexPath:fromDstIndexPath:
+     to determine whether the Dst is rearrangeable. */
 
 @property (nonatomic) BOOL isDstRearrangeable;
 

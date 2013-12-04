@@ -1,5 +1,5 @@
 //
-//  I3FirstViewController.h
+//  I3SecondViewController.h
 //  Test App
 //
 //  Created by Stephen Fortune on 04/12/2013.
@@ -10,10 +10,10 @@
 #import "I3DragBetweenHelper.h"
 
 
-/** This test demonstrates 2 table views, both rearrangeable but which 
-     you cannot drag and drop between */
+/** This test demonstrates 2 table views that are not rearrangeable, but are
+     exchangeable. */
 
-@interface I32RearrangeableTablesViewController : UIViewController<UITableViewDataSource, UITableViewDelegate, I3DragBetweenDelegate>
+@interface I32ExchangeableTableViewsController : UIViewController<UITableViewDataSource, UITableViewDelegate, I3DragBetweenDelegate>
 
 /** This is the Source table */
 
@@ -22,5 +22,4 @@
 /** This is the Destination table */
 
 @property (nonatomic, strong) IBOutlet UITableView* rightTable;
-
 @end
