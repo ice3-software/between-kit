@@ -169,12 +169,13 @@
 @property (nonatomic) BOOL isSrcRearrangeable;
 
 /** Indicates whether the source should recieve destination
-     items. */
+     items. The delegate also needs to have implemented droppedOnDstAtIndexPath:fromSrcIndexPath: 
+     for this to have an effect */
 
 @property (nonatomic) BOOL doesSrcRecieveDst;
 
 /** Determines whether the draggingView for Src items is a duplicate
- of the item view, or the item view itself. */
+     of the item view, or the item view itself. */
 
 @property (nonatomic) BOOL isDragViewFromDstDuplicate;
 

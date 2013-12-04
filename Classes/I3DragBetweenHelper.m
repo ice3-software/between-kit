@@ -645,12 +645,14 @@
             
         }
         
+        
         CGRect cellFrame = cell.frame;
         CGRect draggingRect = self.draggingViewPreviousRect;
+        UIView* dragginView = self.draggingView;
         
         [UIView animateWithDuration:0.2
                          animations:^{
-                             self.draggingView.frame = [self.superview convertRect:cellFrame fromView:self.srcView];
+                             dragginView.frame = [self.superview convertRect:cellFrame fromView:self.srcView];
                              cell.frame = draggingRect;
                          }
                          completion:^(BOOL finished){
@@ -659,13 +661,13 @@
                                  [self.delegate droppedOnSrcAtIndexPath:index fromSrcIndexPath:self.draggingIndexPath];
                              }
                              
-                             [self changeSuperviewForView:self.draggingView forSuperview:nil];
-                             [self reloadDataInView:self.dstView atIndeces:@[index, self.draggingIndexPath]];
-                             //[self reloadDataInView:self.srcView];
+                             [self changeSuperviewForView:dragginView forSuperview:nil];
+                             //[self reloadDataInView:self.dstView atIndeces:@[index, self.draggingIndexPath]];
+                             [self reloadDataInView:self.srcView];
                              [self handleDragAnimationComplete];
                              
+                             
                          }];
-    
 
 
     }
@@ -684,7 +686,9 @@
 
 -(void) handleDragFromSrcStoppedInDstAtPoint:(CGPoint) point{
     
-    if(self.doesDstRecieveSrc){
+    if(self.doesDstRecieveSrc
+       && self.delegate
+       && [self.delegate respondsToSelector:@selector(droppedOnDstAtIndexPath:fromSrcIndexPath:)]){
         
         NSIndexPath* index = [self determineIndexForContainer:self.dstView atPoint:point forCell:nil];
         
@@ -772,7 +776,9 @@
 
 -(void) handleDragFromDstStoppedInSrcAtPoint:(CGPoint) point{
     
-    if(self.doesSrcRecieveDst){
+    if(self.doesSrcRecieveDst
+       && self.delegate
+       && [self.delegate respondsToSelector:@selector(droppedOnSrcAtIndexPath:fromDstIndexPath:)]){
     
         NSIndexPath* index = [self determineIndexForContainer:self.srcView atPoint:point forCell:nil];
         

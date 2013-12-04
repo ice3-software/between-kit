@@ -14,7 +14,7 @@
 		46EF054E184FCB8D00B597AB /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 46EF054D184FCB8D00B597AB /* main.m */; };
 		46EF0552184FCB8D00B597AB /* I3AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 46EF0551184FCB8D00B597AB /* I3AppDelegate.m */; };
 		46EF0555184FCB8D00B597AB /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 46EF0553184FCB8D00B597AB /* Main.storyboard */; };
-		46EF0558184FCB8D00B597AB /* I32TablesViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 46EF0557184FCB8D00B597AB /* I32TablesViewController.m */; };
+		46EF0558184FCB8D00B597AB /* I32RearrangeableTablesViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 46EF0557184FCB8D00B597AB /* I32RearrangeableTablesViewController.m */; };
 		46EF055B184FCB8D00B597AB /* I3SecondViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 46EF055A184FCB8D00B597AB /* I3SecondViewController.m */; };
 		46EF055D184FCB8D00B597AB /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 46EF055C184FCB8D00B597AB /* Images.xcassets */; };
 		46EF0564184FCB8D00B597AB /* XCTest.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 46EF0563184FCB8D00B597AB /* XCTest.framework */; };
@@ -47,8 +47,8 @@
 		46EF0550184FCB8D00B597AB /* I3AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = I3AppDelegate.h; sourceTree = "<group>"; };
 		46EF0551184FCB8D00B597AB /* I3AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = I3AppDelegate.m; sourceTree = "<group>"; };
 		46EF0554184FCB8D00B597AB /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
-		46EF0556184FCB8D00B597AB /* I32TablesViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = I32TablesViewController.h; sourceTree = "<group>"; };
-		46EF0557184FCB8D00B597AB /* I32TablesViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = I32TablesViewController.m; sourceTree = "<group>"; };
+		46EF0556184FCB8D00B597AB /* I32RearrangeableTablesViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = I32RearrangeableTablesViewController.h; sourceTree = "<group>"; };
+		46EF0557184FCB8D00B597AB /* I32RearrangeableTablesViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = I32RearrangeableTablesViewController.m; sourceTree = "<group>"; };
 		46EF0559184FCB8D00B597AB /* I3SecondViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = I3SecondViewController.h; sourceTree = "<group>"; };
 		46EF055A184FCB8D00B597AB /* I3SecondViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = I3SecondViewController.m; sourceTree = "<group>"; };
 		46EF055C184FCB8D00B597AB /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
@@ -122,8 +122,8 @@
 				46EF0550184FCB8D00B597AB /* I3AppDelegate.h */,
 				46EF0551184FCB8D00B597AB /* I3AppDelegate.m */,
 				46EF0553184FCB8D00B597AB /* Main.storyboard */,
-				46EF0556184FCB8D00B597AB /* I32TablesViewController.h */,
-				46EF0557184FCB8D00B597AB /* I32TablesViewController.m */,
+				46EF0556184FCB8D00B597AB /* I32RearrangeableTablesViewController.h */,
+				46EF0557184FCB8D00B597AB /* I32RearrangeableTablesViewController.m */,
 				46EF0559184FCB8D00B597AB /* I3SecondViewController.h */,
 				46EF055A184FCB8D00B597AB /* I3SecondViewController.m */,
 				46EF055C184FCB8D00B597AB /* Images.xcassets */,
@@ -271,7 +271,7 @@
 				46EF0552184FCB8D00B597AB /* I3AppDelegate.m in Sources */,
 				46EF054E184FCB8D00B597AB /* main.m in Sources */,
 				46EF055B184FCB8D00B597AB /* I3SecondViewController.m in Sources */,
-				46EF0558184FCB8D00B597AB /* I32TablesViewController.m in Sources */,
+				46EF0558184FCB8D00B597AB /* I32RearrangeableTablesViewController.m in Sources */,
 				46EF057C184FCF0400B597AB /* I3DragBetweenHelper.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -485,6 +485,7 @@
 				46EF0575184FCB8D00B597AB /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		46EF0576184FCB8D00B597AB /* Build configuration list for PBXNativeTarget "Test AppTests" */ = {
 			isa = XCConfigurationList;
@@ -493,6 +494,7 @@
 				46EF0578184FCB8D00B597AB /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
