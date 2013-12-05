@@ -19,13 +19,13 @@
 /** Called when the dragging view has been dropped nowhere and the
      snap-back animation has ended. */
 
--(void) dragFromDstSnappedBack:(UIView*) oldDraggingView;
+-(void) dragFromDstSnappedBackFromIndexPath:(NSIndexPath*) path;
 
 
-/** Called when the dragging view has been dropped nowhere and  the
+/** Called when the dragging view has been dropped nowhere and the
      snap-back animation has ended. */
 
--(void) dragFromSrcSnappedBack:(UIView*) oldDraggingView;
+-(void) dragFromSrcSnappedBackFromIndexPath:(NSIndexPath*) path;
 
 
 /** Called if you implement droppedOutsideAtPoint:fromDstIndexPath: to return
@@ -42,7 +42,7 @@
 
 /** A drag from the destination table/collection was started */
 
--(void) dragFromDstStartedAtPoint:(CGPoint) pointIn;
+-(void) dragFromDstStartedAtIndexPath:(NSIndexPath*) path;
 
 
 /** A drag from the source table/collection was stopped inside of the
@@ -74,7 +74,7 @@
 
 /** A drag from the srource table/collection was started */
 
--(void) dragFromSrcStartedAtPoint:(CGPoint) pointIn;
+-(void) dragFromSrcStartedAtIndexPath:(NSIndexPath*) path;
 
 
 /** A drag from the source table/collection was stopped inside of the

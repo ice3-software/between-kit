@@ -95,6 +95,10 @@ static NSString* DequeueReusableCell = @"DequeueReusableCell";
 
 -(void) droppedOnDstAtIndexPath:(NSIndexPath*) to fromDstIndexPath:(NSIndexPath*) from{
 
+    /* Unhide the cell */
+    
+    [self.rightTable cellForRowAtIndexPath:from].alpha = 1;
+
     /** The drag helper handles all the view stuff for us, but it delegates
          the data-handling responsibillity to us */
     
@@ -108,6 +112,10 @@ static NSString* DequeueReusableCell = @"DequeueReusableCell";
 
 -(void) droppedOnSrcAtIndexPath:(NSIndexPath*) to fromSrcIndexPath:(NSIndexPath*) from{
 
+    /* Unhide the cell */
+    
+    [self.leftTable cellForRowAtIndexPath:from].alpha = 1;
+    
     /** The drag helper handles all the view stuff for us, but it delegates
          the data-handling responsibillity to us */
     
@@ -115,6 +123,30 @@ static NSString* DequeueReusableCell = @"DequeueReusableCell";
     NSInteger toRow = [to row];
     
     [self.leftData exchangeObjectAtIndex:toRow withObjectAtIndex:fromRow];
+
+}
+
+#pragma mark - Drag n Drop hide cell delegate methods
+
+-(void) dragFromSrcStartedAtIndexPath:(NSIndexPath*) path{
+    
+    [self.leftTable cellForRowAtIndexPath:path].alpha = 0;
+}
+
+-(void) dragFromDstStartedAtIndexPath:(NSIndexPath*) path{
+    
+    [self.rightTable cellForRowAtIndexPath:path].alpha = 0;
+}
+
+-(void) dragFromSrcSnappedBackFromIndexPath:(NSIndexPath*) path{
+    
+    [self.leftTable cellForRowAtIndexPath:path].alpha = 1;
+
+}
+
+-(void) dragFromDstSnappedBackFromIndexPath:(NSIndexPath*) path{
+    
+    [self.rightTable cellForRowAtIndexPath:path].alpha = 1;
 
 }
 

@@ -397,6 +397,7 @@
 
     UIView* previousSuperview = self.isDraggingFromSrcCollection ? self.srcView : self.dstView;
     UIView* dragginView = self.draggingView;
+    NSIndexPath* dragginIndex = self.draggingIndexPath;
     
     CGRect previousGlobalRect = [self.superview convertRect:self.draggingViewPreviousRect
                                                    fromView:previousSuperview];
@@ -410,31 +411,24 @@
         
         
         if(self.isDraggingFromSrcCollection && self.delegate &&
-           [self.delegate respondsToSelector:@selector(dragFromSrcSnappedBack:)]){
+           [self.delegate respondsToSelector:@selector(dragFromSrcSnappedBackFromIndexPath:)]){
             
             
 #pragma clang diagnostic push
 #pragma clang diagnostic ignored "-Warc-performSelector-leaks"
-            [self.delegate performSelector:@selector(dragFromSrcSnappedBack:) withObject:dragginView];
+            [self.delegate performSelector:@selector(dragFromSrcSnappedBackFromIndexPath:) withObject:dragginIndex];
 #pragma clang diagnostic pop
             
         }
         else if(!self.isDraggingFromSrcCollection && self.delegate &&
-                [self.delegate respondsToSelector:@selector(dragFromDstSnappedBack:)]){
+                [self.delegate respondsToSelector:@selector(dragFromDstSnappedBackFromIndexPath:)]){
             
 #pragma clang diagnostic push
 #pragma clang diagnostic ignored "-Warc-performSelector-leaks"
-            [self.delegate performSelector:@selector(dragFromDstSnappedBack:) withObject:dragginView];
+            [self.delegate performSelector:@selector(dragFromDstSnappedBackFromIndexPath:) withObject:dragginIndex];
 #pragma clang diagnostic pop
             
-        }
-        else{
-            NSLog(@"Selector not valid, from Src %@, delegate %@, responds %@",
-                  self.isDraggingFromSrcCollection ? @"YES" : @"NO",
-                  self.delegate,
-                  [self.delegate respondsToSelector:@selector(dragFromSrcSnappedBack:)] ? @"YES" : @"NO");
-        }
-        
+        }        
 
         [dragginView removeFromSuperview];
     };
@@ -615,8 +609,10 @@
         
         /* Any extra starting translations should be applied in the delegate */
         
-        if(self.delegate && [self.delegate respondsToSelector:@selector(dragFromSrcStartedAtPoint:)]){
-            [self.delegate dragFromSrcStartedAtPoint:point];
+        if([self.delegate respondsToSelector:@selector(dragFromSrcStartedAtIndexPath:)]){
+            
+            NSIndexPath* path = [self determineIndexForContainer:self.dstView atPoint:point forCell:nil];
+            [self.delegate dragFromSrcStartedAtIndexPath:path];
         }
 
     }
@@ -782,8 +778,11 @@
         
         /* Any extra starting translations should be applied in the delegate */
         
-        if(self.delegate && [self.delegate respondsToSelector:@selector(dragFromDstStartedAtPoint:)]){
-            [self.delegate dragFromDstStartedAtPoint:point];
+        if([self.delegate respondsToSelector:@selector(dragFromDstStartedAtIndexPath:)]){
+            
+            NSIndexPath* path = [self determineIndexForContainer:self.dstView atPoint:point forCell:nil];
+            [self.delegate dragFromDstStartedAtIndexPath:path];
+            
         }
         
     }
