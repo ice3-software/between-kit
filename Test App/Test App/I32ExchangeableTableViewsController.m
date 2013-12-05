@@ -68,13 +68,7 @@ static NSString* DequeueReusableCell = @"DequeueReusableCell";
     self.helper.delegate = self;
     
     
-    
-    /* See I32RearrangeableTablesViewController for notes on these properties */
-    
-    self.helper.isDragViewFromSrcDuplicate = YES;
-    self.helper.isDragViewFromDstDuplicate = YES;
-    
-    
+        
     /* Neither are rearrangeable */
     
     self.helper.isDstRearrangeable = NO;

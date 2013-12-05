@@ -69,20 +69,7 @@ static NSString* DequeueReusableCell = @"DequeueReusableCell";
     self.helper.delegate = self;
     
     
-    
-    /** The source table, by default, creates a duplicate view whilst dragging.
-         Changing the following property makes the Src table dragging view genuine. 
         
-        Comment out the line to make the draggin Src views duplicates*/
-    
-    self.helper.isDragViewFromSrcDuplicate = NO;
-    
-    /** Similarly, uncomment this line to make the Dst table dragging view a duplicate */
-    
-    //self.helper.isDragViewFromDstDuplicate = YES;
-
-    
-    
     /* Makes the Dst table rearrangeable. Also see droppedOnDstAtIndexPath:fromDstIndexPath: */
 
     self.helper.isDstRearrangeable = YES;

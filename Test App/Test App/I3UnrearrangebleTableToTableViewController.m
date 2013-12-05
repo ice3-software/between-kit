@@ -81,9 +81,6 @@ static NSString* kPlaceholderCell = @"Drag here to add...";
     /* Configure the helper accordingly - if you are unfamiliar with any of this
         refer to other previous example cases */
     
-    self.helper.isDragViewFromSrcDuplicate = YES;
-    self.helper.isDragViewFromDstDuplicate = NO;
-    
     self.helper.isDstRearrangeable = YES;
     self.helper.isSrcRearrangeable = NO;
     

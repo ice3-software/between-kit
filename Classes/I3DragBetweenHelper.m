@@ -30,21 +30,10 @@
 -(void) checkViewIsTableOrCollection:(UIView*) view;
 
 -(BOOL) startDragFromView:(UIView*) container
-                  atPoint:(CGPoint) point
-                 makeCopy:(BOOL) makeCopy;
+                  atPoint:(CGPoint) point;
 
--(void) snapBackToSuperview:(UIView*) superview;
--(void) dissappearFromDraggingView;
-
--(void) transitionView:(UIView*) view
-               toFrame:(CGRect) frame
-           toSuperview:(UIView*) superview;
-
-/** Changes a view's superview - should be noted that it also
-     retranslates the view into its new superview's local coords
-     (ie the view will not appear to change position) */
-
--(void) changeSuperviewForView:(UIView*) view forSuperview:(UIView*) superview;
+-(void) snapDraggingViewBack;
+-(void) shrinkDraggingView;
 
 -(NSIndexPath*) determineIndexForContainer:(UIView*) container
                                    atPoint:(CGPoint) point
@@ -53,10 +42,6 @@
 /** Implemented to add and remove from various superviews */
 
 -(void) setDraggingView:(UIView*) draggingView;
-
-/** Reload tabel/collection view completely */
-
--(void) reloadDataInView:(UIView*) view;
 
 
 /** Main entry point for pan recognition for routing */
@@ -77,8 +62,6 @@
 
 -(void) handleDrag:(UIPanGestureRecognizer*) gestureRecognizer;
 
--(void) handleDragAnimationComplete;
-
 -(void) handleDragStartedInSrcAtPoint:(CGPoint) point; // Point local to Src
 
 -(void) handleDragFromSrcStoppedAtPoint:(CGPoint) point;  // Point local to Src
@@ -96,10 +79,103 @@
 -(void) handleDragFromDstStoppedInDstAtPoint:(CGPoint) point; // Point local to Dst
 
 
+
+/* Table/collection view helpers */
+
+-(void) reloadCellInContainer:(UIView*) view atIndexPaths:(NSArray*) paths;
+
+-(UIView*) copyOfView:(UIView*) viewToCopy;
+
+-(void) animateDummyExchange:(UIView*) exchange
+                 inContainer:(UIView*) container
+         withCompletionBlock:(void(^)()) complete;
+
 @end
 
 
 @implementation I3DragBetweenHelper
+
+
+-(void) reloadCellInContainer:(UIView*) view atIndexPaths:(NSArray*) paths{
+
+    
+    if([view isKindOfClass:[UITableView class]]){
+
+        [(UITableView*)view beginUpdates];
+        [(UITableView*)view reloadRowsAtIndexPaths:paths withRowAnimation:UITableViewRowAnimationNone];
+        [(UITableView*)view endUpdates];
+
+    }
+    else if([view isKindOfClass:[UICollectionView class]]){
+        
+        [(UICollectionView*)view reloadItemsAtIndexPaths:paths];
+
+    }
+}
+
+-(UIView*) copyOfView:(UIView*) viewToCopy{
+    
+    if([viewToCopy isKindOfClass:[UICollectionViewCell class]]){
+
+        [(UICollectionViewCell*)viewToCopy setHighlighted:NO];
+        
+        NSData* viewCopyData = [NSKeyedArchiver archivedDataWithRootObject:viewToCopy];
+        return [NSKeyedUnarchiver unarchiveObjectWithData:viewCopyData];
+        
+    }
+    else if([viewToCopy isKindOfClass:[UITableViewCell class]]){
+        
+        [(UITableViewCell*)viewToCopy setHighlighted:NO];
+        
+        NSData* viewCopyData = [NSKeyedArchiver archivedDataWithRootObject:viewToCopy];
+        return [NSKeyedUnarchiver unarchiveObjectWithData:viewCopyData];
+        
+    }
+
+    
+    /* If its not a UITableView or UICollectionView cell then return nil */
+    
+    return nil;
+    
+}
+
+-(void) animateDummyExchange:(UIView*) exchange inContainer:(UIView*) container withCompletionBlock:(void(^)()) complete{
+
+    
+    /* Create another dummy view and animate the dummy views while the
+        actual reloading takes place underneith */
+    
+    UIView* cellDummy = [self copyOfView:exchange];
+    [cellDummy removeFromSuperview];
+    [self.superview addSubview:cellDummy];
+    
+    cellDummy.frame = [self.superview convertRect:exchange.frame fromView:container];
+    
+    UIView* oldDragginView = self.draggingView;
+    
+    /* Remove and then readd to superview so it appears ontop */
+    
+    [oldDragginView removeFromSuperview];
+    [self.superview addSubview:oldDragginView];
+    
+    [UIView animateWithDuration:0.225 animations:^{
+        
+        oldDragginView.frame = cellDummy.frame;
+        cellDummy.frame = [self.superview convertRect:self.draggingViewPreviousRect fromView:container];
+        
+    } completion:^(BOOL finished) {
+        
+        [oldDragginView removeFromSuperview];
+        [cellDummy removeFromSuperview];
+        
+        if(complete){
+            complete();
+        }
+        
+    }];
+
+}
+
 
 
 -(id) initWithSuperview:(UIView*) superview
@@ -119,9 +195,6 @@
         
         self.isSrcRearrangeable = NO;
         self.doesSrcRecieveDst = NO;
-
-        self.isDragViewFromDstDuplicate = NO;
-        self.isDragViewFromSrcDuplicate = YES;
         
         self.isDragging = NO;
     }
@@ -169,31 +242,42 @@
 }
 
 
--(BOOL) startDragFromView:(UIView*) container atPoint:(CGPoint) point makeCopy:(BOOL) makeCopy{
+-(BOOL) startDragFromView:(UIView*) container atPoint:(CGPoint) point{
 
 
     UIView* cell;
     NSIndexPath* index = [self determineIndexForContainer:container
                                                   atPoint:point
                                                   forCell:&cell];
-    BOOL isDraggable = index != nil;
+
+    if(index == nil){
+    
+        NSLog(@"Invalid Cell.");
+
+        return NO;
+    }
+    
+    BOOL isDraggable = YES;
     
     NSLog(@"Dragging at item:%d section:%d", [index item], [index section]);
-        
+
     /* Check in the delegate whether its draggable */
     
     if(self.delegate && [self.delegate respondsToSelector:@selector(isCellAtIndexPathDraggable:inContainer:)]){
         
-        NSLog(@"Draggable %@ from delegate? %@", container, [self.delegate isCellAtIndexPathDraggable:index
-                                                                                          inContainer:container] ? @"YES" : @"NO");
-        isDraggable = isDraggable && [self.delegate isCellAtIndexPathDraggable:index
-                                                                       inContainer:container];
+        NSLog(@"Draggable %@ from delegate? %@", container, [self.delegate isCellAtIndexPathDraggable:index inContainer:container] ? @"YES" : @"NO");
+        
+        isDraggable = isDraggable && [self.delegate isCellAtIndexPathDraggable:index inContainer:container];
     }
     
+    
     if(!isDraggable){
-        NSLog(@"Invalid Cell or Cell not Draggable.");
+        
+        NSLog(@"Cell not draggable");
+        
         return NO;
     }
+    
     
     /* Find the origin inside the window */
     
@@ -204,36 +288,27 @@
     cellPoint.x += containerFrame.origin.x;
     cellPoint.y += containerFrame.origin.x;
     
-    if(makeCopy){
+    
+    /* This is a bit hacky. Consider using KV coding to copy all the properties
+        of the CollectionView cell into the temporary dragging cell dynamically */
+    
+    UIView* cellCopy;
+    
+    if([container isKindOfClass:[UICollectionView class]]){
         
-        /* This is a bit hacky. Consider using KV coding to copy all the properties
-            of the CollectionView cell into the temporary dragging cell dynamically */
+        UICollectionViewCell* cell = [(UICollectionView*)container cellForItemAtIndexPath:index];
+        cellCopy = [self copyOfView:cell];
         
-        UIView* cellCopy;
-
-        if([container isKindOfClass:[UICollectionView class]]){
-        
-            UICollectionViewCell* cell = [(UICollectionView*)container cellForItemAtIndexPath:index];
-            [cell setHighlighted:NO];
-            NSData* viewCopyData = [NSKeyedArchiver archivedDataWithRootObject:cell];
-            cellCopy = [NSKeyedUnarchiver unarchiveObjectWithData:viewCopyData];
-            
-        }
-        else if([container isKindOfClass:[UITableView class]]){
-        
-            UITableViewCell* cell = [(UITableView*)container cellForRowAtIndexPath:index];
-            [cell setHighlighted:NO];
-            NSData* viewCopyData = [NSKeyedArchiver archivedDataWithRootObject:cell];
-            cellCopy = [NSKeyedUnarchiver unarchiveObjectWithData:viewCopyData];
-
-        }
-        
-        self.draggingView = cellCopy;
-
     }
-    else{
-        self.draggingView = cell;
+    else if([container isKindOfClass:[UITableView class]]){
+        
+        UITableViewCell* cell = [(UITableView*)container cellForRowAtIndexPath:index];
+        cellCopy = [self copyOfView:cell];
+        
     }
+    
+    self.draggingView = cellCopy;
+
     self.draggingViewPreviousRect = cellFrame;
     self.draggingIndexPath = index;
     
@@ -243,15 +318,15 @@
     self.draggingView.frame = [self.superview convertRect:cellFrame fromView:container];
     
     [self.draggingView setHidden:NO];
+    
     NSLog(@"Adding dragging data: %d, draggingView %@", [index row], self.draggingView);
-    NSLog(@"Dragging view opactiy %f, is hidden", self.draggingView.alpha);
     
     return YES;
 
 }
 
 
--(void) dissappearFromDraggingView{
+-(void) shrinkDraggingView{
 
     if(!self.draggingView){
     
@@ -259,9 +334,11 @@
     }
     
     
+    UIView* draggingView = self.draggingView;
+    
     /* 'Deleting' animation */
     
-    self.draggingView.clipsToBounds = YES;
+    draggingView.clipsToBounds = YES;
     
     CGRect goneFrame = self.draggingView.frame;
     goneFrame.origin.x += goneFrame.size.width/2;
@@ -271,26 +348,22 @@
     
     BOOL isSrc = self.isDraggingFromSrcCollection;
     
-    /* Completion block delcared up here so the automatic indentation doesn't
-        make this totally unreadable. */
+
+    /* Animation completion block */
     
     void (^completionBlock)(BOOL finished) = ^(BOOL finished){
         
         
         /* Calls delegate to delete item at index path*/
         
-        if(isSrc &&
-           self.delegate &&
-           [self.delegate respondsToSelector:@selector(itemFromSrcDeletedAtIndexPath:)]){
+        if(isSrc && [self.delegate respondsToSelector:@selector(itemFromSrcDeletedAtIndexPath:)]){
             
             NSLog(@"Deletion handler for Src triggered");
             
             [self.delegate performSelector:@selector(itemFromSrcDeletedAtIndexPath:)
                                 withObject:self.draggingIndexPath];
         }
-        else if(!isSrc
-                && self.delegate
-                && [self.delegate respondsToSelector:@selector(itemFromDstDeletedAtIndexPath:)]){
+        else if(!isSrc && [self.delegate respondsToSelector:@selector(itemFromDstDeletedAtIndexPath:)]){
             
             NSLog(@"Deletion handler for Dst triggered");
 
@@ -299,87 +372,83 @@
             
         }
         else{
-            NSLog(@"Deletion occured but no itemDeletion handler was present.");
+            NSLog(@"Deletion occured but no item deletion handler was present.");
         }
         
-        /* After its deleted the data its removes the view completely
-         without returning it to its owning view. */
+        /* Remove the dummy view from the superview. */
         
-        [self changeSuperviewForView:self.draggingView
-                        forSuperview:nil];
-        [self handleDragAnimationComplete];
+        [draggingView removeFromSuperview];
         
     };
     
     [UIView animateWithDuration:0.2
-                     animations:^{
-                         self.draggingView.frame = goneFrame;
-                     }
-                     completion:completionBlock];
+    animations:^{
+    
+        draggingView.frame = goneFrame;
+    
+    } completion:completionBlock];
 
+    self.draggingView = nil;
 }
 
 
--(void) snapBackToSuperview:(UIView*) superview{
+-(void) snapDraggingViewBack{
     
 
-    /* This is ugly - we determing the previous view based on the
-        _isDraggingFromSrcCollection flag */
-    
     UIView* previousSuperview = self.isDraggingFromSrcCollection ? self.srcView : self.dstView;
+    UIView* dragginView = self.draggingView;
+    
+    CGRect previousGlobalRect = [self.superview convertRect:self.draggingViewPreviousRect
+                                                   fromView:previousSuperview];
     
     
-    /* Check for duplicate views and delete them so that we don't attach them
-     to their duplicate's superview */
+
+    void (^completion)(BOOL finished) = ^(BOOL finished){
+        
+        NSLog(@"Animation complete!");
+        
+        
+        
+        if(self.isDraggingFromSrcCollection && self.delegate &&
+           [self.delegate respondsToSelector:@selector(dragFromSrcSnappedBack:)]){
+            
+            
+#pragma clang diagnostic push
+#pragma clang diagnostic ignored "-Warc-performSelector-leaks"
+            [self.delegate performSelector:@selector(dragFromSrcSnappedBack:) withObject:dragginView];
+#pragma clang diagnostic pop
+            
+        }
+        else if(!self.isDraggingFromSrcCollection && self.delegate &&
+                [self.delegate respondsToSelector:@selector(dragFromDstSnappedBack:)]){
+            
+#pragma clang diagnostic push
+#pragma clang diagnostic ignored "-Warc-performSelector-leaks"
+            [self.delegate performSelector:@selector(dragFromDstSnappedBack:) withObject:dragginView];
+#pragma clang diagnostic pop
+            
+        }
+        else{
+            NSLog(@"Selector not valid, from Src %@, delegate %@, responds %@",
+                  self.isDraggingFromSrcCollection ? @"YES" : @"NO",
+                  self.delegate,
+                  [self.delegate respondsToSelector:@selector(dragFromSrcSnappedBack:)] ? @"YES" : @"NO");
+        }
+        
+
+        [dragginView removeFromSuperview];
+    };
     
-    if((self.isDraggingFromSrcCollection && self.isDragViewFromSrcDuplicate) ||
-       (!self.isDraggingFromSrcCollection && self.isDragViewFromDstDuplicate)){
-        
-        NSLog(@"Dragging duplicate view");
-        
-        /* Find the superview that the previous rect is relative to and pass it down */
-        
-        CGRect previousGlobalRect = [self.superview convertRect:self.draggingViewPreviousRect
-                                                       fromView:previousSuperview];
-        
-        [self transitionView:self.draggingView
-                     toFrame:previousGlobalRect
-                 toSuperview:nil];
-        
-    }
-    else{
-        
-        /* Find the superview that the previous rect is relative to and pass it down */
-        
-        CGRect previousGlobalRect = [self.superview convertRect:self.draggingViewPreviousRect
-                                                       fromView:previousSuperview];
-        
-        [self transitionView:self.draggingView
-                     toFrame:previousGlobalRect
-                 toSuperview:superview];
-        
-    }
+    
+    [UIView animateWithDuration:0.2
+                     animations:^{
+                         dragginView.frame = previousGlobalRect;
+                     }
+                     completion:completion];
     
     
     self.draggingView = nil;
 
-
-}
-
-
--(void) reloadDataInView:(UIView*) view{
-    
-    if([view isKindOfClass:[UITableView class]]){
-        
-        [(UITableView*)view reloadData];
-        
-    }
-    else if([view isKindOfClass:[UICollectionView class]]){
-        
-        [(UICollectionView*)view reloadData];
-        
-    }
-    
 }
 
 
@@ -421,7 +490,7 @@
 
 
 -(void) handleDragStarted:(UIPanGestureRecognizer*) gestureRecognizer{
-    
+        
     CGPoint pointInDst = [gestureRecognizer locationInView:self.dstView];
     CGPoint pointInSrc = [gestureRecognizer locationInView:self.srcView];
     self.isDragging = YES;
@@ -542,8 +611,7 @@
     self.isDraggingFromSrcCollection = YES;
 
     if([self startDragFromView:self.srcView
-                       atPoint:point
-                      makeCopy:self.isDragViewFromSrcDuplicate]){
+                       atPoint:point]){
         
         /* Any extra starting translations should be applied in the delegate */
         
@@ -576,10 +644,10 @@
     }
 
     if(shouldSnapBack){
-        [self snapBackToSuperview:self.srcView];
+        [self snapDraggingViewBack];
     }
     else{
-        [self dissappearFromDraggingView];
+        [self shrinkDraggingView];
     }
     
 }
@@ -592,73 +660,70 @@
         /* Rearrange source collection/table */
 
         UIView* cell;
-        NSIndexPath* index = [self determineIndexForContainer:self.srcView
-                                                      atPoint:point
-                                                      forCell:&cell];
+        NSIndexPath* index = [self determineIndexForContainer:self.srcView atPoint:point forCell:&cell];
         
-        BOOL isExchangable = YES;//(BOOL)cell;
+        if(index == nil){
+            
+            NSLog(@"Invalid Cell");
+            
+            [self snapDraggingViewBack];
+            
+            return;
+        }
         
+        BOOL isExchangable = YES;
         
         /* Check in the delegate whether its exchangable */
         
         if(self.delegate && [self.delegate respondsToSelector:@selector(isCellInSrcAtIndexPathExchangable:withCellAtIndexPath:)]){
-            
-            isExchangable = /*isExchangable &&*/ [self.delegate isCellInSrcAtIndexPathExchangable:index
-                                                                          withCellAtIndexPath:self.draggingIndexPath];
+            isExchangable =  [self.delegate isCellInSrcAtIndexPathExchangable:index withCellAtIndexPath:self.draggingIndexPath];
         }
         
         if(!isExchangable){
-            NSLog(@"Invalid Cell or not Exchangable.");
             
-            [self handleDragFromSrcStoppedAtPoint:[self.superview convertPoint:point fromView:self.dstView]];
+            NSLog(@"Cell not Exchangable.");
+            
+            [self snapDraggingViewBack];
 
             return;
         }
+        
         
         NSLog(@"Cell row: %d", [index row]);
         
+        
         /* Catch dropping on the same cell - this causes an an inconistency exception
-            if not caught. Also catch invalid droop indexes (nil) */
+            if not caught. */
         
         if(([index row] == [self.draggingIndexPath row] &&
-            [index section] == [self.draggingIndexPath section]) ||
-            index == nil){
+            [index section] == [self.draggingIndexPath section])){
             
             NSLog(@"Invaliditiy caught, index: %@", index);
 
-            [self handleDragFromDstStoppedAtPoint:[self.superview convertPoint:point fromView:self.srcView]];
+            [self snapDraggingViewBack];
 
             return;
             
         }
-        
-        
-        CGRect cellFrame = cell.frame;
-        CGRect draggingRect = self.draggingViewPreviousRect;
-        UIView* dragginView = self.draggingView;
-        
-        [UIView animateWithDuration:0.2
-                         animations:^{
-                             dragginView.frame = [self.superview convertRect:cellFrame fromView:self.srcView];
-                             cell.frame = draggingRect;
-                         }
-                         completion:^(BOOL finished){
-                             
-                             if(self.delegate && [self.delegate respondsToSelector:@selector(droppedOnSrcAtIndexPath:fromSrcIndexPath:)]){
-                                 [self.delegate droppedOnSrcAtIndexPath:index fromSrcIndexPath:self.draggingIndexPath];
-                             }
-                             
-                             [self changeSuperviewForView:dragginView forSuperview:nil];
-                             //[self reloadDataInView:self.dstView atIndeces:@[index, self.draggingIndexPath]];
-                             [self reloadDataInView:self.srcView];
-                             [self handleDragAnimationComplete];
-                             
-                             
-                         }];
 
+        
+        /* Trigger a separate 'dummy' animation for the exchange */
+        
+        [self animateDummyExchange:cell inContainer:self.srcView withCompletionBlock:^{
+            
+            if(self.delegate && [self.delegate respondsToSelector:@selector(droppedOnSrcAtIndexPath:fromSrcIndexPath:)]){
+                
+                [self.delegate droppedOnSrcAtIndexPath:index fromSrcIndexPath:self.draggingIndexPath];
+                [self reloadCellInContainer:self.srcView atIndexPaths:@[index, self.draggingIndexPath]];
+            }
+            
+        }];
+        
+        
+        self.draggingView = nil;
 
     }
-    else{
+    else if(self.draggingView){
     
         /* Snap view back */
         
@@ -674,7 +739,6 @@
 -(void) handleDragFromSrcStoppedInDstAtPoint:(CGPoint) point{
     
     if(self.doesDstRecieveSrc
-       && self.delegate
        && [self.delegate respondsToSelector:@selector(droppedOnDstAtIndexPath:fromSrcIndexPath:)]
        && self.draggingView){
         
@@ -682,10 +746,9 @@
         
         /* Catching invalid cells being dropped */
         
-        if(!index){
+        if(index == nil){
             
-            NSLog(@"Bad drop caught.");
-            [self handleDragFromSrcStoppedAtPoint:[self.superview convertPoint:point fromView:self.dstView]];
+            [self snapDraggingViewBack];
             return;
             
         }
@@ -696,15 +759,11 @@
         
         // TODO Implement drop animation here
         
-        if(self.isDraggingFromSrcCollection){
-            [self changeSuperviewForView:self.draggingView forSuperview:nil];
-        }
-        else{
-            [self changeSuperviewForView:self.draggingView forSuperview:self.srcView];
-        }
+        [self.draggingView removeFromSuperview];
+        self.draggingView = nil;
 
     }
-    else{
+    else if(self.draggingView){
     
         /* Snap view back */
         
@@ -719,7 +778,7 @@
     
     self.isDraggingFromSrcCollection = NO;
 
-    if([self startDragFromView:self.dstView atPoint:point makeCopy:self.isDragViewFromDstDuplicate]){
+    if([self startDragFromView:self.dstView atPoint:point]){
         
         /* Any extra starting translations should be applied in the delegate */
         
@@ -732,7 +791,6 @@
 
         /* If its an invalid cell then no dragging is started */
 
-        //self.isDragging = NO;
         self.draggingView = nil;
     }
     
@@ -751,10 +809,10 @@
     }
     
     if(shouldSnapBack){
-        [self snapBackToSuperview:self.dstView];
+        [self snapDraggingViewBack];
     }
     else{
-        [self dissappearFromDraggingView];
+        [self shrinkDraggingView];
     }
 
     
@@ -764,7 +822,6 @@
 -(void) handleDragFromDstStoppedInSrcAtPoint:(CGPoint) point{
     
     if(self.doesSrcRecieveDst
-       && self.delegate
        && [self.delegate respondsToSelector:@selector(droppedOnSrcAtIndexPath:fromDstIndexPath:)]
        && self.draggingView){
     
@@ -772,9 +829,9 @@
         
         /* Catching invalid cells being dropped */
         
-        if(!index){
+        if(index == nil){
             
-            [self handleDragFromDstStoppedAtPoint:[self.superview convertPoint:point fromView:self.srcView]];
+            [self snapDraggingViewBack];
             return;
             
         }
@@ -783,20 +840,15 @@
             [self.delegate droppedOnSrcAtIndexPath:index fromDstIndexPath:self.draggingIndexPath];
         }
         
-        /* Put the draggin view back in its superview or diguard
-            of it if needs be. */
+
+        /* Get rid of the dragging view */
         
-        if(self.isDragViewFromDstDuplicate){
-            [self changeSuperviewForView:self.draggingView forSuperview:nil];
-        }
-        else{
-            [self changeSuperviewForView:self.draggingView forSuperview:self.dstView];
-        }
+        [self.draggingView removeFromSuperview];
+        self.draggingView = nil;
         
-        // TODO Implement drop animation here
         
     }
-    else{
+    else if(self.draggingView){
         
         [self handleDragFromDstStoppedAtPoint:[self.superview convertPoint:point fromView:self.srcView]];
     }
@@ -808,92 +860,88 @@
 -(void) handleDragFromDstStoppedInDstAtPoint:(CGPoint) point{
     
     
-    if(self.isDstRearrangeable && self.draggingView){
+    if(self.isDstRearrangeable
+       && self.draggingView){
         
         NSLog(@"Rearrangeing dst");
         
         /* Rearrange source collection/table */
         
         UIView* cell;
-        NSIndexPath* index = [self determineIndexForContainer:self.dstView
-                                                      atPoint:point
-                                                      forCell:&cell];
+        NSIndexPath* index = [self determineIndexForContainer:self.dstView atPoint:point forCell:&cell];
         
-        BOOL isExchangable = YES;//(BOOL)cell;
+        
+        /* Catch invalid cells */
+        
+        if(index == nil){
+        
+            NSLog(@"Invalid cell");
+            
+            [self snapDraggingViewBack];
+
+            return;
+        }
+        
+        BOOL isExchangable = YES;
         
         
         /* Check in the delegate whether its exchangable */
         
         if(self.delegate && [self.delegate respondsToSelector:@selector(isCellInDstAtIndexPathExchangable:withCellAtIndexPath:)]){
             
-            isExchangable = /*isExchangable &&*/ [self.delegate isCellInDstAtIndexPathExchangable:index
-                                                                          withCellAtIndexPath:self.draggingIndexPath];
+            isExchangable = [self.delegate isCellInDstAtIndexPathExchangable:index withCellAtIndexPath:self.draggingIndexPath];
         }
         
         if(!isExchangable){
-            NSLog(@"Invalid Cell or Not Exchangable");
             
-            [self handleDragFromDstStoppedAtPoint:[self.superview convertPoint:point fromView:self.dstView]];
-
+            NSLog(@"Not Exchangable");
+            
+            [self snapDraggingViewBack];
+            
             return;
         }
+        
         
         NSLog(@"Cell row: %d", [index row]);
 
         /* Catch dropping on the same cell - this causes an an inconistency exception
-         if not caught. Also catch invalid droop indexes (nil) */
+            if not caught. */
         
         if(([index row] == [self.draggingIndexPath row] &&
-            [index section] == [self.draggingIndexPath section]) ||
-           index == nil){
+            [index section] == [self.draggingIndexPath section])){
             
             NSLog(@"Invaliditiy caught, index: %@", index);
             
-            [self handleDragFromDstStoppedAtPoint:[self.superview convertPoint:point fromView:self.dstView]];
+            [self snapDraggingViewBack];
             
             return;
         }
         
-        CGRect cellFrame = cell.frame;
-        CGRect draggingRect = self.draggingViewPreviousRect;
-        UIView* dragginView = self.draggingView;
         
-        [UIView animateWithDuration:0.2
-                         animations:^{
-                             dragginView.frame = [self.superview convertRect:cellFrame fromView:self.dstView];
-                             cell.frame = draggingRect;
-                         }
-                         completion:^(BOOL finished){
-                             
-                             if(self.delegate && [self.delegate respondsToSelector:@selector(droppedOnDstAtIndexPath:fromDstIndexPath:)]){
-                                 [self.delegate droppedOnDstAtIndexPath:index fromDstIndexPath:self.draggingIndexPath];
-                             }
-                             
-                             [self changeSuperviewForView:dragginView forSuperview:nil];
-                             //[self reloadDataInView:self.dstView atIndeces:@[index, self.draggingIndexPath]];
-                             [self reloadDataInView:self.dstView];
-                             [self handleDragAnimationComplete];
-
-                             
-                         }];
+        /* Trigger a separate 'dummy' animation for the exchange */
+        
+        [self animateDummyExchange:cell inContainer:self.dstView withCompletionBlock:^{
+            
+            if(self.delegate && [self.delegate respondsToSelector:@selector(droppedOnDstAtIndexPath:fromDstIndexPath:)]){
+                
+                [self.delegate droppedOnDstAtIndexPath:index fromDstIndexPath:self.draggingIndexPath];
+                [self reloadCellInContainer:self.dstView atIndexPaths:@[index, self.draggingIndexPath]];
+                
+            }
+            
+        }];
         
         
+        self.draggingView = nil;
         
     }
-    else{
+    else if(self.draggingView){
         
         /* Snap view back */
         
         [self handleDragFromDstStoppedAtPoint:[self.superview convertPoint:point fromView:self.dstView]];
 
     }
-
-}
-
-
--(void) handleDragAnimationComplete{
-
-    // TODO: Drag has finished its sequence
 
 }
 
@@ -935,113 +983,12 @@
 -(void) setDraggingView:(UIView*) draggingView{
         
     if(draggingView){
-        [draggingView removeFromSuperview];
         [self.superview addSubview:draggingView];
-    }
-    else{
-        self.draggingIndexPath = nil;
     }
 
     _draggingView = draggingView;
     
 }
-
-
--(void) changeSuperviewForView:(UIView*) view forSuperview:(UIView*) superview{
-    
-    if(!superview){
-        [view removeFromSuperview];
-        return;
-    }
-    
-    UIView* previousSuperview = [view superview];
-    [view removeFromSuperview];
-    [superview addSubview:view];
-    view.frame = [superview convertRect:view.frame fromView:previousSuperview];
-
-}
-
-
-
-/* Animation methods */
-
--(void) transitionView:(UIView*) view
-               toFrame:(CGRect) frame
-           toSuperview:(UIView*) superview{
-
-
-    if(view.superview == superview){
-        NSLog(@"Transitioning view while in the same superview");
-        return;
-    }
-    if(!view){
-        NSLog(@"View is nil so can't transition.");
-        return;    
-    }
-    
-    
-    /* Local variable declared here so that we don't read the value in the 
-        completion block once its been changed. */
-    
-    BOOL isFromSrc = self.isDraggingFromSrcCollection;
-    
-    /* Completion block declared here so that the auto indeting doesn't
-        make this totally unreadable. */
-    
-    void (^completion)(BOOL finished) = ^(BOOL finished){
-    
-        NSLog(@"Animation complete!");
-        
-        
-        [self changeSuperviewForView:view
-                        forSuperview:superview];
-        
-        
-        [self handleDragAnimationComplete];
-        
-        
-        if(isFromSrc && self.delegate &&
-           [self.delegate respondsToSelector:@selector(dragFromSrcSnappedBack:)]){
-            
-            
-#pragma clang diagnostic push
-#pragma clang diagnostic ignored "-Warc-performSelector-leaks"
-            [self.delegate performSelector:@selector(dragFromSrcSnappedBack:) withObject:view];
-#pragma clang diagnostic pop
-            
-        }
-        else if(!isFromSrc && self.delegate &&
-                [self.delegate respondsToSelector:@selector(dragFromDstSnappedBack:)]){
-            
-#pragma clang diagnostic push
-#pragma clang diagnostic ignored "-Warc-performSelector-leaks"
-            [self.delegate performSelector:@selector(dragFromDstSnappedBack:) withObject:view];
-#pragma clang diagnostic pop
-            
-        }
-        else{
-            NSLog(@"Selector not valid, from Src %@, delegate %@, responds %@",
-                  isFromSrc ? @"YES" : @"NO",
-                  self.delegate,
-                  [self.delegate respondsToSelector:@selector(dragFromSrcSnappedBack:)] ? @"YES" : @"NO");
-        }
-
-
-        CGRect localFrame = [superview convertRect:frame fromView:self.superview];
-        view.frame = localFrame;
-        
-
-    };
-    
-    
-    [UIView animateWithDuration:0.2
-                     animations:^{
-                         view.frame = frame;
-                     }
-                     completion:completion];
-    
-}
-
 
 -(void) dealloc{
 

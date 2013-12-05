@@ -88,14 +88,7 @@ static NSString* kRightUndraggableUnrearrangeableValue = @"Right - Undraggable &
     
     self.helper.delegate = self;
     
-    
-    
-    /* See I32RearrangeableTablesViewController for notes on these properties */
-    
-    self.helper.isDragViewFromSrcDuplicate = YES;
-    self.helper.isDragViewFromDstDuplicate = YES;
-    
-    
+        
     /* Both are rearrangeable and accept each other */
     
     self.helper.isDstRearrangeable = YES;

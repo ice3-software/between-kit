@@ -176,11 +176,6 @@
 
 @property (nonatomic) BOOL doesSrcRecieveDst;
 
-/** Determines whether the draggingView for Src items is a duplicate
-     of the item view, or the item view itself. */
-
-@property (nonatomic) BOOL isDragViewFromDstDuplicate;
-
 /** Indicates whether the source should be rearrangeable. Does NOT
      check for the delegate's implementation of droppedOnDstAtIndexPath:fromDstIndexPath:
      to determine whether the Dst is rearrangeable. */
@@ -191,11 +186,6 @@
     items. */
 
 @property (nonatomic) BOOL doesDstRecieveSrc;
-
-/** Determines whether the draggingView for Src items is a duplicate
-     of the item view, or the item view itself. */
-
-@property (nonatomic) BOOL isDragViewFromSrcDuplicate;
 
 /** The view that will contain the draggingView whilst dragging */
 
