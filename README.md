@@ -60,7 +60,7 @@ Below are the test/example cases included in the project.
 - Dst table does not accept cells from the Src table
 - Src table is rearrangeable
 - Dst table is rearrangeable
-- Other: the dragging views are not duplicates
+- Also demonstrates how to 'hide' the cell that's being dragged whlist its dragging
 
 ######Example Case 2 - I32ExchangeableTableViewsController######
 - 2 Table Views
@@ -68,7 +68,6 @@ Below are the test/example cases included in the project.
 - Dst table accepts cells from the Src table
 - Src table is not rearrangeable
 - Dst table is not rearrangeable
-- Other: the dragging views are duplicates, see issue #4 for the reason for this
 
 ######Example Case 3 - I32RearrangeableExchangeableTablesViewController######
 - 2 Table Views
@@ -90,6 +89,13 @@ Below are the test/example cases included in the project.
 - If a cell from the Dst table is dragged outside of the table is is removed
 - Src table dragging cells are duplicates
 - Dst table dragging cells are genuine (ie not duplicates)
+
+
+Recent Changes
+--------------
+
+- The helper no longer uses the actual sub view for the dragging cell - now, instead it generates a dummy cell for dragging. Its left up to the user to 'hide' the cell whlist its being dragged in the appropriate delegate methods, see Example Case 1. This breaks anything using the previous version.
+
 
 
 Notes on App Store Approval

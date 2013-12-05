@@ -92,7 +92,7 @@
 /** A drag from the source table/collection was stopped ouside of both
      src and dst table/collections. Should return a BOOL indicating
      whether or not to snap the view back or transition it 'out' with 
-     the default scale animation. */
+     the shrink animation. */
 
 -(BOOL) droppedOutsideAtPoint:(CGPoint) pointIn fromSrcIndexPath:(NSIndexPath*) from;
 
@@ -100,21 +100,14 @@
 /** Implemented to determine whether two cells are exchangable inside of
      a the src collection/table. */
 
-
 -(BOOL) isCellInSrcAtIndexPathExchangable:(NSIndexPath*) to
                       withCellAtIndexPath:(NSIndexPath*) from;
-
-
 
 
 /** Implemented to determine whether a specific cell is draggable from
      a container. The container will either be srcView or dstView - logic
      should be implemented in the delegate to determine which one the delegate
-     applies to. If not implemented assumed YES.
- 
-    This is implemented as a generic handler for both dst and src so that
-     we can call it effectively in startDragFromView without having to hack
-     isDraggingFromSrcCollection. */
+     applies to. If not implemented assumed YES. */
 
 -(BOOL) isCellAtIndexPathDraggable:(NSIndexPath*) index inContainer:(UIView*) container;
 
@@ -134,16 +127,7 @@
 
 
 /** Class that handles routing logic for dragging between two table/collection
-     views.
- 
-    It encapsulates re-ordering of the dst view, delegation of drag beginning and 
-     stopping, etc.
- 
-    Also offers 'deletion' functionallity - if you implement one of the droppedOutsideAtPoint
-     to return NO then the view won't 'snap back' to its original position, it will be 
-     'deleted' (shrink animation). To update your data and table/collection accordingly, 
-     you MUST implement a itemFromDstDeletedAtIndexPath method in your delegate. This is 
-     called specifically on animation completion. */
+     views. */
 
 @interface I3DragBetweenHelper : NSObject
 
@@ -152,7 +136,7 @@
 @property (nonatomic, readonly, retain) UIPanGestureRecognizer* currentGestureRecognizer;
 
 
-/* The 'live' draggin properties, these are only stable to
+/* The 'live' draggin properties, these are only valid to
     reference while dragging is taking place. */
 
 @property (nonatomic, readonly, retain) NSIndexPath* draggingIndexPath;
@@ -183,11 +167,14 @@
 @property (nonatomic) BOOL isDstRearrangeable;
 
 /** Indicates whether the destination should recieve source
-    items. */
+     items. The delegate also needs to have implemented droppedOnDstAtIndexPath:fromSrcIndexPath:
+     for this to have an effect */
 
 @property (nonatomic) BOOL doesDstRecieveSrc;
 
-/** The view that will contain the draggingView whilst dragging */
+
+/** The view that is being dragged - this will always be a copy of one of the 
+     src or dst cells */
 
 @property (nonatomic, weak) UIView* superview;
 
