@@ -253,6 +253,12 @@
 
 -(void) dissappearFromDraggingView{
 
+    if(!self.draggingView){
+    
+        return;
+    }
+    
+    
     /* 'Deleting' animation */
     
     self.draggingView.clipsToBounds = YES;
