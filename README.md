@@ -56,29 +56,40 @@ Below are the test/example cases included in the project.
 
 ######Example Case 1 - I32RearrangeableTablesViewController######
 - 2 Table Views
-- Src table does not except cells from the Dst table
-- Dst table does not except cells from the Src table
+- Src table does not accept cells from the Dst table
+- Dst table does not accept cells from the Src table
 - Src table is rearrangeable
 - Dst table is rearrangeable
 - Other: the dragging views are not duplicates
 
 ######Example Case 2 - I32ExchangeableTableViewsController######
 - 2 Table Views
-- Src table excepts cells from the Dst table
-- Dst table excepts cells from the Src table
+- Src table accepts cells from the Dst table
+- Dst table accepts cells from the Src table
 - Src table is not rearrangeable
 - Dst table is not rearrangeable
 - Other: the dragging views are duplicates, see issue #4 for the reason for this
 
 ######Example Case 3 - I32RearrangeableExchangeableTablesViewController######
 - 2 Table Views
-- Src table excepts cells from the Dst table
-- Dst table excepts cells from the Src table
+- Src table accepts cells from the Dst table
+- Dst table accepts cells from the Src table
 - Src table is rearrangeable
 - Dst table is rearrangeable
 - Both tables contain 1 cell that isn't draggable but is rearrangeable
 - Both tables contain 1 cell that isn't rearrangeable but is draggable
 - Both tables contain 1 cell that is neither draggable nor rearrangeable
+
+######Example Case 4 - I3UnrearrangebleTableToTableViewController######
+- 2 Table Views
+- Src table does not accept cells from the Dst table
+- Dst table accepts cells from the Src table
+- Src table is not rearrangeable
+- Dst table is rearrangeable
+- Dst table contains 1 undraggable, unrearrangeable placeholder cell
+- If a cell from the Dst table is dragged outside of the table is is removed
+- Src table dragging cells are duplicates
+- Dst table dragging cells are genuine (ie not duplicates)
 
 
 Notes on App Store Approval

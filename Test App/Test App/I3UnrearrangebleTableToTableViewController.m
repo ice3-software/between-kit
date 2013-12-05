@@ -190,10 +190,10 @@ static NSString* kPlaceholderCell = @"Drag here to add...";
 
 -(BOOL) droppedOutsideAtPoint:(CGPoint) pointIn fromSrcIndexPath:(NSIndexPath*) from{
     
-    /* This is implemented to trigger the shrink animation for Src items that
+    /* Uncomment this line to implemented the shrink animation for Src items that
         are dropped outside of the correct bounds... just to show off. */
     
-    return NO;
+    return YES; // NO;
 }
 
 
