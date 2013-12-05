@@ -14,6 +14,37 @@ This repo also contains and example project where you can see the helper class i
 This project requires ARC to compile.
 
 
+Basic Usage
+-----------
+
+The helper has requires 2 view objects to be inejcted as the dragging targets:
+
+- The source view. This must be either a UITableView or a UICollectionView
+- The destination view. This, like the source, must either be a UITableView or a UICollectionView
+
+These are the views the which we will drag items between.
+
+The helper also requires a 'superview' UIView to be injected. This is the view that contains both of the dragging target views.
+The UIPanGestureRecognizer is attached to this view by the helper and this view's frame is where all panning events are listened for.
+
+Here is a simple example of how to configure the helper:
+
+	UIView* view = self.view // View controller's main view
+	UITableView* sourceTable = self.sourceTable; // A table configured for the View controller via IB
+	UITableView* destinationTable = self.destinationTable // A table configured for the View controller via IB
+	
+	I3DragBetweenHelper* helper = [[I3DragBetweenHelper alloc] initWithSuperview:view 
+                                						 				 srcView:sourceTable
+                                               						  	 dstView:destinationTable];
+
+Now we have a helper configured to act on the appropriate view objects, but it doesn't do much. Next we need to implement a delegate for the Helper, so that we can deal with dropping events appropriately:
+
+	helper.delegate = self; // The UIViewController must implement the I3DragBetweenDelegate protocol
+
+See the various example cases for how to actually implement I3DragBetweenDelegate methods and further configure the helper to do cool things.
+
+
+
 Stabillity
 ----------
 
