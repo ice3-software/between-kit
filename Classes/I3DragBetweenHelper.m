@@ -273,16 +273,21 @@
         
         /* Calls delegate to delete item at index path*/
         
-        if(self.delegate &&
-           isSrc &&
+        if(isSrc &&
+           self.delegate &&
            [self.delegate respondsToSelector:@selector(itemFromSrcDeletedAtIndexPath:)]){
+            
+            NSLog(@"Deletion handler for Src triggered");
             
             [self.delegate performSelector:@selector(itemFromSrcDeletedAtIndexPath:)
                                 withObject:self.draggingIndexPath];
         }
-        else if(self.delegate
+        else if(!isSrc
+                && self.delegate
                 && [self.delegate respondsToSelector:@selector(itemFromDstDeletedAtIndexPath:)]){
             
+            NSLog(@"Deletion handler for Dst triggered");
+
             [self.delegate performSelector:@selector(itemFromDstDeletedAtIndexPath:)
                                 withObject:self.draggingIndexPath];
             
