@@ -49,3 +49,10 @@ Below are the test/example cases included in the project.
 - Both tables contain 1 cell that isn't rearrangeable but is draggable
 - Both tables contain 1 cell that is neither draggable nor rearrangeable
 
+
+Notes on App Store Approval
+---------------------------
+
+I haven't used this helper in an App Store approved project yet - the rearranging functionallity is already built into UITableView/UICollectionView s in the form of 'Edit mode', and I have no idea how Apple will respond to this ad-hoc approach to rearranging table/collection views. It might _just_ be a cause for rejection, but who knows..
+
+Just something to bear in mind.
