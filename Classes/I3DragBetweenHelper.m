@@ -101,9 +101,7 @@
     
     if([view isKindOfClass:[UITableView class]]){
 
-        [(UITableView*)view beginUpdates];
         [(UITableView*)view reloadRowsAtIndexPaths:paths withRowAnimation:UITableViewRowAnimationNone];
-        [(UITableView*)view endUpdates];
 
     }
     else if([view isKindOfClass:[UICollectionView class]]){
