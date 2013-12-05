@@ -39,4 +39,13 @@ Below are the test/example cases included in the project.
 - Dst table is not rearrangeable
 - Other: the dragging views are duplicates, see issue #4 for the reason for this
 
+######Example Case 3 - I32RearrangeableExchangeableTablesViewController######
+- 2 Table Views
+- Src table excepts cells from the Dst table
+- Dst table excepts cells from the Src table
+- Src table is rearrangeable
+- Dst table is rearrangeable
+- Both tables contain 1 cell that isn't draggable but is rearrangeable
+- Both tables contain 1 cell that isn't rearrangeable but is draggable
+- Both tables contain 1 cell that is neither draggable nor rearrangeable
 

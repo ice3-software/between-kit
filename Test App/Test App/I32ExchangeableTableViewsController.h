@@ -22,4 +22,5 @@
 /** This is the Destination table */
 
 @property (nonatomic, strong) IBOutlet UITableView* rightTable;
+
 @end

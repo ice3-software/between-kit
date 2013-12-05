@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		46D94779184FF36D00CA6DC5 /* I32RearrangeableExchangeableTablesViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 46D94778184FF36D00CA6DC5 /* I32RearrangeableExchangeableTablesViewController.m */; };
 		46EF0542184FCB8D00B597AB /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 46EF0541184FCB8D00B597AB /* Foundation.framework */; };
 		46EF0544184FCB8D00B597AB /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 46EF0543184FCB8D00B597AB /* CoreGraphics.framework */; };
 		46EF0546184FCB8D00B597AB /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 46EF0545184FCB8D00B597AB /* UIKit.framework */; };
@@ -36,6 +37,8 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		46D94777184FF36D00CA6DC5 /* I32RearrangeableExchangeableTablesViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = I32RearrangeableExchangeableTablesViewController.h; sourceTree = "<group>"; };
+		46D94778184FF36D00CA6DC5 /* I32RearrangeableExchangeableTablesViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = I32RearrangeableExchangeableTablesViewController.m; sourceTree = "<group>"; };
 		46EF053E184FCB8D00B597AB /* Test App.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Test App.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		46EF0541184FCB8D00B597AB /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		46EF0543184FCB8D00B597AB /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
@@ -92,6 +95,8 @@
 				46EF0557184FCB8D00B597AB /* I32RearrangeableTablesViewController.m */,
 				46EF0559184FCB8D00B597AB /* I32ExchangeableTableViewsController.h */,
 				46EF055A184FCB8D00B597AB /* I32ExchangeableTableViewsController.m */,
+				46D94777184FF36D00CA6DC5 /* I32RearrangeableExchangeableTablesViewController.h */,
+				46D94778184FF36D00CA6DC5 /* I32RearrangeableExchangeableTablesViewController.m */,
 			);
 			name = Controllers;
 			sourceTree = "<group>";
@@ -279,6 +284,7 @@
 				46EF0552184FCB8D00B597AB /* I3AppDelegate.m in Sources */,
 				46EF054E184FCB8D00B597AB /* main.m in Sources */,
 				46EF055B184FCB8D00B597AB /* I32ExchangeableTableViewsController.m in Sources */,
+				46D94779184FF36D00CA6DC5 /* I32RearrangeableExchangeableTablesViewController.m in Sources */,
 				46EF0558184FCB8D00B597AB /* I32RearrangeableTablesViewController.m in Sources */,
 				46EF057C184FCF0400B597AB /* I3DragBetweenHelper.m in Sources */,
 			);

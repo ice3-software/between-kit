@@ -528,11 +528,11 @@
 
 -(void) handleDragStartedInSrcAtPoint:(CGPoint) point{
     
+    self.isDraggingFromSrcCollection = YES;
+
     if([self startDragFromView:self.srcView
                        atPoint:point
                       makeCopy:self.isDragViewFromSrcDuplicate]){
-    
-        self.isDraggingFromSrcCollection = YES;
         
         /* Any extra starting translations should be applied in the delegate */
         
@@ -576,7 +576,7 @@
 
 -(void) handleDragFromSrcStoppedInSrcAtPoint:(CGPoint) point{
     
-    if(self.isSrcRearrangeable){
+    if(self.isSrcRearrangeable && self.draggingView){
         
         /* Rearrange source collection/table */
 
@@ -664,7 +664,8 @@
     
     if(self.doesDstRecieveSrc
        && self.delegate
-       && [self.delegate respondsToSelector:@selector(droppedOnDstAtIndexPath:fromSrcIndexPath:)]){
+       && [self.delegate respondsToSelector:@selector(droppedOnDstAtIndexPath:fromSrcIndexPath:)]
+       && self.draggingView){
         
         NSIndexPath* index = [self determineIndexForContainer:self.dstView atPoint:point forCell:nil];
         
@@ -705,10 +706,9 @@
 
 -(void) handleDragStartedInDstAtPoint:(CGPoint) point{
     
-    
+    self.isDraggingFromSrcCollection = NO;
+
     if([self startDragFromView:self.dstView atPoint:point makeCopy:self.isDragViewFromDstDuplicate]){
-    
-        self.isDraggingFromSrcCollection = NO;
         
         /* Any extra starting translations should be applied in the delegate */
         
@@ -754,7 +754,8 @@
     
     if(self.doesSrcRecieveDst
        && self.delegate
-       && [self.delegate respondsToSelector:@selector(droppedOnSrcAtIndexPath:fromDstIndexPath:)]){
+       && [self.delegate respondsToSelector:@selector(droppedOnSrcAtIndexPath:fromDstIndexPath:)]
+       && self.draggingView){
     
         NSIndexPath* index = [self determineIndexForContainer:self.srcView atPoint:point forCell:nil];
         
@@ -796,7 +797,7 @@
 -(void) handleDragFromDstStoppedInDstAtPoint:(CGPoint) point{
     
     
-    if(self.isDstRearrangeable){
+    if(self.isDstRearrangeable && self.draggingView){
         
         NSLog(@"Rearrangeing dst");
         
