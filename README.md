@@ -9,15 +9,15 @@ Installation
 
 To use this in your project, copy the I3DragBetweenHelper class into your project directory - there is no Podspec (at the moment).
 
-This repo also contains and example project where you can see the helper class in action.
+This repo also contains and example project called 'Test App' where you can see the helper class in action.
 
-This project requires ARC to compile.
+This project requires ARC to compile as is targeted at iOS 6 +.
 
 
 Basic Usage
 -----------
 
-The helper has requires 2 view objects to be inejcted as the dragging targets:
+The helper has requires 2 view objects to be injected as the dragging targets:
 
 - The source view. This must be either a UITableView or a UICollectionView
 - The destination view. This, like the source, must either be a UITableView or a UICollectionView
@@ -45,14 +45,17 @@ See the various Example Cases for how to actually implement I3DragBetweenDelegat
 
 
 
-Stabillity
+Stability
 ----------
 
-At the moment, this helper is not yet stable - use it at your own risk.
+This class is constantly being changed and updated as its being used and refined in a separate project - use it at your own risk.
 
 Its been tested on iOS 6 and iOS 7 iPads for dragging between a UITableView and a UICollectionView.
 
-See Example Cases for the included scenarios that the helper has been tested against.
+
+*See notes on App Store Approval.
+
+*See Example Cases for the included scenarios that the helper has been tested against.
 
 
 
@@ -65,7 +68,7 @@ Example Cases
 - Dst table does not accept cells from the Src table
 - Src table is rearrangeable
 - Dst table is rearrangeable
-- Also demonstrates how to 'hide' the cell that's being dragged whlist its dragging
+- Also demonstrates how to 'hide' the cell that's being dragged whilst its dragging
 
 ######Example Case 2 - I32ExchangeableTableViewsController######
 - 2 Table Views
@@ -90,7 +93,7 @@ Example Cases
 - Dst table accepts cells from the Src table
 - Src table is not rearrangeable
 - Dst table is rearrangeable
-- Dst table contains 1 undraggable, unrearrangeable placeholder cell
+- Dst table contains 1 undraggable, un-rearrangeable placeholder cell
 - If a cell from the Dst table is dragged outside of the table it is removed
 
 ######Example Case 5 - I32ExchangeableCollectionViewsController######
@@ -107,14 +110,14 @@ Example Cases
 - Dst accepts Src
 - Src is not rearrangeable
 - Dst is rearrangeable
-- Dst contains 1 undraggable, unrearrangeable placeholder cell
+- Dst contains 1 undraggable, un-rearrangeable placeholder cell
 - Src cells aren't hidden on drag
 - Dst cells are hidden on drag
 - If a cell from the Dst collection is dragged outside of the view it is removed
 
 ######Example Case 6 - I3CollectionToRearrangeableTableViewController - Paint Me!######
 
-This is the most complex example. The idea is that you can 'paint' the table cells with various colours, available from the collection view. By dragging the coloured collection view cells onto the table view cells you can apply the color to the table view.
+This is the most complex example. The idea is that you can 'paint' the table cells with various colours, available from the collection view. By dragging the coloured collection view cells onto the table view cells you can apply the colour to the table view.
 
 You can rearrange and play around with the table view to 'style' it.
 
@@ -136,13 +139,15 @@ Configuration:
 Recent Changes
 --------------
 
-- The helper no longer uses the actual sub view for the dragging cell - now, instead it generates a dummy cell for dragging. Its left up to the user to 'hide' the cell whlist its being dragged in the appropriate delegate methods, see Example Case 1. This breaks anything using the previous version.
-- 'Hide' functionallity has been added back to the helper in the form of the hide[Dst | Src]DraggingCell properties. This sets the original cell's alpha value to 0.001 while dragging is taking place. We have re-introducted this concept because UICollectioView sometimes returned nil for cellForItemAtIndexPath in the helper's delegate, after the collection had been reordered. This resulted in a buggy 'sometimes hidden' collection cell whlist dragging.
+- The helper no longer uses the actual sub view for the dragging cell - now, instead it generates a dummy cell for dragging. Its left up to the user to 'hide' the cell whilst its being dragged in the appropriate delegate methods, see Example Case 1. This breaks anything using the previous version.
+- 'Hide' functionality has been added back to the helper in the form of the hide[Dst | Src]DraggingCell properties. This sets the original cell's alpha value to 0.001 while dragging is taking place. We have re-introducted this concept because UICollectionView sometimes returned nil for cellForItemAtIndexPath in the helper's delegate, after the collection had been reordered. This resulted in a buggy 'sometimes hidden' collection cell whilst dragging.
 
 
 Notes on App Store Approval
 ---------------------------
 
-I haven't used this helper in an App Store approved project yet - the rearranging functionallity is already built into UITableView/UICollectionView s in the form of 'Edit mode', and I have no idea how Apple will respond to this ad-hoc approach to rearranging table/collection views. It might _just_ be a cause for rejection, but who knows..
+At the moment this is being used in an in-house app.
+
+I haven't used this helper in an App Store approved project yet - the rearranging functionality is already built into UITableView/UICollectionView s in the form of 'Edit mode', and I have no idea how Apple will respond to this ad-hoc approach to rearranging table/collection views. It might _just_ be a cause for rejection, but who knows.. You can always turn off the helper-provided rearranging functionality and use Edit Mode instead.
 
 Just something to bear in mind.
