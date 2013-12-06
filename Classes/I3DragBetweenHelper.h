@@ -154,6 +154,11 @@
 
 @property (nonatomic) BOOL isSrcRearrangeable;
 
+/** Indicates whether to hide the original cell for the Src view whilst
+     dragging, or not. It does this by setting its alpha to 0 whilst dragging */
+
+@property (nonatomic) BOOL hideSrcDraggingCell;
+
 /** Indicates whether the source should recieve destination
      items. The delegate also needs to have implemented droppedOnDstAtIndexPath:fromSrcIndexPath: 
      for this to have an effect */
@@ -165,6 +170,12 @@
      to determine whether the Dst is rearrangeable. */
 
 @property (nonatomic) BOOL isDstRearrangeable;
+
+/** Indicates whether to hide the original cell for the Dst view whilst
+     dragging, or not. It does this by setting its alpha to 0 whilst dragging */
+
+@property (nonatomic) BOOL hideDstDraggingCell;
+
 
 /** Indicates whether the destination should recieve source
      items. The delegate also needs to have implemented droppedOnDstAtIndexPath:fromSrcIndexPath:

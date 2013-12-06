@@ -86,6 +86,8 @@
 
 -(UIView*) copyOfView:(UIView*) viewToCopy;
 
+-(void) showCellAtIndexPath:(NSIndexPath*) index inContainer:(UIView*) container;
+
 -(void) animateDummyExchange:(UIView*) exchange
                  inContainer:(UIView*) container
          withCompletionBlock:(void(^)()) complete;
@@ -107,9 +109,22 @@
     }
     else if([view isKindOfClass:[UICollectionView class]]){
         
-        [(UICollectionView*)view reloadItemsAtIndexPaths:paths];
+        [(UICollectionView*)view reloadData];
 
     }
+}
+
+-(void) showCellAtIndexPath:(NSIndexPath*) index inContainer:(UIView*) container{
+
+    if([container isKindOfClass:[UITableView class]]){
+        
+        [(UITableView*)container cellForRowAtIndexPath:index].alpha = 1;
+    }
+    else if([container isKindOfClass:[UICollectionView class]]){
+        
+        [(UICollectionView*)container cellForItemAtIndexPath:index].alpha = 1;
+    }
+
 }
 
 -(UIView*) copyOfView:(UIView*) viewToCopy{
@@ -159,7 +174,7 @@
     [oldDragginView removeFromSuperview];
     [self.superview addSubview:oldDragginView];
     
-    [UIView animateWithDuration:0.225 animations:^{
+    [UIView animateWithDuration:0.15 animations:^{
         
         oldDragginView.frame = cellDummy.frame;
         cellDummy.frame = [self.superview convertRect:self.draggingViewPreviousRect fromView:container];
@@ -193,9 +208,12 @@
         
         self.isDstRearrangeable = YES;
         self.doesDstRecieveSrc = YES;
+        self.hideDstDraggingCell = NO;
         
         self.isSrcRearrangeable = NO;
         self.doesSrcRecieveDst = NO;
+        self.hideSrcDraggingCell = NO;
+
         
         self.isDragging = NO;
     }
@@ -249,6 +267,7 @@
 
 
     UIView* cell;
+
     NSIndexPath* index = [self determineIndexForContainer:container
                                                   atPoint:point
                                                   forCell:&cell];
@@ -309,6 +328,18 @@
         cellCopy = [self copyOfView:cell];
         
     }
+    
+    
+    
+    /* Hide the original cell if specified */
+    
+    if((container == self.srcView && self.hideSrcDraggingCell) ||
+       (container == self.dstView && self.hideDstDraggingCell)){
+        
+        cell.alpha = 0.01;
+    }
+    
+
     
     self.draggingView = cellCopy;
 
@@ -412,6 +443,18 @@
         NSLog(@"Animation complete!");
         
         
+        /* Reshow the actual cell if it was set to hide */
+        
+        if(self.isDraggingFromSrcCollection && self.hideSrcDraggingCell){
+            
+            [self showCellAtIndexPath:self.draggingIndexPath inContainer:self.srcView];
+        }
+        else if(!self.isDraggingFromSrcCollection && self.hideDstDraggingCell){
+
+            [self showCellAtIndexPath:self.draggingIndexPath inContainer:self.dstView];
+        
+        }
+        
         
         if(self.isDraggingFromSrcCollection && self.delegate &&
            [self.delegate respondsToSelector:@selector(dragFromSrcSnappedBackFromIndexPath:)]){
@@ -437,7 +480,7 @@
     };
     
     
-    [UIView animateWithDuration:0.2
+    [UIView animateWithDuration:0.125
                      animations:^{
                          dragginView.frame = previousGlobalRect;
                      }

@@ -70,12 +70,15 @@ static NSString* DequeueReusableCell = @"DequeueReusableCell";
     
     
     
-    /* Both rearrangeable and exchangeable */
+    /* Both rearrangeable, exchangeable and hide the cells whilst dragging */
     
     self.helper.isDstRearrangeable = YES;
     self.helper.isSrcRearrangeable = YES;
     self.helper.doesSrcRecieveDst = YES;
     self.helper.doesDstRecieveSrc = YES;
+    self.helper.hideDstDraggingCell = YES;
+    self.helper.hideSrcDraggingCell = YES;
+    
     
 }
 
@@ -89,8 +92,6 @@ static NSString* DequeueReusableCell = @"DequeueReusableCell";
 #pragma mark - Drag n drop exchange and rearrange delegate methods
 
 -(void) droppedOnDstAtIndexPath:(NSIndexPath*) to fromDstIndexPath:(NSIndexPath*) from{
-
-    /* Unhide the cell */
     
     [self.rightCollection cellForItemAtIndexPath:from].alpha = 1;
 
@@ -102,8 +103,6 @@ static NSString* DequeueReusableCell = @"DequeueReusableCell";
 }
 
 -(void) droppedOnSrcAtIndexPath:(NSIndexPath*) to fromSrcIndexPath:(NSIndexPath*) from{
-    
-    /* Unhide the cell */
     
     [self.leftCollection cellForItemAtIndexPath:from].alpha = 1;
 
@@ -150,37 +149,6 @@ static NSString* DequeueReusableCell = @"DequeueReusableCell";
     [self.rightCollection deleteItemsAtIndexPaths:@[from]];
 
 }
-
-
-#pragma mark - Drag n Drop hide cell delegate methods
-
--(void) dragFromSrcStartedAtIndexPath:(NSIndexPath*) path{
-    
-    NSLog(@"Hiding cell: %@", [self.leftCollection cellForItemAtIndexPath:path]);
-    
-    [self.leftCollection cellForItemAtIndexPath:path].alpha = 0;
-
-}
-
--(void) dragFromDstStartedAtIndexPath:(NSIndexPath*) path{
-    
-    NSLog(@"Hiding cell: %@", [self.rightCollection cellForItemAtIndexPath:path]);
-
-    [self.rightCollection cellForItemAtIndexPath:path].alpha = 0;
-}
-
--(void) dragFromSrcSnappedBackFromIndexPath:(NSIndexPath*) path{
-    
-    [self.leftCollection cellForItemAtIndexPath:path].alpha = 1;
-    
-}
-
--(void) dragFromDstSnappedBackFromIndexPath:(NSIndexPath*) path{
-    
-    [self.rightCollection cellForItemAtIndexPath:path].alpha = 1;
-    
-}
-
 
 
 #pragma mark - Collection view delegate and datasource implementations
