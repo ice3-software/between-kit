@@ -114,6 +114,8 @@
 
 -(UIView*) copyOfView:(UIView*) viewToCopy{
     
+    [viewToCopy setHidden:NO];
+    
     if([viewToCopy isKindOfClass:[UICollectionViewCell class]]){
 
         [(UICollectionViewCell*)viewToCopy setHighlighted:NO];
@@ -204,11 +206,13 @@
 
 -(void) checkViewIsTableOrCollection:(UIView*) view{
 
+    NSLog(@"View we're checking: %@", view);
+    
     if(![view isKindOfClass:[UITableView class]] &&
        ![view isKindOfClass:[UICollectionView class]]){
         
         [NSException raise:@"View is invalid type"
-                    format:@"View object passed must either be a table or collection view."];
+                    format:@"View object passed must either be a table or collection view. Its a %@", NSStringFromClass([view class])];
     }
 
 

@@ -87,8 +87,14 @@ Below are the test/example cases included in the project.
 - Dst table is rearrangeable
 - Dst table contains 1 undraggable, unrearrangeable placeholder cell
 - If a cell from the Dst table is dragged outside of the table is is removed
-- Src table dragging cells are duplicates
-- Dst table dragging cells are genuine (ie not duplicates)
+
+######Example Case 5 - I32ExchangeableCollectionViewsController######
+- 2 Collection Views
+- Src accepts cells from Dst
+- Dst accepts cells form Src
+- Src is rearrangeable
+- Dst is rearrangeable
+- Both collections contain 1 cell that is neither draggable nor rearrangeable
 
 
 Recent Changes
