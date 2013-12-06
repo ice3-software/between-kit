@@ -22,7 +22,7 @@ The helper has requires 2 view objects to be inejcted as the dragging targets:
 - The source view. This must be either a UITableView or a UICollectionView
 - The destination view. This, like the source, must either be a UITableView or a UICollectionView
 
-These are the views the which we will drag items between.
+These are the views which we will drag items between.
 
 The helper also requires a 'superview' UIView to be injected. This is the view that contains both of the dragging target views.
 The UIPanGestureRecognizer is attached to this view by the helper and this view's frame is where all panning events are listened for.
