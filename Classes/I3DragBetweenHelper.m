@@ -160,7 +160,7 @@
     
     /* Create another dummy view and animate the dummy views while the
         actual reloading takes place underneith */
-    
+
     UIView* cellDummy = [self copyOfView:exchange];
     [cellDummy removeFromSuperview];
     [self.superview addSubview:cellDummy];
@@ -448,11 +448,11 @@
         
         if(self.isDraggingFromSrcCollection && self.hideSrcDraggingCell){
             
-            [self showCellAtIndexPath:self.draggingIndexPath inContainer:self.srcView];
+            [self showCellAtIndexPath:dragginIndex inContainer:self.srcView];
         }
         else if(!self.isDraggingFromSrcCollection && self.hideDstDraggingCell){
 
-            [self showCellAtIndexPath:self.draggingIndexPath inContainer:self.dstView];
+            [self showCellAtIndexPath:dragginIndex inContainer:self.dstView];
         
         }
         
@@ -481,7 +481,7 @@
     };
     
     
-    [UIView animateWithDuration:0.125
+    [UIView animateWithDuration:0.15
                      animations:^{
                          dragginView.frame = previousGlobalRect;
                      }
