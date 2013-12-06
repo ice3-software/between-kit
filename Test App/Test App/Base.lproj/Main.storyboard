@@ -138,11 +138,12 @@
                         <segue destination="VrD-gS-yxb" kind="relationship" relationship="viewControllers" id="iQ0-6Y-Qrl"/>
                         <segue destination="hcc-og-Hvg" kind="relationship" relationship="viewControllers" id="9VW-tZ-bex"/>
                         <segue destination="nx2-cS-xnO" kind="relationship" relationship="viewControllers" id="XF8-Yd-RUB"/>
+                        <segue destination="tcR-sj-l24" kind="relationship" relationship="viewControllers" id="isu-CQ-cdg"/>
                     </connections>
                 </tabBarController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="HuB-VB-40B" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2023" y="718"/>
+            <point key="canvasLocation" x="2595" y="594"/>
         </scene>
         <!--Rearrangeable Exchangeable Tables View Controller - 2 Ex Re Tables-->
         <scene sceneID="HPn-iA-Xc8">
@@ -470,7 +471,7 @@
             </objects>
             <point key="canvasLocation" x="3166" y="-2050"/>
         </scene>
-        <!--Unrarranreable To Rearrangeable Collections View Controller - 2 Ex Collections-->
+        <!--Unrarranreable To Rearrangeable Collections View Controller - Col 2 Re Col-->
         <scene sceneID="cvb-w2-HaC">
             <objects>
                 <viewController id="nx2-cS-xnO" customClass="I3UnrarranreableToRearrangeableCollectionsViewController" sceneMemberID="viewController">
@@ -554,7 +555,7 @@
                             <constraint firstItem="a02-kk-5hq" firstAttribute="trailing" secondItem="AbL-gp-d4v" secondAttribute="trailing" id="yOj-Bl-5LA"/>
                         </constraints>
                     </view>
-                    <tabBarItem key="tabBarItem" title="2 Ex Collections" image="first" id="bfa-KP-ZHV"/>
+                    <tabBarItem key="tabBarItem" title="Col 2 Re Col" image="first" id="bfa-KP-ZHV"/>
                     <connections>
                         <outlet property="leftCollection" destination="iX2-Mk-bPT" id="JXV-56-uLa"/>
                         <outlet property="rightCollection" destination="WGk-ec-L8j" id="EAj-az-dNz"/>
@@ -563,6 +564,84 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="TEd-2b-k31" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="4210" y="-2450"/>
+        </scene>
+        <!--Collection To Rearrangeable Table View Controller - Paint Me!-->
+        <scene sceneID="ZMZ-Bq-DmC">
+            <objects>
+                <viewController id="tcR-sj-l24" customClass="I3CollectionToRearrangeableTableViewController" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="dGz-FM-nSC"/>
+                        <viewControllerLayoutGuide type="bottom" id="VNf-Wh-AX9"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="OQL-Nn-RE0">
+                        <rect key="frame" x="0.0" y="0.0" width="768" height="1024"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleToFill" misplaced="YES" text="" textAlignment="center" lineBreakMode="tailTruncation" minimumFontSize="10" translatesAutoresizingMaskIntoConstraints="NO" id="1iL-lK-FdW">
+                                <rect key="frame" x="20" y="250" width="728" height="42"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+                                <fontDescription key="fontDescription" name="Helvetica" family="Helvetica" pointSize="36"/>
+                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <toolbar opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="6bz-oa-jdt">
+                                <rect key="frame" x="0.0" y="0.0" width="768" height="44"/>
+                                <items/>
+                            </toolbar>
+                            <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" fixedFrame="YES" minimumZoomScale="0.0" maximumZoomScale="0.0" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="egF-tG-Tuq">
+                                <rect key="frame" x="0.0" y="44" width="781" height="512"/>
+                                <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                                <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="10" minimumInteritemSpacing="10" id="dXT-UV-ivZ">
+                                    <size key="itemSize" width="185" height="185"/>
+                                    <size key="headerReferenceSize" width="0.0" height="0.0"/>
+                                    <size key="footerReferenceSize" width="0.0" height="0.0"/>
+                                    <inset key="sectionInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
+                                </collectionViewFlowLayout>
+                                <cells>
+                                    <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" id="hbn-AE-bEd">
+                                        <rect key="frame" x="0.0" y="0.0" width="185" height="185"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
+                                            <rect key="frame" x="0.0" y="0.0" width="185" height="185"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                        </view>
+                                    </collectionViewCell>
+                                </cells>
+                                <connections>
+                                    <outlet property="dataSource" destination="tcR-sj-l24" id="2pV-A7-AT9"/>
+                                    <outlet property="delegate" destination="tcR-sj-l24" id="sxK-Mr-ZtX"/>
+                                </connections>
+                            </collectionView>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" translatesAutoresizingMaskIntoConstraints="NO" id="CBA-TY-yKJ">
+                                <rect key="frame" x="0.0" y="564" width="768" height="460"/>
+                                <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <connections>
+                                    <outlet property="dataSource" destination="tcR-sj-l24" id="59e-Za-a7D"/>
+                                    <outlet property="delegate" destination="tcR-sj-l24" id="1XQ-Rl-Jq1"/>
+                                </connections>
+                            </tableView>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="6bz-oa-jdt" firstAttribute="leading" secondItem="OQL-Nn-RE0" secondAttribute="leading" id="N4R-4M-xH9"/>
+                            <constraint firstItem="1iL-lK-FdW" firstAttribute="leading" secondItem="OQL-Nn-RE0" secondAttribute="leading" constant="20" symbolic="YES" id="PEd-x8-iLp"/>
+                            <constraint firstItem="1iL-lK-FdW" firstAttribute="top" secondItem="OQL-Nn-RE0" secondAttribute="top" constant="250" id="QCx-dZ-12k"/>
+                            <constraint firstItem="6bz-oa-jdt" firstAttribute="top" secondItem="OQL-Nn-RE0" secondAttribute="top" id="cev-EU-quH"/>
+                            <constraint firstAttribute="trailing" secondItem="1iL-lK-FdW" secondAttribute="trailing" constant="20" symbolic="YES" id="j9z-sE-h1l"/>
+                            <constraint firstItem="6bz-oa-jdt" firstAttribute="trailing" secondItem="OQL-Nn-RE0" secondAttribute="trailing" id="zVO-Xm-xQa"/>
+                        </constraints>
+                    </view>
+                    <tabBarItem key="tabBarItem" title="Paint Me!" image="first" id="WBK-lE-odP"/>
+                    <connections>
+                        <outlet property="leftCollection" destination="egF-tG-Tuq" id="J9C-0X-krb"/>
+                        <outlet property="rightTable" destination="CBA-TY-yKJ" id="6a0-q5-Ibj"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="K1B-NC-sVu" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="2376" y="3378"/>
         </scene>
     </scenes>
     <resources>

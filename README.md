@@ -112,6 +112,26 @@ Example Cases
 - Dst cells are hidden on drag
 - If a cell from the Dst collection is dragged outside of the view it is removed
 
+######Example Case 6 - I3CollectionToRearrangeableTableViewController - Paint Me!######
+
+This is the most complex example. The idea is that you can 'paint' the table cells with various colours, available from the collection view. By dragging the coloured collection view cells onto the table view cells you can apply the color to the table view.
+
+You can rearrange and play around with the table view to 'style' it.
+
+You can also 'clean' the table view cells by dragging them outside of the table, at which point they will snap back to being white.
+
+Configuration:
+
+- Src Collection view
+- Dst Table view
+- Src doesn't accept Dst
+- Dst accepts Src
+- Src is not rearrangeable
+- Dst is rearrangeable
+- Src cells aren't hidden on drag
+- Dst cells are hidden on drag
+- If a cell from the Dst collection is dragged outside of the view it is altered and then snapped back
+
 
 Recent Changes
 --------------
