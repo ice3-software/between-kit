@@ -168,6 +168,7 @@
     cellDummy.frame = [self.superview convertRect:exchange.frame fromView:container];
     
     UIView* oldDragginView = self.draggingView;
+    CGRect oldDragginViewPreviousRect = self.draggingViewPreviousRect;
     
     /* Remove and then readd to superview so it appears ontop */
     
@@ -177,7 +178,7 @@
     [UIView animateWithDuration:0.15 animations:^{
         
         oldDragginView.frame = cellDummy.frame;
-        cellDummy.frame = [self.superview convertRect:self.draggingViewPreviousRect fromView:container];
+        cellDummy.frame = [self.superview convertRect:oldDragginViewPreviousRect fromView:container];
         
     } completion:^(BOOL finished) {
         

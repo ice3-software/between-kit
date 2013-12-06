@@ -40,15 +40,17 @@ static NSString* DequeueReusableCell = @"DequeueReusableCell";
                           [UIColor yellowColor],
                           [UIColor orangeColor],
                           [UIColor purpleColor],
+                          [UIColor colorWithRed:0.3 green:0.25 blue:0.4 alpha:1], // Placeholder
                           ];
     
     NSArray* rightData = @[
                            [UIColor whiteColor],
-                           [UIColor grayColor],
-                           [UIColor darkGrayColor],
-                           [UIColor darkTextColor],
-                           [UIColor lightGrayColor],
                            [UIColor lightTextColor],
+                           [UIColor lightGrayColor],
+                           [UIColor grayColor],
+                           [UIColor darkTextColor],
+                           [UIColor darkGrayColor],
+                           [UIColor colorWithRed:0.3 green:0.25 blue:0.4 alpha:1], // Placeholder
                            ];
     
     self.leftData = [NSMutableOrderedSet orderedSetWithArray:leftData];
@@ -135,10 +137,17 @@ static NSString* DequeueReusableCell = @"DequeueReusableCell";
 -(void) droppedOnSrcAtIndexPath:(NSIndexPath*) to fromDstIndexPath:(NSIndexPath*) from{
     
     
+    
+    NSLog(@"Droppon on item %d", to.item);
+    NSLog(@"Dragged from item %d", from.item);
+
+    
     NSInteger fromIndex = (from.item);
     NSInteger toIndex = (to.item);
 
     UIColor* fromData = [self.rightData objectAtIndex:fromIndex];
+
+    NSLog(@"Data %@", fromData);
 
     /* Update the data and collections accordingly */
     
@@ -149,6 +158,35 @@ static NSString* DequeueReusableCell = @"DequeueReusableCell";
     [self.rightCollection deleteItemsAtIndexPaths:@[from]];
 
 }
+
+
+#pragma mark - Undraggable, unrearrangelble cell delegate methods
+
+
+-(BOOL) isCellAtIndexPathDraggable:(NSIndexPath*) index inContainer:(UIView*) container{
+    
+    if(container == self.leftCollection){
+    
+        return index.item != self.leftData.count - 1;
+    }
+    else{
+
+        return index.item != self.rightData.count - 1;
+    }
+}
+
+-(BOOL) isCellInDstAtIndexPathExchangable:(NSIndexPath*) to withCellAtIndexPath:(NSIndexPath*) from{
+    
+    return to.item != self.rightData.count - 1;
+
+}
+
+-(BOOL) isCellInSrcAtIndexPathExchangable:(NSIndexPath*) to withCellAtIndexPath:(NSIndexPath*) from{
+    
+    return to.item != self.leftData.count - 1;
+
+}
+
 
 
 #pragma mark - Collection view delegate and datasource implementations

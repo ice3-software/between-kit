@@ -101,7 +101,7 @@ Recent Changes
 --------------
 
 - The helper no longer uses the actual sub view for the dragging cell - now, instead it generates a dummy cell for dragging. Its left up to the user to 'hide' the cell whlist its being dragged in the appropriate delegate methods, see Example Case 1. This breaks anything using the previous version.
-- 'Hide' functionallity has been added back to the helper in the for of the hide[Dst | Src]DraggingCell properties. This sets the original cell's alpha value to 0.001 while dragging is taking place. We have re-introducted this concept because UICollectioView sometimes returned nil for cellForItemAtIndexPath in the helper's delegate, after the collection had been reordered. This resulted in a buggy 'sometimes hidden' collection cell whlist dragging.
+- 'Hide' functionallity has been added back to the helper in the form of the hide[Dst | Src]DraggingCell properties. This sets the original cell's alpha value to 0.001 while dragging is taking place. We have re-introducted this concept because UICollectioView sometimes returned nil for cellForItemAtIndexPath in the helper's delegate, after the collection had been reordered. This resulted in a buggy 'sometimes hidden' collection cell whlist dragging.
 
 
 Notes on App Store Approval
