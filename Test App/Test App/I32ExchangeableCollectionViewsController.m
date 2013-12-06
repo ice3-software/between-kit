@@ -91,6 +91,15 @@ static NSString* DequeueReusableCell = @"DequeueReusableCell";
 }
 
 
+
+/** As you can see, the delegate implementation is pretty similar to its implementation
+     for table views. The only difference being how we update the Collection Views (insertItemsAtIndexPaths,
+     etc).
+ 
+    The helper takes care of all the dragging animation and calculation and lets us 
+     focus on arranging the datasets at the appropriate times. */
+
+
 #pragma mark - Drag n drop exchange and rearrange delegate methods
 
 -(void) droppedOnDstAtIndexPath:(NSIndexPath*) to fromDstIndexPath:(NSIndexPath*) from{
@@ -118,10 +127,13 @@ static NSString* DequeueReusableCell = @"DequeueReusableCell";
 -(void) droppedOnDstAtIndexPath:(NSIndexPath*) to fromSrcIndexPath:(NSIndexPath*)from{
     
     
+    /* Grab the appropriate data */
+   
     NSInteger fromIndex = (from.item);
     NSInteger toIndex = (to.item);
     
     UIColor* fromData = [self.leftData objectAtIndex:fromIndex];
+    
     
     /* Update the data and collections accordingly */
     
@@ -136,18 +148,13 @@ static NSString* DequeueReusableCell = @"DequeueReusableCell";
 
 -(void) droppedOnSrcAtIndexPath:(NSIndexPath*) to fromDstIndexPath:(NSIndexPath*) from{
     
-    
-    
-    NSLog(@"Droppon on item %d", to.item);
-    NSLog(@"Dragged from item %d", from.item);
-
+    /* Grab the appropriate data */
     
     NSInteger fromIndex = (from.item);
     NSInteger toIndex = (to.item);
 
     UIColor* fromData = [self.rightData objectAtIndex:fromIndex];
 
-    NSLog(@"Data %@", fromData);
 
     /* Update the data and collections accordingly */
     
@@ -162,11 +169,12 @@ static NSString* DequeueReusableCell = @"DequeueReusableCell";
 
 #pragma mark - Undraggable, unrearrangelble cell delegate methods
 
-
 -(BOOL) isCellAtIndexPathDraggable:(NSIndexPath*) index inContainer:(UIView*) container{
     
+    /* Stop the last cell from dragging */
+
     if(container == self.leftCollection){
-    
+        
         return index.item != self.leftData.count - 1;
     }
     else{
@@ -177,12 +185,16 @@ static NSString* DequeueReusableCell = @"DequeueReusableCell";
 
 -(BOOL) isCellInDstAtIndexPathExchangable:(NSIndexPath*) to withCellAtIndexPath:(NSIndexPath*) from{
     
+    /* Stop the last cell from being exchangeable */
+
     return to.item != self.rightData.count - 1;
 
 }
 
 -(BOOL) isCellInSrcAtIndexPathExchangable:(NSIndexPath*) to withCellAtIndexPath:(NSIndexPath*) from{
     
+    /* Stop the last cell from being exchangeable */
+
     return to.item != self.leftData.count - 1;
 
 }
