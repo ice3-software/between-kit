@@ -10,6 +10,7 @@
 		46D94779184FF36D00CA6DC5 /* I32RearrangeableExchangeableTablesViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 46D94778184FF36D00CA6DC5 /* I32RearrangeableExchangeableTablesViewController.m */; };
 		46D9477C1850E77C00CA6DC5 /* I3UnrearrangebleTableToTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 46D9477B1850E77C00CA6DC5 /* I3UnrearrangebleTableToTableViewController.m */; };
 		46D9477F185143E900CA6DC5 /* I32ExchangeableCollectionViewsController.m in Sources */ = {isa = PBXBuildFile; fileRef = 46D9477E185143E900CA6DC5 /* I32ExchangeableCollectionViewsController.m */; };
+		46D94782185251C500CA6DC5 /* I3UnrarranreableToRearrangeableCollectionsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 46D94781185251C500CA6DC5 /* I3UnrarranreableToRearrangeableCollectionsViewController.m */; };
 		46EF0542184FCB8D00B597AB /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 46EF0541184FCB8D00B597AB /* Foundation.framework */; };
 		46EF0544184FCB8D00B597AB /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 46EF0543184FCB8D00B597AB /* CoreGraphics.framework */; };
 		46EF0546184FCB8D00B597AB /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 46EF0545184FCB8D00B597AB /* UIKit.framework */; };
@@ -45,6 +46,8 @@
 		46D9477B1850E77C00CA6DC5 /* I3UnrearrangebleTableToTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = I3UnrearrangebleTableToTableViewController.m; sourceTree = "<group>"; };
 		46D9477D185143E900CA6DC5 /* I32ExchangeableCollectionViewsController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = I32ExchangeableCollectionViewsController.h; sourceTree = "<group>"; };
 		46D9477E185143E900CA6DC5 /* I32ExchangeableCollectionViewsController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = I32ExchangeableCollectionViewsController.m; sourceTree = "<group>"; };
+		46D94780185251C500CA6DC5 /* I3UnrarranreableToRearrangeableCollectionsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = I3UnrarranreableToRearrangeableCollectionsViewController.h; sourceTree = "<group>"; };
+		46D94781185251C500CA6DC5 /* I3UnrarranreableToRearrangeableCollectionsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = I3UnrarranreableToRearrangeableCollectionsViewController.m; sourceTree = "<group>"; };
 		46EF053E184FCB8D00B597AB /* Test App.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Test App.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		46EF0541184FCB8D00B597AB /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		46EF0543184FCB8D00B597AB /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
@@ -107,6 +110,8 @@
 				46D9477B1850E77C00CA6DC5 /* I3UnrearrangebleTableToTableViewController.m */,
 				46D9477D185143E900CA6DC5 /* I32ExchangeableCollectionViewsController.h */,
 				46D9477E185143E900CA6DC5 /* I32ExchangeableCollectionViewsController.m */,
+				46D94780185251C500CA6DC5 /* I3UnrarranreableToRearrangeableCollectionsViewController.h */,
+				46D94781185251C500CA6DC5 /* I3UnrarranreableToRearrangeableCollectionsViewController.m */,
 			);
 			name = Controllers;
 			sourceTree = "<group>";
@@ -297,6 +302,7 @@
 				46EF055B184FCB8D00B597AB /* I32ExchangeableTableViewsController.m in Sources */,
 				46D9477C1850E77C00CA6DC5 /* I3UnrearrangebleTableToTableViewController.m in Sources */,
 				46D94779184FF36D00CA6DC5 /* I32RearrangeableExchangeableTablesViewController.m in Sources */,
+				46D94782185251C500CA6DC5 /* I3UnrarranreableToRearrangeableCollectionsViewController.m in Sources */,
 				46EF0558184FCB8D00B597AB /* I32RearrangeableTablesViewController.m in Sources */,
 				46EF057C184FCF0400B597AB /* I3DragBetweenHelper.m in Sources */,
 			);

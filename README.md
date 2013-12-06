@@ -41,7 +41,7 @@ Now we have a helper configured to act on the appropriate view objects, but it d
 
 	helper.delegate = self; // The UIViewController must implement the I3DragBetweenDelegate protocol
 
-See the various example cases for how to actually implement I3DragBetweenDelegate methods and further configure the helper to do cool things.
+See the various Example Cases for how to actually implement I3DragBetweenDelegate methods and further configure the helper to do cool things.
 
 
 
@@ -52,7 +52,12 @@ At the moment, this helper is not yet stable - use it at your own risk.
 
 Its been tested on iOS 6 and iOS 7 iPads for dragging between a UITableView and a UICollectionView.
 
-Below are the test/example cases included in the project.
+See Example Cases for the included scenarios that the helper has been tested against.
+
+
+
+Example Cases
+-------------
 
 ######Example Case 1 - I32RearrangeableTablesViewController######
 - 2 Table Views
@@ -86,7 +91,7 @@ Below are the test/example cases included in the project.
 - Src table is not rearrangeable
 - Dst table is rearrangeable
 - Dst table contains 1 undraggable, unrearrangeable placeholder cell
-- If a cell from the Dst table is dragged outside of the table is is removed
+- If a cell from the Dst table is dragged outside of the table it is removed
 
 ######Example Case 5 - I32ExchangeableCollectionViewsController######
 - 2 Collection Views
@@ -95,6 +100,17 @@ Below are the test/example cases included in the project.
 - Src is rearrangeable
 - Dst is rearrangeable
 - Both collections contain 1 cell that is neither draggable nor rearrangeable
+
+######Example Case 6 - I3UnrarranreableToRearrangeableCollectionsViewController######
+- 2 Collection Views
+- Src doesn't accept Dst
+- Dst accepts Src
+- Src is not rearrangeable
+- Dst is rearrangeable
+- Dst contains 1 undraggable, unrearrangeable placeholder cell
+- Src cells aren't hidden on drag
+- Dst cells are hidden on drag
+- If a cell from the Dst collection is dragged outside of the view it is removed
 
 
 Recent Changes

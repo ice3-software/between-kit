@@ -1,16 +1,16 @@
 //
-//  I32ExchangeableCollectionViewsController.m
+//  I3UnrarranreableToRearrangeableCollectionsViewController.m
 //  Test App
 //
-//  Created by Stephen Fortune on 05/12/2013.
+//  Created by Stephen Fortune on 06/12/2013.
 //  Copyright (c) 2013 IceCube Software Ltd. All rights reserved.
 //
 
-#import "I32ExchangeableCollectionViewsController.h"
+#import "I3UnrarranreableToRearrangeableCollectionsViewController.h"
 
 static NSString* DequeueReusableCell = @"DequeueReusableCell";
 
-@interface I32ExchangeableCollectionViewsController ()
+@interface I3UnrarranreableToRearrangeableCollectionsViewController ()
 
 /** The one and only drag helper! */
 
@@ -22,9 +22,12 @@ static NSString* DequeueReusableCell = @"DequeueReusableCell";
 
 @property (nonatomic, strong) NSMutableOrderedSet* rightData;
 
+-(void) alertDuplicate;
+
 @end
 
-@implementation I32ExchangeableCollectionViewsController
+
+@implementation I3UnrarranreableToRearrangeableCollectionsViewController
 
 -(void) viewDidLoad{
     
@@ -41,16 +44,13 @@ static NSString* DequeueReusableCell = @"DequeueReusableCell";
                           [UIColor yellowColor],
                           [UIColor orangeColor],
                           [UIColor purpleColor],
-                          [UIColor colorWithRed:0.3 green:0.25 blue:0.4 alpha:1], // Placeholder
+                          [UIColor whiteColor],
+                          [UIColor lightGrayColor],
+                          [UIColor grayColor],
+                          [UIColor darkGrayColor],
                           ];
     
     NSArray* rightData = @[
-                           [UIColor whiteColor],
-                           [UIColor lightTextColor],
-                           [UIColor lightGrayColor],
-                           [UIColor grayColor],
-                           [UIColor darkTextColor],
-                           [UIColor darkGrayColor],
                            [UIColor colorWithRed:0.3 green:0.25 blue:0.4 alpha:1], // Placeholder
                            ];
     
@@ -65,22 +65,23 @@ static NSString* DequeueReusableCell = @"DequeueReusableCell";
     
     /* Configure the helper */
     
-    self.helper = [[I3DragBetweenHelper alloc] initWithSuperview:self.view // The UIView we're draggin around in
-                                                         srcView:self.leftCollection // The Src
-                                                         dstView:self.rightCollection]; // The Dst
+    self.helper = [[I3DragBetweenHelper alloc] initWithSuperview:self.view
+                                                         srcView:self.leftCollection
+                                                         dstView:self.rightCollection];
     
     self.helper.delegate = self;
     
     
     
-    /* Both rearrangeable, exchangeable and hide the cells whilst dragging */
+    /* The source is not rearrangeable or exchangeable with the dest */
     
+    self.helper.isSrcRearrangeable = NO;
+    self.helper.doesSrcRecieveDst = NO;
+    self.helper.hideSrcDraggingCell = NO;
+
     self.helper.isDstRearrangeable = YES;
-    self.helper.isSrcRearrangeable = YES;
-    self.helper.doesSrcRecieveDst = YES;
     self.helper.doesDstRecieveSrc = YES;
     self.helper.hideDstDraggingCell = YES;
-    self.helper.hideSrcDraggingCell = YES;
     
     
 }
@@ -93,43 +94,24 @@ static NSString* DequeueReusableCell = @"DequeueReusableCell";
 
 
 
-/** As you can see, the delegate implementation is pretty similar to its implementation
-     for table views. The only difference being how we update the Collection Views (insertItemsAtIndexPaths,
-     etc).
- 
-    The helper takes care of all the dragging animation and calculation and lets us 
-     focus on arranging the datasets at the appropriate times. */
-
-
 #pragma mark - Drag n drop exchange and rearrange delegate methods
 
 -(void) droppedOnDstAtIndexPath:(NSIndexPath*) to fromDstIndexPath:(NSIndexPath*) from{
     
     [self.rightCollection cellForItemAtIndexPath:from].alpha = 1;
-
+    
     NSInteger fromIndex = (from.item);
     NSInteger toIndex = (to.item);
     
     [self.rightData exchangeObjectAtIndex:toIndex withObjectAtIndex:fromIndex];
-
-}
-
--(void) droppedOnSrcAtIndexPath:(NSIndexPath*) to fromSrcIndexPath:(NSIndexPath*) from{
     
-    [self.leftCollection cellForItemAtIndexPath:from].alpha = 1;
-
-    NSInteger fromIndex = (from.item);
-    NSInteger toIndex = (to.item);
-
-    [self.leftData exchangeObjectAtIndex:toIndex withObjectAtIndex:fromIndex];
-
 }
 
 -(void) droppedOnDstAtIndexPath:(NSIndexPath*) to fromSrcIndexPath:(NSIndexPath*)from{
     
     
     /* Grab the appropriate data */
-   
+    
     NSInteger fromIndex = (from.item);
     NSInteger toIndex = (to.item);
     
@@ -138,33 +120,17 @@ static NSString* DequeueReusableCell = @"DequeueReusableCell";
     
     /* Update the data and collections accordingly */
     
-    [self.rightData insertObject:fromData atIndex:toIndex];
-    [self.leftData removeObjectAtIndex:fromIndex];
+    if(![self.rightData containsObject:fromData]){
     
-    [self.rightCollection insertItemsAtIndexPaths:@[to]];
-    [self.leftCollection deleteItemsAtIndexPaths:@[from]];
-    
-    
-}
+        [self.rightData insertObject:fromData atIndex:toIndex];
+        [self.rightCollection insertItemsAtIndexPaths:@[to]];
 
--(void) droppedOnSrcAtIndexPath:(NSIndexPath*) to fromDstIndexPath:(NSIndexPath*) from{
+    }
+    else{
     
-    /* Grab the appropriate data */
+        [self alertDuplicate];
+    }
     
-    NSInteger fromIndex = (from.item);
-    NSInteger toIndex = (to.item);
-
-    UIColor* fromData = [self.rightData objectAtIndex:fromIndex];
-
-
-    /* Update the data and collections accordingly */
-    
-    [self.leftData insertObject:fromData atIndex:toIndex];
-    [self.rightData removeObjectAtIndex:fromIndex];
-    
-    [self.leftCollection insertItemsAtIndexPaths:@[to]];
-    [self.rightCollection deleteItemsAtIndexPaths:@[from]];
-
 }
 
 
@@ -172,33 +138,46 @@ static NSString* DequeueReusableCell = @"DequeueReusableCell";
 
 -(BOOL) isCellAtIndexPathDraggable:(NSIndexPath*) index inContainer:(UIView*) container{
     
-    /* Stop the last cell from dragging */
-
-    if(container == self.leftCollection){
+    if(container == self.rightCollection){
         
-        return index.item != self.leftData.count - 1;
-    }
-    else{
+        /* Stop the last cell from dragging */
 
         return index.item != self.rightData.count - 1;
+
     }
+    
+    return YES;
 }
 
 -(BOOL) isCellInDstAtIndexPathExchangable:(NSIndexPath*) to withCellAtIndexPath:(NSIndexPath*) from{
     
     /* Stop the last cell from being exchangeable */
-
-    return to.item != self.rightData.count - 1;
-
-}
-
--(BOOL) isCellInSrcAtIndexPathExchangable:(NSIndexPath*) to withCellAtIndexPath:(NSIndexPath*) from{
     
-    /* Stop the last cell from being exchangeable */
-
-    return to.item != self.leftData.count - 1;
-
+    return to.item != self.rightData.count - 1;
+    
 }
+
+
+#pragma mark - Delete dropping outside the Dst's bounds
+
+-(BOOL) droppedOutsideAtPoint:(CGPoint) pointIn fromDstIndexPath:(NSIndexPath*) from{
+    
+    /* Returning NO triggers the shrink */
+    
+    return NO;
+}
+
+-(void) itemFromDstDeletedAtIndexPath:(NSIndexPath*) path{
+    
+    /* The deletion animation from the helper is finished so update the data accordingly */
+    
+    NSInteger fromIndex = [path row];
+    [self.rightData removeObjectAtIndex:fromIndex];
+    [self.rightCollection deleteItemsAtIndexPaths:@[path]];
+    
+}
+
+
 
 
 
@@ -206,35 +185,56 @@ static NSString* DequeueReusableCell = @"DequeueReusableCell";
 
 
 -(NSInteger) collectionView:(UICollectionView*) collectionView numberOfItemsInSection:(NSInteger) section{
-
+    
     
     if(collectionView == self.leftCollection){
         
         return self.leftData.count;
     }
     else{
-
+        
         return self.rightData.count;
     }
     
 }
 
 -(UICollectionViewCell*) collectionView:(UICollectionView*) collectionView cellForItemAtIndexPath:(NSIndexPath*) indexPath{
-
+    
     UICollectionViewCell* cell = [collectionView dequeueReusableCellWithReuseIdentifier:DequeueReusableCell
                                                                            forIndexPath:indexPath];
     if(collectionView == self.leftCollection){
-    
+        
         cell.backgroundColor = [self.leftData objectAtIndex:indexPath.item];
         
     }
     else{
-    
+        
         cell.backgroundColor = [self.rightData objectAtIndex:indexPath.item];
-
+        
     }
     
     return cell;
 }
+
+
+#pragma mark - Alert dialog
+
+-(void) alertDuplicate{
+    
+    static UIAlertView* alert = nil;
+    
+    if(!alert){
+        
+        // TODO: Move the message to a config/txt file
+        
+        alert = [[UIAlertView alloc] initWithTitle:@"Duplicate!"
+                                           message:@"The data you dragged from the source table (left) to the destination table (right) is already in there. NSOrederedSet doesn't allow duplicate objects"
+                                          delegate:nil
+                                 cancelButtonTitle:@"Ok" otherButtonTitles:nil];
+    }
+    
+    [alert show];
+}
+
 
 @end
