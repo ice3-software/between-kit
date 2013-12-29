@@ -46,17 +46,14 @@ See the various Example Cases for how to actually implement I3DragBetweenDelegat
 
 
 Stability
-----------
+---------
 
-This class is constantly being changed and updated as its being used and refined in a separate project - use it at your own risk.
+I'm happy to say that this class has now been used as part of an App Store approved project named [Rainbit](https://itunes.apple.com/WebObjects/MZStore.woa/wa/viewSoftware?id=783210954&mt=8), inspired by Example Case 7 (see below). This means that its officially stable!
 
 Its been tested on iOS 6 and iOS 7 iPads for dragging between a UITableView and a UICollectionView.
+It has not been tested on iPhones but I'm fairly confident that there shouldn't be any issues.
 
-
-*See notes on App Store Approval.
-
-*See Example Cases for the included scenarios that the helper has been tested against.
-
+See Example Cases for the included scenarios that the helper has been tested against.
 
 
 Example Cases
@@ -115,7 +112,7 @@ Example Cases
 - Dst cells are hidden on drag
 - If a cell from the Dst collection is dragged outside of the view it is removed
 
-######Example Case 6 - I3CollectionToRearrangeableTableViewController - Paint Me!######
+######Example Case 7 - I3CollectionToRearrangeableTableViewController - Paint Me!######
 
 This is the most complex example. The idea is that you can 'paint' the table cells with various colours, available from the collection view. By dragging the coloured collection view cells onto the table view cells you can apply the colour to the table view.
 
@@ -136,18 +133,15 @@ Configuration:
 - If a cell from the Dst collection is dragged outside of the view it is altered and then snapped back
 
 
+######Production Case 1 - [Rainbit](https://itunes.apple.com/WebObjects/MZStore.woa/wa/viewSoftware?id=783210954&mt=8)######
+
+Example Case 7 above recently inspired an [App Store approved project named Rainbit](https://itunes.apple.com/WebObjects/MZStore.woa/wa/viewSoftware?id=783210954&mt=8), do check it out for a production-standard example of what this helper can do.
+
+
+
 Recent Changes
 --------------
 
 - The helper no longer uses the actual sub view for the dragging cell - now, instead it generates a dummy cell for dragging. Its left up to the user to 'hide' the cell whilst its being dragged in the appropriate delegate methods, see Example Case 1. This breaks anything using the previous version.
 - 'Hide' functionality has been added back to the helper in the form of the hide[Dst | Src]DraggingCell properties. This sets the original cell's alpha value to 0.001 while dragging is taking place. We have re-introducted this concept because UICollectionView sometimes returned nil for cellForItemAtIndexPath in the helper's delegate, after the collection had been reordered. This resulted in a buggy 'sometimes hidden' collection cell whilst dragging.
 
-
-Notes on App Store Approval
----------------------------
-
-At the moment this is being used in an in-house app.
-
-I haven't used this helper in an App Store approved project yet - the rearranging functionality is already built into UITableView/UICollectionView s in the form of 'Edit mode', and I have no idea how Apple will respond to this ad-hoc approach to rearranging table/collection views. It might _just_ be a cause for rejection, but who knows.. You can always turn off the helper-provided rearranging functionality and use Edit Mode instead.
-
-Just something to bear in mind.
