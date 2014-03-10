@@ -658,7 +658,7 @@
         
         if([self.delegate respondsToSelector:@selector(dragFromSrcStartedAtIndexPath:)]){
             
-            NSIndexPath* path = [self determineIndexForContainer:self.dstView atPoint:point forCell:nil];
+            NSIndexPath* path = [self determineIndexForContainer:self.srcView atPoint:point forCell:nil];
             [self.delegate dragFromSrcStartedAtIndexPath:path];
         }
 
