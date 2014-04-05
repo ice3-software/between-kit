@@ -8,6 +8,18 @@
 
 #import "I3DragBetweenHelper.h"
 
+/** Defines a enviroment-specific logging macro */
+
+#ifndef DND_LOG
+    #ifdef DEBUG
+        #define DND_LOG(...) NSLog(...)
+    #else
+        #define DND_LOG(...)
+    #endif
+#endif
+
+
+
 @interface I3DragBetweenHelper()
 
 /* Redeclaration of 'private' properties */
