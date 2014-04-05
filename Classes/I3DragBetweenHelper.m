@@ -14,7 +14,7 @@
     #ifdef DEBUG
         #define DND_LOG(s, ...) NSLog(s, ##__VA_ARGS__)
     #else
-        #define DND_LOG(s, ...)
+        #define DND_LOG(s, ...) {}
         #warning "DND_LOG supressed."
     #endif
 #endif
