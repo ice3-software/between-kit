@@ -10,6 +10,8 @@ Schedule
 --------
 
 - Saturday 6th of April: 
-	- Review Craig's PR
-	- Investigate/fix oustanding bugs
-	- Start on additional features
+	- Review Craig's PR _DONE_
+	- Investigate/fix oustanding bugs _IN PROGRESS_
+	- Start on additional features _IN PROGRESS_
+	
+- Sunday 13th of April
