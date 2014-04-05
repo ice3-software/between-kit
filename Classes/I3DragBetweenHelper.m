@@ -12,9 +12,10 @@
 
 #ifndef DND_LOG
     #ifdef DEBUG
-        #define DND_LOG(...) NSLog(...)
+        #define DND_LOG(s, ...) NSLog(s, ##__VA_ARGS__)
     #else
-        #define DND_LOG(...)
+        #define DND_LOG(s, ...)
+        #warning "DND_LOG supressed."
     #endif
 #endif
 
@@ -237,7 +238,7 @@
 
 -(void) checkViewIsTableOrCollection:(UIView*) view{
 
-    NSLog(@"View we're checking: %@", view);
+    DND_LOG(@"View we're checking: %@", view);
     
     if(![view isKindOfClass:[UITableView class]] &&
        ![view isKindOfClass:[UICollectionView class]]){
@@ -287,20 +288,20 @@
 
     if(index == nil){
     
-        NSLog(@"Invalid Cell.");
+        DND_LOG(@"Invalid Cell.");
 
         return NO;
     }
     
     BOOL isDraggable = YES;
     
-    NSLog(@"Dragging at item:%d section:%d", [index item], [index section]);
+    DND_LOG(@"Dragging at item:%d section:%d", [index item], [index section]);
 
     /* Check in the delegate whether its draggable */
     
     if(self.delegate && [self.delegate respondsToSelector:@selector(isCellAtIndexPathDraggable:inContainer:)]){
         
-        NSLog(@"Draggable %@ from delegate? %@", container, [self.delegate isCellAtIndexPathDraggable:index inContainer:container] ? @"YES" : @"NO");
+        DND_LOG(@"Draggable %@ from delegate? %@", container, [self.delegate isCellAtIndexPathDraggable:index inContainer:container] ? @"YES" : @"NO");
         
         isDraggable = isDraggable && [self.delegate isCellAtIndexPathDraggable:index inContainer:container];
     }
@@ -308,7 +309,7 @@
     
     if(!isDraggable){
         
-        NSLog(@"Cell not draggable");
+        DND_LOG(@"Cell not draggable");
         
         return NO;
     }
@@ -366,7 +367,7 @@
     
     [self.draggingView setHidden:NO];
     
-    NSLog(@"Adding dragging data: %d, draggingView %@", [index row], self.draggingView);
+    DND_LOG(@"Adding dragging data: %d, draggingView %@", [index row], self.draggingView);
     
     return YES;
 
@@ -405,21 +406,21 @@
         
         if(isSrc && [self.delegate respondsToSelector:@selector(itemFromSrcDeletedAtIndexPath:)]){
             
-            NSLog(@"Deletion handler for Src triggered");
+            DND_LOG(@"Deletion handler for Src triggered");
             
             [self.delegate performSelector:@selector(itemFromSrcDeletedAtIndexPath:)
                                 withObject:self.draggingIndexPath];
         }
         else if(!isSrc && [self.delegate respondsToSelector:@selector(itemFromDstDeletedAtIndexPath:)]){
             
-            NSLog(@"Deletion handler for Dst triggered");
+            DND_LOG(@"Deletion handler for Dst triggered");
 
             [self.delegate performSelector:@selector(itemFromDstDeletedAtIndexPath:)
                                 withObject:self.draggingIndexPath];
             
         }
         else{
-            NSLog(@"Deletion occured but no item deletion handler was present.");
+            DND_LOG(@"Deletion occured but no item deletion handler was present.");
         }
         
         /* Remove the dummy view from the superview. */
@@ -453,7 +454,7 @@
 
     void (^completion)(BOOL finished) = ^(BOOL finished){
         
-        NSLog(@"Animation complete!");
+        DND_LOG(@"Animation complete!");
         
         
         /* Reshow the actual cell if it was set to hide */
@@ -513,14 +514,14 @@
             
         case UIGestureRecognizerStateBegan:
             
-            NSLog(@"Drag Started");
+            DND_LOG(@"Drag Started");
 
             [self handleDragStarted:gestureRecognizer];
             break;
             
         case UIGestureRecognizerStateChanged:
 
-            //NSLog(@"Dragging");
+            //DND_LOG(@"Dragging");
             
             [self handleDrag:gestureRecognizer];
             break;
@@ -529,7 +530,7 @@
         case UIGestureRecognizerStateCancelled:
         case UIGestureRecognizerStateFailed:
             
-            NSLog(@"Drag Stopped");
+            DND_LOG(@"Drag Stopped");
             
             [self handleDragStopped:gestureRecognizer];
             break;
@@ -569,7 +570,7 @@
 -(void) handleDragStopped:(UIPanGestureRecognizer*) gestureRecognizer{
  
     if(!self.isDragging){
-        NSLog(@"Invalid drag stopped.");
+        DND_LOG(@"Invalid drag stopped.");
         return;
     }
     
@@ -582,7 +583,7 @@
     if(self.isDraggingFromSrcCollection
        && [self.srcView pointInside:positionInSrc withEvent:nil]){
         
-        NSLog(@"Dragging from source to source.");
+        DND_LOG(@"Dragging from source to source.");
         
         /* Dragged from the source to the source */
         
@@ -591,7 +592,7 @@
     else if(self.isDraggingFromSrcCollection
             && [self.dstView pointInside:positionInDst withEvent:nil]){
         
-        NSLog(@"Dragging from source to destination.");
+        DND_LOG(@"Dragging from source to destination.");
 
         /* Dragged from the source to the destination */
         
@@ -600,7 +601,7 @@
     }
     else if(self.isDraggingFromSrcCollection){
         
-        NSLog(@"Dragging from source to nowhere.");
+        DND_LOG(@"Dragging from source to nowhere.");
 
         /* Dragged from the source to nowhere */
         
@@ -610,7 +611,7 @@
     else if(!self.isDraggingFromSrcCollection
             && [self.srcView pointInside:positionInSrc withEvent:nil]){
         
-        NSLog(@"Dragging from destination to source.");
+        DND_LOG(@"Dragging from destination to source.");
 
         /* Dragged from the destination to the source */
         
@@ -619,7 +620,7 @@
     else if(!self.isDraggingFromSrcCollection
             && [self.dstView pointInside:positionInDst withEvent:nil]){
         
-        NSLog(@"Dragging from destination to destination.");
+        DND_LOG(@"Dragging from destination to destination.");
 
         /* Dragged from the destination to the destination */
         
@@ -628,7 +629,7 @@
     }
     else if(!self.isDraggingFromSrcCollection){
         
-        NSLog(@"Dragging from destination to nowhere.");
+        DND_LOG(@"Dragging from destination to nowhere.");
 
         /* Dragged from the destination to nowhere */
         
@@ -645,7 +646,7 @@
         
         /* Catch erronious dragging gestures */
         
-        NSLog(@"Handle drag but we're not dragging.");
+        DND_LOG(@"Handle drag but we're not dragging.");
         return;
     }
     
@@ -719,7 +720,7 @@
         
         if(index == nil){
             
-            NSLog(@"Invalid Cell");
+            DND_LOG(@"Invalid Cell");
             
             [self snapDraggingViewBack];
             
@@ -736,7 +737,7 @@
         
         if(!isExchangable){
             
-            NSLog(@"Cell not Exchangable.");
+            DND_LOG(@"Cell not Exchangable.");
             
             [self snapDraggingViewBack];
 
@@ -744,7 +745,7 @@
         }
         
         
-        NSLog(@"Cell row: %d", [index row]);
+        DND_LOG(@"Cell row: %d", [index row]);
         
         
         /* Catch dropping on the same cell - this causes an an inconistency exception
@@ -753,7 +754,7 @@
         if(([index row] == [self.draggingIndexPath row] &&
             [index section] == [self.draggingIndexPath section])){
             
-            NSLog(@"Invaliditiy caught, index: %@", index);
+            DND_LOG(@"Invaliditiy caught, index: %@", index);
 
             [self snapDraggingViewBack];
 
@@ -921,7 +922,7 @@
     if(self.isDstRearrangeable
        && self.draggingView){
         
-        NSLog(@"Rearrangeing dst");
+        DND_LOG(@"Rearrangeing dst");
         
         /* Rearrange source collection/table */
         
@@ -933,7 +934,7 @@
         
         if(index == nil){
         
-            NSLog(@"Invalid cell");
+            DND_LOG(@"Invalid cell");
             
             [self snapDraggingViewBack];
 
@@ -952,7 +953,7 @@
         
         if(!isExchangable){
             
-            NSLog(@"Not Exchangable");
+            DND_LOG(@"Not Exchangable");
             
             [self snapDraggingViewBack];
             
@@ -960,7 +961,7 @@
         }
         
         
-        NSLog(@"Cell row: %d", [index row]);
+        DND_LOG(@"Cell row: %d", [index row]);
 
         /* Catch dropping on the same cell - this causes an an inconistency exception
             if not caught. */
@@ -968,7 +969,7 @@
         if(([index row] == [self.draggingIndexPath row] &&
             [index section] == [self.draggingIndexPath section])){
             
-            NSLog(@"Invaliditiy caught, index: %@", index);
+            DND_LOG(@"Invaliditiy caught, index: %@", index);
             
             [self snapDraggingViewBack];
             
