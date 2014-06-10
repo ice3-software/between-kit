@@ -10,6 +10,15 @@ Schedule
 --------
 
 - Saturday 6th of April: 
-	- Review Craig's PR
-	- Investigate/fix oustanding bugs
-	- Start on additional features
+	- Review Craig's PR _DONE_
+	- Investigate/fix oustanding bugs _IN PROGRESS_
+	- Start on additional features _IN PROGRESS_
+	
+- Sunday 13th of April
+
+- Sunday 15th of June
+	- Finish automated functional test coverage
+	- Address #23
+	- Address #15
+	- Investigate #11
+	- Start refactoring to cater for #22 and #8
