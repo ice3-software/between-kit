@@ -16,9 +16,11 @@ Schedule
 	
 - Sunday 13th of April
 
-- Sunday 15th of June
+- Sunday 15th of June __POSTPONED__
 	- Finish automated functional test coverage
 	- Address #23
 	- Address #15
 	- Investigate #11
 	- Start refactoring to cater for #22 and #8
+	
+I've had to postpone working on this today (Sunday 15th) due to workload. Will re-schedule shortly.
