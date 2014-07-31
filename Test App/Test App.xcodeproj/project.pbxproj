@@ -27,7 +27,7 @@
 		46EF0566184FCB8D00B597AB /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 46EF0545184FCB8D00B597AB /* UIKit.framework */; };
 		46EF056E184FCB8D00B597AB /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 46EF056C184FCB8D00B597AB /* InfoPlist.strings */; };
 		46EF0570184FCB8D00B597AB /* Test_AppTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 46EF056F184FCB8D00B597AB /* Test_AppTests.m */; };
-		46EF057C184FCF0400B597AB /* I3DragBetweenHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = 46EF057B184FCF0400B597AB /* I3DragBetweenHelper.m */; };
+		46F1241C198ABDFE005E0CFC /* I3DragBetweenHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = 46F1241B198ABDFE005E0CFC /* I3DragBetweenHelper.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -72,8 +72,8 @@
 		46EF056B184FCB8D00B597AB /* Test AppTests-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "Test AppTests-Info.plist"; sourceTree = "<group>"; };
 		46EF056D184FCB8D00B597AB /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		46EF056F184FCB8D00B597AB /* Test_AppTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = Test_AppTests.m; sourceTree = "<group>"; };
-		46EF057A184FCF0400B597AB /* I3DragBetweenHelper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = I3DragBetweenHelper.h; path = ../../Classes/I3DragBetweenHelper.h; sourceTree = "<group>"; };
-		46EF057B184FCF0400B597AB /* I3DragBetweenHelper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = I3DragBetweenHelper.m; path = ../../Classes/I3DragBetweenHelper.m; sourceTree = "<group>"; };
+		46F1241A198ABDFE005E0CFC /* I3DragBetweenHelper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = I3DragBetweenHelper.h; path = ../../Pod/Classes/I3DragBetweenHelper.h; sourceTree = "<group>"; };
+		46F1241B198ABDFE005E0CFC /* I3DragBetweenHelper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = I3DragBetweenHelper.m; path = ../../Pod/Classes/I3DragBetweenHelper.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -197,8 +197,8 @@
 		46EF0579184FCEF000B597AB /* Helper */ = {
 			isa = PBXGroup;
 			children = (
-				46EF057A184FCF0400B597AB /* I3DragBetweenHelper.h */,
-				46EF057B184FCF0400B597AB /* I3DragBetweenHelper.m */,
+				46F1241A198ABDFE005E0CFC /* I3DragBetweenHelper.h */,
+				46F1241B198ABDFE005E0CFC /* I3DragBetweenHelper.m */,
 			);
 			name = Helper;
 			sourceTree = "<group>";
@@ -305,12 +305,12 @@
 				46EF0552184FCB8D00B597AB /* I3AppDelegate.m in Sources */,
 				46EF054E184FCB8D00B597AB /* main.m in Sources */,
 				46EF055B184FCB8D00B597AB /* I32ExchangeableTableViewsController.m in Sources */,
+				46F1241C198ABDFE005E0CFC /* I3DragBetweenHelper.m in Sources */,
 				46D947851852573900CA6DC5 /* I3CollectionToRearrangeableTableViewController.m in Sources */,
 				46D9477C1850E77C00CA6DC5 /* I3UnrearrangebleTableToTableViewController.m in Sources */,
 				46D94779184FF36D00CA6DC5 /* I32RearrangeableExchangeableTablesViewController.m in Sources */,
 				46D94782185251C500CA6DC5 /* I3UnrarranreableToRearrangeableCollectionsViewController.m in Sources */,
 				46EF0558184FCB8D00B597AB /* I32RearrangeableTablesViewController.m in Sources */,
-				46EF057C184FCF0400B597AB /* I3DragBetweenHelper.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
