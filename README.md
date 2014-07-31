@@ -7,7 +7,7 @@ Objective-C helper class(es) for the iOS platform that handle drag and drop logi
 Installation
 ------------
 
-To use this in your project, copy the I3DragBetweenHelper class into your project directory - there is no Podspec (at the moment).
+To use this in your project, either install as a [private pod](http://guides.cocoapods.org/making/private-cocoapods.html) or copy the I3DragBetweenHelper class into your project directory.
 
 This repo also contains and example project called 'Test App' where you can see the helper class in action.
 
