@@ -37,10 +37,15 @@
 
 /**
  
- A collection of `I3Draggable` instances that drag/dropping will occure between.
+ A mutable ordered set of `I3Draggable` instances that drag/dropping will occur
+ between.
+ 
+ @note The order of the draggables in this set will determine their 'priority', i.e. 
+       if n collections are overlapping, the one highest in the set will recieve drag
+       / drop events and the lowers incepting collections will be ignored.
  
  */
-@property (nonatomic, strong) NSMutableArray *collections;
+@property (nonatomic, strong) NSMutableOrderedSet *collections;
 
 
 /**

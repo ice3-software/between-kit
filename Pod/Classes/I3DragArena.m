@@ -19,7 +19,9 @@
     if(self){
         
         self.superview = superview;
-        self.collections = [[NSMutableArray alloc] initWithArray:collections];
+        
+        self.collections = [[NSMutableOrderedSet alloc] initWithCapacity:collection.length];
+        [self.collections addObjectsFromArray:collections];
         
     }
 
