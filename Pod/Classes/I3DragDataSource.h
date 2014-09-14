@@ -1,15 +1,13 @@
 //
 //  I3DragDataSource.h
-//  I3DragNDrop
+//  BetweenKit
 //
 //  Created by Stephen Fortune on 14/09/2014.
 //  Copyright (c) 2013 IceCube Software Ltd. All rights reserved.
 //
 
 #import <Foundation/Foundation.h>
-
-
-@class I3Collection;
+#import "I3Collection.h"
 
 
 /**

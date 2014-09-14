@@ -1,16 +1,13 @@
 //
 //  I3Collection.h
-//  I3DragNDrop
+//  BetweenKit
 //
 //  Created by Stephen Fortune on 14/09/2014.
 //  Copyright (c) 2013 IceCube Software Ltd. All rights reserved.
 //
 
 #import <Foundation/Foundation.h>
-#import <UIKit/UIKit.h>
-
-
-@class I3DragDataSource
+#import "I3DragDataSource.h"
 
 
 /**
@@ -57,7 +54,7 @@
  implementation.
  
  */
-@property (nonatomic, weak) id<I3DragDataSource> dragDataSource;
+@property (nonatomic, weak) id <I3DragDataSource> dragDataSource;
 
 
 /**

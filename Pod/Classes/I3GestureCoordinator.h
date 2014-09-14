@@ -1,6 +1,6 @@
 //
-//  I3Collection.h
-//  I3DragNDrop
+//  I3GestureCoordinator.h
+//  BetweenKit
 //
 //  Created by Stephen Fortune on 14/09/2014.
 //  Copyright (c) 2013 IceCube Software Ltd. All rights reserved.
@@ -25,7 +25,7 @@
  dependency.
  
  */
-@property (nonatomic, strong, readonly) I3DragArena* arena;
+@property (nonatomic, strong, readonly) I3DragArena *arena;
 
 
 /**
@@ -34,7 +34,7 @@
  the scenes' for convenience.
  
  */
-@property (nonatomic, strong, readonly) UIPanGestureRegonizer* gestureRecognizer;
+@property (nonatomic, strong, readonly) UIPanGestureRecognizer *gestureRecognizer;
 
 
 /**
@@ -46,7 +46,7 @@
  @return id
  
  */
--(id) initWithDragArena:(I3DragArena *)arena withGestureRecognizer:(UIPanGestureRegonizer *)gestureRecognizer;
+-(id) initWithDragArena:(I3DragArena *)arena withGestureRecognizer:(UIPanGestureRecognizer *)gestureRecognizer;
 
 
 @end

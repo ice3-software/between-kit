@@ -1,6 +1,6 @@
 //
-//  I3Collection.h
-//  I3DragNDrop
+//  I3Logging.h
+//  BetweenKit
 //
 //  Created by Stephen Fortune on 14/09/2014.
 //  Copyright (c) 2013 IceCube Software Ltd. All rights reserved.

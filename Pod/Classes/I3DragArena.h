@@ -1,8 +1,8 @@
 //
-//  I3DragBetweenHelper.h
-//  I3DragNDrop
+//  I3DragArena.h
+//  BetweenKit
 //
-//  Created by Stephen Fortune on 31/08/2013.
+//  Created by Stephen Fortune on 14/09/2014.
 //  Copyright (c) 2013 IceCube Software Ltd. All rights reserved.
 //
 

@@ -1,24 +1,16 @@
 //
 //  I3GestureCoordinator.m
-//  
+//  BetweenKit
 //
 //  Created by Stephen Fortune on 14/09/2014.
-//
+//  Copyright (c) 2013 IceCube Software Ltd. All rights reserved.
 //
 
 #import "I3GestureCoordinator.h"
+#import "I3Logging.h"
 
 
 @interface I3GestureCoordinator (Private)
-
-
-/**
- 
- Redeclaration of private properties
- 
- */
-@property (nonatomic, strong, readonly) I3DragArena* arena;
-@property (nonatomic, strong, readonly) UIPanGestureRegonizer* gestureRecognizer;
 
 
 /**
@@ -55,21 +47,26 @@
  */
 -(void) coordDrag;
 
+
 @end
 
 
 @implementation I3GestureCoordinator
 
 
--(id) initWithDragArena:(I3DragArena *)arena withGestureRecognizer:(UIPanGestureRegonizer *)gestureRecognizer{
+-(id) initWithDragArena:(I3DragArena *)arena withGestureRecognizer:(UIPanGestureRecognizer *)gestureRecognizer{
 
     self = [super init];
     
     if(self){
         
-        self.arena = arena;
-        self.gestureRecognizer = gestureRecognizer;
+        _arena = arena;
+        _gestureRecognizer = gestureRecognizer ?: [[UIPanGestureRecognizer alloc] init];
+
+        SEL panSelector = @selector(coordPan:);
+        [_gestureRecognizer addTarget:self action:panSelector];
         
+
     }
 
     return self;
@@ -105,33 +102,6 @@
             
     }
 
-}
-
-
-
-#pragma mark - UIPanGestureRecognizer acessor methods.
-
-
--(void) setGestureRecognizer:(UIPanGestureRecognizer *)recognizer{
-
-    if(recognizer != _gestureRecognizer){
-    
-        _gestureRecognizer = recognizer;
-        
-        SEL panSelector = @selector(coordPan:);
-        [_gestureRecognizer addTarget:self action:panSelector];
-        
-    }
-}
-
-
--(UIPanGestureRecognizer *)gestureRecognizer{
-
-    if(!_gestureRecognizer){
-        self.gestureRecognizer = [[UIPanGestureRecognizer alloc] init];
-    }
-    
-    return _gestureRecognizer;
 }
 
 @end

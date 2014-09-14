@@ -1,8 +1,8 @@
 //
-//  I3DragBetweenHelper.m
-//  ResourceMoney Client
+//  I3DragArena.m
+//  BetweenKit
 //
-//  Created by Stephen Fortune on 31/08/2013.
+//  Created by Stephen Fortune on 14/09/2014.
 //  Copyright (c) 2013 IceCube Software Ltd. All rights reserved.
 //
 
@@ -18,9 +18,9 @@
     
     if(self){
         
-        self.superview = superview;
-        
-        self.collections = [[NSMutableOrderedSet alloc] initWithCapacity:collection.length];
+        _superview = superview;
+        _collections = [[NSMutableOrderedSet alloc] initWithCapacity:collections.count];
+
         [self.collections addObjectsFromArray:collections];
         
     }
