@@ -209,14 +209,18 @@
 
 -(void) handleDragStoppedOutsideAtPoint:(CGPoint) at{
     
-    SEL canDeleteSelector = @selector(canItemAtPoint:beDeletedIfDroppedOutsideOfCollection:atPoint:);
     id<I3DragDataSource> dataSource = _currentDraggingCollection.dragDataSource;
+
+    SEL canDeleteSelector = @selector(canItemAtPoint:beDeletedIfDroppedOutsideOfCollection:atPoint:);
+    SEL deleteSelector = @selector(deleteItemAtPoint:inCollection:);
 
     if(
        dataSource &&
        [dataSource respondsToSelector:canDeleteSelector] &&
+       [dataSource respondsToSelector:deleteSelector] &&
        [dataSource canItemAtPoint:_currentDragOrigin beDeletedIfDroppedOutsideOfCollection:_currentDraggingCollection atPoint:at]
     ){
+        [dataSource deleteItemAtPoint:_currentDragOrigin inCollection:_currentDraggingCollection];
         /// @todo Render deletion
     }
     else{
@@ -231,23 +235,30 @@
     
     
     BOOL isRearrange = to == _currentDraggingCollection;
-
     id<I3DragDataSource> dataSource = _currentDraggingCollection.dragDataSource;
+    
     SEL canItemRearrangeSelector = @selector(canItemFromPoint:beRearrangedWithItemAtPoint:inCollection:);
     SEL canDropSelector = @selector(canItemAtPoint:fromCollection:beDroppedToPoint:inCollection:);
     
+    SEL itemRearrangeSelector = @selector(rearrangeItemAtPoint:withItemAtPoint:inCollection:);
+    SEL dropSelector = @selector(dropItemAtPoint:fromCollection:toPoint:inCollection:);
+    
     if(
        isRearrange &&
+       [dataSource respondsToSelector:itemRearrangeSelector] &&
        [dataSource respondsToSelector:canItemRearrangeSelector] &&
        [dataSource canItemFromPoint:_currentDragOrigin beRearrangedWithItemAtPoint:at inCollection:_currentDraggingCollection]
     ){
+        [dataSource rearrangeItemAtPoint:_currentDragOrigin withItemAtPoint:at inCollection:_currentDraggingCollection];
         /// @todo Render rearrange
     }
     else if(
         !isRearrange &&
         [dataSource respondsToSelector:canDropSelector] &&
+        [dataSource respondsToSelector:dropSelector] &&
         [dataSource canItemAtPoint:_currentDragOrigin fromCollection:_currentDraggingCollection beDroppedToPoint:at inCollection:to]
     ){
+        [dataSource dropItemAtPoint:_currentDragOrigin fromCollection:_currentDraggingCollection toPoint:at inCollection:to];
         /// @todo Render drop exchange between 2 collections
     }
     else{
