@@ -104,20 +104,4 @@
 -(BOOL) canItemAtPointBeDeletedIfDroppedOustide:(CGPoint) at inCollection:id<I3Collection> collection;
 
 
-/**
- 
- Can be implemented to further customise the styling of a given dragging view. E.g.
- a red filter way want to be applied to the view whilst dragging.
- 
- @todo I'm not sure if this is a good idea yet. What happens if a user messes with
-       properties of the view that being used by the rendered?
- @warning This is not implemented yet
- @name Rendering
- @param draggingView    The view to apply styling to.
- @param collection      The collection we're providing data for.
-
- */
--(void) applyStylingToDraggingView:(UIView *)draggingView inCollection:id<I3Collection> collection;
-
-
 @end
