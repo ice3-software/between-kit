@@ -20,7 +20,7 @@
        a `UITableView` or `UICollectionView`.
  @todo How do we enforce the constraint draggable collections must be subviews of the given
        superview? 1.* didn't enforce this but I feel we should.
- @see I3Draggable
+ @see I3Collection
  
  */
 @interface I3DragArena : NSObject
@@ -37,7 +37,7 @@
 
 /**
  
- A mutable ordered set of `I3Draggable` instances that drag/dropping will occur
+ A mutable ordered set of `I3Collection` instances that drag/dropping will occur
  between.
  
  @note The order of the draggables in this set will determine their 'priority', i.e. 
@@ -53,7 +53,7 @@
  Ctor. Init the arena with a superview and subsequent collections.
  
  @param superview   The superview containing all the collections.
- @param collections An array of all the I3Draggable instances to initialise the arena with,
+ @param collections An array of all the `I3Collection` instances to initialise the arena with,
                     may be nil.
  @return id
  
