@@ -143,7 +143,6 @@
             break;
             
     }
-
 }
 
 
@@ -157,6 +156,7 @@
         if([collectionView pointInside:pointInCollection withEvent:nil]){
             
             if(collection.dragDataSource && [collection.dragDataSource canItemBeDraggedAtPoint:pointInCollection inCollection:collection]){
+                
                 [self setCurrentDraggingCollection:collection atPoint:pointInCollection];
                 /// @todo Render drag starting
             }
@@ -165,7 +165,6 @@
             /// @todo I want to be able to handle transparency here. I3DragDataSource should
             /// implement some BOOL method for whether we're transparent in a particular
             /// place
-
         }
     }
     
@@ -203,7 +202,7 @@
     }
     
     [self setCurrentDraggingCollection:nil atPoint:CGPointZero];
-
+    
 }
 
 
@@ -220,19 +219,21 @@
        [dataSource respondsToSelector:deleteSelector] &&
        [dataSource canItemAtPoint:_currentDragOrigin beDeletedIfDroppedOutsideOfCollection:_currentDraggingCollection atPoint:at]
     ){
+        
         [dataSource deleteItemAtPoint:_currentDragOrigin inCollection:_currentDraggingCollection];
         /// @todo Render deletion
     }
     else{
+        
         /// @todo Render snap back
     }
+    
     [self setCurrentDraggingCollection:nil atPoint:CGPointZero];
-
+    
 }
 
 
 -(void) handleDragStoppedInCollection:(id<I3Collection>) to atPoint:(CGPoint) at{
-    
     
     BOOL isRearrange = to == _currentDraggingCollection;
     id<I3DragDataSource> dataSource = _currentDraggingCollection.dragDataSource;
@@ -249,6 +250,7 @@
        [dataSource respondsToSelector:canItemRearrangeSelector] &&
        [dataSource canItemFromPoint:_currentDragOrigin beRearrangedWithItemAtPoint:at inCollection:_currentDraggingCollection]
     ){
+        
         [dataSource rearrangeItemAtPoint:_currentDragOrigin withItemAtPoint:at inCollection:_currentDraggingCollection];
         /// @todo Render rearrange
     }
@@ -258,14 +260,17 @@
         [dataSource respondsToSelector:dropSelector] &&
         [dataSource canItemAtPoint:_currentDragOrigin fromCollection:_currentDraggingCollection beDroppedToPoint:at inCollection:to]
     ){
+    
         [dataSource dropItemAtPoint:_currentDragOrigin fromCollection:_currentDraggingCollection toPoint:at inCollection:to];
         /// @todo Render drop exchange between 2 collections
     }
     else{
+        
         /// @todo Render snap back
     }
+    
     [self setCurrentDraggingCollection:nil atPoint:CGPointZero];
-
+    
 }
 
 
@@ -278,7 +283,7 @@
     }
     
     /// @todo Render drag movement
-
+    
 }
 
 

@@ -24,6 +24,23 @@
 @protocol I3DragDataSource <NSObject>
 
 
+@required
+
+
+/**
+ 
+ Returns YES or NO based on whether an item at a given point can be dragged at all. Assumed
+ as NO if this is not implemented.
+ 
+ @name Coordination
+ @param at          The point at which the cell is being dragged from.
+ @param collection  The collection we're providing data for.
+ @return BOOL
+ 
+ */
+-(BOOL) canItemBeDraggedAtPoint:(CGPoint) at inCollection:(id<I3Collection>) collection;
+
+
 @optional
 
 
@@ -95,20 +112,6 @@
  
  */
 -(BOOL) canItemFromPoint:(CGPoint) from beRearrangedWithItemAtPoint:(CGPoint) to inCollection:(id<I3Collection>) collection;
-
-
-/**
- 
- Returns YES or NO based on whether an item at a given point can be dragged at all. Assumed
- as NO if this is not implemented.
- 
- @name Coordination
- @param at          The point at which the cell is being dragged from.
- @param collection  The collection we're providing data for.
- @return BOOL
- 
- */
--(BOOL) canItemBeDraggedAtPoint:(CGPoint) at inCollection:(id<I3Collection>) collection;
 
 
 /**
