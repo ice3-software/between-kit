@@ -9,20 +9,12 @@
 
 Pod::Spec.new do |s|
   s.name             = "BetweenKit"
-  s.version          = "0.1.0"
-  s.summary          = "A short description of BetweenKit."
-  s.description      = <<-DESC
-                       An optional longer description of BetweenKit
-
-                       * Markdown format.
-                       * Don't worry about the indent, we strip it!
-                       DESC
-  s.homepage         = "https://github.com/<GITHUB_USERNAME>/BetweenKit"
-  # s.screenshots     = "www.example.com/screenshots_1", "www.example.com/screenshots_2"
+  s.version          = "2.0.0"
+  s.summary          = "iOS UI framework that allows developers to build drag-and-drop fluidity into their user interfaces more easily."
+  s.homepage         = "https://github.com/ice3-software/i3-dragndrop"
   s.license          = 'MIT'
-  s.author           = { "stephen fortune" => "steve.fortune@icecb.com" }
-  s.source           = { :git => "https://github.com/<GITHUB_USERNAME>/BetweenKit.git", :tag => s.version.to_s }
-  # s.social_media_url = 'https://twitter.com/<TWITTER_USERNAME>'
+  s.author           = { "Stephen Fortune" => "steve.fortune@icecb.com" }
+  s.source           = { :git => "https://github.com/ice3-software/i3-dragndrop.git", :tag => s.version.to_s }
 
   s.platform     = :ios, '7.0'
   s.requires_arc = true
@@ -32,7 +24,6 @@ Pod::Spec.new do |s|
     'BetweenKit' => ['Pod/Assets/*.png']
   }
 
-  # s.public_header_files = 'Pod/Classes/**/*.h'
-  # s.frameworks = 'UIKit', 'MapKit'
-  # s.dependency 'AFNetworking', '~> 2.3'
+  s.public_header_files = 'Pod/Classes/Header/BetweenKit.h'
+  s.frameworks = 'UIKit'
 end
