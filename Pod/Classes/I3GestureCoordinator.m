@@ -100,9 +100,23 @@
         SEL panSelector = @selector(handlePan:);
         [_gestureRecognizer addTarget:self action:panSelector];
 
+        if(![[_arena.superview gestureRecognizers] containsObject:_gestureRecognizer]){
+            [_arena.superview addGestureRecognizer:_gestureRecognizer];
+        }
+        
     }
 
     return self;
+}
+
+
+-(void) dealloc{
+
+    [_gestureRecognizer removeTarget:self action:NULL];
+
+    if([[_arena.superview gestureRecognizers] containsObject:_gestureRecognizer]){
+        [_arena.superview removeGestureRecognizer:_gestureRecognizer];
+    }
 }
 
 

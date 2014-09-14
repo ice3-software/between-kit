@@ -66,4 +66,11 @@
 -(id) initWithDragArena:(I3DragArena *)arena withGestureRecognizer:(UIPanGestureRecognizer *)gestureRecognizer;
 
 
+/**
+ 
+ Dtor. Implemented to detach the coordinator from the gesture recongizer.
+ 
+ */
+-(void) dealloc;
+
 @end

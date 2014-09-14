@@ -16,20 +16,25 @@ SpecBegin(I3GestureCoordinator)
     describe(@"constructor", ^{
 
         __block id dragArena;
+        __block id superview;
         __block id panGestureRecognizer;
         
         beforeEach(^{
             
-            dragArena = OCMClassMock([I3DragArena class]);
             panGestureRecognizer = OCMClassMock([UIPanGestureRecognizer class]);
-        
+            dragArena = OCMClassMock([I3DragArena class]);
+            superview = OCMClassMock([UIView class]);
+
+            OCMStub([dragArena superview]).andReturn(superview);
+            
         });
         
         afterEach(^{
             
             dragArena = nil;
             panGestureRecognizer = nil;
-        
+            superview = nil;
+
         });
         
         it(@"should inject dependencies", ^{
@@ -48,10 +53,20 @@ SpecBegin(I3GestureCoordinator)
             
         });
         
-        it(@"should add self as a target to with recognizer with the appropriate selector", ^{
+        it(@"should setup the gesture recognizer's target and superview correctly", ^{
         
             I3GestureCoordinator* coordinator = [[I3GestureCoordinator alloc] initWithDragArena:dragArena withGestureRecognizer:panGestureRecognizer];
             OCMVerify([panGestureRecognizer addTarget:coordinator action:[OCMArg anySelector]]);
+            OCMVerify([superview addGestureRecognizer:panGestureRecognizer]);
+            
+        });
+        
+        it(@"should not attach the gesture recognizer to the superview if its already attached", ^{
+
+            [[superview reject] addGestureRecognizer:[OCMArg any]];
+            OCMStub([superview gestureRecognizers]).andReturn(@[panGestureRecognizer]);
+            I3GestureCoordinator* coordinator = [[I3GestureCoordinator alloc] initWithDragArena:dragArena withGestureRecognizer:panGestureRecognizer];
+            OCMVerifyAll(superview);
             
         });
         
