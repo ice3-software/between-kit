@@ -19,29 +19,9 @@
  
  @see UITableViewDataSource
  @see UICollectionViewDataSource
- @todo Implement the actual data-change methods as well as the `can*` methods. The data needs
-       to actually be updated at some point
  
  */
 @protocol I3DragDataSource <NSObject>
-
-
-@required
-
-
-/**
- 
- Should an item's original view be 'hidden' whilst it is being dragged? If YES, the item
- view will appear to have been lifted off the collection and be dragged about. If NO, a
- 'ghost' duplicate will appear to track around with the user's pan gesture.
- 
- @name Rendering
- @param at          The point at which the item is.
- @param collection  The collection we're providing data for.
- @return BOOL
-
- */
--(BOOL) hidesItemWhileDraggingAtPoint:(CGPoint) at inCollection:(id<I3Collection>) collection;
 
 
 @optional
@@ -49,8 +29,47 @@
 
 /**
  
+ Called to update the data source on a drop form a foreign collection.
+ 
+ @name Coordination
+ @param from            The point from the foreign draggable that the item is from.
+ @param to              The point in this draggable to which the foreign item is being dragged.
+ @param fromCollection  The foreign collection.
+ @param toCollection    The collection we're providing data for.
+ 
+ */
+-(void) dropItemAtPoint:(CGPoint) from fromCollection:(id<I3Collection>) fromCollection toPoint:(CGPoint) to inCollection:(id<I3Collection>) toCollection;
+
+
+/**
+ 
+ Called to update the data source on rearrange.
+ 
+ @name Coordination
+ @param from            The point from which the item is being dragged from.
+ @param to              The point to which the item is being dragged to.
+ @param collection      The collection we're providing data for.
+ 
+ */
+-(void) rearrangeItemAtPoint:(CGPoint) from withItemAtPoint:(CGPoint) to inCollection:(id<I3Collection>) collection;
+
+
+/**
+ 
+ Called to delete an item from the data source on deletion.
+ 
+ @name Coordination
+ @param at              The point to which the item was.
+ @param collection      The collection we're providing data for.
+ 
+ */
+-(void) deleteItemAtPoint:(CGPoint) at inCollection:(id<I3Collection>) collection;
+
+
+/**
+ 
  Returns YES or NO based on whether an item at a given point from a foreign draggable can be
- dropped on this draggable at another given point. Assumed as YES if this is not implemented.
+ dropped on this draggable at another given point. Assumed as NO if this is not implemented.
  
  @name Coordination
  @param from            The point from the foreign draggable that the item is from.
@@ -66,7 +85,7 @@
 /**
  
  Returns YES or NO based on whether an item at a given point can be exchanged in the container
- with an item at another point. Assumed as YES if this is not implemented.
+ with an item at another point. Assumed as NO if this is not implemented.
  
  @name Coordination
  @param from        The point at which the cell is being dragged from.
@@ -81,7 +100,7 @@
 /**
  
  Returns YES or NO based on whether an item at a given point can be dragged at all. Assumed
- as YES if this is not implemented.
+ as NO if this is not implemented.
  
  @name Coordination
  @param at          The point at which the cell is being dragged from.
@@ -106,5 +125,19 @@
  */
 -(BOOL) canItemAtPoint:(CGPoint) from beDeletedIfDroppedOutsideOfCollection:(id<I3Collection>) collection atPoint:(CGPoint) to;
 
+
+/**
+ 
+ Should an item's original view be 'hidden' whilst it is being dragged? If YES, the item
+ view will appear to have been lifted off the collection and be dragged about. If NO, a
+ 'ghost' duplicate will appear to track around with the user's pan gesture.
+ 
+ @name Rendering
+ @param at          The point at which the item is.
+ @param collection  The collection we're providing data for.
+ @return BOOL
+ 
+ */
+-(BOOL) hidesItemWhileDraggingAtPoint:(CGPoint) at inCollection:(id<I3Collection>) collection;
 
 @end
