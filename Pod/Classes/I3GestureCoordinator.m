@@ -155,10 +155,17 @@
         
         if([collectionView pointInside:pointInCollection withEvent:nil]){
             
+            DND_LOG(@"We're dragging in a collection!");
+            
             if(collection.dragDataSource && [collection.dragDataSource canItemBeDraggedAtPoint:pointInCollection inCollection:collection]){
                 
+                DND_LOG(@"We can drag a given item in a collection");
+
                 [self setCurrentDraggingCollection:collection atPoint:pointInCollection];
                 /// @todo Render drag starting
+            }
+            else{
+                DND_LOG(@"Can't drag this item so calling it a day.");
             }
 
             break;
@@ -187,6 +194,8 @@
         
         if([collectionView pointInside:pointInCollection withEvent:nil]){
             
+            DND_LOG(@"Found a target collection to drop on!");
+
             [self handleDragStoppedInCollection:collection atPoint:pointInCollection];
             dstCollection = collection;
             break;
@@ -197,6 +206,8 @@
     
     if(!dstCollection){
         
+        DND_LOG(@"Didn't find a target collection to drop on.");
+
         CGPoint point = [_gestureRecognizer locationInView:self.arena.superview];
         [self handleDragStoppedOutsideAtPoint:point];
     }
@@ -220,11 +231,13 @@
        [dataSource canItemAtPoint:_currentDragOrigin beDeletedIfDroppedOutsideOfCollection:_currentDraggingCollection atPoint:at]
     ){
         
+        DND_LOG(@"Dragged nowhere so deleting");
         [dataSource deleteItemAtPoint:_currentDragOrigin inCollection:_currentDraggingCollection];
         /// @todo Render deletion
     }
     else{
         
+        DND_LOG(@"Dragged nowhere and can't delete. Snapping back");
         /// @todo Render snap back
     }
     
@@ -251,6 +264,7 @@
        [dataSource canItemFromPoint:_currentDragOrigin beRearrangedWithItemAtPoint:at inCollection:_currentDraggingCollection]
     ){
         
+        DND_LOG(@"Rearranging items in a collection.");
         [dataSource rearrangeItemAtPoint:_currentDragOrigin withItemAtPoint:at inCollection:_currentDraggingCollection];
         /// @todo Render rearrange
     }
@@ -261,11 +275,13 @@
         [dataSource canItemAtPoint:_currentDragOrigin fromCollection:_currentDraggingCollection beDroppedToPoint:at inCollection:to]
     ){
     
+        DND_LOG(@"Exchanging items between collections.");
         [dataSource dropItemAtPoint:_currentDragOrigin fromCollection:_currentDraggingCollection toPoint:at inCollection:to];
         /// @todo Render drop exchange between 2 collections
     }
     else{
         
+        DND_LOG(@"Can do anything with these 2.");
         /// @todo Render snap back
     }
     
