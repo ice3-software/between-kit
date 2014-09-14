@@ -19,6 +19,8 @@
  
  @see UITableViewDataSource
  @see UICollectionViewDataSource
+ @todo Implement the actual data-change methods as well as the `can*` methods. The data needs
+       to actually be updated at some point
  
  */
 @protocol I3DragDataSource <NSObject>

@@ -58,15 +58,6 @@
 
 /**
  
- Called when a drag has been recognized to start within a particular collection at a particular
- point.
- 
- */
--(void) handleDragStartedAtPoint:(CGPoint) at;
-
-
-/**
- 
  Called when a drag, started from a collection has stopped outside of all valid collections at
  a particular point.
  
@@ -165,9 +156,11 @@
         
         if([collectionView pointInside:pointInCollection withEvent:nil]){
             
-            [self handleDragStartedAtPoint:pointInCollection];
-            [self setCurrentDraggingCollection:collection atPoint:pointInCollection];
-            
+            if(collection.dragDataSource && [collection.dragDataSource canItemBeDraggedAtPoint:pointInCollection inCollection:collection]){
+                [self setCurrentDraggingCollection:collection atPoint:pointInCollection];
+                /// @todo Render event
+            }
+
             break;
             /// @todo I want to be able to handle transparency here. I3DragDataSource should
             /// implement some BOOL method for whether we're transparent in a particular
@@ -214,6 +207,32 @@
 }
 
 
+-(void) handleDragStoppedOutsideAtPoint:(CGPoint) at{
+    
+    /// @todo Render event
+    [self setCurrentDraggingCollection:nil atPoint:CGPointZero];
+
+}
+
+
+-(void) handleDragStoppedInCollection:(id<I3Collection>) to atPoint:(CGPoint) at{
+    
+    BOOL isRearrange = to == _currentDraggingCollection;
+    
+    if(isRearrange && [_currentDraggingCollection.dragDataSource canItemFromPoint:_currentDragOrigin beRearrangedWithItemAtPoint:to inCollection:_currentDraggingCollection]){
+        /// @todo Render event
+    }
+    else if(isRearrange){
+        /// @todo Render event
+    }
+    else{
+        /// @todo Render event
+    }
+    [self setCurrentDraggingCollection:nil atPoint:CGPointZero];
+
+}
+
+
 -(void) handleDrag{
     
     if(!_currentDraggingCollection){
@@ -222,7 +241,7 @@
         return;
     }
     
-    /// @todo Emit notification for rendering
+    /// @todo Render event
 
 }
 

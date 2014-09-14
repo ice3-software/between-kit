@@ -16,6 +16,9 @@
  The gesture coordinator! This listens to a UIPanGestureRegonizer and calculates the state
  of dragging from the I3Collection instances in the I3DragArena.
  
+ @todo Validate whether collections' dragDataSource is nill and repsonds to the given selectors
+       before calling. At the moment this is unstable.
+ 
  */
 @interface I3GestureCoordinator : NSObject
 

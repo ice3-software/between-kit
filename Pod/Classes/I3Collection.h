@@ -7,9 +7,7 @@
 //
 
 #import <Foundation/Foundation.h>
-
-
-@protocol I3DragDataSource;
+#import "I3DragDataSource.h"
 
 
 /**
