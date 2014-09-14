@@ -32,19 +32,6 @@
 
 /**
  
- Returns YES or NO based on whether the item at a given index in the collection.
- 
- @name Rendering
- @name Coordination
- @param at The point at which the item is.
- @return UIView * | nil if one does not exist
- 
- */
--(BOOL) isItemRearrangeableAtPoint:(CGPoint) at;
-
-
-/**
- 
  Returns the containing UIView that has is the superview of the 'items'. This can be
  used to access the bounds of the collection for coordination as well as the for 
  rendering.
@@ -86,6 +73,61 @@
 
 
 @optional
+
+
+/**
+ 
+ Returns YES or NO based on whether an item at a given point from a foreign draggable can be
+ dropped on this draggable at another given point. Assumed as YES if this is not implemented.
+ 
+ @name Coordination
+ @param from        The point from the foreign draggable that the item is from.
+ @param to          The point in this draggable to which the foreign item is being dragged.
+ @param draggable   The foreign draggable.
+ @return BOOL
+ 
+ */
+-(BOOL) canItemFromPoint:(CGPoint) from inDraggable(I3Draggable *)draggable beDroppedToPoint:(CGPoint) to;
+
+
+/**
+ 
+ Returns YES or NO based on whether an item at a given point can be exchanged in the container
+ with an item at another point. Assumed as YES if this is not implemented.
+ 
+ @name Coordination
+ @param from        The point at which the cell is being dragged from.
+ @param to          The point at which the cell is being dragged to.
+ @return BOOL
+ 
+ */
+-(BOOL) canItemFromPoint:(CGPoint) from beRearrangedWithItemAtPoint:(GCPoint) to;
+
+
+/**
+ 
+ Returns YES or NO based on whether an item at a given point can be dragged at all. Assumed
+ as YES if this is not implemented.
+ 
+ @name Coordination
+ @param at The point at which the cell is being dragged from.
+ @return BOOL
+ 
+ */
+-(BOOL) canItemBeDraggedAtPoint:(CGPoint) at;
+
+
+/**
+ 
+ Returns YES or NO based on whether an item at a given point can be 'deleted' (be the renderer)
+ if it is dropped outside of all valid containers. Assumed as NO if this is not implemented.
+ 
+ @name Coordination
+ @param at The point at which the cell is being dragged from.
+ @return BOOL
+ 
+ */
+-(BOOL) canItemAtPointBeDeletedIfDroppedOustide:(CGPoint) at;
 
 
 /**
