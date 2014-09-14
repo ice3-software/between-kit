@@ -7,7 +7,9 @@
 //
 
 #import <Foundation/Foundation.h>
-#import "I3Collection.h"
+
+
+@protocol I3Collection;
 
 
 /**
@@ -37,7 +39,7 @@
  @return BOOL
 
  */
--(BOOL) hidesItemWhileDraggingAtPoint:(CGPoint) at inCollection:id<I3Collection> collection;
+-(BOOL) hidesItemWhileDraggingAtPoint:(CGPoint) at inCollection:(id<I3Collection>) collection;
 
 
 @optional
@@ -56,7 +58,7 @@
  @return BOOL
  
  */
--(BOOL) canItemAtPoint:(CGPoint) from fromCollection:id<I3Collection> fromCollection beDroppedToPoint:(CGPoint) to inCollection:id<I3Collection> collection;
+-(BOOL) canItemAtPoint:(CGPoint) from fromCollection:(id<I3Collection>) fromCollection beDroppedToPoint:(CGPoint) to inCollection:(id<I3Collection>) collection;
 
 
 /**
@@ -71,7 +73,7 @@
  @return BOOL
  
  */
--(BOOL) canItemFromPoint:(CGPoint) from beRearrangedWithItemAtPoint:(GCPoint) to inCollection:id<I3Collection> collection;
+-(BOOL) canItemFromPoint:(CGPoint) from beRearrangedWithItemAtPoint:(GCPoint) to inCollection:(id<I3Collection>) collection;
 
 
 /**
@@ -85,7 +87,7 @@
  @return BOOL
  
  */
--(BOOL) canItemBeDraggedAtPoint:(CGPoint) at inCollection:id<I3Collection> collection;
+-(BOOL) canItemBeDraggedAtPoint:(CGPoint) at inCollection:(id<I3Collection>) collection;
 
 
 /**
@@ -99,7 +101,7 @@
  @return BOOL
  
  */
--(BOOL) canItemAtPointBeDeletedIfDroppedOustide:(CGPoint) at inCollection:id<I3Collection> collection;
+-(BOOL) canItemAtPointBeDeletedIfDroppedOustide:(CGPoint) at inCollection:(id<I3Collection>) collection;
 
 
 @end

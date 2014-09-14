@@ -7,7 +7,9 @@
 //
 
 #import <Foundation/Foundation.h>
-#import "I3DragDataSource.h"
+
+
+@protocol I3DragDataSource;
 
 
 /**
@@ -40,7 +42,7 @@
  rendering.
  
  */
-@property (nonatomic, strong, readonly) UIView *collection;
+@property (nonatomic, strong, readonly) UIView *collectionView;
 
 
 /**
@@ -54,7 +56,7 @@
  implementation.
  
  */
-@property (nonatomic, weak) id <I3DragDataSource> dragDataSource;
+@property (nonatomic, weak) id<I3DragDataSource> dragDataSource;
 
 
 /**

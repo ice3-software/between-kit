@@ -9,7 +9,9 @@
 #import <BetweenKit/I3GestureCoordinator.h>
 #import <BetweenKit/I3DragArena.h>
 
+
 SpecBegin(I3GestureCoordinator)
+
 
     describe(@"constructor", ^{
 
@@ -42,7 +44,6 @@ SpecBegin(I3GestureCoordinator)
         it(@"should create a UIPanGestureRecognizer by default", ^{
         
             I3GestureCoordinator* coordinator = [[I3GestureCoordinator alloc] initWithDragArena:dragArena withGestureRecognizer:nil];
-            
             expect(coordinator.gestureRecognizer).to.beInstanceOf([UIPanGestureRecognizer class]);
             
         });

@@ -8,6 +8,7 @@
 
 #import <Foundation/Foundation.h>
 #import "I3DragArena.h"
+#import "I3Collection.h"
 
 
 /**
@@ -35,6 +36,22 @@
  
  */
 @property (nonatomic, strong, readonly) UIPanGestureRecognizer *gestureRecognizer;
+
+
+/**
+ 
+ The I3Collection that is currently being dragged (or nil)
+ 
+ */
+@property (nonatomic, weak, readonly) id<I3Collection> currentDraggingCollection;
+
+
+/**
+ 
+ The point at which the current drag started. CGPointZero if we're not dragging.
+ 
+ */
+@property (nonatomic, readonly) CGPoint currentDragOrigin;
 
 
 /**
