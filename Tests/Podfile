@@ -1,0 +1,10 @@
+target 'BetweenKit', :exclusive => true do
+  pod "BetweenKit", :path => "../"
+end
+
+target 'Tests', :exclusive => true do
+  pod "BetweenKit", :path => "../"
+
+  pod 'Specta', '~> 0.2.1'
+  pod 'Expecta'
+end
