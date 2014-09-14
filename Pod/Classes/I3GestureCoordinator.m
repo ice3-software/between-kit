@@ -158,7 +158,7 @@
             
             if(collection.dragDataSource && [collection.dragDataSource canItemBeDraggedAtPoint:pointInCollection inCollection:collection]){
                 [self setCurrentDraggingCollection:collection atPoint:pointInCollection];
-                /// @todo Render event
+                /// @todo Render drag starting
             }
 
             break;
@@ -209,7 +209,19 @@
 
 -(void) handleDragStoppedOutsideAtPoint:(CGPoint) at{
     
-    /// @todo Render event
+    SEL canDeleteSelector = @selector(canItemAtPoint:beDeletedIfDroppedOutsideOfCollection:atPoint:);
+    id<I3DragDataSource> dataSource = _currentDraggingCollection.dragDataSource;
+
+    if(
+       dataSource &&
+       [dataSource respondsToSelector:canDeleteSelector] &&
+       [dataSource canItemAtPoint:_currentDragOrigin beDeletedIfDroppedOutsideOfCollection:_currentDraggingCollection atPoint:at]
+    ){
+        /// @todo Render deletion
+    }
+    else{
+        /// @todo Render snap back
+    }
     [self setCurrentDraggingCollection:nil atPoint:CGPointZero];
 
 }
@@ -217,16 +229,29 @@
 
 -(void) handleDragStoppedInCollection:(id<I3Collection>) to atPoint:(CGPoint) at{
     
-    BOOL isRearrange = to == _currentDraggingCollection;
     
-    if(isRearrange && [_currentDraggingCollection.dragDataSource canItemFromPoint:_currentDragOrigin beRearrangedWithItemAtPoint:to inCollection:_currentDraggingCollection]){
-        /// @todo Render event
+    BOOL isRearrange = to == _currentDraggingCollection;
+
+    id<I3DragDataSource> dataSource = _currentDraggingCollection.dragDataSource;
+    SEL canItemRearrangeSelector = @selector(canItemFromPoint:beRearrangedWithItemAtPoint:inCollection:);
+    SEL canDropSelector = @selector(canItemAtPoint:fromCollection:beDroppedToPoint:inCollection:);
+    
+    if(
+       isRearrange &&
+       [dataSource respondsToSelector:canItemRearrangeSelector] &&
+       [dataSource canItemFromPoint:_currentDragOrigin beRearrangedWithItemAtPoint:at inCollection:_currentDraggingCollection]
+    ){
+        /// @todo Render rearrange
     }
-    else if(isRearrange){
-        /// @todo Render event
+    else if(
+        !isRearrange &&
+        [dataSource respondsToSelector:canDropSelector] &&
+        [dataSource canItemAtPoint:_currentDragOrigin fromCollection:_currentDraggingCollection beDroppedToPoint:at inCollection:to]
+    ){
+        /// @todo Render drop exchange between 2 collections
     }
     else{
-        /// @todo Render event
+        /// @todo Render snap back
     }
     [self setCurrentDraggingCollection:nil atPoint:CGPointZero];
 
@@ -241,7 +266,7 @@
         return;
     }
     
-    /// @todo Render event
+    /// @todo Render drag movement
 
 }
 
@@ -253,7 +278,6 @@
 
     _currentDraggingCollection = collection;
     _currentDragOrigin = at;
-
 }
 
 

@@ -75,7 +75,7 @@
  @return BOOL
  
  */
--(BOOL) canItemFromPoint:(CGPoint) from beRearrangedWithItemAtPoint:(GCPoint) to inCollection:(id<I3Collection>) collection;
+-(BOOL) canItemFromPoint:(CGPoint) from beRearrangedWithItemAtPoint:(CGPoint) to inCollection:(id<I3Collection>) collection;
 
 
 /**
@@ -98,12 +98,13 @@
  if it is dropped outside of all valid containers. Assumed as NO if this is not implemented.
  
  @name Coordination
- @param at          The point at which the cell is being dragged from.
+ @param from        The point at which the cell is being dragged from.
+ @param to          The point outside of the collection to which the item is being dragged.
  @param collection  The collection we're providing data for.
  @return BOOL
  
  */
--(BOOL) canItemAtPointBeDeletedIfDroppedOustide:(CGPoint) at inCollection:(id<I3Collection>) collection;
+-(BOOL) canItemAtPoint:(CGPoint) from beDeletedIfDroppedOutsideOfCollection:(id<I3Collection>) collection atPoint:(CGPoint) to;
 
 
 @end
