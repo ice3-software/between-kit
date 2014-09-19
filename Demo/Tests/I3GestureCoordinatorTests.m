@@ -7,7 +7,6 @@
 //
 
 #import <BetweenKit/I3GestureCoordinator.h>
-#import <BetweenKit/I3DragArena.h>
 
 
 SpecBegin(I3GestureCoordinator)
