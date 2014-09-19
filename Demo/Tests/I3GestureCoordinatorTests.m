@@ -227,7 +227,27 @@ SpecBegin(I3GestureCoordinator)
             OCMVerifyAll(bottomDraggingCollection);
 
         });
-                
+        
+        it(@"should not start dragging if the point is outside of the collection view", ^{
+            
+            id collection = OCMProtocolMock(@protocol(I3Collection));
+            
+            [[draggingDataSource reject] canItemBeDraggedAtPoint:touchPoint inCollection:collection];
+            [[collection reject] dragDataSource];
+            
+            OCMStub([collection collectionView]).andReturn(collectionView);
+            OCMStub([collectionView pointInside:touchPoint withEvent:nil]).andReturn(NO);
+            
+            [[dragArena collections] addObject:collection];
+            [coordinator handlePan:coordinator.gestureRecognizer];
+            
+            expect(coordinator.currentDraggingCollection).to.beNil();
+            expect(coordinator.currentDragOrigin).to.equal(CGPointZero);
+            
+            OCMVerifyAll(collection);
+            
+        });
+
     });
 
 
