@@ -211,7 +211,41 @@ SpecBegin(I3GestureCoordinator)
         });
 
         it(@"should start dragging on the top-most intersecting collection in the ordered set", ^{
-            expect(false);
+            
+            id topDraggingCollection = OCMProtocolMock(@protocol(I3Collection));
+            id bottomDraggingCollection = OCMProtocolMock(@protocol(I3Collection));
+            
+            id commonDraggingDataSource = OCMProtocolMock(@protocol(I3DragDataSource));
+            id commonCollectionView = OCMClassMock([UIView class]);
+            
+            CGPoint touchPoint = CGPointMake(10, 10);
+            NSMutableOrderedSet* collections = [[NSMutableOrderedSet alloc] initWithArray:@[topDraggingCollection, bottomDraggingCollection]];
+            
+            OCMStub([panGestureRecognizer locationInView:commonCollectionView]).andReturn(touchPoint);
+            OCMStub([panGestureRecognizer state]).andReturn(UIGestureRecognizerStateBegan);
+            
+            OCMStub([commonDraggingDataSource canItemBeDraggedAtPoint:touchPoint inCollection:topDraggingCollection]).andReturn(YES);
+            OCMStub([topDraggingCollection dragDataSource]).andReturn(commonDraggingDataSource);
+            OCMStub([topDraggingCollection collectionView]).andReturn(commonCollectionView);
+            
+            [[commonDraggingDataSource reject] canItemBeDraggedAtPoint:touchPoint inCollection:bottomDraggingCollection];
+            [[bottomDraggingCollection reject] dragDataSource];
+            [[bottomDraggingCollection reject] collectionView];
+            
+            OCMStub([commonCollectionView pointInside:touchPoint withEvent:nil]).andReturn(YES);
+            OCMStub([dragArena collections]).andReturn(collections);
+            
+            [coordinator handlePan:coordinator.gestureRecognizer];
+            
+            expect(coordinator.currentDraggingCollection).to.equal(topDraggingCollection);
+            
+            OCMVerifyAll(panGestureRecognizer);
+            OCMVerifyAll(commonDraggingDataSource);
+            OCMVerifyAll(commonCollectionView);
+            OCMVerifyAll(dragArena);
+            OCMVerifyAll(topDraggingCollection);
+            OCMVerifyAll(bottomDraggingCollection);
+
         });
         
     });
