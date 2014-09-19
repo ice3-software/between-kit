@@ -154,8 +154,30 @@ SpecBegin(I3GestureCoordinator)
             
         });
 
-        it(@"should assume that all items in a collection are not draggable if there is no data source", ^{
-            expect(false);
+        it(@"should assume that a collection is completely un-draggable if there is no data source", ^{
+
+            id undraggableCollection = OCMProtocolMock(@protocol(I3Collection));
+            id collectionView = OCMClassMock([UIView class]);
+            
+            CGPoint touchPoint = CGPointMake(10, 10);
+            NSMutableOrderedSet* collections = [[NSMutableOrderedSet alloc] initWithArray:@[undraggableCollection]];
+            
+            OCMStub([undraggableCollection collectionView]).andReturn(collectionView);
+            OCMStub([panGestureRecognizer locationInView:collectionView]).andReturn(touchPoint);
+            OCMStub([panGestureRecognizer state]).andReturn(UIGestureRecognizerStateBegan);
+            OCMStub([collectionView pointInside:touchPoint withEvent:nil]).andReturn(YES);
+            OCMStub([dragArena collections]).andReturn(collections);
+            
+            [coordinator handlePan:coordinator.gestureRecognizer];
+            
+            expect(coordinator.currentDraggingCollection).to.beNil();
+            expect(coordinator.currentDragOrigin).to.equal(CGPointZero);
+            
+            OCMVerifyAll(undraggableCollection);
+            OCMVerifyAll(panGestureRecognizer);
+            OCMVerifyAll(collectionView);
+            OCMVerifyAll(dragArena);
+
         });
         
         it(@"should not start dragging on a collection on an item that is not draggable", ^{
