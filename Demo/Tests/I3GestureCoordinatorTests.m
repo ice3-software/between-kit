@@ -181,7 +181,33 @@ SpecBegin(I3GestureCoordinator)
         });
         
         it(@"should not start dragging on a collection on an item that is not draggable", ^{
-            expect(false);
+
+            id draggingDataSource = OCMProtocolMock(@protocol(I3DragDataSource));
+            id draggingCollection = OCMProtocolMock(@protocol(I3Collection));
+            id collectionView = OCMClassMock([UIView class]);
+            
+            CGPoint touchPoint = CGPointMake(10, 10);
+            NSMutableOrderedSet* collections = [[NSMutableOrderedSet alloc] initWithArray:@[draggingCollection]];
+            
+            OCMStub([panGestureRecognizer locationInView:collectionView]).andReturn(touchPoint);
+            OCMStub([panGestureRecognizer state]).andReturn(UIGestureRecognizerStateBegan);
+            OCMStub([draggingDataSource canItemBeDraggedAtPoint:touchPoint inCollection:draggingCollection]).andReturn(NO);
+            OCMStub([draggingCollection dragDataSource]).andReturn(draggingDataSource);
+            OCMStub([draggingCollection collectionView]).andReturn(collectionView);
+            OCMStub([collectionView pointInside:touchPoint withEvent:nil]).andReturn(YES);
+            OCMStub([dragArena collections]).andReturn(collections);
+            
+            [coordinator handlePan:coordinator.gestureRecognizer];
+            
+            expect(coordinator.currentDraggingCollection).to.beNil();
+            expect(coordinator.currentDragOrigin).to.equal(CGPointZero);
+            
+            OCMVerifyAll(panGestureRecognizer);
+            OCMVerifyAll(draggingDataSource);
+            OCMVerifyAll(collectionView);
+            OCMVerifyAll(dragArena);
+            OCMVerifyAll(draggingCollection);
+
         });
 
         it(@"should start dragging on the top-most intersecting collection in the ordered set", ^{

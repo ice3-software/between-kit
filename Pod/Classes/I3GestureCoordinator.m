@@ -157,6 +157,8 @@
                 /// @todo Render drag starting
             }
             else{
+ 
+                [self setCurrentDraggingCollection:nil atPoint:CGPointZero];
                 DND_LOG(@"Can't drag this item so calling it a day.");
             }
 
