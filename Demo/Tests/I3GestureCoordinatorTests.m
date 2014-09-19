@@ -112,7 +112,7 @@ SpecBegin(I3GestureCoordinator)
     });
 
 
-    describe(@"starting a drag", ^{
+    describe(@"drag/drop coordination", ^{
 
         
         __block I3GestureCoordinator *coordinator;
@@ -130,7 +130,7 @@ SpecBegin(I3GestureCoordinator)
             
             OCMStub([panGestureRecognizer locationInView:collectionView]).andReturn(touchPoint);
             OCMStub([panGestureRecognizer state]).andReturn(UIGestureRecognizerStateBegan);
-
+            
         });
         
         afterEach(^{
@@ -145,149 +145,150 @@ SpecBegin(I3GestureCoordinator)
             OCMVerifyAll(panGestureRecognizer);
             
         });
+
         
-        
-        it(@"should start drag on a collection in the arena if the point is inside its bounds and the item is draggable", ^{
+        describe(@"starting a drag", ^{
+
+            it(@"should start drag on a collection in the arena if the point is inside its bounds and the item is draggable", ^{
+                
+                id draggingCollection = OCMProtocolMock(@protocol(I3Collection));
+                
+                OCMStub([draggingDataSource canItemBeDraggedAtPoint:touchPoint inCollection:draggingCollection]).andReturn(YES);
+                OCMStub([draggingCollection dragDataSource]).andReturn(draggingDataSource);
+                OCMStub([draggingCollection collectionView]).andReturn(collectionView);
+                OCMStub([collectionView pointInside:touchPoint withEvent:nil]).andReturn(YES);
+                
+                [[dragArena collections] addObject:draggingCollection];
+                [coordinator handlePan:coordinator.gestureRecognizer];
+                
+                expect(coordinator.currentDraggingCollection).to.equal(draggingCollection);
+                expect(coordinator.currentDragOrigin).to.equal(touchPoint);
+                
+                OCMVerifyAll(draggingCollection);
+                
+            });
             
-            id draggingCollection = OCMProtocolMock(@protocol(I3Collection));
+            it(@"should assume that a collection is completely un-draggable if there is no data source", ^{
+                
+                id undraggableCollection = OCMProtocolMock(@protocol(I3Collection));
+                
+                OCMStub([undraggableCollection collectionView]).andReturn(collectionView);
+                OCMStub([collectionView pointInside:touchPoint withEvent:nil]).andReturn(YES);
+                
+                [[dragArena collections] addObject:undraggableCollection];
+                [coordinator handlePan:coordinator.gestureRecognizer];
+                
+                expect(coordinator.currentDraggingCollection).to.beNil();
+                expect(coordinator.currentDragOrigin).to.equal(CGPointZero);
+                
+                OCMVerifyAll(undraggableCollection);
+                
+            });
             
-            OCMStub([draggingDataSource canItemBeDraggedAtPoint:touchPoint inCollection:draggingCollection]).andReturn(YES);
-            OCMStub([draggingCollection dragDataSource]).andReturn(draggingDataSource);
-            OCMStub([draggingCollection collectionView]).andReturn(collectionView);
-            OCMStub([collectionView pointInside:touchPoint withEvent:nil]).andReturn(YES);
+            it(@"should not start dragging on a collection on an item that is not draggable", ^{
+                
+                id draggingCollection = OCMProtocolMock(@protocol(I3Collection));
+                
+                OCMStub([draggingDataSource canItemBeDraggedAtPoint:touchPoint inCollection:draggingCollection]).andReturn(NO);
+                OCMStub([draggingCollection dragDataSource]).andReturn(draggingDataSource);
+                OCMStub([draggingCollection collectionView]).andReturn(collectionView);
+                OCMStub([collectionView pointInside:touchPoint withEvent:nil]).andReturn(YES);
+                
+                [[dragArena collections] addObject:draggingCollection];
+                [coordinator handlePan:coordinator.gestureRecognizer];
+                
+                expect(coordinator.currentDraggingCollection).to.beNil();
+                expect(coordinator.currentDragOrigin).to.equal(CGPointZero);
+                
+                OCMVerifyAll(draggingCollection);
+                
+            });
             
-            [[dragArena collections] addObject:draggingCollection];
-            [coordinator handlePan:coordinator.gestureRecognizer];
+            it(@"should start dragging on the top-most intersecting collection in the ordered set", ^{
+                
+                id topDraggingCollection = OCMProtocolMock(@protocol(I3Collection));
+                id bottomDraggingCollection = OCMProtocolMock(@protocol(I3Collection));
+                
+                OCMStub([draggingDataSource canItemBeDraggedAtPoint:touchPoint inCollection:topDraggingCollection]).andReturn(YES);
+                OCMStub([topDraggingCollection dragDataSource]).andReturn(draggingDataSource);
+                OCMStub([topDraggingCollection collectionView]).andReturn(collectionView);
+                
+                [[draggingDataSource reject] canItemBeDraggedAtPoint:touchPoint inCollection:bottomDraggingCollection];
+                [[bottomDraggingCollection reject] dragDataSource];
+                [[bottomDraggingCollection reject] collectionView];
+                
+                OCMStub([collectionView pointInside:touchPoint withEvent:nil]).andReturn(YES);
+                
+                [[dragArena collections] addObjectsFromArray:@[topDraggingCollection, bottomDraggingCollection]];
+                [coordinator handlePan:coordinator.gestureRecognizer];
+                
+                expect(coordinator.currentDraggingCollection).to.equal(topDraggingCollection);
+                
+                OCMVerifyAll(topDraggingCollection);
+                OCMVerifyAll(bottomDraggingCollection);
+                
+            });
             
-            expect(coordinator.currentDraggingCollection).to.equal(draggingCollection);
-            expect(coordinator.currentDragOrigin).to.equal(touchPoint);
-            
-            OCMVerifyAll(draggingCollection);
+            it(@"should not start dragging if the point is outside of the collection view", ^{
+                
+                id collection = OCMProtocolMock(@protocol(I3Collection));
+                
+                [[draggingDataSource reject] canItemBeDraggedAtPoint:touchPoint inCollection:collection];
+                [[collection reject] dragDataSource];
+                
+                OCMStub([collection collectionView]).andReturn(collectionView);
+                OCMStub([collectionView pointInside:touchPoint withEvent:nil]).andReturn(NO);
+                
+                [[dragArena collections] addObject:collection];
+                [coordinator handlePan:coordinator.gestureRecognizer];
+                
+                expect(coordinator.currentDraggingCollection).to.beNil();
+                expect(coordinator.currentDragOrigin).to.equal(CGPointZero);
+                
+                OCMVerifyAll(collection);
+                
+            });
             
         });
-
-        it(@"should assume that a collection is completely un-draggable if there is no data source", ^{
-
-            id undraggableCollection = OCMProtocolMock(@protocol(I3Collection));
+        
+        
+        describe(@"stopping a drag", ^{
             
-            OCMStub([undraggableCollection collectionView]).andReturn(collectionView);
-            OCMStub([collectionView pointInside:touchPoint withEvent:nil]).andReturn(YES);
+            // Test generic drop stop code
             
-            [[dragArena collections] addObject:undraggableCollection];
-            [coordinator handlePan:coordinator.gestureRecognizer];
+            it(@"should do nothing if no collection is current being dragged", ^{
+                /// @todo Not sure how to implement this test yet
+            });
             
-            expect(coordinator.currentDraggingCollection).to.beNil();
-            expect(coordinator.currentDragOrigin).to.equal(CGPointZero);
+            it(@"should reset the state of the drag if there was no valid destination", ^{
+            });
             
-            OCMVerifyAll(undraggableCollection);
-
+            it(@"should delegate the drop to the top-most intersecting collection", ^{
+            });
+            
+            /// @todo Test all the different outcomes to deletion based on the data source impl.
+            
+            it(@"should trigger rearranging if we're drag/dropping on the same collection", ^{
+            });
+            
+            /// @todo Test all the different outcomes to the above based on the different possible
+            /// data source implementations
+            
+            it(@"should trigger exchanging if we're drag from one collection to another", ^{
+            });
+            
+            /// @todo Test all the different outcomes to the above based on the different possible
+            /// data source implementations
+            
         });
         
-        it(@"should not start dragging on a collection on an item that is not draggable", ^{
-
-            id draggingCollection = OCMProtocolMock(@protocol(I3Collection));
-
-            OCMStub([draggingDataSource canItemBeDraggedAtPoint:touchPoint inCollection:draggingCollection]).andReturn(NO);
-            OCMStub([draggingCollection dragDataSource]).andReturn(draggingDataSource);
-            OCMStub([draggingCollection collectionView]).andReturn(collectionView);
-            OCMStub([collectionView pointInside:touchPoint withEvent:nil]).andReturn(YES);
-            
-            [[dragArena collections] addObject:draggingCollection];
-            [coordinator handlePan:coordinator.gestureRecognizer];
-            
-            expect(coordinator.currentDraggingCollection).to.beNil();
-            expect(coordinator.currentDragOrigin).to.equal(CGPointZero);
-            
-            OCMVerifyAll(draggingCollection);
-
-        });
-
-        it(@"should start dragging on the top-most intersecting collection in the ordered set", ^{
-            
-            id topDraggingCollection = OCMProtocolMock(@protocol(I3Collection));
-            id bottomDraggingCollection = OCMProtocolMock(@protocol(I3Collection));
-
-            OCMStub([draggingDataSource canItemBeDraggedAtPoint:touchPoint inCollection:topDraggingCollection]).andReturn(YES);
-            OCMStub([topDraggingCollection dragDataSource]).andReturn(draggingDataSource);
-            OCMStub([topDraggingCollection collectionView]).andReturn(collectionView);
-            
-            [[draggingDataSource reject] canItemBeDraggedAtPoint:touchPoint inCollection:bottomDraggingCollection];
-            [[bottomDraggingCollection reject] dragDataSource];
-            [[bottomDraggingCollection reject] collectionView];
-            
-            OCMStub([collectionView pointInside:touchPoint withEvent:nil]).andReturn(YES);
-            
-            [[dragArena collections] addObjectsFromArray:@[topDraggingCollection, bottomDraggingCollection]];
-            [coordinator handlePan:coordinator.gestureRecognizer];
-            
-            expect(coordinator.currentDraggingCollection).to.equal(topDraggingCollection);
-            
-            OCMVerifyAll(topDraggingCollection);
-            OCMVerifyAll(bottomDraggingCollection);
-
-        });
         
-        it(@"should not start dragging if the point is outside of the collection view", ^{
+        describe(@"dragging", ^{
             
-            id collection = OCMProtocolMock(@protocol(I3Collection));
+            it(@"should do nothing if no collection is current being dragged", ^{
+                /// @todo Not sure how to implement this test yet
+            });
             
-            [[draggingDataSource reject] canItemBeDraggedAtPoint:touchPoint inCollection:collection];
-            [[collection reject] dragDataSource];
-            
-            OCMStub([collection collectionView]).andReturn(collectionView);
-            OCMStub([collectionView pointInside:touchPoint withEvent:nil]).andReturn(NO);
-            
-            [[dragArena collections] addObject:collection];
-            [coordinator handlePan:coordinator.gestureRecognizer];
-            
-            expect(coordinator.currentDraggingCollection).to.beNil();
-            expect(coordinator.currentDragOrigin).to.equal(CGPointZero);
-            
-            OCMVerifyAll(collection);
-            
-        });
-
-    });
-
-
-    describe(@"stopping a drag", ^{
-    
-        // Test generic drop stop code
-        
-        it(@"should do nothing if no collection is current being dragged", ^{
-            /// @todo Not sure how to implement this test yet
-            expect(YES).to.equal(NO);
-        });
-        
-        it(@"should reset the state of the drag if there was no valid destination", ^{
-            expect(YES).to.equal(NO);
-        });
-        
-        it(@"should delegate the drop to the top-most intersecting collection", ^{
-            expect(YES).to.equal(NO);
-        });
-
-        /// @todo Test all the different outcomes to deletion based on the data source impl.
-        
-        it(@"should trigger rearranging if we're drag/dropping on the same collection", ^{
-        });
-        
-        /// @todo Test all the different outcomes to the above based on the different possible
-        /// data source implementations
-        
-        it(@"should trigger exchanging if we're drag from one collection to another", ^{
-        });
-
-        /// @todo Test all the different outcomes to the above based on the different possible
-        /// data source implementations
-
-    });
-
-
-    describe(@"dragging", ^{
-
-        it(@"should do nothing if no collection is current being dragged", ^{
-            /// @todo Not sure how to implement this test yet
         });
 
     });
