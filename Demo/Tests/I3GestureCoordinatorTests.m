@@ -251,4 +251,47 @@ SpecBegin(I3GestureCoordinator)
     });
 
 
+    describe(@"stopping a drag", ^{
+    
+        // Test generic drop stop code
+        
+        it(@"should do nothing if no collection is current being dragged", ^{
+            /// @todo Not sure how to implement this test yet
+            expect(YES).to.equal(NO);
+        });
+        
+        it(@"should reset the state of the drag if there was no valid destination", ^{
+            expect(YES).to.equal(NO);
+        });
+        
+        it(@"should delegate the drop to the top-most intersecting collection", ^{
+            expect(YES).to.equal(NO);
+        });
+
+        /// @todo Test all the different outcomes to deletion based on the data source impl.
+        
+        it(@"should trigger rearranging if we're drag/dropping on the same collection", ^{
+        });
+        
+        /// @todo Test all the different outcomes to the above based on the different possible
+        /// data source implementations
+        
+        it(@"should trigger exchanging if we're drag from one collection to another", ^{
+        });
+
+        /// @todo Test all the different outcomes to the above based on the different possible
+        /// data source implementations
+
+    });
+
+
+    describe(@"dragging", ^{
+
+        it(@"should do nothing if no collection is current being dragged", ^{
+            /// @todo Not sure how to implement this test yet
+        });
+
+    });
+
+
 SpecEnd
