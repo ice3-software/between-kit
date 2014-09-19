@@ -97,7 +97,7 @@ SpecBegin(I3GestureCoordinator)
             
         });
         
-        it(@"should not attempt to remove gesture recognizer from superview if it is no long present", ^{
+        it(@"should not attempt to remove gesture recognizer from superview if it is no longer present", ^{
             
             [[superview reject] removeGestureRecognizer:panGestureRecognizer];
             OCMStub([superview gestureRecognizers]).andReturn(@[]);
