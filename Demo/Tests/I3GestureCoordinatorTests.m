@@ -129,7 +129,6 @@ SpecBegin(I3GestureCoordinator)
             draggingDataSource = OCMProtocolMock(@protocol(I3DragDataSource));
             
             OCMStub([panGestureRecognizer locationInView:collectionView]).andReturn(touchPoint);
-            OCMStub([panGestureRecognizer state]).andReturn(UIGestureRecognizerStateBegan);
             
         });
         
@@ -148,6 +147,10 @@ SpecBegin(I3GestureCoordinator)
 
         
         describe(@"starting a drag", ^{
+
+            beforeEach(^{
+                OCMStub([panGestureRecognizer state]).andReturn(UIGestureRecognizerStateBegan);
+            });
 
             it(@"should start drag on a collection in the arena if the point is inside its bounds and the item is draggable", ^{
                 
@@ -253,7 +256,13 @@ SpecBegin(I3GestureCoordinator)
         
         
         describe(@"stopping a drag", ^{
+
             
+            beforeEach(^{
+                OCMStub([panGestureRecognizer state]).andReturn(UIGestureRecognizerStateChanged);
+            });
+            
+
             // Test generic drop stop code
             
             it(@"should do nothing if no collection is current being dragged", ^{
@@ -261,6 +270,15 @@ SpecBegin(I3GestureCoordinator)
             });
             
             it(@"should reset the state of the drag if there was no valid destination", ^{
+                
+                [coordinator setValue:OCMProtocolMock(@protocol(I3Collection)) forKey:@"_currentDraggingCollection"];
+                [coordinator setValue:[NSValue valueWithCGPoint:CGPointMake(10, 10)] forKey:@"_currentDragOrigin"];
+
+                [coordinator handlePan:coordinator.gestureRecognizer];
+                
+                expect(coordinator.currentDraggingCollection).to.beNil();
+                expect(coordinator.currentDragOrigin).to.equal(CGPointZero);
+
             });
             
             it(@"should delegate the drop to the top-most intersecting collection", ^{
