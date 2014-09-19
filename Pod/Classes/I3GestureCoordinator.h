@@ -76,4 +76,18 @@
  */
 -(void) dealloc;
 
+
+/**
+ 
+ Entry point for pan gestures that are coordinated to the I3Collections.
+ 
+ @note This method is in the public interface mainly for unit testing purposes. Previously
+ I tried indirectly triggering this selector by calling the UIGestureRecognizer's `touchesBegan:withEvent:`
+ selector but it was too dependent on `UITouch` and `UIEvent`, which I could not mock affectively
+ without knowing the inner workings of the UIGestureRecognizer.
+ 
+ */
+-(void) handlePan:(UIPanGestureRecognizer*) gestureRecognizer;
+
+
 @end

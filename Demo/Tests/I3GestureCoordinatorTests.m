@@ -16,27 +16,28 @@ SpecBegin(I3GestureCoordinator)
     __block id superview;
     __block id panGestureRecognizer;
 
+
     beforeEach(^{
     
-        panGestureRecognizer = OCMClassMock([UIPanGestureRecognizer class]);
         dragArena = OCMClassMock([I3DragArena class]);
         superview = OCMClassMock([UIView class]);
-    
+        panGestureRecognizer = OCMPartialMock([[UIPanGestureRecognizer alloc] init]);
+   
         OCMStub([dragArena superview]).andReturn(superview);
     
     });
 
     afterEach(^{
-    
+        
         dragArena = nil;
-        panGestureRecognizer = nil;
         superview = nil;
+        panGestureRecognizer = nil;
     
     });
 
 
-    describe(@"constructor", ^{
-
+    describe(@"inject, setup and tear down dependencies", ^{
+        
         
         it(@"should inject dependencies", ^{
         
@@ -68,35 +69,28 @@ SpecBegin(I3GestureCoordinator)
             OCMStub([superview gestureRecognizers]).andReturn(@[panGestureRecognizer]);
             I3GestureCoordinator* coordinator __unused = [[I3GestureCoordinator alloc] initWithDragArena:dragArena withGestureRecognizer:panGestureRecognizer];
             OCMVerifyAll(superview);
-       
 
         });
 
-    });
-
-
-
-    describe(@"destructor", ^{
-
         
         /** @note Here we use pragma to ignore warnings about weak variables being assigned and
-            then released immediately after as this is exactly what we are trying to achieve. In
-            order for 'dealloc' to be triggered under ARC we must invoke the ctor by creating a 
-            weak reference that will unasigned immediately. */
+         then released immediately after as this is exactly what we are trying to achieve. In
+         order for 'dealloc' to be triggered under ARC we must invoke the ctor by creating a
+         weak reference that will unasigned immediately. */
         
 #pragma clang diagnostic push
 #pragma clang diagnostic ignored "-Warc-unsafe-retained-assign"
         
         
         it(@"should unbind gesture recognizer from coordinator and superview", ^{
- 
+            
             OCMStub([superview gestureRecognizers]).andReturn(@[panGestureRecognizer]);
-
+            
             __weak I3GestureCoordinator* coordinator __unused = [[I3GestureCoordinator alloc] initWithDragArena:dragArena withGestureRecognizer:panGestureRecognizer];
-
+            
             OCMVerify([panGestureRecognizer removeTarget:[OCMArg any] action:NULL]);
             OCMVerify([superview removeGestureRecognizer:panGestureRecognizer]);
-
+            
         });
         
         it(@"should not attempt to remove gesture recognizer from superview if it is no long present", ^{
@@ -105,13 +99,61 @@ SpecBegin(I3GestureCoordinator)
             OCMStub([superview gestureRecognizers]).andReturn(@[]);
             
             __weak I3GestureCoordinator* coordinator __unused = [[I3GestureCoordinator alloc] initWithDragArena:dragArena withGestureRecognizer:panGestureRecognizer];
-
+            
             OCMVerifyAll(superview);
-
+            
         });
-
+        
 #pragma clang diagnostic pop
         
+    });
+
+
+    describe(@"drag coordination", ^{
+
+        
+        __block I3GestureCoordinator* coordinator;
+
+        
+        beforeEach(^{
+            coordinator = [[I3GestureCoordinator alloc] initWithDragArena:dragArena withGestureRecognizer:panGestureRecognizer];
+        });
+        
+        afterEach(^{
+            coordinator = nil;
+        });
+        
+        
+        it(@"should start drag on a collection in the arena if the point is inside the its bounds and the item is draggable", ^{
+            
+            id draggingDataSource = OCMProtocolMock(@protocol(I3DragDataSource));
+            id draggingCollection = OCMProtocolMock(@protocol(I3Collection));
+            id collectionView = OCMClassMock([UIView class]);
+            
+            CGPoint touchPoint = CGPointMake(10, 10);
+            NSMutableOrderedSet* collections = [[NSMutableOrderedSet alloc] initWithArray:@[draggingCollection]];
+
+            OCMStub([panGestureRecognizer locationInView:collectionView]).andReturn(touchPoint);
+            OCMStub([panGestureRecognizer state]).andReturn(UIGestureRecognizerStateBegan);
+            OCMStub([draggingDataSource canItemBeDraggedAtPoint:touchPoint inCollection:draggingCollection]).andReturn(YES);
+            OCMStub([draggingCollection dragDataSource]).andReturn(draggingDataSource);
+            OCMStub([draggingCollection collectionView]).andReturn(collectionView);
+            OCMStub([collectionView pointInside:touchPoint withEvent:nil]).andReturn(YES);
+            OCMStub([dragArena collections]).andReturn(collections);
+
+            [coordinator handlePan:coordinator.gestureRecognizer];
+            
+            expect(coordinator.currentDraggingCollection).to.equal(draggingCollection);
+            expect(coordinator.currentDragOrigin).to.equal(touchPoint);
+            
+            OCMVerifyAll(panGestureRecognizer);
+            OCMVerifyAll(draggingDataSource);
+            OCMVerifyAll(collectionView);
+            OCMVerifyAll(dragArena);
+            OCMVerifyAll(draggingCollection);
+            
+        });
+
     });
 
 

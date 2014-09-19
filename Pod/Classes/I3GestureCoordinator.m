@@ -23,14 +23,6 @@
 
 /**
  
- Entry point for pan gestures that are coordinated to the I3Collections.
- 
- */
--(void) handlePan:(UIPanGestureRecognizer*) gestureRecognizer;
-
-
-/**
- 
  The drag has started! This method determines which collection (if any) the drag started in
  and how then that may be handled.
  
