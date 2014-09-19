@@ -124,7 +124,7 @@ SpecBegin(I3GestureCoordinator)
         });
         
         
-        it(@"should start drag on a collection in the arena if the point is inside the its bounds and the item is draggable", ^{
+        it(@"should start drag on a collection in the arena if the point is inside its bounds and the item is draggable", ^{
             
             id draggingDataSource = OCMProtocolMock(@protocol(I3DragDataSource));
             id draggingCollection = OCMProtocolMock(@protocol(I3Collection));
@@ -154,6 +154,18 @@ SpecBegin(I3GestureCoordinator)
             
         });
 
+        it(@"should assume that all items in a collection are not draggable if there is no data source", ^{
+            expect(false);
+        });
+        
+        it(@"should not start dragging on a collection on an item that is not draggable", ^{
+            expect(false);
+        });
+
+        it(@"should start dragging on the top-most intersecting collection in the ordered set", ^{
+            expect(false);
+        });
+        
     });
 
 
