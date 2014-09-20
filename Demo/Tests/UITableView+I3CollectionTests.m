@@ -32,6 +32,18 @@ SpecBegin(UITableViewI3Collection)
             
         });
         
+        it(@"should return on of its UITableViewCells for a valid point within it", ^{
+        
+            UITableViewCell *cell = [[UITableViewCell alloc] initWithFrame:CGRectMake(0, 0, 10, 10)];
+            [tableViewCollection insertRowsAtIndexPaths:@[cell] withRowAnimation:UITableViewRowAnimationNone];
+            
+            UIView *item = [tableViewCollection itemAtPoint:CGPointMake(5, 5)];
+            
+            expect(item).to.beInstanceOf([UITableViewCell class]);
+            expect(item).to.equal(cell);
+            
+        });
+        
     });
 
 
