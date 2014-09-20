@@ -275,7 +275,7 @@
     }
     else{
         
-        DND_LOG(@"Can't do anything with these 2.");
+        DND_LOG(@"Can do anything with these 2.");
         /// @todo Render snap back
     }
     

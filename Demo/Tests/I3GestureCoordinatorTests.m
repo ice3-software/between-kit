@@ -142,11 +142,6 @@ SpecBegin(I3GestureCoordinator)
             collectionView = nil;
             draggingDataSource = nil;
             
-            OCMVerifyAll(draggingDataSource);
-            OCMVerifyAll(collectionView);
-            OCMVerifyAll(dragArena);
-            OCMVerifyAll(panGestureRecognizer);
-            
         });
 
         
@@ -160,8 +155,8 @@ SpecBegin(I3GestureCoordinator)
                 
                 id draggingCollection = OCMProtocolMock(@protocol(I3Collection));
                 
-                OCMStub([draggingDataSource canItemBeDraggedAtPoint:touchPoint inCollection:draggingCollection]).andReturn(YES);
-                OCMStub([draggingCollection dragDataSource]).andReturn(draggingDataSource);
+                OCMExpect([draggingDataSource canItemBeDraggedAtPoint:touchPoint inCollection:draggingCollection]).andReturn(YES);
+                OCMExpect([draggingCollection dragDataSource]).andReturn(draggingDataSource);
                 OCMStub([draggingCollection collectionView]).andReturn(collectionView);
                 OCMStub([collectionView pointInside:touchPoint withEvent:nil]).andReturn(YES);
                 
@@ -172,7 +167,8 @@ SpecBegin(I3GestureCoordinator)
                 expect(coordinator.currentDragOrigin).to.equal(touchPoint);
                 
                 OCMVerifyAll(draggingCollection);
-                
+                OCMVerifyAll(draggingDataSource);
+
             });
             
             it(@"should assume that a collection is completely un-draggable if there is no data source", ^{
@@ -196,8 +192,8 @@ SpecBegin(I3GestureCoordinator)
                 
                 id draggingCollection = OCMProtocolMock(@protocol(I3Collection));
                 
-                OCMStub([draggingDataSource canItemBeDraggedAtPoint:touchPoint inCollection:draggingCollection]).andReturn(NO);
-                OCMStub([draggingCollection dragDataSource]).andReturn(draggingDataSource);
+                OCMExpect([draggingDataSource canItemBeDraggedAtPoint:touchPoint inCollection:draggingCollection]).andReturn(NO);
+                OCMExpect([draggingCollection dragDataSource]).andReturn(draggingDataSource);
                 OCMStub([draggingCollection collectionView]).andReturn(collectionView);
                 OCMStub([collectionView pointInside:touchPoint withEvent:nil]).andReturn(YES);
                 
@@ -208,7 +204,8 @@ SpecBegin(I3GestureCoordinator)
                 expect(coordinator.currentDragOrigin).to.equal(CGPointZero);
                 
                 OCMVerifyAll(draggingCollection);
-                
+                OCMVerifyAll(draggingDataSource);
+
             });
             
             it(@"should start dragging on the top-most intersecting collection and none underneith", ^{
@@ -216,8 +213,8 @@ SpecBegin(I3GestureCoordinator)
                 id topDraggingCollection = OCMProtocolMock(@protocol(I3Collection));
                 id bottomDraggingCollection = OCMProtocolMock(@protocol(I3Collection));
                 
-                OCMStub([draggingDataSource canItemBeDraggedAtPoint:touchPoint inCollection:topDraggingCollection]).andReturn(YES);
-                OCMStub([topDraggingCollection dragDataSource]).andReturn(draggingDataSource);
+                OCMExpect([draggingDataSource canItemBeDraggedAtPoint:touchPoint inCollection:topDraggingCollection]).andReturn(YES);
+                OCMExpect([topDraggingCollection dragDataSource]).andReturn(draggingDataSource);
                 OCMStub([topDraggingCollection collectionView]).andReturn(collectionView);
                 
                 [[draggingDataSource reject] canItemBeDraggedAtPoint:touchPoint inCollection:bottomDraggingCollection];
@@ -233,10 +230,11 @@ SpecBegin(I3GestureCoordinator)
                 
                 OCMVerifyAll(topDraggingCollection);
                 OCMVerifyAll(bottomDraggingCollection);
-                
+                OCMVerifyAll(draggingDataSource);
+
             });
             
-            it(@"should not start dragging if the point is outside of the collection view", ^{
+            it(@"should not start dragging or call the data source if the point is outside of the collection view", ^{
                 
                 id collection = OCMProtocolMock(@protocol(I3Collection));
                 
@@ -253,7 +251,8 @@ SpecBegin(I3GestureCoordinator)
                 expect(coordinator.currentDragOrigin).to.equal(CGPointZero);
                 
                 OCMVerifyAll(collection);
-                
+                OCMVerifyAll(draggingDataSource);
+
             });
             
         });
@@ -271,14 +270,15 @@ SpecBegin(I3GestureCoordinator)
                 [coordinator setValue:[NSValue valueWithCGPoint:touchPoint] forKey:@"_currentDragOrigin"];
                 [collections addObject:draggingCollection];
 
-                OCMStub([draggingCollection dragDataSource]).andReturn(draggingDataSource);
                 OCMStub([draggingCollection collectionView]).andReturn(collectionView);
                 OCMStub([panGestureRecognizer state]).andReturn(UIGestureRecognizerStateEnded);
                 
             });
 
             afterEach(^{
+                
                 draggingCollection = nil;
+                
             });
             
             
@@ -307,6 +307,78 @@ SpecBegin(I3GestureCoordinator)
 
                 [[collectionUnderneither reject] collectionView];
                 [coordinator handlePan:coordinator.gestureRecognizer];
+
+                OCMVerifyAll(collectionUnderneither);
+
+            });
+            
+            it(@"should not delete if collection dropped outside but there is no data source", ^{
+                
+                OCMStub([collectionView pointInside:touchPoint withEvent:nil]).andReturn(NO);
+                OCMExpect([draggingCollection dragDataSource]);
+                
+                [[draggingDataSource reject] deleteItemAtPoint:touchPoint inCollection:[OCMArg any]];
+                [coordinator handlePan:coordinator.gestureRecognizer];
+
+                OCMVerifyAll(draggingDataSource);
+
+            });
+            
+            it(@"should not delete if data source does not implement can delete", ^{
+
+                OCMStub([collectionView pointInside:touchPoint withEvent:nil]).andReturn(NO);
+                OCMExpect([draggingCollection dragDataSource]).andReturn(draggingDataSource);
+                OCMExpect([draggingDataSource respondsToSelector:@selector(canItemAtPoint:beDeletedIfDroppedOutsideOfCollection:atPoint:)]).andReturn(NO);
+                
+                [[draggingDataSource reject] deleteItemAtPoint:touchPoint inCollection:[OCMArg any]];
+                [coordinator handlePan:coordinator.gestureRecognizer];
+
+                OCMVerifyAll(draggingDataSource);
+
+            });
+            
+            it(@"should not delete if data source does not implement delete selector", ^{
+
+                OCMStub([collectionView pointInside:touchPoint withEvent:nil]).andReturn(NO);
+                OCMExpect([draggingCollection dragDataSource]).andReturn(draggingDataSource);
+                OCMExpect([draggingDataSource respondsToSelector:@selector(canItemAtPoint:beDeletedIfDroppedOutsideOfCollection:atPoint:)]).andReturn(YES);
+                OCMExpect([draggingDataSource respondsToSelector:@selector(deleteItemAtPoint:inCollection:)]).andReturn(NO);
+                
+                [[draggingDataSource reject] deleteItemAtPoint:touchPoint inCollection:[OCMArg any]];
+                [coordinator handlePan:coordinator.gestureRecognizer];
+
+                OCMVerifyAll(draggingDataSource);
+
+            });
+            
+            it(@"should not delete if the item in the data source is not deleteable", ^{
+            
+                OCMStub([collectionView pointInside:touchPoint withEvent:nil]).andReturn(NO);
+                OCMExpect([draggingCollection dragDataSource]).andReturn(draggingDataSource);
+                OCMExpect([draggingDataSource respondsToSelector:@selector(canItemAtPoint:beDeletedIfDroppedOutsideOfCollection:atPoint:)]).andReturn(YES);
+                OCMExpect([draggingDataSource respondsToSelector:@selector(deleteItemAtPoint:inCollection:)]).andReturn(YES);
+                OCMExpect([draggingDataSource canItemAtPoint:touchPoint beDeletedIfDroppedOutsideOfCollection:draggingCollection atPoint:touchPoint]).andReturn(NO);
+                
+                [[draggingDataSource reject] deleteItemAtPoint:touchPoint inCollection:[OCMArg any]];
+                [coordinator handlePan:coordinator.gestureRecognizer];
+
+                OCMVerifyAll(draggingDataSource);
+
+            });
+            
+            it(@"should delete item if the its deleteable under the data source", ^{
+            
+                
+                OCMStub([collectionView pointInside:touchPoint withEvent:nil]).andReturn(NO);
+                OCMExpect([draggingCollection dragDataSource]).andReturn(draggingDataSource);
+                OCMExpect([draggingDataSource respondsToSelector:@selector(canItemAtPoint:beDeletedIfDroppedOutsideOfCollection:atPoint:)]).andReturn(YES);
+                OCMExpect([draggingDataSource respondsToSelector:@selector(deleteItemAtPoint:inCollection:)]).andReturn(YES);
+                OCMExpect([draggingDataSource canItemAtPoint:touchPoint beDeletedIfDroppedOutsideOfCollection:draggingCollection atPoint:touchPoint]).andReturn(YES);
+                OCMExpect([draggingDataSource deleteItemAtPoint:touchPoint inCollection:draggingCollection]);
+
+                [coordinator handlePan:coordinator.gestureRecognizer];
+
+                OCMVerifyAll(draggingDataSource);
 
             });
             
