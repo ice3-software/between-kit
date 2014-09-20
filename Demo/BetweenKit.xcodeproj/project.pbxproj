@@ -12,6 +12,8 @@
 		467AFC8819C5F0F000FFD1F4 /* I3GestureCoordinatorTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 467AFC8719C5F0F000FFD1F4 /* I3GestureCoordinatorTests.m */; };
 		46B5AA8F19CE1EC400A51694 /* I3DragDataSourceJustCanDelete.m in Sources */ = {isa = PBXBuildFile; fileRef = 46B5AA8E19CE1EC400A51694 /* I3DragDataSourceJustCanDelete.m */; };
 		46B5AA9519CE27E800A51694 /* I3DragDataSourceJustDelete.m in Sources */ = {isa = PBXBuildFile; fileRef = 46B5AA9419CE27E800A51694 /* I3DragDataSourceJustDelete.m */; };
+		46B5AA9819CE2F0000A51694 /* I3DragDataSourceJustCanRearrange.m in Sources */ = {isa = PBXBuildFile; fileRef = 46B5AA9719CE2F0000A51694 /* I3DragDataSourceJustCanRearrange.m */; };
+		46B5AA9B19CE2F3400A51694 /* I3DragDataSourceJustRearrange.m in Sources */ = {isa = PBXBuildFile; fileRef = 46B5AA9A19CE2F3400A51694 /* I3DragDataSourceJustRearrange.m */; };
 		6003F58E195388D20070C39A /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6003F58D195388D20070C39A /* Foundation.framework */; };
 		6003F590195388D20070C39A /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6003F58F195388D20070C39A /* CoreGraphics.framework */; };
 		6003F592195388D20070C39A /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6003F591195388D20070C39A /* UIKit.framework */; };
@@ -48,6 +50,10 @@
 		46B5AA8E19CE1EC400A51694 /* I3DragDataSourceJustCanDelete.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = I3DragDataSourceJustCanDelete.m; sourceTree = "<group>"; };
 		46B5AA9319CE27E800A51694 /* I3DragDataSourceJustDelete.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = I3DragDataSourceJustDelete.h; sourceTree = "<group>"; };
 		46B5AA9419CE27E800A51694 /* I3DragDataSourceJustDelete.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = I3DragDataSourceJustDelete.m; sourceTree = "<group>"; };
+		46B5AA9619CE2F0000A51694 /* I3DragDataSourceJustCanRearrange.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = I3DragDataSourceJustCanRearrange.h; sourceTree = "<group>"; };
+		46B5AA9719CE2F0000A51694 /* I3DragDataSourceJustCanRearrange.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = I3DragDataSourceJustCanRearrange.m; sourceTree = "<group>"; };
+		46B5AA9919CE2F3400A51694 /* I3DragDataSourceJustRearrange.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = I3DragDataSourceJustRearrange.h; sourceTree = "<group>"; };
+		46B5AA9A19CE2F3400A51694 /* I3DragDataSourceJustRearrange.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = I3DragDataSourceJustRearrange.m; sourceTree = "<group>"; };
 		542B21470EB3452C810F4621 /* BetweenKit.podspec */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; name = BetweenKit.podspec; path = ../BetweenKit.podspec; sourceTree = "<group>"; };
 		6003F58A195388D20070C39A /* BetweenKit.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = BetweenKit.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		6003F58D195388D20070C39A /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
@@ -107,6 +113,10 @@
 				46B5AA8E19CE1EC400A51694 /* I3DragDataSourceJustCanDelete.m */,
 				46B5AA9319CE27E800A51694 /* I3DragDataSourceJustDelete.h */,
 				46B5AA9419CE27E800A51694 /* I3DragDataSourceJustDelete.m */,
+				46B5AA9619CE2F0000A51694 /* I3DragDataSourceJustCanRearrange.h */,
+				46B5AA9719CE2F0000A51694 /* I3DragDataSourceJustCanRearrange.m */,
+				46B5AA9919CE2F3400A51694 /* I3DragDataSourceJustRearrange.h */,
+				46B5AA9A19CE2F3400A51694 /* I3DragDataSourceJustRearrange.m */,
 			);
 			name = Fixtures;
 			sourceTree = "<group>";
@@ -380,6 +390,8 @@
 			buildActionMask = 2147483647;
 			files = (
 				46B5AA9519CE27E800A51694 /* I3DragDataSourceJustDelete.m in Sources */,
+				46B5AA9B19CE2F3400A51694 /* I3DragDataSourceJustRearrange.m in Sources */,
+				46B5AA9819CE2F0000A51694 /* I3DragDataSourceJustCanRearrange.m in Sources */,
 				46B5AA8F19CE1EC400A51694 /* I3DragDataSourceJustCanDelete.m in Sources */,
 				467AFC8819C5F0F000FFD1F4 /* I3GestureCoordinatorTests.m in Sources */,
 			);

@@ -9,6 +9,8 @@
 #import <BetweenKit/I3GestureCoordinator.h>
 #import "I3DragDataSourceJustCanDelete.h"
 #import "I3DragDataSourceJustDelete.h"
+#import "I3DragDataSourceJustCanRearrange.h"
+#import "I3DragDataSourceJustRearrange.h"
 
 
 SpecBegin(I3GestureCoordinator)
@@ -375,7 +377,6 @@ SpecBegin(I3GestureCoordinator)
                 
                 OCMStub([collectionView pointInside:touchPoint withEvent:nil]).andReturn(YES);
                 OCMStub([draggingCollection dragDataSource]).andReturn(draggingDataSource);
-                OCMStub([draggingDataSource respondsToSelector:[OCMArg anySelector]]).andReturn(YES);
                 OCMStub([draggingDataSource canItemFromPoint:touchPoint beRearrangedWithItemAtPoint:touchPoint inCollection:draggingCollection]).andReturn(YES);
 
                 [coordinator handlePan:coordinator.gestureRecognizer];
@@ -398,28 +399,26 @@ SpecBegin(I3GestureCoordinator)
             
             it(@"should not rearrange if the data source does not implement can rearrange", ^{
 
+                id dragSource = OCMClassMock([I3DragDataSourceJustRearrange class]);
+                
                 OCMStub([collectionView pointInside:touchPoint withEvent:nil]).andReturn(YES);
-                OCMStub([draggingCollection dragDataSource]).andReturn(draggingDataSource);
-                OCMStub([draggingDataSource respondsToSelector:@selector(canItemFromPoint:beRearrangedWithItemAtPoint:inCollection:)]).andReturn(NO);
+                OCMStub([draggingCollection dragDataSource]).andReturn(dragSource);
                 
-                [[draggingDataSource reject] rearrangeItemAtPoint:touchPoint withItemAtPoint:touchPoint inCollection:draggingCollection];
+                [[dragSource reject] rearrangeItemAtPoint:touchPoint withItemAtPoint:touchPoint inCollection:draggingCollection];
                 [coordinator handlePan:coordinator.gestureRecognizer];
-                
-                OCMVerify([draggingDataSource respondsToSelector:@selector(canItemFromPoint:beRearrangedWithItemAtPoint:inCollection:)]);
 
             });
             
             it(@"should not rearrange if the data source does not implement rearrange method", ^{
             
+                id dragSource = OCMClassMock([I3DragDataSourceJustCanRearrange class]);
+
                 OCMStub([collectionView pointInside:touchPoint withEvent:nil]).andReturn(YES);
-                OCMStub([draggingCollection dragDataSource]).andReturn(draggingDataSource);
-                OCMStub([draggingDataSource respondsToSelector:@selector(canItemFromPoint:beRearrangedWithItemAtPoint:inCollection:)]).andReturn(YES);
-                OCMStub([draggingDataSource respondsToSelector:@selector(rearrangeItemAtPoint:withItemAtPoint:inCollection:)]).andReturn(NO);
+                OCMStub([draggingCollection dragDataSource]).andReturn(dragSource);
+                OCMStub([dragSource canItemFromPoint:touchPoint beRearrangedWithItemAtPoint:touchPoint inCollection:draggingCollection]).andReturn(YES);
                 
-                [[draggingDataSource reject] rearrangeItemAtPoint:touchPoint withItemAtPoint:touchPoint inCollection:draggingCollection];
+                [[dragSource reject] rearrangeItemAtPoint:touchPoint withItemAtPoint:touchPoint inCollection:draggingCollection];
                 [coordinator handlePan:coordinator.gestureRecognizer];
-                
-                OCMVerify([draggingDataSource respondsToSelector:@selector(rearrangeItemAtPoint:withItemAtPoint:inCollection:)]);
                 
             });
             
@@ -427,7 +426,6 @@ SpecBegin(I3GestureCoordinator)
 
                 OCMStub([collectionView pointInside:touchPoint withEvent:nil]).andReturn(YES);
                 OCMStub([draggingCollection dragDataSource]).andReturn(draggingDataSource);
-                OCMStub([draggingDataSource respondsToSelector:[OCMArg anySelector]]).andReturn(YES);
                 OCMStub([draggingDataSource canItemFromPoint:touchPoint beRearrangedWithItemAtPoint:touchPoint inCollection:draggingCollection]).andReturn(NO);
                 
                 [[draggingDataSource reject] rearrangeItemAtPoint:touchPoint withItemAtPoint:touchPoint inCollection:draggingCollection];
