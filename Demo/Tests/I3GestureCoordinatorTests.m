@@ -20,6 +20,7 @@
 
 SpecBegin(I3GestureCoordinator)
 
+
     __block NSMutableOrderedSet *collections;
     __block id dragArena;
     __block id superview;
