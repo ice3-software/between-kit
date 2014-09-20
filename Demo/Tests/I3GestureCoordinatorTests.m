@@ -358,8 +358,7 @@ SpecBegin(I3GestureCoordinator)
             
                 OCMStub([collectionView pointInside:touchPoint withEvent:nil]).andReturn(NO);
                 OCMStub([draggingCollection dragDataSource]).andReturn(draggingDataSource);
-                OCMStub([draggingDataSource respondsToSelector:@selector(canItemAtPoint:beDeletedIfDroppedOutsideOfCollection:atPoint:)]).andReturn(YES);
-                OCMStub([draggingDataSource respondsToSelector:@selector(deleteItemAtPoint:inCollection:)]).andReturn(YES);
+                OCMStub([draggingDataSource respondsToSelector:[OCMArg anySelector]]).andReturn(YES);
                 OCMStub([draggingDataSource canItemAtPoint:touchPoint beDeletedIfDroppedOutsideOfCollection:draggingCollection atPoint:touchPoint]).andReturn(NO);
                 
                 [[draggingDataSource reject] deleteItemAtPoint:touchPoint inCollection:[OCMArg any]];
@@ -375,8 +374,7 @@ SpecBegin(I3GestureCoordinator)
                 
                 OCMStub([collectionView pointInside:touchPoint withEvent:nil]).andReturn(NO);
                 OCMStub([draggingCollection dragDataSource]).andReturn(draggingDataSource);
-                OCMStub([draggingDataSource respondsToSelector:@selector(canItemAtPoint:beDeletedIfDroppedOutsideOfCollection:atPoint:)]).andReturn(YES);
-                OCMStub([draggingDataSource respondsToSelector:@selector(deleteItemAtPoint:inCollection:)]).andReturn(YES);
+                OCMStub([draggingDataSource respondsToSelector:[OCMArg anySelector]]).andReturn(YES);
                 OCMStub([draggingDataSource canItemAtPoint:touchPoint beDeletedIfDroppedOutsideOfCollection:draggingCollection atPoint:touchPoint]).andReturn(YES);
 
                 [coordinator handlePan:coordinator.gestureRecognizer];
