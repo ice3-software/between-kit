@@ -39,8 +39,7 @@ SpecBegin(I3GestureCoordinator)
     });
 
 
-    describe(@"inject, setup and tear down dependencies", ^{
-        
+    describe(@"constructor", ^{
         
         it(@"should inject dependencies", ^{
         
@@ -74,8 +73,13 @@ SpecBegin(I3GestureCoordinator)
             OCMVerifyAll(superview);
 
         });
-
         
+    });
+
+
+    describe(@"destructor", ^{
+
+    
         /** @note Here we use pragma to ignore warnings about weak variables being assigned and
          then released immediately after as this is exactly what we are trying to achieve. In
          order for 'dealloc' to be triggered under ARC we must invoke the ctor by creating a
@@ -258,27 +262,51 @@ SpecBegin(I3GestureCoordinator)
         describe(@"stopping a drag", ^{
 
             
-            beforeEach(^{
-                OCMStub([panGestureRecognizer state]).andReturn(UIGestureRecognizerStateChanged);
+            /** This indirectly tests whether a drag has been stopped by expecting the
+                currentDraggingCollection and currentDragOrigin to be reset. */
+            
+            sharedExamplesFor(@"resets the current dragging state", ^(NSDictionary *data){
+                
+                I3GestureCoordinator* gestureCoordinator = [data objectForKey:@"coordinator"];
+                
+                [gestureCoordinator setValue:OCMProtocolMock(@protocol(I3Collection)) forKey:@"_currentDraggingCollection"];
+                [gestureCoordinator setValue:[NSValue valueWithCGPoint:CGPointMake(10, 10)] forKey:@"_currentDragOrigin"];
+                
+                [gestureCoordinator handlePan:gestureCoordinator.gestureRecognizer];
+                
+                expect(gestureCoordinator.currentDraggingCollection).to.beNil();
+                expect(gestureCoordinator.currentDragOrigin).to.equal(CGPointZero);
+
             });
             
+            
+            beforeEach(^{
+                OCMStub([panGestureRecognizer state]).andReturn(UIGestureRecognizerStateEnded);
+            });
 
+
+            /** The following test whether the dragging state is reset when we a gesture stops, for all
+                the approriate `UIGestureRecognizerState`s */
+            
+            itShouldBehaveLike(@"resets the current dragging state", ^{
+                return @{@"coordinator": coordinator};
+            });
+
+            itShouldBehaveLike(@"resets the current dragging state", ^{
+                OCMStub([panGestureRecognizer state]).andReturn(UIGestureRecognizerStateFailed);
+                return @{@"coordinator": coordinator};
+            });
+            
+            itShouldBehaveLike(@"resets the current dragging state", ^{
+                OCMStub([panGestureRecognizer state]).andReturn(UIGestureRecognizerStateCancelled);
+                return @{@"coordinator": coordinator};
+            });
+            
+            
             // Test generic drop stop code
             
             it(@"should do nothing if no collection is current being dragged", ^{
                 /// @todo Not sure how to implement this test yet
-            });
-            
-            it(@"should reset the state of the drag if there was no valid destination", ^{
-                
-                [coordinator setValue:OCMProtocolMock(@protocol(I3Collection)) forKey:@"_currentDraggingCollection"];
-                [coordinator setValue:[NSValue valueWithCGPoint:CGPointMake(10, 10)] forKey:@"_currentDragOrigin"];
-
-                [coordinator handlePan:coordinator.gestureRecognizer];
-                
-                expect(coordinator.currentDraggingCollection).to.beNil();
-                expect(coordinator.currentDragOrigin).to.equal(CGPointZero);
-
             });
             
             it(@"should delegate the drop to the top-most intersecting collection", ^{
