@@ -7,6 +7,8 @@
 //
 
 #import <BetweenKit/I3GestureCoordinator.h>
+#import "I3DragDataSourceJustCanDelete.h"
+#import "I3DragDataSourceJustDelete.h"
 
 
 SpecBegin(I3GestureCoordinator)
@@ -319,30 +321,28 @@ SpecBegin(I3GestureCoordinator)
                 
             });
             
-            it(@"should not delete if data source does not implement can delete", ^{
+            it(@"should not delete if data source does not implement can delete selector", ^{
 
-                OCMStub([collectionView pointInside:touchPoint withEvent:nil]).andReturn(NO);
-                OCMStub([draggingCollection dragDataSource]).andReturn(draggingDataSource);
-                OCMStub([draggingDataSource respondsToSelector:@selector(canItemAtPoint:beDeletedIfDroppedOutsideOfCollection:atPoint:)]).andReturn(NO);
+                id dragSource = OCMClassMock([I3DragDataSourceJustDelete class]);
                 
-                [[draggingDataSource reject] deleteItemAtPoint:touchPoint inCollection:[OCMArg any]];
+                OCMStub([collectionView pointInside:touchPoint withEvent:nil]).andReturn(NO);
+                OCMStub([draggingCollection dragDataSource]).andReturn(dragSource);
+                
+                [[dragSource reject] deleteItemAtPoint:touchPoint inCollection:[OCMArg any]];
                 [coordinator handlePan:coordinator.gestureRecognizer];
-
-                OCMVerify([draggingDataSource respondsToSelector:@selector(canItemAtPoint:beDeletedIfDroppedOutsideOfCollection:atPoint:)]);
 
             });
             
             it(@"should not delete if data source does not implement delete selector", ^{
 
-                OCMStub([collectionView pointInside:touchPoint withEvent:nil]).andReturn(NO);
-                OCMStub([draggingCollection dragDataSource]).andReturn(draggingDataSource);
-                OCMStub([draggingDataSource respondsToSelector:@selector(canItemAtPoint:beDeletedIfDroppedOutsideOfCollection:atPoint:)]).andReturn(YES);
-                OCMStub([draggingDataSource respondsToSelector:@selector(deleteItemAtPoint:inCollection:)]).andReturn(NO);
+                id dragSource = OCMClassMock([I3DragDataSourceJustCanDelete class]);
                 
-                [[draggingDataSource reject] deleteItemAtPoint:touchPoint inCollection:[OCMArg any]];
+                OCMStub([collectionView pointInside:touchPoint withEvent:nil]).andReturn(NO);
+                OCMStub([draggingCollection dragDataSource]).andReturn(dragSource);
+                OCMStub([dragSource canItemAtPoint:touchPoint beDeletedIfDroppedOutsideOfCollection:draggingCollection atPoint:touchPoint]).andReturn(YES);
+                
+                [[dragSource reject] deleteItemAtPoint:touchPoint inCollection:[OCMArg any]];
                 [coordinator handlePan:coordinator.gestureRecognizer];
-
-                OCMVerify([draggingDataSource respondsToSelector:@selector(deleteItemAtPoint:inCollection:)]);
 
             });
             
@@ -350,7 +350,6 @@ SpecBegin(I3GestureCoordinator)
             
                 OCMStub([collectionView pointInside:touchPoint withEvent:nil]).andReturn(NO);
                 OCMStub([draggingCollection dragDataSource]).andReturn(draggingDataSource);
-                OCMStub([draggingDataSource respondsToSelector:[OCMArg anySelector]]).andReturn(YES);
                 OCMStub([draggingDataSource canItemAtPoint:touchPoint beDeletedIfDroppedOutsideOfCollection:draggingCollection atPoint:touchPoint]).andReturn(NO);
                 
                 [[draggingDataSource reject] deleteItemAtPoint:touchPoint inCollection:[OCMArg any]];
@@ -364,7 +363,6 @@ SpecBegin(I3GestureCoordinator)
             
                 OCMStub([collectionView pointInside:touchPoint withEvent:nil]).andReturn(NO);
                 OCMStub([draggingCollection dragDataSource]).andReturn(draggingDataSource);
-                OCMStub([draggingDataSource respondsToSelector:[OCMArg anySelector]]).andReturn(YES);
                 OCMStub([draggingDataSource canItemAtPoint:touchPoint beDeletedIfDroppedOutsideOfCollection:draggingCollection atPoint:touchPoint]).andReturn(YES);
 
                 [coordinator handlePan:coordinator.gestureRecognizer];

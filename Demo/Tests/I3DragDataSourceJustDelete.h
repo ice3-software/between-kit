@@ -1,5 +1,5 @@
 //
-//  I3DragDataSourceDeleteAndCanDelete.h
+//  I3DragDataSourceJustDelete.h
 //  BetweenKit
 //
 //  Created by Stephen Fortune on 20/09/2014.
@@ -7,7 +7,8 @@
 //
 
 #import <Foundation/Foundation.h>
+#import <BetweenKit/I3DragDataSource.h>
 
-@interface I3DragDataSourceDeleteAndCanDelete : NSObject
+@interface I3DragDataSourceJustDelete : NSObject <I3DragDataSource>
 
 @end

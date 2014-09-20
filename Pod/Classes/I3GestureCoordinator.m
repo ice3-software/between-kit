@@ -217,9 +217,12 @@
     
     id<I3DragDataSource> dataSource = _currentDraggingCollection.dragDataSource;
 
+    SEL canDeleteSelector = @selector(canItemAtPoint:beDeletedIfDroppedOutsideOfCollection:atPoint:);
+    SEL deleteSelector = @selector(deleteItemAtPoint:inCollection:);
+    
     if(
-       [dataSource respondsToSelector:@selector(canItemAtPoint:beDeletedIfDroppedOutsideOfCollection:atPoint:)] &&
-       [dataSource respondsToSelector:@selector(deleteItemAtPoint:inCollection:)] &&
+       [dataSource respondsToSelector:canDeleteSelector] &&
+       [dataSource respondsToSelector:deleteSelector] &&
        [dataSource canItemAtPoint:_currentDragOrigin beDeletedIfDroppedOutsideOfCollection:_currentDraggingCollection atPoint:at]
     ){
         

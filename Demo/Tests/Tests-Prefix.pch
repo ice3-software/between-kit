@@ -10,5 +10,6 @@
   #import <Specta/Specta.h>
   #import <Expecta/Expecta.h>
   #import <OCMock/OCMock.h>
+  #import <UIKit/UIKit.h>
 
 #endif
