@@ -11,7 +11,8 @@
 #import "I3DragDataSourceJustDelete.h"
 #import "I3DragDataSourceJustCanRearrange.h"
 #import "I3DragDataSourceJustRearrange.h"
-
+#import "I3DragDataSourceJustCanDrop.h"
+#import "I3DragDataSourceJustDrop.h"
 
 
 /// @todo Make sure we're not using 2 of the same class mocks simultaneously.
@@ -442,10 +443,8 @@ SpecBegin(I3GestureCoordinator)
             it(@"should exchange between collections if we're drag/dropping between different collections and data source allows", ^{
             
                 id dstCollection = OCMProtocolMock(@protocol(I3Collection));
-
                 OCMStub([dstCollection collectionView]).andReturn(collectionView);
                 OCMStub([collectionView pointInside:touchPoint withEvent:nil]).andReturn(YES);
-
                 [collections insertObject:dstCollection atIndex:0];
                 
                 OCMStub([draggingCollection dragDataSource]).andReturn(draggingDataSource);
@@ -461,20 +460,64 @@ SpecBegin(I3GestureCoordinator)
             
             it(@"should not exchange between if data source is not specified", ^{
             
+                id dstCollection = OCMProtocolMock(@protocol(I3Collection));
+                OCMStub([dstCollection collectionView]).andReturn(collectionView);
+                OCMStub([collectionView pointInside:touchPoint withEvent:nil]).andReturn(YES);
+                [collections insertObject:dstCollection atIndex:0];
+                
+                [[draggingDataSource reject] dropItemAtPoint:touchPoint fromCollection:draggingCollection toPoint:touchPoint inCollection:dstCollection];
+                [coordinator handlePan:coordinator.gestureRecognizer];
+                
+                OCMVerify([draggingCollection dragDataSource]);
+                
             });
             
             it(@"should not exchange between if data source does not implement drop selector", ^{
-            
+
+                id dstCollection = OCMProtocolMock(@protocol(I3Collection));
+                OCMStub([dstCollection collectionView]).andReturn(collectionView);
+                OCMStub([collectionView pointInside:touchPoint withEvent:nil]).andReturn(YES);
+                [collections insertObject:dstCollection atIndex:0];
+                
+                id dragSource = OCMClassMock([I3DragDataSourceJustCanDrop class]);
+                OCMStub([dragSource canItemAtPoint:touchPoint fromCollection:draggingCollection beDroppedToPoint:touchPoint inCollection:dstCollection]).andReturn(YES);
+                OCMStub([draggingCollection dragDataSource]).andReturn(dragSource);
+                
+                [[draggingDataSource reject] dropItemAtPoint:touchPoint fromCollection:draggingCollection toPoint:touchPoint inCollection:dstCollection];
+                [coordinator handlePan:coordinator.gestureRecognizer];
+
             });
             
             it(@"should not exchange between if data source does not implement can drop selector", ^{
-            
+
+                id dstCollection = OCMProtocolMock(@protocol(I3Collection));
+                OCMStub([dstCollection collectionView]).andReturn(collectionView);
+                OCMStub([collectionView pointInside:touchPoint withEvent:nil]).andReturn(YES);
+                [collections insertObject:dstCollection atIndex:0];
+                
+                id dragSource = OCMClassMock([I3DragDataSourceJustDrop class]);
+                OCMStub([draggingCollection dragDataSource]).andReturn(dragSource);
+                
+                [[draggingDataSource reject] dropItemAtPoint:touchPoint fromCollection:draggingCollection toPoint:touchPoint inCollection:dstCollection];
+                [coordinator handlePan:coordinator.gestureRecognizer];
+
             });
             
             it(@"should not exchange between if data source specifies that cell is not exchangeable", ^{
-            
+                
+                id dstCollection = OCMProtocolMock(@protocol(I3Collection));
+                OCMStub([dstCollection collectionView]).andReturn(collectionView);
+                OCMStub([collectionView pointInside:touchPoint withEvent:nil]).andReturn(YES);
+                [collections insertObject:dstCollection atIndex:0];
+                
+                OCMStub([draggingDataSource canItemAtPoint:touchPoint fromCollection:draggingCollection beDroppedToPoint:touchPoint inCollection:dstCollection]).andReturn(NO);
+                OCMStub([draggingCollection dragDataSource]).andReturn(draggingDataSource);
+                
+                [[draggingDataSource reject] dropItemAtPoint:touchPoint fromCollection:draggingCollection toPoint:touchPoint inCollection:dstCollection];
+                [coordinator handlePan:coordinator.gestureRecognizer];
+
             });
-                        
+            
         });
         
         
