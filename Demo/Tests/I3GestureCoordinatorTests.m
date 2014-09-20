@@ -439,12 +439,42 @@ SpecBegin(I3GestureCoordinator)
             
             });
             
-            it(@"should exchange between collections if we're drag/dropping between different collections and the data source allows", ^{
+            it(@"should exchange between collections if we're drag/dropping between different collections and data source allows", ^{
+            
+                id dstCollection = OCMProtocolMock(@protocol(I3Collection));
+
+                OCMStub([dstCollection collectionView]).andReturn(collectionView);
+                OCMStub([collectionView pointInside:touchPoint withEvent:nil]).andReturn(YES);
+
+                [collections insertObject:dstCollection atIndex:0];
+                
+                OCMStub([draggingCollection dragDataSource]).andReturn(draggingDataSource);
+                OCMStub([draggingDataSource canItemAtPoint:touchPoint fromCollection:draggingCollection beDroppedToPoint:touchPoint inCollection:dstCollection]).andReturn(YES);
+                
+                [coordinator handlePan:coordinator.gestureRecognizer];
+                
+                OCMVerify([draggingDataSource canItemAtPoint:touchPoint fromCollection:draggingCollection beDroppedToPoint:touchPoint inCollection:dstCollection]);
+                OCMVerify([draggingDataSource dropItemAtPoint:touchPoint fromCollection:draggingCollection toPoint:touchPoint inCollection:dstCollection]);
+            
             });
             
-            /// @todo Test all the different outcomes to the above based on the different possible
-            /// data source implementations
             
+            it(@"should not exchange between if data source is not specified", ^{
+            
+            });
+            
+            it(@"should not exchange between if data source does not implement drop selector", ^{
+            
+            });
+            
+            it(@"should not exchange between if data source does not implement can drop selector", ^{
+            
+            });
+            
+            it(@"should not exchange between if data source specifies that cell is not exchangeable", ^{
+            
+            });
+                        
         });
         
         
