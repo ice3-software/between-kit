@@ -10,6 +10,7 @@
 		14CCCFCB9F1F4C51A34244FD /* libPods-BetweenKit.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 6ED897CA3FFE4D2C80F8598E /* libPods-BetweenKit.a */; };
 		467AFC8619C5E20D00FFD1F4 /* LICENSE.md in Resources */ = {isa = PBXBuildFile; fileRef = 467AFC8519C5E20D00FFD1F4 /* LICENSE.md */; };
 		467AFC8819C5F0F000FFD1F4 /* I3GestureCoordinatorTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 467AFC8719C5F0F000FFD1F4 /* I3GestureCoordinatorTests.m */; };
+		46B5AA8919CE19D100A51694 /* I3DragDataSourceDeleteAndCanDelete.m in Sources */ = {isa = PBXBuildFile; fileRef = 46B5AA8819CE19D100A51694 /* I3DragDataSourceDeleteAndCanDelete.m */; };
 		6003F58E195388D20070C39A /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6003F58D195388D20070C39A /* Foundation.framework */; };
 		6003F590195388D20070C39A /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6003F58F195388D20070C39A /* CoreGraphics.framework */; };
 		6003F592195388D20070C39A /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6003F591195388D20070C39A /* UIKit.framework */; };
@@ -42,6 +43,8 @@
 		115A1DBD37D24FF1B9EDC084 /* README.md */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; name = README.md; path = ../README.md; sourceTree = "<group>"; };
 		467AFC8519C5E20D00FFD1F4 /* LICENSE.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = LICENSE.md; path = ../LICENSE.md; sourceTree = "<group>"; };
 		467AFC8719C5F0F000FFD1F4 /* I3GestureCoordinatorTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = I3GestureCoordinatorTests.m; sourceTree = "<group>"; };
+		46B5AA8719CE19D100A51694 /* I3DragDataSourceDeleteAndCanDelete.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = I3DragDataSourceDeleteAndCanDelete.h; sourceTree = "<group>"; };
+		46B5AA8819CE19D100A51694 /* I3DragDataSourceDeleteAndCanDelete.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = I3DragDataSourceDeleteAndCanDelete.m; sourceTree = "<group>"; };
 		542B21470EB3452C810F4621 /* BetweenKit.podspec */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; name = BetweenKit.podspec; path = ../BetweenKit.podspec; sourceTree = "<group>"; };
 		6003F58A195388D20070C39A /* BetweenKit.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = BetweenKit.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		6003F58D195388D20070C39A /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
@@ -94,6 +97,15 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		46B5AA8619CE192600A51694 /* Fixtures */ = {
+			isa = PBXGroup;
+			children = (
+				46B5AA8719CE19D100A51694 /* I3DragDataSourceDeleteAndCanDelete.h */,
+				46B5AA8819CE19D100A51694 /* I3DragDataSourceDeleteAndCanDelete.m */,
+			);
+			name = Fixtures;
+			sourceTree = "<group>";
+		};
 		6003F581195388D10070C39A = {
 			isa = PBXGroup;
 			children = (
@@ -158,6 +170,7 @@
 		6003F5B5195388D20070C39A /* Tests */ = {
 			isa = PBXGroup;
 			children = (
+				46B5AA8619CE192600A51694 /* Fixtures */,
 				6003F5B6195388D20070C39A /* Supporting Files */,
 				467AFC8719C5F0F000FFD1F4 /* I3GestureCoordinatorTests.m */,
 			);
@@ -362,6 +375,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				467AFC8819C5F0F000FFD1F4 /* I3GestureCoordinatorTests.m in Sources */,
+				46B5AA8919CE19D100A51694 /* I3DragDataSourceDeleteAndCanDelete.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

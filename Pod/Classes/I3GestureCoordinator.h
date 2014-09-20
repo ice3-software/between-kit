@@ -16,8 +16,21 @@
  The gesture coordinator! This listens to a UIPanGestureRegonizer and calculates the state
  of dragging from the I3Collection instances in the I3DragArena.
  
- @todo Validate whether collections' dragDataSource is nill and repsonds to the given selectors
-       before calling. At the moment this is unstable.
+ @note We are using OCMock in the Demo project to test. This can't reliably mock `respondsToSelector` 
+ for mock protocols, therefore we need to implement fixture implementations of the I3DragDataSource
+ class so that we can cover how the coordinator handles different implementations. The convention
+ we follow is to check that `can*` method exists _before_ the actual data modification method,
+ e.g.
+ 
+ ```objective-c
+ 
+ [dragDataSource respondsToSelector:@selector(canItemFromPoint:beRearrangedWithItemAtPoint:inCollection:)] &&
+ [dragDataSource respondsToSelector:@selector(rearrangeItemAtPoint:withItemAtPoint:inCollection:)] &&
+ [dragDataSource canItemFromPoint:_currentDragOrigin beRearrangedWithItemAtPoint:at inCollection:_currentDraggingCollection]
+ 
+ ```
+ 
+ Be aware of this convention as it dictates how we implement the fixtures.
  
  */
 @interface I3GestureCoordinator : NSObject
