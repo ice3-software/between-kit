@@ -12,3 +12,15 @@
 @interface I3DragDataSourceJustCanDelete : NSObject <I3DragDataSource>
 
 @end
+
+@implementation I3DragDataSourceJustCanDelete
+
+-(BOOL) canItemBeDraggedAtPoint:(CGPoint) at inCollection:(id<I3Collection>) collection{
+    return YES;
+}
+
+-(BOOL) canItemAtPoint:(CGPoint) from beDeletedIfDroppedOutsideOfCollection:(id<I3Collection>) collection atPoint:(CGPoint) to{
+    return YES;
+}
+
+@end

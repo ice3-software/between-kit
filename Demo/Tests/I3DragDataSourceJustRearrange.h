@@ -12,3 +12,14 @@
 @interface I3DragDataSourceJustRearrange : NSObject<I3DragDataSource>
 
 @end
+
+@implementation I3DragDataSourceJustRearrange
+
+-(BOOL) canItemBeDraggedAtPoint:(CGPoint) at inCollection:(id<I3Collection>) collection{
+    return YES;
+}
+
+-(void) rearrangeItemAtPoint:(CGPoint) from withItemAtPoint:(CGPoint) to inCollection:(id<I3Collection>) collection{
+}
+
+@end
