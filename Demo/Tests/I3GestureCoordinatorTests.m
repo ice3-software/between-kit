@@ -121,7 +121,7 @@ SpecBegin(I3GestureCoordinator)
         
         __block I3GestureCoordinator *coordinator;
         __block id collectionView;
-        __block id draggingDataSource = OCMProtocolMock(@protocol(I3DragDataSource));
+        __block id draggingDataSource;
 
         CGPoint touchPoint = CGPointMake(10, 10);
 
@@ -211,7 +211,7 @@ SpecBegin(I3GestureCoordinator)
                 
             });
             
-            it(@"should start dragging on the top-most intersecting collection in the ordered set", ^{
+            it(@"should start dragging on the top-most intersecting collection and none underneith", ^{
                 
                 id topDraggingCollection = OCMProtocolMock(@protocol(I3Collection));
                 id bottomDraggingCollection = OCMProtocolMock(@protocol(I3Collection));
@@ -261,55 +261,53 @@ SpecBegin(I3GestureCoordinator)
         
         describe(@"stopping a drag", ^{
 
-            
-            /** This indirectly tests whether a drag has been stopped by expecting the
-                currentDraggingCollection and currentDragOrigin to be reset. */
-            
-            sharedExamplesFor(@"resets the current dragging state", ^(NSDictionary *data){
-                
-                I3GestureCoordinator* gestureCoordinator = [data objectForKey:@"coordinator"];
-                
-                [gestureCoordinator setValue:OCMProtocolMock(@protocol(I3Collection)) forKey:@"_currentDraggingCollection"];
-                [gestureCoordinator setValue:[NSValue valueWithCGPoint:CGPointMake(10, 10)] forKey:@"_currentDragOrigin"];
-                
-                [gestureCoordinator handlePan:gestureCoordinator.gestureRecognizer];
-                
-                expect(gestureCoordinator.currentDraggingCollection).to.beNil();
-                expect(gestureCoordinator.currentDragOrigin).to.equal(CGPointZero);
-
-            });
-            
+            __block id draggingCollection;
             
             beforeEach(^{
+                
+                draggingCollection = OCMProtocolMock(@protocol(I3Collection));
+                
+                [coordinator setValue:draggingCollection forKey:@"_currentDraggingCollection"];
+                [coordinator setValue:[NSValue valueWithCGPoint:touchPoint] forKey:@"_currentDragOrigin"];
+                [collections addObject:draggingCollection];
+
+                OCMStub([draggingCollection dragDataSource]).andReturn(draggingDataSource);
+                OCMStub([draggingCollection collectionView]).andReturn(collectionView);
                 OCMStub([panGestureRecognizer state]).andReturn(UIGestureRecognizerStateEnded);
+                
             });
 
-
-            /** The following test whether the dragging state is reset when we a gesture stops, for all
-                the approriate `UIGestureRecognizerState`s */
-            
-            itShouldBehaveLike(@"resets the current dragging state", ^{
-                return @{@"coordinator": coordinator};
-            });
-
-            itShouldBehaveLike(@"resets the current dragging state", ^{
-                OCMStub([panGestureRecognizer state]).andReturn(UIGestureRecognizerStateFailed);
-                return @{@"coordinator": coordinator};
-            });
-            
-            itShouldBehaveLike(@"resets the current dragging state", ^{
-                OCMStub([panGestureRecognizer state]).andReturn(UIGestureRecognizerStateCancelled);
-                return @{@"coordinator": coordinator};
+            afterEach(^{
+                draggingCollection = nil;
             });
             
             
-            // Test generic drop stop code
+            it(@"should do handle drags for all appropriate gesture states", ^{
+                /// @todo Test that all UIGestureRecognizerState(Ended | Cancelled | Failed) are recognized
+            });
             
             it(@"should do nothing if no collection is current being dragged", ^{
                 /// @todo Not sure how to implement this test yet
             });
             
-            it(@"should delegate the drop to the top-most intersecting collection", ^{
+            it(@"should reset the state of the drag if there was no valid destination", ^{
+                
+                [coordinator handlePan:coordinator.gestureRecognizer];
+                
+                expect(coordinator.currentDraggingCollection).to.beNil();
+                expect(coordinator.currentDragOrigin).to.equal(CGPointZero);
+
+            });
+            
+            it(@"should delegate the drop to the top-most intersecting collection and none underneith", ^{
+
+                id collectionUnderneither = OCMProtocolMock(@protocol(I3Collection));
+                [collections addObject:collectionUnderneither];
+                OCMStub([collectionView pointInside:touchPoint withEvent:nil]).andReturn(YES);
+
+                [[collectionUnderneither reject] collectionView];
+                [coordinator handlePan:coordinator.gestureRecognizer];
+
             });
             
             /// @todo Test all the different outcomes to deletion based on the data source impl.
