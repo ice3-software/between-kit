@@ -70,7 +70,6 @@ SpecBegin(I3GestureCoordinator)
             [[superview reject] addGestureRecognizer:[OCMArg any]];
             OCMStub([superview gestureRecognizers]).andReturn(@[panGestureRecognizer]);
             I3GestureCoordinator *coordinator __unused = [[I3GestureCoordinator alloc] initWithDragArena:dragArena withGestureRecognizer:panGestureRecognizer];
-            OCMVerifyAll(superview);
 
         });
         
@@ -230,7 +229,6 @@ SpecBegin(I3GestureCoordinator)
                 
                 OCMVerify([topDraggingCollection dragDataSource]);
                 OCMVerify([draggingDataSource canItemBeDraggedAtPoint:touchPoint inCollection:topDraggingCollection]);
-                OCMVerifyAll(bottomDraggingCollection);
 
             });
             
@@ -251,7 +249,6 @@ SpecBegin(I3GestureCoordinator)
                 expect(coordinator.currentDragOrigin).to.equal(CGPointZero);
                 
                 OCMVerifyAll(collection);
-                OCMVerifyAll(draggingDataSource);
 
             });
             
@@ -308,8 +305,6 @@ SpecBegin(I3GestureCoordinator)
                 [[collectionUnderneither reject] collectionView];
                 [coordinator handlePan:coordinator.gestureRecognizer];
 
-                OCMVerifyAll(collectionUnderneither);
-
             });
             
             it(@"should not delete if collection dropped outside but there is no data source", ^{
@@ -320,7 +315,6 @@ SpecBegin(I3GestureCoordinator)
                 [[draggingDataSource reject] deleteItemAtPoint:touchPoint inCollection:[OCMArg any]];
                 [coordinator handlePan:coordinator.gestureRecognizer];
 
-                OCMVerifyAll(draggingDataSource);
                 OCMVerify([draggingCollection dragDataSource]);
                 
             });
@@ -334,7 +328,6 @@ SpecBegin(I3GestureCoordinator)
                 [[draggingDataSource reject] deleteItemAtPoint:touchPoint inCollection:[OCMArg any]];
                 [coordinator handlePan:coordinator.gestureRecognizer];
 
-                OCMVerifyAll(draggingDataSource);
                 OCMVerify([draggingDataSource respondsToSelector:@selector(canItemAtPoint:beDeletedIfDroppedOutsideOfCollection:atPoint:)]);
 
             });
@@ -349,7 +342,6 @@ SpecBegin(I3GestureCoordinator)
                 [[draggingDataSource reject] deleteItemAtPoint:touchPoint inCollection:[OCMArg any]];
                 [coordinator handlePan:coordinator.gestureRecognizer];
 
-                OCMVerifyAll(draggingDataSource);
                 OCMVerify([draggingDataSource respondsToSelector:@selector(deleteItemAtPoint:inCollection:)]);
 
             });
@@ -364,14 +356,12 @@ SpecBegin(I3GestureCoordinator)
                 [[draggingDataSource reject] deleteItemAtPoint:touchPoint inCollection:[OCMArg any]];
                 [coordinator handlePan:coordinator.gestureRecognizer];
 
-                OCMVerifyAll(draggingDataSource);
                 OCMVerify([draggingDataSource canItemAtPoint:touchPoint beDeletedIfDroppedOutsideOfCollection:draggingCollection atPoint:touchPoint]);
 
             });
             
             it(@"should delete item if the its deleteable under the data source", ^{
             
-                
                 OCMStub([collectionView pointInside:touchPoint withEvent:nil]).andReturn(NO);
                 OCMStub([draggingCollection dragDataSource]).andReturn(draggingDataSource);
                 OCMStub([draggingDataSource respondsToSelector:[OCMArg anySelector]]).andReturn(YES);
@@ -383,15 +373,73 @@ SpecBegin(I3GestureCoordinator)
 
             });
             
-            /// @todo Test all the different outcomes to deletion based on the data source impl.
-            
-            it(@"should trigger rearranging if we're drag/dropping on the same collection", ^{
+            it(@"should rearranging if we're drag/dropping on the same collection and the data source allows", ^{
+                
+                OCMStub([collectionView pointInside:touchPoint withEvent:nil]).andReturn(YES);
+                OCMStub([draggingCollection dragDataSource]).andReturn(draggingDataSource);
+                OCMStub([draggingDataSource respondsToSelector:[OCMArg anySelector]]).andReturn(YES);
+                OCMStub([draggingDataSource canItemFromPoint:touchPoint beRearrangedWithItemAtPoint:touchPoint inCollection:draggingCollection]).andReturn(YES);
+
+                [coordinator handlePan:coordinator.gestureRecognizer];
+                
+                OCMVerify([draggingDataSource rearrangeItemAtPoint:touchPoint withItemAtPoint:touchPoint inCollection:draggingCollection]);
+                OCMVerify([draggingDataSource canItemFromPoint:touchPoint beRearrangedWithItemAtPoint:touchPoint inCollection:draggingCollection]);
+
             });
             
-            /// @todo Test all the different outcomes to the above based on the different possible
-            /// data source implementations
+            it(@"should not rearrange if there is no data source", ^{
+                
+                OCMStub([collectionView pointInside:touchPoint withEvent:nil]).andReturn(YES);
+
+                [[draggingDataSource reject] rearrangeItemAtPoint:touchPoint withItemAtPoint:touchPoint inCollection:draggingCollection];
+                [coordinator handlePan:coordinator.gestureRecognizer];
+                
+                OCMVerify([draggingCollection dragDataSource]);
             
-            it(@"should trigger exchanging if we're drag from one collection to another", ^{
+            });
+            
+            it(@"should not rearrange if the data source does not implement can rearrange", ^{
+
+                OCMStub([collectionView pointInside:touchPoint withEvent:nil]).andReturn(YES);
+                OCMStub([draggingCollection dragDataSource]).andReturn(draggingDataSource);
+                OCMStub([draggingDataSource respondsToSelector:@selector(canItemFromPoint:beRearrangedWithItemAtPoint:inCollection:)]).andReturn(NO);
+                
+                [[draggingDataSource reject] rearrangeItemAtPoint:touchPoint withItemAtPoint:touchPoint inCollection:draggingCollection];
+                [coordinator handlePan:coordinator.gestureRecognizer];
+                
+                OCMVerify([draggingDataSource respondsToSelector:@selector(canItemFromPoint:beRearrangedWithItemAtPoint:inCollection:)]);
+
+            });
+            
+            it(@"should not rearrange if the data source does not implement rearrange method", ^{
+            
+                OCMStub([collectionView pointInside:touchPoint withEvent:nil]).andReturn(YES);
+                OCMStub([draggingCollection dragDataSource]).andReturn(draggingDataSource);
+                OCMStub([draggingDataSource respondsToSelector:@selector(canItemFromPoint:beRearrangedWithItemAtPoint:inCollection:)]).andReturn(YES);
+                OCMStub([draggingDataSource respondsToSelector:@selector(rearrangeItemAtPoint:withItemAtPoint:inCollection:)]).andReturn(NO);
+                
+                [[draggingDataSource reject] rearrangeItemAtPoint:touchPoint withItemAtPoint:touchPoint inCollection:draggingCollection];
+                [coordinator handlePan:coordinator.gestureRecognizer];
+                
+                OCMVerify([draggingDataSource respondsToSelector:@selector(rearrangeItemAtPoint:withItemAtPoint:inCollection:)]);
+                
+            });
+            
+            it(@"should not rearrange if the data source specifies the items as un-rearrangeable", ^{
+
+                OCMStub([collectionView pointInside:touchPoint withEvent:nil]).andReturn(YES);
+                OCMStub([draggingCollection dragDataSource]).andReturn(draggingDataSource);
+                OCMStub([draggingDataSource respondsToSelector:[OCMArg anySelector]]).andReturn(YES);
+                OCMStub([draggingDataSource canItemFromPoint:touchPoint beRearrangedWithItemAtPoint:touchPoint inCollection:draggingCollection]).andReturn(NO);
+                
+                [[draggingDataSource reject] rearrangeItemAtPoint:touchPoint withItemAtPoint:touchPoint inCollection:draggingCollection];
+                [coordinator handlePan:coordinator.gestureRecognizer];
+                
+                OCMVerify([draggingDataSource canItemFromPoint:touchPoint beRearrangedWithItemAtPoint:touchPoint inCollection:draggingCollection]);
+            
+            });
+            
+            it(@"should exchange between collections and not rearrange if we're not drag/dropping on the same collection and the data source allows", ^{
             });
             
             /// @todo Test all the different outcomes to the above based on the different possible

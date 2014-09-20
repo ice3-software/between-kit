@@ -217,13 +217,9 @@
     
     id<I3DragDataSource> dataSource = _currentDraggingCollection.dragDataSource;
 
-    SEL canDeleteSelector = @selector(canItemAtPoint:beDeletedIfDroppedOutsideOfCollection:atPoint:);
-    SEL deleteSelector = @selector(deleteItemAtPoint:inCollection:);
-
     if(
-       dataSource &&
-       [dataSource respondsToSelector:canDeleteSelector] &&
-       [dataSource respondsToSelector:deleteSelector] &&
+       [dataSource respondsToSelector:@selector(canItemAtPoint:beDeletedIfDroppedOutsideOfCollection:atPoint:)] &&
+       [dataSource respondsToSelector:@selector(deleteItemAtPoint:inCollection:)] &&
        [dataSource canItemAtPoint:_currentDragOrigin beDeletedIfDroppedOutsideOfCollection:_currentDraggingCollection atPoint:at]
     ){
         
@@ -255,8 +251,8 @@
     
     if(
        isRearrange &&
-       [dataSource respondsToSelector:itemRearrangeSelector] &&
        [dataSource respondsToSelector:canItemRearrangeSelector] &&
+       [dataSource respondsToSelector:itemRearrangeSelector] &&
        [dataSource canItemFromPoint:_currentDragOrigin beRearrangedWithItemAtPoint:at inCollection:_currentDraggingCollection]
     ){
         
