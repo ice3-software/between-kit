@@ -13,6 +13,10 @@
 #import "I3DragDataSourceJustRearrange.h"
 
 
+
+/// @todo Make sure we're not using 2 of the same class mocks simultaneously.
+/// @see http://ocmock.org/reference/ -> Limitations
+
 SpecBegin(I3GestureCoordinator)
 
     __block NSMutableOrderedSet *collections;
@@ -435,7 +439,7 @@ SpecBegin(I3GestureCoordinator)
             
             });
             
-            it(@"should exchange between collections and not rearrange if we're not drag/dropping on the same collection and the data source allows", ^{
+            it(@"should exchange between collections if we're drag/dropping between different collections and the data source allows", ^{
             });
             
             /// @todo Test all the different outcomes to the above based on the different possible
