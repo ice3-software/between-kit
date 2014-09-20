@@ -15,7 +15,7 @@ SpecBegin(UITableViewI3Collection)
     __block UITableView *tableViewCollection;
 
     beforeEach(^{
-        tableViewCollection = [[UITableView alloc] initWithFrame:CGRect(0, 0, 10, 10)];
+        tableViewCollection = [[UITableView alloc] initWithFrame:CGRectMake(0, 0, 10, 10)];
     });
 
     afterEach(^{

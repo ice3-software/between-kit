@@ -10,7 +10,7 @@
 #import "I3Logging.h"
 
 
-@interface I3GestureCoordinator (Private)
+@interface I3GestureCoordinator ()
 
 
 /**
