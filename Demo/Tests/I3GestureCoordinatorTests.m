@@ -282,18 +282,18 @@ SpecBegin(I3GestureCoordinator)
             });
 
             afterEach(^{
-                
                 draggingCollection = nil;
-                
             });
             
             
             it(@"should do handle drags for all appropriate gesture states", ^{
                 /// @todo Test that all UIGestureRecognizerState(Ended | Cancelled | Failed) are recognized
+                expect(NO).to.beTruthy();
             });
             
             it(@"should do nothing if no collection is current being dragged", ^{
                 /// @todo Not sure how to implement this test yet
+                expect(NO).to.beTruthy();
             });
             
             it(@"should reset the state of the drag if there was no valid destination", ^{
@@ -525,6 +525,7 @@ SpecBegin(I3GestureCoordinator)
             
             it(@"should do nothing if no collection is current being dragged", ^{
                 /// @todo Not sure how to implement this test yet
+                expect(NO).to.beTruthy();
             });
             
         });
