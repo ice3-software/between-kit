@@ -147,7 +147,9 @@
         
         if([collectionView pointInside:pointInCollection withEvent:nil]){
             
-            DND_LOG(@"We're dragging in a collection!");
+            DND_LOG(@"We're dragging in a collection! Data source: point %@ collection %@", NSStringFromCGPoint(pointInCollection), collection);
+            DND_LOG(@"Data source: %@", collection.dragDataSource);
+            DND_LOG(@"Results: %@", [collection.dragDataSource canItemBeDraggedAtPoint:pointInCollection inCollection:collection] ? @"YES" : @"NO");
             
             if(collection.dragDataSource && [collection.dragDataSource canItemBeDraggedAtPoint:pointInCollection inCollection:collection]){
                 
