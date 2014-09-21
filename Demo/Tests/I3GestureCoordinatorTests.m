@@ -15,6 +15,8 @@
 #import "I3DragDataSourceJustDrop.h"
 
 
+/// @todo In a couple of scenarios, we're not asserting anything in these tests. E.g. we
+/// are testing that a method is specifically not called. See http://youtu.be/q5Xd1tmIgec?t=33m56s
 /// @todo Make sure we're not using 2 of the same class mocks simultaneously.
 /// @see http://ocmock.org/reference/ -> Limitations
 
@@ -116,8 +118,6 @@ SpecBegin(I3GestureCoordinator)
             
             __weak I3GestureCoordinator *coordinator __unused = [[I3GestureCoordinator alloc] initWithDragArena:dragArena withGestureRecognizer:panGestureRecognizer];
             
-            OCMVerifyAll(superview);
-            
         });
         
 #pragma clang diagnostic pop
@@ -178,8 +178,8 @@ SpecBegin(I3GestureCoordinator)
             beforeEach(^{
                 OCMStub([panGestureRecognizer state]).andReturn(UIGestureRecognizerStateBegan);
             });
-
-            it(@"should start drag on a collection and call the render delegate, if the point is inside its bounds and the item is draggable", ^{
+            
+            it(@"should start and render a drag on a collection if the point is inside its bounds and the item is draggable", ^{
                 
                 id draggingCollection = OCMProtocolMock(@protocol(I3Collection));
                 
@@ -194,7 +194,7 @@ SpecBegin(I3GestureCoordinator)
                 expect(coordinator.currentDraggingCollection).to.equal(draggingCollection);
                 expect(coordinator.currentDragOrigin).to.equal(touchPoint);
                 
-                OCMVerify([renderDelegate startDrag:coordinator]);
+                OCMVerify([renderDelegate renderDragStart:coordinator]);
                 OCMVerify([draggingCollection dragDataSource]);
                 OCMVerify([draggingDataSource canItemBeDraggedAtPoint:touchPoint inCollection:draggingCollection]);
                 
@@ -237,7 +237,7 @@ SpecBegin(I3GestureCoordinator)
 
             });
             
-            it(@"should start dragging on the top-most intersecting collection and none underneith", ^{
+            it(@"should start and render dragging on the top-most intersecting collection and none underneith", ^{
                 
                 id topDraggingCollection = OCMProtocolMock(@protocol(I3Collection));
                 id bottomDraggingCollection = OCMProtocolMock(@protocol(I3Collection));
@@ -257,6 +257,7 @@ SpecBegin(I3GestureCoordinator)
                 
                 expect(coordinator.currentDraggingCollection).to.equal(topDraggingCollection);
                 
+                OCMVerify([renderDelegate renderDragStart:coordinator]);
                 OCMVerify([topDraggingCollection dragDataSource]);
                 OCMVerify([draggingDataSource canItemBeDraggedAtPoint:touchPoint inCollection:topDraggingCollection]);
 
@@ -277,8 +278,6 @@ SpecBegin(I3GestureCoordinator)
                 
                 expect(coordinator.currentDraggingCollection).to.beNil();
                 expect(coordinator.currentDragOrigin).to.equal(CGPointZero);
-                
-                OCMVerifyAll(collection);
 
             });
             
@@ -307,23 +306,25 @@ SpecBegin(I3GestureCoordinator)
             });
             
             
-            it(@"should do handle drags for all appropriate gesture states", ^{
+            it(@"should do handle drops for all appropriate gesture states", ^{
                 /// @todo Test that all UIGestureRecognizerState(Ended | Cancelled | Failed) are recognized
                 expect(NO).to.beTruthy();
             });
             
-            it(@"should do nothing if no collection is current being dragged", ^{
+            it(@"should do nothing if no collection is currently being dragged", ^{
                 /// @todo Not sure how to implement this test yet
                 expect(NO).to.beTruthy();
             });
             
-            it(@"should reset the state of the drag if there was no valid destination", ^{
+            it(@"should reset the drag and render if there was no valid destination", ^{
                 
                 [coordinator handlePan:coordinator.gestureRecognizer];
                 
                 expect(coordinator.currentDraggingCollection).to.beNil();
                 expect(coordinator.currentDragOrigin).to.equal(CGPointZero);
 
+                OCMVerify([renderDelegate renderResetFromPoint:touchPoint fromCoordinator:coordinator]);
+                
             });
             
             it(@"should delegate the drop to the top-most intersecting collection and none underneith", ^{
@@ -335,9 +336,11 @@ SpecBegin(I3GestureCoordinator)
                 [[collectionUnderneither reject] collectionView];
                 [coordinator handlePan:coordinator.gestureRecognizer];
 
+                OCMVerify([renderDelegate renderDropOnCollection:draggingCollection atPoint:touchPoint fromCoordinator:coordinator]);
+                
             });
             
-            it(@"should not delete if collection dropped outside but there is no data source", ^{
+            it(@"should not delete and render reset if collection dropped outside but there is no data source", ^{
                 
                 OCMStub([collectionView pointInside:touchPoint withEvent:nil]).andReturn(NO);
                 OCMStub([draggingCollection dragDataSource]);
@@ -346,10 +349,11 @@ SpecBegin(I3GestureCoordinator)
                 [coordinator handlePan:coordinator.gestureRecognizer];
 
                 OCMVerify([draggingCollection dragDataSource]);
-                
+                OCMVerify([renderDelegate renderResetFromPoint:touchPoint fromCoordinator:coordinator]);
+
             });
             
-            it(@"should not delete if data source does not implement can delete selector", ^{
+            it(@"should not delete and render reset if data source does not implement can delete selector", ^{
 
                 id dragSource = OCMClassMock([I3DragDataSourceJustDelete class]);
                 
@@ -359,9 +363,11 @@ SpecBegin(I3GestureCoordinator)
                 [[dragSource reject] deleteItemAtPoint:touchPoint inCollection:[OCMArg any]];
                 [coordinator handlePan:coordinator.gestureRecognizer];
 
+                OCMVerify([renderDelegate renderResetFromPoint:touchPoint fromCoordinator:coordinator]);
+
             });
             
-            it(@"should not delete if data source does not implement delete selector", ^{
+            it(@"should not delete and render reset if data source does not implement delete selector", ^{
 
                 id dragSource = OCMClassMock([I3DragDataSourceJustCanDelete class]);
                 
@@ -372,9 +378,11 @@ SpecBegin(I3GestureCoordinator)
                 [[dragSource reject] deleteItemAtPoint:touchPoint inCollection:[OCMArg any]];
                 [coordinator handlePan:coordinator.gestureRecognizer];
 
+                OCMVerify([renderDelegate renderResetFromPoint:touchPoint fromCoordinator:coordinator]);
+
             });
             
-            it(@"should not delete if the item in the data source is not deleteable", ^{
+            it(@"should not delete and render reset if the item in the data source is not deleteable", ^{
             
                 OCMStub([collectionView pointInside:touchPoint withEvent:nil]).andReturn(NO);
                 OCMStub([draggingCollection dragDataSource]).andReturn(draggingDataSource);
@@ -384,6 +392,7 @@ SpecBegin(I3GestureCoordinator)
                 [coordinator handlePan:coordinator.gestureRecognizer];
 
                 OCMVerify([draggingDataSource canItemAtPoint:touchPoint beDeletedIfDroppedOutsideOfCollection:draggingCollection atPoint:touchPoint]);
+                OCMVerify([renderDelegate renderResetFromPoint:touchPoint fromCoordinator:coordinator]);
 
             });
             
@@ -396,10 +405,11 @@ SpecBegin(I3GestureCoordinator)
                 [coordinator handlePan:coordinator.gestureRecognizer];
 
                 OCMVerify([draggingDataSource deleteItemAtPoint:touchPoint inCollection:draggingCollection]);
-
+                OCMVerify([renderDelegate renderDeletionAtPoint:touchPoint fromCoordinator:coordinator]);
+                
             });
             
-            it(@"should rearranging if we're drag/dropping on the same collection and the data source allows", ^{
+            it(@"should rearranging and render if we're drag/dropping on the same collection and the data source allows", ^{
                 
                 OCMStub([collectionView pointInside:touchPoint withEvent:nil]).andReturn(YES);
                 OCMStub([draggingCollection dragDataSource]).andReturn(draggingDataSource);
@@ -409,10 +419,11 @@ SpecBegin(I3GestureCoordinator)
                 
                 OCMVerify([draggingDataSource rearrangeItemAtPoint:touchPoint withItemAtPoint:touchPoint inCollection:draggingCollection]);
                 OCMVerify([draggingDataSource canItemFromPoint:touchPoint beRearrangedWithItemAtPoint:touchPoint inCollection:draggingCollection]);
-
+                OCMVerify([renderDelegate renderRearrangeOnPoint:touchPoint fromCoordinator:coordinator]);
+                
             });
             
-            it(@"should not rearrange if there is no data source", ^{
+            it(@"should not rearrange and render reset if there is no data source", ^{
                 
                 OCMStub([collectionView pointInside:touchPoint withEvent:nil]).andReturn(YES);
 
@@ -420,10 +431,11 @@ SpecBegin(I3GestureCoordinator)
                 [coordinator handlePan:coordinator.gestureRecognizer];
                 
                 OCMVerify([draggingCollection dragDataSource]);
-            
+                OCMVerify([renderDelegate renderResetFromPoint:touchPoint fromCoordinator:coordinator]);
+
             });
             
-            it(@"should not rearrange if the data source does not implement can rearrange", ^{
+            it(@"should not rearrange and render reset if the data source does not implement can rearrange", ^{
 
                 id dragSource = OCMClassMock([I3DragDataSourceJustRearrange class]);
                 
@@ -433,9 +445,11 @@ SpecBegin(I3GestureCoordinator)
                 [[dragSource reject] rearrangeItemAtPoint:touchPoint withItemAtPoint:touchPoint inCollection:draggingCollection];
                 [coordinator handlePan:coordinator.gestureRecognizer];
 
+                OCMVerify([renderDelegate renderResetFromPoint:touchPoint fromCoordinator:coordinator]);
+
             });
             
-            it(@"should not rearrange if the data source does not implement rearrange method", ^{
+            it(@"should not rearrange and render reset if the data source does not implement rearrange method", ^{
             
                 id dragSource = OCMClassMock([I3DragDataSourceJustCanRearrange class]);
 
@@ -446,9 +460,11 @@ SpecBegin(I3GestureCoordinator)
                 [[dragSource reject] rearrangeItemAtPoint:touchPoint withItemAtPoint:touchPoint inCollection:draggingCollection];
                 [coordinator handlePan:coordinator.gestureRecognizer];
                 
+                OCMVerify([renderDelegate renderResetFromPoint:touchPoint fromCoordinator:coordinator]);
+
             });
             
-            it(@"should not rearrange if the data source specifies the items as un-rearrangeable", ^{
+            it(@"should not rearrange and render reset if the data source specifies the items as un-rearrangeable", ^{
 
                 OCMStub([collectionView pointInside:touchPoint withEvent:nil]).andReturn(YES);
                 OCMStub([draggingCollection dragDataSource]).andReturn(draggingDataSource);
@@ -458,7 +474,8 @@ SpecBegin(I3GestureCoordinator)
                 [coordinator handlePan:coordinator.gestureRecognizer];
                 
                 OCMVerify([draggingDataSource canItemFromPoint:touchPoint beRearrangedWithItemAtPoint:touchPoint inCollection:draggingCollection]);
-            
+                OCMVerify([renderDelegate renderResetFromPoint:touchPoint fromCoordinator:coordinator]);
+
             });
             
             it(@"should exchange between collections if we're drag/dropping between different collections and data source allows", ^{
@@ -475,11 +492,12 @@ SpecBegin(I3GestureCoordinator)
                 
                 OCMVerify([draggingDataSource canItemAtPoint:touchPoint fromCollection:draggingCollection beDroppedToPoint:touchPoint inCollection:dstCollection]);
                 OCMVerify([draggingDataSource dropItemAtPoint:touchPoint fromCollection:draggingCollection toPoint:touchPoint inCollection:dstCollection]);
-            
+                OCMVerify([renderDelegate renderDropOnCollection:draggingCollection atPoint:touchPoint fromCoordinator:coordinator]);
+
             });
             
             
-            it(@"should not exchange between if data source is not specified", ^{
+            it(@"should not exchange between and render reset if data source is not specified", ^{
             
                 id dstCollection = OCMProtocolMock(@protocol(I3Collection));
                 OCMStub([dstCollection collectionView]).andReturn(collectionView);
@@ -490,10 +508,11 @@ SpecBegin(I3GestureCoordinator)
                 [coordinator handlePan:coordinator.gestureRecognizer];
                 
                 OCMVerify([draggingCollection dragDataSource]);
-                
+                OCMVerify([renderDelegate renderResetFromPoint:touchPoint fromCoordinator:coordinator]);
+
             });
             
-            it(@"should not exchange between if data source does not implement drop selector", ^{
+            it(@"should not exchange between and render reset if data source does not implement drop selector", ^{
 
                 id dstCollection = OCMProtocolMock(@protocol(I3Collection));
                 OCMStub([dstCollection collectionView]).andReturn(collectionView);
@@ -506,10 +525,11 @@ SpecBegin(I3GestureCoordinator)
                 
                 [[draggingDataSource reject] dropItemAtPoint:touchPoint fromCollection:draggingCollection toPoint:touchPoint inCollection:dstCollection];
                 [coordinator handlePan:coordinator.gestureRecognizer];
+                OCMVerify([renderDelegate renderResetFromPoint:touchPoint fromCoordinator:coordinator]);
 
             });
             
-            it(@"should not exchange between if data source does not implement can drop selector", ^{
+            it(@"should not exchange between and render reset if data source does not implement can drop selector", ^{
 
                 id dstCollection = OCMProtocolMock(@protocol(I3Collection));
                 OCMStub([dstCollection collectionView]).andReturn(collectionView);
@@ -522,9 +542,11 @@ SpecBegin(I3GestureCoordinator)
                 [[draggingDataSource reject] dropItemAtPoint:touchPoint fromCollection:draggingCollection toPoint:touchPoint inCollection:dstCollection];
                 [coordinator handlePan:coordinator.gestureRecognizer];
 
+                OCMVerify([renderDelegate renderResetFromPoint:touchPoint fromCoordinator:coordinator]);
+
             });
             
-            it(@"should not exchange between if data source specifies that cell is not exchangeable", ^{
+            it(@"should not exchange between and render reset if data source specifies that cell is not exchangeable", ^{
                 
                 id dstCollection = OCMProtocolMock(@protocol(I3Collection));
                 OCMStub([dstCollection collectionView]).andReturn(collectionView);
@@ -537,6 +559,8 @@ SpecBegin(I3GestureCoordinator)
                 [[draggingDataSource reject] dropItemAtPoint:touchPoint fromCollection:draggingCollection toPoint:touchPoint inCollection:dstCollection];
                 [coordinator handlePan:coordinator.gestureRecognizer];
 
+                OCMVerify([renderDelegate renderResetFromPoint:touchPoint fromCoordinator:coordinator]);
+
             });
             
         });
@@ -544,9 +568,35 @@ SpecBegin(I3GestureCoordinator)
         
         describe(@"dragging", ^{
             
+            
+            __block id draggingCollection;
+            
+            beforeEach(^{
+                
+                draggingCollection = OCMProtocolMock(@protocol(I3Collection));
+                
+                [coordinator setValue:draggingCollection forKey:@"_currentDraggingCollection"];
+                [coordinator setValue:[NSValue valueWithCGPoint:touchPoint] forKey:@"_currentDragOrigin"];
+
+                OCMStub([panGestureRecognizer state]).andReturn(UIGestureRecognizerStateChanged);
+                
+            });
+            
+            afterEach(^{
+                draggingCollection = nil;
+            });
+
+            
             it(@"should do nothing if no collection is current being dragged", ^{
                 /// @todo Not sure how to implement this test yet
                 expect(NO).to.beTruthy();
+            });
+            
+            it(@"should render dragging", ^{
+
+                [coordinator handlePan:coordinator.gestureRecognizer];
+                OCMVerify([renderDelegate renderDraggingromCoordinator:coordinator]);
+            
             });
             
         });

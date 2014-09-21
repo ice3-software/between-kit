@@ -44,7 +44,7 @@
  @param coordinator     The Gesture coordinator
  
  */
--(void) startDrag:(I3GestureCoordinator *)coordinator;
+-(void) renderDragStart:(I3GestureCoordinator *)coordinator;
 
 /// @todo Implement contract interface
 
