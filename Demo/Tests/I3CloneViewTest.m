@@ -47,7 +47,7 @@ SpecBegin(I3CloneView)
 
             [view drawRect:CGRectMake(0, 0, 10, 10)];
             
-            OCMVerify([layer renderInContext:(__bridge CGContextRef)([OCMArg any])]);
+            OCMVerify([layer renderInContext:UIGraphicsGetCurrentContext()]);
 
         });
         
