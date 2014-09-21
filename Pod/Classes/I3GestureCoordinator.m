@@ -156,7 +156,8 @@
                 DND_LOG(@"We can drag a given item in a collection");
 
                 [self setCurrentDraggingCollection:collection atPoint:pointInCollection];
-                /// @todo Render drag starting
+                [self.renderDelegate startDrag:self];
+                
             }
             else{
  

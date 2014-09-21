@@ -9,6 +9,9 @@
 #import <Foundation/Foundation.h>
 
 
+@class I3GestureCoordinator;
+
+
 /**
  
  This is a protocol for a class that is delegated out the responsibillity by the coordinator 
@@ -32,6 +35,16 @@
  
  */
 @protocol I3DragRenderDelegate <NSObject>
+
+
+/**
+ 
+ Render the 'start' of a drag.
+ 
+ @param coordinator     The Gesture coordinator
+ 
+ */
+-(void) startDrag:(I3GestureCoordinator *)coordinator;
 
 /// @todo Implement contract interface
 
