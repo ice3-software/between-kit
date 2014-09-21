@@ -9,7 +9,7 @@
 #import <BetweenKit/I3CloneView.h>
 
 
-SpecBegin(I3CloneViewTest)
+SpecBegin(I3CloneView)
 
 
     __block I3CloneView *view;

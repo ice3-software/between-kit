@@ -8,6 +8,8 @@
 
 #import <Foundation/Foundation.h>
 #import "I3DragRenderDelegate.h"
+#import "I3GestureCoordinator.h"
+#import "I3CloneView.h"
 
 
 /**
@@ -22,5 +24,14 @@
  
  */
 @interface I3BasicRenderDelegate : NSObject <I3DragRenderDelegate>
+
+
+/**
+ 
+ The cloned view that is current being rendered according to the drag position.
+ 
+ */
+@property (nonatomic, strong, readonly) I3CloneView *draggingView;
+
 
 @end

@@ -19,4 +19,25 @@
  */
 @interface I3CloneView : UIView
 
+
+/**
+ 
+ The source view to be rendered into this view.
+ 
+ @note This is a strong reference.
+ 
+ */
+@property (nonatomic, strong, readonly) UIView *sourceView;
+
+
+/**
+ 
+ Init.
+ 
+ @param sourceView  The 'source' view. This view is rendered into the I3CloneView in its 
+                    `drawRect:` method.
+ 
+ */
+-(id) initWithSourceView:(UIView *)sourceView;
+
 @end

@@ -7,6 +7,8 @@
 //
 
 #import <BetweenKit/I3BasicRenderDelegate.h>
+#import <BetweenKit/I3CloneView.h>
+
 
 SpecBegin(I3BasicRenderDelegate)
 

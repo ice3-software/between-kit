@@ -10,14 +10,20 @@
 
 @implementation I3CloneView
 
-- (id)initWithFrame:(CGRect)frame
-{
-    self = [super initWithFrame:frame];
-    if (self) {
-        // Initialization code
+
+-(id) initWithSourceView:(UIView *)sourceView{
+
+    self = [super initWithFrame:sourceView.frame];
+    
+    if(self){
+        
+        _sourceView = sourceView;
+        
     }
+    
     return self;
 }
+
 
 /*
 // Only override drawRect: if you perform custom drawing.
