@@ -179,7 +179,7 @@ SpecBegin(I3GestureCoordinator)
                 OCMStub([panGestureRecognizer state]).andReturn(UIGestureRecognizerStateBegan);
             });
 
-            it(@"should start drag on a collection and call the render delegate if the point is inside its bounds and the item is draggable", ^{
+            it(@"should start drag on a collection and call the render delegate, if the point is inside its bounds and the item is draggable", ^{
                 
                 id draggingCollection = OCMProtocolMock(@protocol(I3Collection));
                 
@@ -194,6 +194,7 @@ SpecBegin(I3GestureCoordinator)
                 expect(coordinator.currentDraggingCollection).to.equal(draggingCollection);
                 expect(coordinator.currentDragOrigin).to.equal(touchPoint);
                 
+                OCMVerify([renderDelegate startDrag:coordinator]);
                 OCMVerify([draggingCollection dragDataSource]);
                 OCMVerify([draggingDataSource canItemBeDraggedAtPoint:touchPoint inCollection:draggingCollection]);
                 
