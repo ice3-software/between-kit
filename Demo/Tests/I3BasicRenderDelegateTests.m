@@ -62,7 +62,7 @@ SpecBegin(I3BasicRenderDelegate)
 
         });
 
-        it(@"should render the clone view to be dragging at a the current gesture point", ^{
+        it(@"should translate the current dragging view at the pan point of the coordinator's recognizer", ^{
             
             [renderDelegate renderDragStart:coordinator];
             CGPoint newDragPoint = CGPointMake(50, 50);
