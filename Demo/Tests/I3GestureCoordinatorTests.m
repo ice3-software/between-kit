@@ -125,7 +125,7 @@ SpecBegin(I3GestureCoordinator)
     });
 
 
-    describe(@"accessors", ^{
+    describe(@"properties", ^{
 
         it(@"should set the coordinator's render delegate", ^{
 

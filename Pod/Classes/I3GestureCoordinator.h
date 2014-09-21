@@ -9,6 +9,7 @@
 #import <Foundation/Foundation.h>
 #import "I3DragArena.h"
 #import "I3Collection.h"
+#import "I3DragRenderDelegate.h"
 
 
 /**
@@ -72,6 +73,19 @@
  
  */
 @property (nonatomic, readonly) CGPoint currentDragOrigin;
+
+
+/**
+ 
+ The render delegate. 
+ 
+ @note One of the language features of objective-c is that calling a method on nil objects 
+ doesn't cause crash. Therefore we have not bothered to unit test the scenarios whereby there
+ has been no render delegate injected into the coordinator yet a render event occurs, because we
+ know exactly what will happen.
+ 
+ */
+@property (nonatomic, weak) id<I3DragRenderDelegate> renderDelegate;
 
 
 /**
