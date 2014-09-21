@@ -10,7 +10,7 @@
 		14CCCFCB9F1F4C51A34244FD /* libPods-BetweenKit.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 6ED897CA3FFE4D2C80F8598E /* libPods-BetweenKit.a */; };
 		467AFC8619C5E20D00FFD1F4 /* LICENSE.md in Resources */ = {isa = PBXBuildFile; fileRef = 467AFC8519C5E20D00FFD1F4 /* LICENSE.md */; };
 		467AFC8819C5F0F000FFD1F4 /* I3GestureCoordinatorTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 467AFC8719C5F0F000FFD1F4 /* I3GestureCoordinatorTests.m */; };
-		46B5AAA319CE433200A51694 /* UITableView+I3CollectionTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 46B5AAA219CE433200A51694 /* UITableView+I3CollectionTests.m */; };
+		46B5AAA319CE433200A51694 /* I3TableViewTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 46B5AAA219CE433200A51694 /* I3TableViewTests.m */; };
 		6003F58E195388D20070C39A /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6003F58D195388D20070C39A /* Foundation.framework */; };
 		6003F590195388D20070C39A /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6003F58F195388D20070C39A /* CoreGraphics.framework */; };
 		6003F592195388D20070C39A /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6003F591195388D20070C39A /* UIKit.framework */; };
@@ -49,7 +49,7 @@
 		46B5AA9919CE2F3400A51694 /* I3DragDataSourceJustRearrange.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = I3DragDataSourceJustRearrange.h; sourceTree = "<group>"; };
 		46B5AA9C19CE3AE300A51694 /* I3DragDataSourceJustCanDrop.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = I3DragDataSourceJustCanDrop.h; sourceTree = "<group>"; };
 		46B5AA9F19CE3B4900A51694 /* I3DragDataSourceJustDrop.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = I3DragDataSourceJustDrop.h; sourceTree = "<group>"; };
-		46B5AAA219CE433200A51694 /* UITableView+I3CollectionTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UITableView+I3CollectionTests.m"; sourceTree = "<group>"; };
+		46B5AAA219CE433200A51694 /* I3TableViewTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = I3TableViewTests.m; sourceTree = "<group>"; };
 		542B21470EB3452C810F4621 /* BetweenKit.podspec */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; name = BetweenKit.podspec; path = ../BetweenKit.podspec; sourceTree = "<group>"; };
 		6003F58A195388D20070C39A /* BetweenKit.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = BetweenKit.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		6003F58D195388D20070C39A /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
@@ -182,7 +182,7 @@
 				46B5AA8619CE192600A51694 /* Fixtures */,
 				6003F5B6195388D20070C39A /* Supporting Files */,
 				467AFC8719C5F0F000FFD1F4 /* I3GestureCoordinatorTests.m */,
-				46B5AAA219CE433200A51694 /* UITableView+I3CollectionTests.m */,
+				46B5AAA219CE433200A51694 /* I3TableViewTests.m */,
 			);
 			path = Tests;
 			sourceTree = "<group>";
@@ -385,7 +385,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				467AFC8819C5F0F000FFD1F4 /* I3GestureCoordinatorTests.m in Sources */,
-				46B5AAA319CE433200A51694 /* UITableView+I3CollectionTests.m in Sources */,
+				46B5AAA319CE433200A51694 /* I3TableViewTests.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
