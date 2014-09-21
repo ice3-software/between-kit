@@ -32,6 +32,10 @@
  
  Be aware of this convention as it dictates how we implement the fixtures.
  
+ @todo Please may want to use this coordinator with gesture recognizers other than the 
+ UIPanGestureRecognizer. For example, to trigger a drag on long click we require this class to coordinate
+ a UILongPressGestureRecongizer. We need to make this more generic.
+ 
  */
 @interface I3GestureCoordinator : NSObject
 
