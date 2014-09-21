@@ -50,6 +50,15 @@ SpecBegin(I3TableViewTests)
             
         });
         
+        it(@"should get and set the table's drag data source", ^{
+        
+            id dataSource = OCMProtocolMock(@protocol(I3DragDataSource));
+            [tableView setDragDataSource:dataSource];
+            
+            expect([tableView dragDataSource]).to.equal(dataSource);
+            
+        });
+        
     });
 
 
