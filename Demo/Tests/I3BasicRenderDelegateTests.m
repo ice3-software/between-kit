@@ -17,6 +17,9 @@ SpecBegin(I3BasicRenderDelegate)
     __block UIView *superview;
     __block id coordinator;
     __block id arena;
+    __block id currentDraggingCollection;
+    __block UIView *draggingItem;
+    CGPoint touchPoint = CGPointMake(10, 10);
 
 
     beforeEach(^{
@@ -25,30 +28,31 @@ SpecBegin(I3BasicRenderDelegate)
         coordinator = OCMClassMock([I3GestureCoordinator class]);
         arena = OCMClassMock([I3DragArena class]);
         superview = [[UIView alloc] init];
+        currentDraggingCollection = OCMProtocolMock(@protocol(I3Collection));
+        draggingItem = [[UIView alloc] init];
         
         OCMStub([arena superview]).andReturn(superview);
         OCMStub([coordinator arena]).andReturn(arena);
-    
+        OCMStub([currentDraggingCollection itemAtPoint:touchPoint]).andReturn(draggingItem);
+        OCMStub([coordinator currentDragOrigin]).andReturn(touchPoint);
+        OCMStub([coordinator currentDraggingCollection]).andReturn(currentDraggingCollection);
+
     });
 
     afterEach(^{
+    
         renderDelegate = nil;
         coordinator = nil;
         arena = nil;
+        currentDraggingCollection = nil;
+        draggingItem = nil;
+
     });
 
 
-    describe(@"rendering a drag start", ^{
+    describe(@"rendering", ^{
 
         it(@"should construct a dragging view from an item in the dragging collection on start", ^{
-            
-            id currentDraggingCollection = OCMProtocolMock(@protocol(I3Collection));
-            UIView *draggingItem = [[UIView alloc] init];
-            CGPoint touchPoint = CGPointMake(10, 10);
-            
-            OCMStub([currentDraggingCollection itemAtPoint:touchPoint]).andReturn(draggingItem);
-            OCMStub([coordinator currentDragOrigin]).andReturn(touchPoint);
-            OCMStub([coordinator currentDraggingCollection]).andReturn(currentDraggingCollection);
             
             [renderDelegate renderDragStart:coordinator];
             
@@ -56,9 +60,20 @@ SpecBegin(I3BasicRenderDelegate)
             expect(renderDelegate.draggingView.sourceView).to.equal(draggingItem);
             expect(renderDelegate.draggingView.superview).to.equal(superview);
 
-
         });
 
+        it(@"should render the clone view to be dragging at a the current gesture point", ^{
+            
+            [renderDelegate renderDragStart:coordinator];
+            CGPoint newDragPoint = CGPointMake(50, 50);
+            
+            [renderDelegate renderDraggingAtPoint:newDragPoint fromCoordinator:coordinator];
+            
+            expect(renderDelegate.draggingView.center).to.equal(newDragPoint
+                                                                );
+            
+        });
+        
     });
 
 
