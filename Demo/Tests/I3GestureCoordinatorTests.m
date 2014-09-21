@@ -125,12 +125,28 @@ SpecBegin(I3GestureCoordinator)
     });
 
 
+    describe(@"accessors", ^{
+
+        it(@"should set the coordinator's render delegate", ^{
+
+            I3GestureCoordinator *coordinator = [[I3GestureCoordinator alloc] initWithDragArena:dragArena withGestureRecognizer:panGestureRecognizer];
+            id renderDelegate = OCMProtocolMock(@protocol(I3DragRenderDelegate));
+
+            [coordinator setRenderDelegate:renderDelegate];
+            expect(coordinator.renderDelegate).to.equal(renderDelegate);
+
+        });
+        
+    });
+
+
     describe(@"drag/drop coordination", ^{
 
         
         __block I3GestureCoordinator *coordinator;
         __block id collectionView;
         __block id draggingDataSource;
+        __block id renderDelegate;
 
         CGPoint touchPoint = CGPointMake(10, 10);
 
@@ -140,7 +156,9 @@ SpecBegin(I3GestureCoordinator)
             coordinator = [[I3GestureCoordinator alloc] initWithDragArena:dragArena withGestureRecognizer:panGestureRecognizer];
             collectionView = OCMClassMock([UIView class]);
             draggingDataSource = OCMProtocolMock(@protocol(I3DragDataSource));
+            renderDelegate = OCMProtocolMock(@protocol(I3DragRenderDelegate));
             
+            coordinator.renderDelegate = renderDelegate;
             OCMStub([panGestureRecognizer locationInView:[OCMArg any]]).andReturn(touchPoint);
             
         });
@@ -150,6 +168,7 @@ SpecBegin(I3GestureCoordinator)
             coordinator = nil;
             collectionView = nil;
             draggingDataSource = nil;
+            renderDelegate = nil;
             
         });
 
@@ -160,7 +179,7 @@ SpecBegin(I3GestureCoordinator)
                 OCMStub([panGestureRecognizer state]).andReturn(UIGestureRecognizerStateBegan);
             });
 
-            it(@"should start drag on a collection in the arena if the point is inside its bounds and the item is draggable", ^{
+            it(@"should start drag on a collection and call the render delegate if the point is inside its bounds and the item is draggable", ^{
                 
                 id draggingCollection = OCMProtocolMock(@protocol(I3Collection));
                 
