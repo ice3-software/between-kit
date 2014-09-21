@@ -229,7 +229,7 @@
         
         DND_LOG(@"Dragged nowhere so deleting");
         [dataSource deleteItemAtPoint:_currentDragOrigin inCollection:_currentDraggingCollection];
-        /// @todo Render deletion
+        [self.renderDelegate renderDeletionAtPoint:at fromCoordinator:self];
     }
     else{
         
@@ -260,7 +260,7 @@
         
         DND_LOG(@"Rearranging items in a collection.");
         [dataSource rearrangeItemAtPoint:_currentDragOrigin withItemAtPoint:at inCollection:_currentDraggingCollection];
-        /// @todo Render rearrange
+        [self.renderDelegate renderRearrangeOnPoint:at fromCoordinator:self];
     }
     else if(
         !isRearrange &&
@@ -271,15 +271,13 @@
     
         DND_LOG(@"Exchanging items between collections.");
         [dataSource dropItemAtPoint:_currentDragOrigin fromCollection:_currentDraggingCollection toPoint:at inCollection:to];
-        /// @todo Render drop exchange between 2 collections
+        [self.renderDelegate renderDropOnCollection:to atPoint:at fromCoordinator:self];
     }
     else{
         
         DND_LOG(@"Can do anything with these 2.");
         [self.renderDelegate renderResetFromPoint:at fromCoordinator:self];
     }
-    
-    [self setCurrentDraggingCollection:nil atPoint:CGPointZero];
     
 }
 
@@ -292,7 +290,8 @@
         return;
     }
     
-    /// @todo Render drag movement
+    CGPoint at = [self.gestureRecognizer locationInView:self.arena.superview];
+    [self.renderDelegate renderDraggingAtPoint:at fromCoordinator:self];
     
 }
 

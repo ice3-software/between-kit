@@ -492,7 +492,7 @@ SpecBegin(I3GestureCoordinator)
                 
                 OCMVerify([draggingDataSource canItemAtPoint:touchPoint fromCollection:draggingCollection beDroppedToPoint:touchPoint inCollection:dstCollection]);
                 OCMVerify([draggingDataSource dropItemAtPoint:touchPoint fromCollection:draggingCollection toPoint:touchPoint inCollection:dstCollection]);
-                OCMVerify([renderDelegate renderDropOnCollection:draggingCollection atPoint:touchPoint fromCoordinator:coordinator]);
+                OCMVerify([renderDelegate renderDropOnCollection:dstCollection atPoint:touchPoint fromCoordinator:coordinator]);
 
             });
             
