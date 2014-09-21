@@ -41,11 +41,55 @@
  
  Render the 'start' of a drag.
  
- @param coordinator     The Gesture coordinator
+ @param coordinator     The gesture coordinator
  
  */
 -(void) renderDragStart:(I3GestureCoordinator *)coordinator;
 
-/// @todo Implement contract interface
+
+/**
+ 
+ Render a 'reset' from a given point to the original drag origin.
+ 
+ @param at              The point that we're resetting from (i.e. the point at which a given drag 
+                        stops
+ @param coordinator     The gesture coordinator
+
+ */
+-(void) renderResetFromPoint:(CGPoint) at fromCoordinator:(I3GestureCoordinator *)coordinator;
+
+
+/**
+ 
+ Render a 'drop' onto a given collection from another collection.
+ 
+ @param dstCollection   The destination collection
+ @param at              The point at which we're dropping
+ @param coordinator     The gesture coordinator
+ 
+ */
+-(void) renderDropOnCollection:(id<I3Collection>) dstCollection atPoint:(CGPoint) at fromCoordinator:(I3GestureCoordinator *)coordinator;
+
+
+/**
+ 
+ Renders a 'delete' of a given item form the dragging collection.
+ 
+ @param at              The point at which the item stops to be deleted
+ @param coordinator     The gesture coordinator
+
+ */
+-(void) renderDeletionAtPoint:(CGPoint) at fromCoordinator:(I3GestureCoordinator *)coordinator;
+
+
+/**
+ 
+ Renders a 'rearrange' between 2 items on the dragging collection.
+ 
+ @param at              The point at which the dragging item stops
+ @param coordinator     The gesture coordinator
+ 
+ */
+-(void) renderRearrangeOnPoint:(CGPoint) at fromCoordinator:(I3GestureCoordinator *)coordinator;
 
 @end

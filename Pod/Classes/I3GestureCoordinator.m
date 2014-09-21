@@ -234,10 +234,8 @@
     else{
         
         DND_LOG(@"Dragged nowhere and can't delete. Snapping back");
-        /// @todo Render snap back
+        [self.renderDelegate renderResetFromPoint:at fromCoordinator:self];
     }
-    
-    [self setCurrentDraggingCollection:nil atPoint:CGPointZero];
     
 }
 
@@ -278,7 +276,7 @@
     else{
         
         DND_LOG(@"Can do anything with these 2.");
-        /// @todo Render snap back
+        [self.renderDelegate renderResetFromPoint:at fromCoordinator:self];
     }
     
     [self setCurrentDraggingCollection:nil atPoint:CGPointZero];
