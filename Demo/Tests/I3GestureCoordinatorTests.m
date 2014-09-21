@@ -306,14 +306,30 @@ SpecBegin(I3GestureCoordinator)
             });
             
             
-            it(@"should do handle drops for all appropriate gesture states", ^{
-                /// @todo Test that all UIGestureRecognizerState(Ended | Cancelled | Failed) are recognized
-                expect(NO).to.beTruthy();
+            it(@"should do handle drops for all appropriate states", ^{
+                
+                OCMStub([panGestureRecognizer state]).andReturn(UIGestureRecognizerStateEnded);
+                [coordinator handlePan:coordinator.gestureRecognizer];
+                OCMVerify([renderDelegate renderResetFromPoint:touchPoint fromCoordinator:coordinator]);
+                
+                OCMStub([panGestureRecognizer state]).andReturn(UIGestureRecognizerStateFailed);
+                [coordinator handlePan:coordinator.gestureRecognizer];
+                OCMVerify([renderDelegate renderResetFromPoint:touchPoint fromCoordinator:coordinator]);
+                
+                OCMStub([panGestureRecognizer state]).andReturn(UIGestureRecognizerStateCancelled);
+                [coordinator handlePan:coordinator.gestureRecognizer];
+                OCMVerify([renderDelegate renderResetFromPoint:touchPoint fromCoordinator:coordinator]);
+                
             });
             
             it(@"should do nothing if no collection is currently being dragged", ^{
-                /// @todo Not sure how to implement this test yet
-                expect(NO).to.beTruthy();
+                
+                I3GestureCoordinator *coordinator = [[I3GestureCoordinator alloc] initWithDragArena:dragArena withGestureRecognizer:panGestureRecognizer];
+                coordinator.renderDelegate = renderDelegate;
+
+                [[renderDelegate reject] renderResetFromPoint:touchPoint fromCoordinator:coordinator];
+                [coordinator handlePan:coordinator.gestureRecognizer];
+            
             });
             
             it(@"should reset the drag and render if there was no valid destination", ^{
@@ -593,8 +609,13 @@ SpecBegin(I3GestureCoordinator)
 
             
             it(@"should do nothing if no collection is current being dragged", ^{
-                /// @todo Not sure how to implement this test yet
-                expect(NO).to.beTruthy();
+
+                I3GestureCoordinator *coordinator = [[I3GestureCoordinator alloc] initWithDragArena:dragArena withGestureRecognizer:panGestureRecognizer];
+                coordinator.renderDelegate = renderDelegate;
+                
+                [[renderDelegate reject] renderDraggingAtPoint:touchPoint fromCoordinator:coordinator];
+                [coordinator handlePan:coordinator.gestureRecognizer];
+
             });
             
             it(@"should render dragging", ^{
