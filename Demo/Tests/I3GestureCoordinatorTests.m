@@ -595,7 +595,7 @@ SpecBegin(I3GestureCoordinator)
             it(@"should render dragging", ^{
 
                 [coordinator handlePan:coordinator.gestureRecognizer];
-                OCMVerify([renderDelegate renderDraggingromCoordinator:coordinator]);
+                OCMVerify([renderDelegate renderDraggingAtPoint:touchPoint fromCoordinator:coordinator]);
             
             });
             
