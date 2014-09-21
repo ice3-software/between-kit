@@ -7,9 +7,7 @@
 //
 
 #import <Foundation/Foundation.h>
-
-
-@class I3GestureCoordinator;
+#import "I3GestureCoordinator.h"
 
 
 /**
