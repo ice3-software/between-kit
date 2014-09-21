@@ -329,14 +329,19 @@ SpecBegin(I3GestureCoordinator)
             
             it(@"should delegate the drop to the top-most intersecting collection and none underneith", ^{
 
-                id collectionUnderneither = OCMProtocolMock(@protocol(I3Collection));
-                [collections addObject:collectionUnderneither];
+                id collectionOntop = OCMProtocolMock(@protocol(I3Collection));
+                
+                [collections insertObject:collectionOntop atIndex:0];
+                
+                OCMStub([draggingDataSource canItemAtPoint:touchPoint fromCollection:draggingCollection beDroppedToPoint:touchPoint inCollection:collectionOntop]).andReturn(YES);
+                OCMStub([draggingCollection dragDataSource]).andReturn(draggingDataSource);
+                OCMStub([collectionOntop collectionView]).andReturn(collectionView);
                 OCMStub([collectionView pointInside:touchPoint withEvent:nil]).andReturn(YES);
 
-                [[collectionUnderneither reject] collectionView];
+                [[draggingCollection reject] collectionView];
                 [coordinator handlePan:coordinator.gestureRecognizer];
 
-                OCMVerify([renderDelegate renderDropOnCollection:draggingCollection atPoint:touchPoint fromCoordinator:coordinator]);
+                OCMVerify([renderDelegate renderDropOnCollection:collectionOntop atPoint:touchPoint fromCoordinator:coordinator]);
                 
             });
             
