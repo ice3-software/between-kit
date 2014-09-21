@@ -21,7 +21,7 @@
 
 -(UIView *)itemAtPoint:(CGPoint) at{
     
-    CGPoint localAt = [self convertPoint:at fromView:self.collectionView];
+    CGPoint localAt = [self convertPoint:at toView:self];
     NSIndexPath *index = [self indexPathForRowAtPoint:localAt];
     return [self cellForRowAtIndexPath:index];
 }
