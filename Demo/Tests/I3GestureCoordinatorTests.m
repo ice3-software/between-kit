@@ -613,7 +613,7 @@ SpecBegin(I3GestureCoordinator)
                 I3GestureCoordinator *coordinator = [[I3GestureCoordinator alloc] initWithDragArena:dragArena withGestureRecognizer:panGestureRecognizer];
                 coordinator.renderDelegate = renderDelegate;
                 
-                [[renderDelegate reject] renderDraggingAtPoint:touchPoint fromCoordinator:coordinator];
+                [[renderDelegate reject] renderDraggingFromCoordinator:coordinator];
                 [coordinator handlePan:coordinator.gestureRecognizer];
 
             });
@@ -621,7 +621,7 @@ SpecBegin(I3GestureCoordinator)
             it(@"should render dragging", ^{
 
                 [coordinator handlePan:coordinator.gestureRecognizer];
-                OCMVerify([renderDelegate renderDraggingAtPoint:touchPoint fromCoordinator:coordinator]);
+                OCMVerify([renderDelegate renderDraggingFromCoordinator:coordinator]);
             
             });
             

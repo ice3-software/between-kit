@@ -17,6 +17,7 @@ SpecBegin(I3BasicRenderDelegate)
     __block UIView *superview;
     __block id coordinator;
     __block id arena;
+    __block id gestureRecognizer;
     __block id currentDraggingCollection;
     __block UIView *draggingItem;
     CGPoint touchPoint = CGPointMake(10, 10);
@@ -30,13 +31,15 @@ SpecBegin(I3BasicRenderDelegate)
         superview = [[UIView alloc] init];
         currentDraggingCollection = OCMProtocolMock(@protocol(I3Collection));
         draggingItem = [[UIView alloc] init];
+        gestureRecognizer = OCMClassMock([UIPanGestureRecognizer class]);
         
         OCMStub([arena superview]).andReturn(superview);
         OCMStub([coordinator arena]).andReturn(arena);
         OCMStub([currentDraggingCollection itemAtPoint:touchPoint]).andReturn(draggingItem);
         OCMStub([coordinator currentDragOrigin]).andReturn(touchPoint);
         OCMStub([coordinator currentDraggingCollection]).andReturn(currentDraggingCollection);
-
+        OCMStub([coordinator gestureRecognizer]).andReturn(gestureRecognizer);
+        
     });
 
     afterEach(^{
@@ -46,7 +49,8 @@ SpecBegin(I3BasicRenderDelegate)
         arena = nil;
         currentDraggingCollection = nil;
         draggingItem = nil;
-
+        gestureRecognizer = nil;
+        
     });
 
 
@@ -62,15 +66,17 @@ SpecBegin(I3BasicRenderDelegate)
 
         });
 
-        it(@"should translate the current dragging view at the pan point of the coordinator's recognizer", ^{
+        it(@"should translate the current dragging view and then reset the regognizer's translation", ^{
             
             [renderDelegate renderDragStart:coordinator];
-            CGPoint newDragPoint = CGPointMake(50, 50);
+            CGPoint translation = CGPointMake(5, 5);
             
-            [renderDelegate renderDraggingAtPoint:newDragPoint fromCoordinator:coordinator];
+            OCMStub([draggingItem center]).andReturn(CGPoint(50, 50,));
+            OCMStub([gestureRecognizer translationInView:superview]).andReturn(translation);
             
-            expect(renderDelegate.draggingView.center).to.equal(newDragPoint
-                                                                );
+            [renderDelegate renderDraggingFromCoordinator:coordinator];
+            
+            expect(renderDelegate.draggingView.center).to.equal(CGPointMake(55, 55));
             
         });
         
