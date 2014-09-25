@@ -35,4 +35,11 @@
 }
 
 
+-(void) renderResetFromPoint:(CGPoint) at fromCoordinator:(I3GestureCoordinator *)coordinator{
+
+    self.draggingView = nil;
+    
+}
+
+
 @end
