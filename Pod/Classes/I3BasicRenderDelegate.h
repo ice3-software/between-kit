@@ -34,4 +34,17 @@
 @property (nonatomic, strong, readonly) I3CloneView *draggingView;
 
 
+/**
+ 
+ Block called when a 'snap back' animation is called. The old, detached dragginView is passed
+ as the first parameter.
+ 
+ @note At the moment, I'm just using this for unit test the async animation call. Its not very
+ clean. I'm not sure about the best way to test whether postconditions are met after an 
+ asynchoronous animation. In the future I'm going to look at emiting a notification instead.
+ 
+ */
+@property (nonatomic, copy) void (^completeResetBlock)(UIView *oldDraggingView);
+
+
 @end
