@@ -80,6 +80,19 @@ SpecBegin(I3BasicRenderDelegate)
             
         });
         
+        it(@"should release strong reference to the dragging view, whilst animating it back to the origin in an async animation", ^{
+        
+            [renderDelegate renderDragStart:coordinator];
+            [renderDelegate.draggingView setCenter:CGPointMake(50, 50)];
+
+            CGPoint resetPoint = CGPointMake(25, 25);
+            
+            [renderDelegate renderResetFromPoint:resetPoint fromCoordinator:coordinator];
+            
+            expect(renderDelegate.draggingView).to.beNil();
+            
+        });
+        
     });
 
 
