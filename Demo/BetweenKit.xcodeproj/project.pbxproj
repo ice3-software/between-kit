@@ -10,6 +10,7 @@
 		14CCCFCB9F1F4C51A34244FD /* libPods-BetweenKit.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 6ED897CA3FFE4D2C80F8598E /* libPods-BetweenKit.a */; };
 		467AFC8619C5E20D00FFD1F4 /* LICENSE.md in Resources */ = {isa = PBXBuildFile; fileRef = 467AFC8519C5E20D00FFD1F4 /* LICENSE.md */; };
 		467AFC8819C5F0F000FFD1F4 /* I3GestureCoordinatorTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 467AFC8719C5F0F000FFD1F4 /* I3GestureCoordinatorTests.m */; };
+		46866CFB19D42E1E00C45CCD /* I3DragArenaTest.m in Sources */ = {isa = PBXBuildFile; fileRef = 46866CFA19D42E1E00C45CCD /* I3DragArenaTest.m */; };
 		46A1877B19CF46A20061B355 /* I3BasicRenderDelegateTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 46A1877A19CF46A20061B355 /* I3BasicRenderDelegateTests.m */; };
 		46A1878019CF5DC20061B355 /* I3CloneViewTest.m in Sources */ = {isa = PBXBuildFile; fileRef = 46A1877F19CF5DC20061B355 /* I3CloneViewTest.m */; };
 		46B5AAA319CE433200A51694 /* I3TableViewTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 46B5AAA219CE433200A51694 /* I3TableViewTests.m */; };
@@ -45,6 +46,7 @@
 		115A1DBD37D24FF1B9EDC084 /* README.md */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; name = README.md; path = ../README.md; sourceTree = "<group>"; };
 		467AFC8519C5E20D00FFD1F4 /* LICENSE.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = LICENSE.md; path = ../LICENSE.md; sourceTree = "<group>"; };
 		467AFC8719C5F0F000FFD1F4 /* I3GestureCoordinatorTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = I3GestureCoordinatorTests.m; sourceTree = "<group>"; };
+		46866CFA19D42E1E00C45CCD /* I3DragArenaTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = I3DragArenaTest.m; sourceTree = "<group>"; };
 		46A1877A19CF46A20061B355 /* I3BasicRenderDelegateTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = I3BasicRenderDelegateTests.m; sourceTree = "<group>"; };
 		46A1877F19CF5DC20061B355 /* I3CloneViewTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = I3CloneViewTest.m; sourceTree = "<group>"; };
 		46B5AA8D19CE1EC400A51694 /* I3DragDataSourceJustCanDelete.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = I3DragDataSourceJustCanDelete.h; sourceTree = "<group>"; };
@@ -189,6 +191,7 @@
 				6003F5B6195388D20070C39A /* Supporting Files */,
 				467AFC8719C5F0F000FFD1F4 /* I3GestureCoordinatorTests.m */,
 				46B5AAA219CE433200A51694 /* I3TableViewTests.m */,
+				46866CFA19D42E1E00C45CCD /* I3DragArenaTest.m */,
 			);
 			path = Tests;
 			sourceTree = "<group>";
@@ -392,6 +395,7 @@
 			files = (
 				46A1878019CF5DC20061B355 /* I3CloneViewTest.m in Sources */,
 				467AFC8819C5F0F000FFD1F4 /* I3GestureCoordinatorTests.m in Sources */,
+				46866CFB19D42E1E00C45CCD /* I3DragArenaTest.m in Sources */,
 				46A1877B19CF46A20061B355 /* I3BasicRenderDelegateTests.m in Sources */,
 				46B5AAA319CE433200A51694 /* I3TableViewTests.m in Sources */,
 			);
