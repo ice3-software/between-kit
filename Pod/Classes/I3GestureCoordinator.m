@@ -287,9 +287,8 @@
         DND_LOG(@"Handle drag but we're not dragging.");
         return;
     }
-    
-    CGPoint at = [self.gestureRecognizer locationInView:self.arena.superview];
-    [self.renderDelegate renderDraggingAtPoint:at fromCoordinator:self];
+
+    [self.renderDelegate renderDraggingFromCoordinator:self];
     
 }
 

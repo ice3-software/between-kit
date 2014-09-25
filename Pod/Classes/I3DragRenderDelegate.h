@@ -98,10 +98,9 @@
  
  Render method called whilst 'dragging' is occuring.
  
- @param at              The point at which the dragging gesture occures
  @param coordinator     The gesture coordinator
  
  */
--(void) renderDraggingAtPoint:(CGPoint) at fromCoordinator:(I3GestureCoordinator *)coordinator;
+-(void) renderDraggingFromCoordinator:(I3GestureCoordinator *)coordinator;
 
 @end

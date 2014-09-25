@@ -68,10 +68,10 @@ SpecBegin(I3BasicRenderDelegate)
 
         it(@"should translate the current dragging view and then reset the regognizer's translation", ^{
             
-            [renderDelegate renderDragStart:coordinator];
             CGPoint translation = CGPointMake(5, 5);
+            [renderDelegate renderDragStart:coordinator];
+            [renderDelegate.draggingView setCenter:CGPointMake(50, 50)];
             
-            OCMStub([draggingItem center]).andReturn(CGPoint(50, 50,));
             OCMStub([gestureRecognizer translationInView:superview]).andReturn(translation);
             
             [renderDelegate renderDraggingFromCoordinator:coordinator];

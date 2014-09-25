@@ -23,7 +23,7 @@
 }
 
 
--(void) renderDraggingAtPoint:(CGPoint) at fromCoordinator:(I3GestureCoordinator *)coordinator{
+-(void) renderDraggingFromCoordinator:(I3GestureCoordinator *)coordinator{
 
     CGPoint translation = [coordinator.gestureRecognizer translationInView:[_draggingView superview]];
     NSInteger xTranslation = self.draggingView.center.x + translation.x;
