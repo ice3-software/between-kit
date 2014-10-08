@@ -87,7 +87,7 @@ SpecBegin(I3BasicRenderDelegate)
             CGPoint resetPoint = CGPointMake(25, 25);
             
             renderDelegate.completeResetBlock = ^(UIView *draggingView){
-                expect(draggingView.frame).to.equal(coordinator.currentDragOrigin);
+                expect(draggingView.center).to.equal([coordinator currentDragOrigin]);
                 expect(draggingView.superview).to.beNil();
                 done();
             };

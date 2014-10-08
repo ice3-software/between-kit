@@ -36,8 +36,27 @@
 
 
 -(void) renderResetFromPoint:(CGPoint) at fromCoordinator:(I3GestureCoordinator *)coordinator{
+    
+    CGPoint dragOrigin = [coordinator currentDragOrigin];
+    I3CloneView *draggingView = _draggingView;
+    
+    __weak typeof(self) weakSelf = self;
+    
+    [UIView animateWithDuration:0.15 animations:^{
+    
+        draggingView.center = dragOrigin;
+    
+    } completion:^(BOOL finished){
+        
+        [draggingView removeFromSuperview];
+        
+        if(weakSelf.completeResetBlock){
+            weakSelf.completeResetBlock(draggingView);
+        }
+    
+    }];
 
-    self.draggingView = nil;
+    _draggingView = nil;
     
 }
 

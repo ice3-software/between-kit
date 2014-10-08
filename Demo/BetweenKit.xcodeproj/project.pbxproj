@@ -22,7 +22,7 @@
 		6003F59E195388D20070C39A /* I3AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 6003F59D195388D20070C39A /* I3AppDelegate.m */; };
 		6003F5A1195388D20070C39A /* Main_iPhone.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 6003F59F195388D20070C39A /* Main_iPhone.storyboard */; };
 		6003F5A4195388D20070C39A /* Main_iPad.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 6003F5A2195388D20070C39A /* Main_iPad.storyboard */; };
-		6003F5A7195388D20070C39A /* I3ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6003F5A6195388D20070C39A /* I3ViewController.m */; };
+		6003F5A7195388D20070C39A /* I32RearrangeableTablesViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6003F5A6195388D20070C39A /* I32RearrangeableTablesViewController.m */; };
 		6003F5A9195388D20070C39A /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 6003F5A8195388D20070C39A /* Images.xcassets */; };
 		6003F5B0195388D20070C39A /* XCTest.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6003F5AF195388D20070C39A /* XCTest.framework */; };
 		6003F5B1195388D20070C39A /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6003F58D195388D20070C39A /* Foundation.framework */; };
@@ -69,8 +69,8 @@
 		6003F59D195388D20070C39A /* I3AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = I3AppDelegate.m; sourceTree = "<group>"; };
 		6003F5A0195388D20070C39A /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main_iPhone.storyboard; sourceTree = "<group>"; };
 		6003F5A3195388D20070C39A /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main_iPad.storyboard; sourceTree = "<group>"; };
-		6003F5A5195388D20070C39A /* I3ViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = I3ViewController.h; sourceTree = "<group>"; };
-		6003F5A6195388D20070C39A /* I3ViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = I3ViewController.m; sourceTree = "<group>"; };
+		6003F5A5195388D20070C39A /* I32RearrangeableTablesViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = I32RearrangeableTablesViewController.h; sourceTree = "<group>"; };
+		6003F5A6195388D20070C39A /* I32RearrangeableTablesViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = I32RearrangeableTablesViewController.m; sourceTree = "<group>"; };
 		6003F5A8195388D20070C39A /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
 		6003F5AE195388D20070C39A /* Tests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = Tests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		6003F5AF195388D20070C39A /* XCTest.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = XCTest.framework; path = Library/Frameworks/XCTest.framework; sourceTree = DEVELOPER_DIR; };
@@ -108,6 +108,15 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		4632574219E5DE3A00E1C633 /* Example Case 1 */ = {
+			isa = PBXGroup;
+			children = (
+				6003F5A5195388D20070C39A /* I32RearrangeableTablesViewController.h */,
+				6003F5A6195388D20070C39A /* I32RearrangeableTablesViewController.m */,
+			);
+			name = "Example Case 1";
+			sourceTree = "<group>";
+		};
 		46B5AA8619CE192600A51694 /* Fixtures */ = {
 			isa = PBXGroup;
 			children = (
@@ -159,12 +168,11 @@
 		6003F593195388D20070C39A /* BetweenKit */ = {
 			isa = PBXGroup;
 			children = (
+				4632574219E5DE3A00E1C633 /* Example Case 1 */,
 				6003F59C195388D20070C39A /* I3AppDelegate.h */,
 				6003F59D195388D20070C39A /* I3AppDelegate.m */,
 				6003F59F195388D20070C39A /* Main_iPhone.storyboard */,
 				6003F5A2195388D20070C39A /* Main_iPad.storyboard */,
-				6003F5A5195388D20070C39A /* I3ViewController.h */,
-				6003F5A6195388D20070C39A /* I3ViewController.m */,
 				6003F5A8195388D20070C39A /* Images.xcassets */,
 				6003F594195388D20070C39A /* Supporting Files */,
 			);
@@ -185,12 +193,12 @@
 		6003F5B5195388D20070C39A /* Tests */ = {
 			isa = PBXGroup;
 			children = (
-				46A1877F19CF5DC20061B355 /* I3CloneViewTest.m */,
-				46A1877A19CF46A20061B355 /* I3BasicRenderDelegateTests.m */,
 				46B5AA8619CE192600A51694 /* Fixtures */,
 				6003F5B6195388D20070C39A /* Supporting Files */,
 				467AFC8719C5F0F000FFD1F4 /* I3GestureCoordinatorTests.m */,
+				46A1877A19CF46A20061B355 /* I3BasicRenderDelegateTests.m */,
 				46B5AAA219CE433200A51694 /* I3TableViewTests.m */,
+				46A1877F19CF5DC20061B355 /* I3CloneViewTest.m */,
 				46866CFA19D42E1E00C45CCD /* I3DragArenaTest.m */,
 			);
 			path = Tests;
@@ -384,7 +392,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				6003F59E195388D20070C39A /* I3AppDelegate.m in Sources */,
-				6003F5A7195388D20070C39A /* I3ViewController.m in Sources */,
+				6003F5A7195388D20070C39A /* I32RearrangeableTablesViewController.m in Sources */,
 				6003F59A195388D20070C39A /* main.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
