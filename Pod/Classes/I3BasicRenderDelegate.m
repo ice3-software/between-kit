@@ -16,8 +16,10 @@
 -(void) renderDragStart:(I3GestureCoordinator *)coordinator{
     
     UIView *sourceView = [coordinator.currentDraggingCollection itemAtPoint:coordinator.currentDragOrigin];
+    UIView *collectionView = coordinator.currentDraggingCollection.collectionView;
         
     _draggingView = [[I3CloneView alloc] initWithSourceView:sourceView];
+    _draggingView.frame = [coordinator.arena.superview convertRect:sourceView.frame fromView:collectionView];
     [coordinator.arena.superview addSubview:_draggingView];
     
 }
@@ -25,12 +27,12 @@
 
 -(void) renderDraggingFromCoordinator:(I3GestureCoordinator *)coordinator{
 
-    CGPoint translation = [coordinator.gestureRecognizer translationInView:[_draggingView superview]];
+    CGPoint translation = [coordinator.gestureRecognizer translationInView:coordinator.arena.superview];
     NSInteger xTranslation = self.draggingView.center.x + translation.x;
     NSInteger yTranslation = self.draggingView.center.y + translation.y;
     
-    [_draggingView setCenter:CGPointMake(xTranslation, yTranslation)];
-    [coordinator.gestureRecognizer setTranslation:CGPointZero inView:[_draggingView superview]];
+    self.draggingView.center = CGPointMake(xTranslation, yTranslation);
+    [coordinator.gestureRecognizer setTranslation:CGPointZero inView:coordinator.arena.superview];
     
 }
 

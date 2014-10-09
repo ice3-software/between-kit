@@ -20,6 +20,7 @@ SpecBegin(I3BasicRenderDelegate)
     __block id gestureRecognizer;
     __block id currentDraggingCollection;
     __block UIView *draggingItem;
+    __block UIView *collectionView;
     CGPoint touchPoint = CGPointMake(10, 10);
 
 
@@ -28,14 +29,16 @@ SpecBegin(I3BasicRenderDelegate)
         renderDelegate = [[I3BasicRenderDelegate alloc] init];
         coordinator = OCMClassMock([I3GestureCoordinator class]);
         arena = OCMClassMock([I3DragArena class]);
-        superview = [[UIView alloc] init];
+        superview = OCMPartialMock([[UIView alloc] init]);
         currentDraggingCollection = OCMProtocolMock(@protocol(I3Collection));
         draggingItem = [[UIView alloc] init];
+        collectionView = [[UIView alloc] init];
         gestureRecognizer = OCMClassMock([UIPanGestureRecognizer class]);
         
         OCMStub([arena superview]).andReturn(superview);
         OCMStub([coordinator arena]).andReturn(arena);
         OCMStub([currentDraggingCollection itemAtPoint:touchPoint]).andReturn(draggingItem);
+        OCMStub([currentDraggingCollection collectionView]).andReturn(collectionView);
         OCMStub([coordinator currentDragOrigin]).andReturn(touchPoint);
         OCMStub([coordinator currentDraggingCollection]).andReturn(currentDraggingCollection);
         OCMStub([coordinator gestureRecognizer]).andReturn(gestureRecognizer);
@@ -58,11 +61,17 @@ SpecBegin(I3BasicRenderDelegate)
 
         it(@"should construct a dragging view from an item in the dragging collection on start", ^{
             
+            CGRect convertedRect = CGRectMake(100, 100, 100, 100);
+            OCMStub([superview convertRect:draggingItem.frame fromView:collectionView]).andReturn(convertedRect);
+            
             [renderDelegate renderDragStart:coordinator];
             
             expect(renderDelegate.draggingView).to.beInstanceOf([I3CloneView class]);
             expect(renderDelegate.draggingView.sourceView).to.equal(draggingItem);
             expect(renderDelegate.draggingView.superview).to.equal(superview);
+            expect(renderDelegate.draggingView.frame).to.equal(convertedRect);
+            
+            OCMVerify([superview convertRect:draggingItem.frame fromView:collectionView]);
 
         });
 
