@@ -119,10 +119,14 @@
     [superview bringSubviewToFront:draggingView];
     CGRect dragOriginFrame = [superview convertRect:sourceView.frame fromView:collectionView];
     
+    CGPoint draggingViewTargetCenter = CGPointMake(CGRectGetMidX(exchangeView.frame), CGRectGetMidY(exchangeView.frame));
+    CGPoint exchangeViewTargetCenter = CGPointMake(CGRectGetMidX(dragOriginFrame), CGRectGetMidY(dragOriginFrame));
+    
+    
     [UIView animateWithDuration:0.15 animations:^{
         
-        draggingView.center = CGPointMake(CGRectGetMidX(exchangeView.frame), CGRectGetMidY(exchangeView.frame));
-        exchangeView.center = CGPointMake(CGRectGetMidX(dragOriginFrame), CGRectGetMidY(dragOriginFrame));
+        draggingView.center = draggingViewTargetCenter;
+        exchangeView.center = exchangeViewTargetCenter;
         
     } completion:^(BOOL finished) {
         

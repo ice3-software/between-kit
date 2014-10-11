@@ -257,8 +257,8 @@
     ){
         
         DND_LOG(@"Rearranging items in a collection.");
-        [dataSource rearrangeItemAtPoint:_currentDragOrigin withItemAtPoint:at inCollection:_currentDraggingCollection];
         [self.renderDelegate renderRearrangeOnPoint:at fromCoordinator:self];
+        [dataSource rearrangeItemAtPoint:_currentDragOrigin withItemAtPoint:at inCollection:_currentDraggingCollection];
     }
     else if(
         !isRearrange &&
