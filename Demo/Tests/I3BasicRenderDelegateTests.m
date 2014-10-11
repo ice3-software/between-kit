@@ -10,6 +10,9 @@
 #import <BetweenKit/I3CloneView.h>
 
 
+/// @todo What happens if any of these render delegate methods are called in the incorrect
+//        order? For example, how will the class cope if a user erroneously makes a call
+//        to `renderDropOnCollection:atPoint:fromCoordinator` ?
 SpecBegin(I3BasicRenderDelegate)
 
 
@@ -86,73 +89,113 @@ SpecBegin(I3BasicRenderDelegate)
             
             it(@"should hide the original item if required by the datasource", ^{
             
-                CGPoint draggingPoint = CGPointMake(10, 10);
-                OCMStub([currentDragDataSource hidesItemWhileDraggingAtPoint:draggingPoint inCollection:currentDraggingCollection]).andReturn(YES);
+                OCMStub([currentDragDataSource hidesItemWhileDraggingAtPoint:touchPoint inCollection:currentDraggingCollection]).andReturn(YES);
                 
                 [renderDelegate renderDragStart:coordinator];
                 
                 expect(draggingItem.alpha).to.equal(0.01f);
-                OCMVerify([currentDragDataSource hidesItemWhileDraggingAtPoint:draggingPoint inCollection:currentDraggingCollection]);
+                OCMVerify([currentDragDataSource hidesItemWhileDraggingAtPoint:touchPoint inCollection:currentDraggingCollection]);
                 
             });
             
             it(@"should not hide the original item if specified by the datasource", ^{
                 
-                CGPoint draggingPoint = CGPointMake(10, 10);
-                OCMStub([currentDragDataSource hidesItemWhileDraggingAtPoint:draggingPoint inCollection:currentDraggingCollection]).andReturn(NO);
+                OCMStub([currentDragDataSource hidesItemWhileDraggingAtPoint:touchPoint inCollection:currentDraggingCollection]).andReturn(NO);
                 
                 [renderDelegate renderDragStart:coordinator];
                 
                 expect(draggingItem.alpha).notTo.equal(0.01f);
-                OCMVerify([currentDragDataSource hidesItemWhileDraggingAtPoint:draggingPoint inCollection:currentDraggingCollection]);
+                OCMVerify([currentDragDataSource hidesItemWhileDraggingAtPoint:touchPoint inCollection:currentDraggingCollection]);
                 
             });
             
         });
+        
+        describe(@"dragging", ^{
+        
+            
+            it(@"should translate the current dragging view and then reset the recognizer's translation", ^{
+                
+                CGPoint translation = CGPointMake(5, 5);
+                [renderDelegate renderDragStart:coordinator];
+                [renderDelegate.draggingView setCenter:CGPointMake(50, 50)];
+                
+                OCMStub([gestureRecognizer translationInView:superview]).andReturn(translation);
+                
+                [renderDelegate renderDraggingFromCoordinator:coordinator];
+                
+                expect(renderDelegate.draggingView.center).to.equal(CGPointMake(55, 55));
+                
+            });
+        
+        });
+        
+        describe(@"reset from point", ^{
 
-        it(@"should translate the current dragging view and then reset the recognizer's translation", ^{
-            
-            CGPoint translation = CGPointMake(5, 5);
-            [renderDelegate renderDragStart:coordinator];
-            [renderDelegate.draggingView setCenter:CGPointMake(50, 50)];
-            
-            OCMStub([gestureRecognizer translationInView:superview]).andReturn(translation);
-            
-            [renderDelegate renderDraggingFromCoordinator:coordinator];
-            
-            expect(renderDelegate.draggingView.center).to.equal(CGPointMake(55, 55));
+            it(@"should release strong reference to the dragging view, whilst animating it back to the origin in an async animation", ^AsyncBlock {
+                
+                [renderDelegate renderDragStart:coordinator];
+                
+                CGPoint resetPoint = CGPointMake(25, 25);
+                CGRect resetRect = CGRectMake(0, 0, 100, 100);
+                OCMStub([superview convertRect:draggingItem.frame fromView:collectionView]).andReturn(resetRect);
+                
+                renderDelegate.completeResetBlock = ^(UIView *draggingView){
+                    expect(draggingView.frame).to.equal(resetRect);
+                    expect(draggingView.superview).to.beNil();
+                    done();
+                };
+                
+                [renderDelegate renderResetFromPoint:resetPoint fromCoordinator:coordinator];
+                
+                expect(renderDelegate.draggingView).to.beNil();
+                
+            });
             
         });
         
-        it(@"should release strong reference to the dragging view, whilst animating it back to the origin in an async animation", ^AsyncBlock {
         
-            [renderDelegate renderDragStart:coordinator];
+        describe(@"drop on another collection", ^{
 
-            CGPoint resetPoint = CGPointMake(25, 25);
-            CGRect resetRect = CGRectMake(0, 0, 100, 100);
-            OCMStub([superview convertRect:draggingItem.frame fromView:collectionView]).andReturn(resetRect);
-            
-            renderDelegate.completeResetBlock = ^(UIView *draggingView){
-                expect(draggingView.frame).to.equal(resetRect);
-                expect(draggingView.superview).to.beNil();
-                done();
-            };
-            
-            [renderDelegate renderResetFromPoint:resetPoint fromCoordinator:coordinator];
-            
-            expect(renderDelegate.draggingView).to.beNil();
+            it(@"should release reference to dragging view and remove it from superview on exchange between collections", ^{
+                
+                [renderDelegate renderDragStart:coordinator];
+                id dstCollection = OCMProtocolMock(@protocol(I3Collection));
+                
+                [renderDelegate renderDropOnCollection:dstCollection atPoint:CGPointMake(0, 0) fromCoordinator:coordinator];
+                
+                expect([superview.subviews containsObject:renderDelegate.draggingView]).to.beFalsy;
+                expect(renderDelegate.draggingView).to.beNil();
+                
+            });
 
-        });
-        
-        it(@"should release reference to dragging view and remove it from superview on exchange between collections", ^{
-        
-            id dstCollection = OCMProtocolMock(@protocol(I3Collection));
+            it(@"should re-show the hidden item in the collection if specified by the data source", ^{
             
-            [renderDelegate renderDragStart:coordinator];
-            [renderDelegate renderDropOnCollection:dstCollection atPoint:CGPointMake(0, 0) fromCoordinator:coordinator];
+                id dstCollection = OCMProtocolMock(@protocol(I3Collection));
+                OCMStub([currentDragDataSource hidesItemWhileDraggingAtPoint:touchPoint inCollection:currentDraggingCollection]).andReturn(YES);
+                [[currentDraggingCollection reject] itemAtPoint:touchPoint];
+
+                
+                [renderDelegate renderDropOnCollection:dstCollection atPoint:CGPointMake(0, 0) fromCoordinator:coordinator];
+
+                expect(draggingItem.alpha).to.equal(1);
+                OCMVerify([currentDragDataSource hidesItemWhileDraggingAtPoint:touchPoint inCollection:currentDraggingCollection]);
+                
+            });
             
-            expect([superview.subviews containsObject:renderDelegate.draggingView]).to.beFalsy;
-            expect(renderDelegate.draggingView).to.beNil();
+            
+            it(@"should not attempt to 'un-hide' the item in the collection if not specified by the data source", ^{
+                
+                id dstCollection = OCMProtocolMock(@protocol(I3Collection));
+                OCMStub([currentDragDataSource hidesItemWhileDraggingAtPoint:touchPoint inCollection:currentDraggingCollection]).andReturn(NO);
+                [[currentDraggingCollection reject] itemAtPoint:touchPoint];
+                
+                [renderDelegate renderDropOnCollection:dstCollection atPoint:CGPointMake(0, 0) fromCoordinator:coordinator];
+
+                expect(draggingItem.alpha).to.equal(1);
+                OCMVerify([currentDragDataSource hidesItemWhileDraggingAtPoint:touchPoint inCollection:currentDraggingCollection]);
+            
+            });
             
         });
         

@@ -77,4 +77,22 @@
 }
 
 
+-(void) renderDropOnCollection:(id<I3Collection>) dstCollection atPoint:(CGPoint) at fromCoordinator:(I3GestureCoordinator *)coordinator{
+
+    [_draggingView removeFromSuperview];
+    _draggingView = nil;
+ 
+    id<I3Collection> draggingCollection = coordinator.currentDraggingCollection;
+    CGPoint dragOrigin = coordinator.currentDragOrigin;
+
+    if([draggingCollection.dragDataSource hidesItemWhileDraggingAtPoint:dragOrigin inCollection:draggingCollection]){
+        
+        UIView *sourceView = [draggingCollection itemAtPoint:dragOrigin];
+        sourceView.alpha = 1;
+    
+    }
+
+}
+
+
 @end
