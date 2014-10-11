@@ -60,20 +60,14 @@
     CGRect dragOriginFrame = [coordinator.arena.superview convertRect:sourceView.frame fromView:collectionView];
     I3CloneView *draggingView = _draggingView;
     
-    __weak typeof(self) weakSelf = self;
-    
     [UIView animateWithDuration:0.15 animations:^{
-    
+
         draggingView.frame = dragOriginFrame;
     
     } completion:^(BOOL finished){
         
         [draggingView removeFromSuperview];
         
-        if(weakSelf.completeResetBlock){
-            weakSelf.completeResetBlock(draggingView);
-        }
-    
     }];
 
     _draggingView = nil;

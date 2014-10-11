@@ -132,23 +132,38 @@ SpecBegin(I3BasicRenderDelegate)
         
         describe(@"reset from point", ^{
 
-            it(@"should release strong reference to the dragging view, whilst animating it back to the origin in an async animation", ^AsyncBlock {
+            it(@"should release strong reference to the dragging view, whilst animating it back to the origin in an async animation", ^{
                 
                 [renderDelegate renderDragStart:coordinator];
                 
+                UIView *draggingView = renderDelegate.draggingView;
                 CGPoint resetPoint = CGPointMake(25, 25);
                 CGRect resetRect = CGRectMake(0, 0, 100, 100);
-                OCMStub([superview convertRect:draggingItem.frame fromView:collectionView]).andReturn(resetRect);
                 
-                renderDelegate.completeResetBlock = ^(UIView *draggingView){
+                id uiViewMock = OCMClassMock([UIView class]);
+                OCMStub([superview convertRect:draggingItem.frame fromView:collectionView]).andReturn(resetRect);
+                OCMStub([uiViewMock animateWithDuration:0.15 animations:[OCMArg any] completion:[OCMArg any]]).andDo(^(NSInvocation *invocation){
+                    
+                    void (^animateBlock)();
+                    void (^completionBlock)();
+                    
+                    [invocation getArgument:&animateBlock atIndex:3];
+                    [invocation getArgument:&completionBlock atIndex:4];
+                    
+                    animateBlock();
+                    completionBlock();
+
                     expect(draggingView.frame).to.equal(resetRect);
                     expect(draggingView.superview).to.beNil();
-                    done();
-                };
+
+                });
                 
                 [renderDelegate renderResetFromPoint:resetPoint fromCoordinator:coordinator];
                 
                 expect(renderDelegate.draggingView).to.beNil();
+                OCMVerify([uiViewMock animateWithDuration:0.15 animations:[OCMArg any] completion:[OCMArg any]]);
+                
+                [uiViewMock stopMocking];
                 
             });
             
@@ -201,9 +216,12 @@ SpecBegin(I3BasicRenderDelegate)
         
         describe(@"rearrange", ^{
         
-            it(@"should animate an exchange between the dragging view and the destination item", ^{
+            /*it(@"should animate an exchange between the dragging view and the destination item", ^{
             
                 /// @todo Employ this mocking technique to mock animations in the reset test as well
+
+                [renderDelegate renderDragStart:coordinator];
+                UIView *draggingView = renderDelegate.draggingView;
                 
                 id uiViewMock = OCMClassMock([UIView class]);
                 CGFloat duration = 0.15;
@@ -218,14 +236,24 @@ SpecBegin(I3BasicRenderDelegate)
                     
                     animateBlock();
                     
+                    /// @todo Expect deduce the exchangeView from the superview
+                    /// @todo Expect the draggingView frame to be the dst view's frame in the superview
+                    /// @todo Expect the exchangeView frame to be the source view's frame in the superview
                     
+                    completionBlock();
+                    
+                    /// @todo Expect draggingView and exchangeView to be removed from the superview
                 });
+                
+                
+                /// @todo Expect draggingView to be nil
+                /// @todo Expect draggingView still to be a subview of the superview
                 
                 OCMVerify([uiViewMock animateWithDuration:duration animations:[OCMArg any] completion:[OCMArg any]]);
                 
                 [uiViewMock stopMocking];
                 
-            });
+            });*/
             
         });
         
