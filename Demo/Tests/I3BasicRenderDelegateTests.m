@@ -139,10 +139,11 @@ SpecBegin(I3BasicRenderDelegate)
                 UIView *draggingView = renderDelegate.draggingView;
                 CGPoint resetPoint = CGPointMake(25, 25);
                 CGRect resetRect = CGRectMake(0, 0, 100, 100);
+                double duration = 0.15;
                 
                 id uiViewMock = OCMClassMock([UIView class]);
                 OCMStub([superview convertRect:draggingItem.frame fromView:collectionView]).andReturn(resetRect);
-                OCMStub([uiViewMock animateWithDuration:0.15 animations:[OCMArg any] completion:[OCMArg any]]).andDo(^(NSInvocation *invocation){
+                OCMStub([uiViewMock animateWithDuration:duration animations:[OCMArg any] completion:[OCMArg any]]).andDo(^(NSInvocation *invocation){
                     
                     void (^animateBlock)();
                     void (^completionBlock)();
@@ -161,7 +162,7 @@ SpecBegin(I3BasicRenderDelegate)
                 [renderDelegate renderResetFromPoint:resetPoint fromCoordinator:coordinator];
                 
                 expect(renderDelegate.draggingView).to.beNil();
-                OCMVerify([uiViewMock animateWithDuration:0.15 animations:[OCMArg any] completion:[OCMArg any]]);
+                OCMVerify([uiViewMock animateWithDuration:duration animations:[OCMArg any] completion:[OCMArg any]]);
                 
                 [uiViewMock stopMocking];
                 
@@ -216,44 +217,70 @@ SpecBegin(I3BasicRenderDelegate)
         
         describe(@"rearrange", ^{
         
-            /*it(@"should animate an exchange between the dragging view and the destination item", ^{
+            it(@"should animate an exchange between the dragging view and the destination item", ^{
             
-                /// @todo Employ this mocking technique to mock animations in the reset test as well
-
                 [renderDelegate renderDragStart:coordinator];
-                UIView *draggingView = renderDelegate.draggingView;
+                
+                I3CloneView *draggingView = renderDelegate.draggingView;
+                UIView *exchangeItem = OCMPartialMock([[UIView alloc] init]);
+                
+                exchangeItem.frame = CGRectMake(1, 1, 99, 99);
+                draggingItem.frame = CGRectMake(2, 2, 88, 88);
+                
+                CGRect exchangeItemSuperRect = CGRectMake(0, 0, 100, 100);
+                CGRect draggingItemSuperRect = CGRectMake(0, 100, 100, 100);
+
+                CGPoint rearrangePoint = CGPointMake(50, 50);
+                double duration = 0.15;
                 
                 id uiViewMock = OCMClassMock([UIView class]);
-                CGFloat duration = 0.15;
-                
+
+                OCMStub([currentDraggingCollection itemAtPoint:rearrangePoint]).andReturn(exchangeItem);
+                OCMStub([superview convertRect:exchangeItem.frame fromView:collectionView]).andReturn(exchangeItemSuperRect);
+                OCMStub([superview convertRect:draggingItem.frame fromView:collectionView]).andReturn(draggingItemSuperRect);
+    
                 OCMStub([uiViewMock animateWithDuration:duration animations:[OCMArg any] completion:[OCMArg any]]).andDo(^(NSInvocation *invocation){
-                
+                    
                     void (^animateBlock)();
                     void (^completionBlock)();
                     
-                    [invocation getArgument:&animateBlock atIndex:1];
-                    [invocation getArgument:&completionBlock atIndex:2];
+                    [invocation getArgument:&animateBlock atIndex:3];
+                    [invocation getArgument:&completionBlock atIndex:4];
                     
                     animateBlock();
                     
-                    /// @todo Expect deduce the exchangeView from the superview
-                    /// @todo Expect the draggingView frame to be the dst view's frame in the superview
-                    /// @todo Expect the exchangeView frame to be the source view's frame in the superview
+                    NSPredicate *clonedViewPredicate = [NSComparisonPredicate predicateWithLeftExpression:[NSExpression expressionForEvaluatedObject] rightExpression:[NSExpression expressionForConstantValue:[I3CloneView class]] customSelector:@selector(isMemberOfClass:)];
+                    NSArray *clonedViews = [superview.subviews filteredArrayUsingPredicate:clonedViewPredicate];
+                    
+                    expect(clonedViews.count).to.equal(2);
+                    
+                    I3CloneView *firstClonedView = [clonedViews firstObject];
+                    I3CloneView *exchangeView = firstClonedView.sourceView == draggingItem ? clonedViews.lastObject : firstClonedView;
+                    
+                    expect(exchangeView.frame).to.equal(draggingItemSuperRect);
+                    expect(draggingView.frame).to.equal(exchangeItemSuperRect);
+                    expect([exchangeView.superview isEqual:superview]).to.beTruthy;
                     
                     completionBlock();
                     
-                    /// @todo Expect draggingView and exchangeView to be removed from the superview
+                    expect(exchangeView.superview).to.beNil();
+                    expect(draggingView.superview).to.beNil();
+                    
                 });
                 
+                [renderDelegate renderRearrangeOnPoint:rearrangePoint fromCoordinator:coordinator];
                 
-                /// @todo Expect draggingView to be nil
-                /// @todo Expect draggingView still to be a subview of the superview
-                
+                expect(renderDelegate.draggingView).to.beNil();
+
+                OCMVerify([currentDraggingCollection itemAtPoint:rearrangePoint]);
                 OCMVerify([uiViewMock animateWithDuration:duration animations:[OCMArg any] completion:[OCMArg any]]);
+                OCMVerify([currentDraggingCollection itemAtPoint:rearrangePoint]);
+                OCMVerify([superview convertRect:exchangeItem.frame fromView:collectionView]);
+                OCMVerify([superview convertRect:draggingItem.frame fromView:collectionView]);
                 
                 [uiViewMock stopMocking];
-                
-            });*/
+
+            });
             
         });
         
