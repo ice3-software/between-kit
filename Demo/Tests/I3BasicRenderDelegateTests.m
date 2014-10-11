@@ -222,14 +222,13 @@ SpecBegin(I3BasicRenderDelegate)
                 [renderDelegate renderDragStart:coordinator];
                 
                 I3CloneView *draggingView = renderDelegate.draggingView;
-                UIView *exchangeItem = OCMPartialMock([[UIView alloc] init]);
+                UIView *exchangeItem = [[UIView alloc] init];
                 
                 exchangeItem.frame = CGRectMake(1, 1, 99, 99);
                 draggingItem.frame = CGRectMake(2, 2, 88, 88);
                 
                 CGRect exchangeItemSuperRect = CGRectMake(0, 0, 100, 100);
                 CGRect draggingItemSuperRect = CGRectMake(0, 100, 100, 100);
-
                 CGPoint rearrangePoint = CGPointMake(50, 50);
                 double duration = 0.15;
                 
@@ -271,13 +270,7 @@ SpecBegin(I3BasicRenderDelegate)
                 [renderDelegate renderRearrangeOnPoint:rearrangePoint fromCoordinator:coordinator];
                 
                 expect(renderDelegate.draggingView).to.beNil();
-
-                OCMVerify([currentDraggingCollection itemAtPoint:rearrangePoint]);
                 OCMVerify([uiViewMock animateWithDuration:duration animations:[OCMArg any] completion:[OCMArg any]]);
-                OCMVerify([currentDraggingCollection itemAtPoint:rearrangePoint]);
-                OCMVerify([superview convertRect:exchangeItem.frame fromView:collectionView]);
-                OCMVerify([superview convertRect:draggingItem.frame fromView:collectionView]);
-                
                 [uiViewMock stopMocking];
 
             });
