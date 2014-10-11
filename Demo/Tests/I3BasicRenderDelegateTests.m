@@ -199,6 +199,36 @@ SpecBegin(I3BasicRenderDelegate)
             
         });
         
+        describe(@"rearrange", ^{
+        
+            it(@"should animate an exchange between the dragging view and the destination item", ^{
+            
+                /// @todo Employ this mocking technique to mock animations in the reset test as well
+                
+                id uiViewMock = OCMClassMock([UIView class]);
+                CGFloat duration = 0.15;
+                
+                OCMStub([uiViewMock animateWithDuration:duration animations:[OCMArg any] completion:[OCMArg any]]).andDo(^(NSInvocation *invocation){
+                
+                    void (^animateBlock)();
+                    void (^completionBlock)();
+                    
+                    [invocation getArgument:&animateBlock atIndex:1];
+                    [invocation getArgument:&completionBlock atIndex:2];
+                    
+                    animateBlock();
+                    
+                    
+                });
+                
+                OCMVerify([uiViewMock animateWithDuration:duration animations:[OCMArg any] completion:[OCMArg any]]);
+                
+                [uiViewMock stopMocking];
+                
+            });
+            
+        });
+        
     });
 
 

@@ -15,6 +15,10 @@
 @end
 
 
+
+/// @todo Remove all the code duplication here; lots of methods calculate rects and points
+///       from common objects in the same way.
+
 @implementation I3BasicRenderDelegate
 
 
@@ -91,6 +95,48 @@
         sourceView.alpha = 1;
     
     }
+
+}
+
+
+-(void) renderRearrangeOnPoint:(CGPoint) at fromCoordinator:(I3GestureCoordinator *)coordinator{
+    
+    id<I3Collection> draggingCollection = coordinator.currentDraggingCollection;
+    CGPoint dragOrigin = coordinator.currentDragOrigin;
+    
+    UIView *collectionView = draggingCollection.collectionView;
+    UIView *superview = coordinator.arena.superview;
+    
+    UIView *dstSourceView = [draggingCollection itemAtPoint:at];
+    UIView *sourceView = [draggingCollection itemAtPoint:dragOrigin];
+    
+    
+    I3CloneView *exchangeView = [[I3CloneView alloc] initWithSourceView:dstSourceView];
+    exchangeView.frame = [superview convertRect:dstSourceView.frame fromView:collectionView];
+    [superview addSubview:exchangeView];
+    
+    I3CloneView *draggingView = _draggingView;
+    CGRect dragOriginFrame = [superview convertRect:sourceView.frame fromView:collectionView];
+
+    
+    [UIView animateWithDuration:0.15 animations:^{
+        
+        draggingView.frame = exchangeView.frame;
+        exchangeView.frame = dragOriginFrame;
+        
+    } completion:^(BOOL finished) {
+        
+        [exchangeView removeFromSuperview];
+        [draggingView removeFromSuperview];
+        
+    }];
+
+    _draggingView = nil;
+    
+    
+    /// @note When would be need to re-show the item?
+    /// @note Can we hide both the dragging and the exchange items while the animation plays out ?
+    
 
 }
 
