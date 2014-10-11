@@ -20,13 +20,19 @@
 
 -(void) renderDragStart:(I3GestureCoordinator *)coordinator{
     
-    UIView *sourceView = [coordinator.currentDraggingCollection itemAtPoint:coordinator.currentDragOrigin];
-    UIView *collectionView = coordinator.currentDraggingCollection.collectionView;
+    id<I3Collection> draggingCollection = coordinator.currentDraggingCollection;
+    CGPoint dragOrigin = coordinator.currentDragOrigin;
+    
+    UIView *sourceView = [draggingCollection itemAtPoint:dragOrigin];
+    UIView *collectionView = draggingCollection.collectionView;
         
     _draggingView = [[I3CloneView alloc] initWithSourceView:sourceView];
     _draggingView.frame = [coordinator.arena.superview convertRect:sourceView.frame fromView:collectionView];
     [coordinator.arena.superview addSubview:_draggingView];
     
+    if([draggingCollection.dragDataSource hidesItemWhileDraggingAtPoint:dragOrigin inCollection:draggingCollection]){
+        sourceView.alpha = 0.01f;
+    }
 }
 
 
