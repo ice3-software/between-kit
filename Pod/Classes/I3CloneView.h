@@ -27,7 +27,7 @@
  @note This is a strong reference.
  
  */
-@property (nonatomic, strong, readonly) UIView *sourceView;
+@property (nonatomic, weak, readonly) UIView *sourceView;
 
 
 /**

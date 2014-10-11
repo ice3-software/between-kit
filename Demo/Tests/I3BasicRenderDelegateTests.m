@@ -68,7 +68,7 @@ SpecBegin(I3BasicRenderDelegate)
             
             expect(renderDelegate.draggingView).to.beInstanceOf([I3CloneView class]);
             expect(renderDelegate.draggingView.sourceView).to.equal(draggingItem);
-            expect(renderDelegate.draggingView.superview).to.equal(superview);
+            expect([renderDelegate.draggingView.superview isEqual:superview]).to.beTruthy;
             expect(renderDelegate.draggingView.frame).to.equal(convertedRect);
             
             OCMVerify([superview convertRect:draggingItem.frame fromView:collectionView]);
@@ -94,9 +94,11 @@ SpecBegin(I3BasicRenderDelegate)
             [renderDelegate renderDragStart:coordinator];
 
             CGPoint resetPoint = CGPointMake(25, 25);
+            CGRect resetRect = CGRectMake(0, 0, 100, 100);
+            OCMStub([superview convertRect:draggingItem.frame fromView:collectionView]).andReturn(resetRect);
             
             renderDelegate.completeResetBlock = ^(UIView *draggingView){
-                expect(draggingView.center).to.equal([coordinator currentDragOrigin]);
+                expect(draggingView.frame).to.equal(resetRect);
                 expect(draggingView.superview).to.beNil();
                 done();
             };

@@ -10,6 +10,11 @@
 #import "I3Logging.h"
 
 
+@interface I3BasicRenderDelegate ()
+
+@end
+
+
 @implementation I3BasicRenderDelegate
 
 
@@ -39,14 +44,17 @@
 
 -(void) renderResetFromPoint:(CGPoint) at fromCoordinator:(I3GestureCoordinator *)coordinator{
     
-    CGPoint dragOrigin = [coordinator currentDragOrigin];
+    UIView *sourceView = [coordinator.currentDraggingCollection itemAtPoint:coordinator.currentDragOrigin];
+    UIView *collectionView = coordinator.currentDraggingCollection.collectionView;
+
+    CGRect dragOriginFrame = [coordinator.arena.superview convertRect:sourceView.frame fromView:collectionView];
     I3CloneView *draggingView = _draggingView;
     
     __weak typeof(self) weakSelf = self;
     
     [UIView animateWithDuration:0.15 animations:^{
     
-        draggingView.center = dragOrigin;
+        draggingView.frame = dragOriginFrame;
     
     } completion:^(BOOL finished){
         
