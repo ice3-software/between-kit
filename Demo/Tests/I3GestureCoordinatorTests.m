@@ -499,6 +499,37 @@ SpecBegin(I3GestureCoordinator)
 
             });
             
+            it(@"should not rearrange and render reset if we're dropping on the same item in the collection", ^{
+            
+                /// @todo Get this to pass
+                
+                CGPoint rearrangeDropPoint = CGPointMake(20, 20);
+                
+                OCMStub([panGestureRecognizer locationInView:[OCMArg any]]).andReturn(rearrangeDropPoint);
+                OCMStub([collectionView pointInside:rearrangeDropPoint withEvent:nil]).andReturn(YES);
+
+                OCMStub([draggingCollection dragDataSource]).andReturn(draggingDataSource);
+                OCMStub([draggingDataSource canItemFromPoint:touchPoint beRearrangedWithItemAtPoint:rearrangeDropPoint inCollection:draggingCollection]).andReturn(YES);
+                
+                UIView *commonCollectionItem = [[UIView alloc] init];
+                
+                OCMStub([draggingCollection itemAtPoint:rearrangeDropPoint]).andReturn(commonCollectionItem);
+                OCMStub([draggingCollection itemAtPoint:touchPoint]).andReturn(commonCollectionItem);
+                
+                [[draggingDataSource reject] rearrangeItemAtPoint:touchPoint withItemAtPoint:rearrangeDropPoint inCollection:draggingCollection];
+                [coordinator handlePan:coordinator.gestureRecognizer];
+                
+                OCMVerify([draggingCollection itemAtPoint:rearrangeDropPoint]);
+                OCMVerify([draggingCollection itemAtPoint:touchPoint]);
+                
+            });
+            
+            it(@"should not rearrange and render reset if we're dropping on an invalid location in the collection", ^{
+                
+                expect(NO).to.beTruthy;
+                /// @todo ...
+            });
+            
             it(@"should exchange between collections if we're drag/dropping between different collections and data source allows", ^{
             
                 id dstCollection = OCMProtocolMock(@protocol(I3Collection));
@@ -516,7 +547,6 @@ SpecBegin(I3GestureCoordinator)
                 OCMVerify([renderDelegate renderDropOnCollection:dstCollection atPoint:touchPoint fromCoordinator:coordinator]);
 
             });
-            
             
             it(@"should not exchange between and render reset if data source is not specified", ^{
             
@@ -582,6 +612,12 @@ SpecBegin(I3GestureCoordinator)
 
                 OCMVerify([renderDelegate renderResetFromPoint:touchPoint fromCoordinator:coordinator]);
 
+            });
+            
+            it(@"should not exchange and render reset if we're dropping on an invalid location in the dst collection", ^{
+                
+                expect(NO).to.beTruthy;
+                /// @todo ...
             });
             
         });

@@ -38,22 +38,10 @@ static NSString* DequeueReusableCell = @"DequeueReusableCell";
 
     
     /** Setup the table views with their data */
-    
-    self.leftData = [NSMutableArray arrayWithArray:@[
-                                                     @"Left 1",
-                                                     @"Left 2",
-                                                     @"Left 3",
-                                                     @"Left 4",
-                                                     @"Left 5",
-                                                     ]];
-    
-    self.rightData = [NSMutableArray arrayWithArray:@[
-                                                      @"Right 1",
-                                                      @"Right 2",
-                                                      @"Right 3",
-                                                      @"Right 4",
-                                                      @"Right 5",
-                                                      ]];
+
+    NSArray *data = @[@1, @2, @3, @4, @5];
+    self.leftData = [NSMutableArray arrayWithArray:data];
+    self.rightData = [NSMutableArray arrayWithArray:data];
 
     [self.leftTableView registerClass:[UITableViewCell class] forCellReuseIdentifier:DequeueReusableCell];
     [self.rightTableView registerClass:[UITableViewCell class] forCellReuseIdentifier:DequeueReusableCell];
@@ -89,8 +77,18 @@ static NSString* DequeueReusableCell = @"DequeueReusableCell";
 
 -(CGFloat) tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
 
-    return (indexPath.row % 2) ? 50.0f : 100.0f;
+    NSNumber *value;
+    
+    if(tableView == self.leftTableView){
+        value = [self.leftData objectAtIndex:indexPath.row];
+    }
+    else{
+        value = [self.rightData objectAtIndex:indexPath.row];
+    }
+
+    return (value.integerValue % 2) ? 50.0f : 100.0f;
 };
+
 
 -(NSInteger) tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger) section{
     
@@ -110,11 +108,11 @@ static NSString* DequeueReusableCell = @"DequeueReusableCell";
     
     if(tableView == self.leftTableView){
         NSInteger row = [indexPath row];
-        cell.textLabel.text = [self.leftData objectAtIndex:row];
+        cell.textLabel.text = [NSString stringWithFormat:@"%@ left", [self.leftData objectAtIndex:row]];
     }
     else{
         NSInteger row = [indexPath row];
-        cell.textLabel.text = [self.rightData objectAtIndex:row];
+        cell.textLabel.text = [NSString stringWithFormat:@"%@ right", [self.rightData objectAtIndex:row]];
     }
     
     return cell;
@@ -127,6 +125,25 @@ static NSString* DequeueReusableCell = @"DequeueReusableCell";
 
 -(BOOL) canItemBeDraggedAtPoint:(CGPoint) at inCollection:(id<I3Collection>) collection{
     return YES;
+}
+
+
+-(BOOL) canItemFromPoint:(CGPoint)from beRearrangedWithItemAtPoint:(CGPoint)to inCollection:(id<I3Collection>)collection{
+    return YES;
+}
+
+
+-(void) rearrangeItemAtPoint:(CGPoint)from withItemAtPoint:(CGPoint)to inCollection:(id<I3Collection>)collection{
+    
+    UITableView *targetTableView = (UITableView *)collection.collectionView;
+    
+    NSIndexPath *toIndex = [targetTableView indexPathForRowAtPoint:to];
+    NSIndexPath *fromIndex = [targetTableView indexPathForRowAtPoint:from];
+
+    NSMutableArray *targetDataset = targetTableView == self.leftTableView ? self.leftData : self.rightData;
+    
+    [targetDataset exchangeObjectAtIndex:toIndex.row withObjectAtIndex:fromIndex.row];
+    [targetTableView reloadRowsAtIndexPaths:@[toIndex, fromIndex] withRowAnimation:UITableViewRowAnimationFade];
 }
 
 

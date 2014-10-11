@@ -34,7 +34,10 @@
     _draggingView.frame = [coordinator.arena.superview convertRect:sourceView.frame fromView:collectionView];
     [coordinator.arena.superview addSubview:_draggingView];
     
-    if([draggingCollection.dragDataSource hidesItemWhileDraggingAtPoint:dragOrigin inCollection:draggingCollection]){
+    if(
+       [draggingCollection.dragDataSource respondsToSelector:@selector(hidesItemWhileDraggingAtPoint:inCollection:)] &&
+       [draggingCollection.dragDataSource hidesItemWhileDraggingAtPoint:dragOrigin inCollection:draggingCollection]
+    ){
         sourceView.alpha = 0.01f;
     }
 }
@@ -83,7 +86,10 @@
     id<I3Collection> draggingCollection = coordinator.currentDraggingCollection;
     CGPoint dragOrigin = coordinator.currentDragOrigin;
 
-    if([draggingCollection.dragDataSource hidesItemWhileDraggingAtPoint:dragOrigin inCollection:draggingCollection]){
+    if(
+       [draggingCollection.dragDataSource respondsToSelector:@selector(hidesItemWhileDraggingAtPoint:inCollection:)] &&
+       [draggingCollection.dragDataSource hidesItemWhileDraggingAtPoint:dragOrigin inCollection:draggingCollection]
+    ){
         
         UIView *sourceView = [draggingCollection itemAtPoint:dragOrigin];
         sourceView.alpha = 1;
@@ -110,13 +116,13 @@
     [superview addSubview:exchangeView];
     
     I3CloneView *draggingView = _draggingView;
+    [superview bringSubviewToFront:draggingView];
     CGRect dragOriginFrame = [superview convertRect:sourceView.frame fromView:collectionView];
-
     
     [UIView animateWithDuration:0.15 animations:^{
         
-        draggingView.frame = exchangeView.frame;
-        exchangeView.frame = dragOriginFrame;
+        draggingView.center = CGPointMake(CGRectGetMidX(exchangeView.frame), CGRectGetMidY(exchangeView.frame));
+        exchangeView.center = CGPointMake(CGRectGetMidX(dragOriginFrame), CGRectGetMidY(dragOriginFrame));
         
     } completion:^(BOOL finished) {
         
