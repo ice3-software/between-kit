@@ -8,6 +8,15 @@
 
 #import "I3CloneView.h"
 
+
+@interface I3CloneView (){
+    
+    UIImage *_sourceImageView;
+}
+
+@end
+
+
 @implementation I3CloneView
 
 
@@ -17,7 +26,10 @@
     
     if(self){
         
-        _sourceView = sourceView;
+        UIGraphicsBeginImageContext(sourceView.frame.size);
+        [sourceView.layer renderInContext:UIGraphicsGetCurrentContext()];
+        _sourceImageView = UIGraphicsGetImageFromCurrentImageContext();
+        UIGraphicsEndImageContext();
         
     }
     
@@ -25,8 +37,8 @@
 }
 
 
--(void) drawRect:(CGRect)rect{
-    [self.sourceView.layer renderInContext:UIGraphicsGetCurrentContext()];
+-(void) drawRect:(CGRect) rect{
+    [_sourceImageView drawInRect:rect];
 }
 
 
