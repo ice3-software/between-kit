@@ -145,30 +145,23 @@ SpecBegin(I3GestureCoordinator)
 
         
         __block I3GestureCoordinator *coordinator;
-        __block id collectionView;
-        __block id draggingDataSource;
         __block id renderDelegate;
 
-        CGPoint touchPoint = CGPointMake(10, 10);
+        CGPoint dragOrigin = CGPointMake(10, 10);
 
         
         beforeEach(^{
             
             coordinator = [[I3GestureCoordinator alloc] initWithDragArena:dragArena withGestureRecognizer:panGestureRecognizer];
-            collectionView = OCMClassMock([UIView class]);
-            draggingDataSource = OCMProtocolMock(@protocol(I3DragDataSource));
             renderDelegate = OCMProtocolMock(@protocol(I3DragRenderDelegate));
             
             coordinator.renderDelegate = renderDelegate;
-            OCMStub([panGestureRecognizer locationInView:[OCMArg any]]).andReturn(touchPoint);
             
         });
         
         afterEach(^{
             
             coordinator = nil;
-            collectionView = nil;
-            draggingDataSource = nil;
             renderDelegate = nil;
             
         });
@@ -176,37 +169,47 @@ SpecBegin(I3GestureCoordinator)
         
         describe(@"starting a drag", ^{
 
+            
             beforeEach(^{
+
                 OCMStub([panGestureRecognizer state]).andReturn(UIGestureRecognizerStateBegan);
+            
             });
+            
             
             it(@"should start and render a drag on a collection if the point is inside its bounds and the item is draggable", ^{
                 
                 id draggingCollection = OCMProtocolMock(@protocol(I3Collection));
+                id draggingDataSource = OCMProtocolMock(@protocol(I3DragDataSource));
+                id collectionView = OCMPartialMock([[UIView alloc] init]);
                 
                 OCMStub([draggingCollection dragDataSource]).andReturn(draggingDataSource);
-                OCMStub([draggingDataSource canItemBeDraggedAtPoint:touchPoint inCollection:draggingCollection]).andReturn(YES);
+                OCMStub([draggingDataSource canItemBeDraggedAtPoint:dragOrigin inCollection:draggingCollection]).andReturn(YES);
                 OCMStub([draggingCollection collectionView]).andReturn(collectionView);
-                OCMStub([collectionView pointInside:touchPoint withEvent:nil]).andReturn(YES);
+                OCMStub([collectionView pointInside:dragOrigin withEvent:nil]).andReturn(YES);
                 
                 [[dragArena collections] addObject:draggingCollection];
                 [coordinator handlePan:coordinator.gestureRecognizer];
                 
                 expect(coordinator.currentDraggingCollection).to.equal(draggingCollection);
-                expect(coordinator.currentDragOrigin).to.equal(touchPoint);
+                expect(coordinator.currentDragOrigin).to.equal(dragOrigin);
                 
                 OCMVerify([renderDelegate renderDragStart:coordinator]);
                 OCMVerify([draggingCollection dragDataSource]);
-                OCMVerify([draggingDataSource canItemBeDraggedAtPoint:touchPoint inCollection:draggingCollection]);
+                OCMVerify([draggingDataSource canItemBeDraggedAtPoint:dragOrigin inCollection:draggingCollection]);
                 
             });
             
             it(@"should assume that a collection is completely un-draggable if there is no data source", ^{
                 
                 id undraggableCollection = OCMProtocolMock(@protocol(I3Collection));
+                id collectionView = OCMPartialMock([[UIView alloc] init]);
+
+                /// Explicitly does not mock the retrieving of the data source so that the collection is
+                /// deemed 'undraggable'.
                 
                 OCMStub([undraggableCollection collectionView]).andReturn(collectionView);
-                OCMStub([collectionView pointInside:touchPoint withEvent:nil]).andReturn(YES);
+                OCMStub([collectionView pointInside:dragOrigin withEvent:nil]).andReturn(YES);
                 
                 [[dragArena collections] addObject:undraggableCollection];
                 [coordinator handlePan:coordinator.gestureRecognizer];
@@ -221,11 +224,16 @@ SpecBegin(I3GestureCoordinator)
             it(@"should not start dragging an item in a collection that is not draggable", ^{
                 
                 id draggingCollection = OCMProtocolMock(@protocol(I3Collection));
+                id draggingDataSource = OCMProtocolMock(@protocol(I3DragDataSource));
+                id collectionView = OCMPartialMock([[UIView alloc] init]);
+
+                /// Configure the draggingDataSource to allow for the given item at the dragOrigin to be
+                /// dragged
                 
-                OCMStub([draggingDataSource canItemBeDraggedAtPoint:touchPoint inCollection:draggingCollection]).andReturn(NO);
                 OCMStub([draggingCollection dragDataSource]).andReturn(draggingDataSource);
                 OCMStub([draggingCollection collectionView]).andReturn(collectionView);
-                OCMStub([collectionView pointInside:touchPoint withEvent:nil]).andReturn(YES);
+                OCMStub([collectionView pointInside:dragOrigin withEvent:nil]).andReturn(YES);
+                OCMStub([draggingDataSource canItemBeDraggedAtPoint:dragOrigin inCollection:draggingCollection]).andReturn(NO);
                 
                 [[dragArena collections] addObject:draggingCollection];
                 [coordinator handlePan:coordinator.gestureRecognizer];
@@ -234,7 +242,7 @@ SpecBegin(I3GestureCoordinator)
                 expect(coordinator.currentDragOrigin).to.equal(CGPointZero);
                 
                 OCMVerify([draggingCollection dragDataSource]);
-                OCMVerify([draggingDataSource canItemBeDraggedAtPoint:touchPoint inCollection:draggingCollection]);
+                OCMVerify([draggingDataSource canItemBeDraggedAtPoint:dragOrigin inCollection:draggingCollection]);
 
             });
             
@@ -242,16 +250,23 @@ SpecBegin(I3GestureCoordinator)
                 
                 id topDraggingCollection = OCMProtocolMock(@protocol(I3Collection));
                 id bottomDraggingCollection = OCMProtocolMock(@protocol(I3Collection));
+
+                id topDraggingDataSource = OCMProtocolMock(@protocol(I3DragDataSource));
+                id bottomDraggingDataSource = OCMProtocolMock(@protocol(I3DragDataSource));
                 
-                OCMStub([draggingDataSource canItemBeDraggedAtPoint:touchPoint inCollection:topDraggingCollection]).andReturn(YES);
-                OCMStub([topDraggingCollection dragDataSource]).andReturn(draggingDataSource);
-                OCMStub([topDraggingCollection collectionView]).andReturn(collectionView);
+                id topCollectionView = OCMPartialMock([[UIView alloc] init]);
                 
-                [[draggingDataSource reject] canItemBeDraggedAtPoint:touchPoint inCollection:bottomDraggingCollection];
+                OCMStub([topDraggingDataSource canItemBeDraggedAtPoint:dragOrigin inCollection:topDraggingCollection]).andReturn(YES);
+                OCMStub([topDraggingCollection dragDataSource]).andReturn(topDraggingDataSource);
+                OCMStub([topDraggingCollection collectionView]).andReturn(topCollectionView);
+                
+                /// Verify that the bottom drag data source's methods are not called
+                
+                [[bottomDraggingDataSource reject] canItemBeDraggedAtPoint:dragOrigin inCollection:bottomDraggingCollection];
                 [[bottomDraggingCollection reject] dragDataSource];
                 [[bottomDraggingCollection reject] collectionView];
                 
-                OCMStub([collectionView pointInside:touchPoint withEvent:nil]).andReturn(YES);
+                OCMStub([topCollectionView pointInside:dragOrigin withEvent:nil]).andReturn(YES);
                 
                 [[dragArena collections] addObjectsFromArray:@[topDraggingCollection, bottomDraggingCollection]];
                 [coordinator handlePan:coordinator.gestureRecognizer];
@@ -260,7 +275,7 @@ SpecBegin(I3GestureCoordinator)
                 
                 OCMVerify([renderDelegate renderDragStart:coordinator]);
                 OCMVerify([topDraggingCollection dragDataSource]);
-                OCMVerify([draggingDataSource canItemBeDraggedAtPoint:touchPoint inCollection:topDraggingCollection]);
+                OCMVerify([topDraggingDataSource canItemBeDraggedAtPoint:dragOrigin inCollection:topDraggingCollection]);
 
             });
             
