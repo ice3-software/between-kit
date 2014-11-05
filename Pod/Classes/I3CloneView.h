@@ -22,20 +22,27 @@
 
 /**
  
- The source view to be rendered into this view.
- 
- @note This is a strong reference.
+ The cached source view. This is lazily rendered into the clonedImage property the first
+ time the clonedImage property is requested.
  
  */
-@property (nonatomic, weak, readonly) UIView *sourceView;
+@property (nonatomic, readonly, weak) UIView *sourceView;
+
+
+/**
+ 
+ The source view injected in the ctor, rendered into a UIImage.
+ 
+ */
+@property (nonatomic, readonly) UIImage *sourceViewImage;
 
 
 /**
  
  Init.
  
- @param sourceView  The 'source' view. This view is rendered into the I3CloneView in its 
-                    `drawRect:` method.
+ @param sourceView  The 'source' view. This view is rendered into a UIImage and draw via
+                    drawRect.
  
  */
 -(id) initWithSourceView:(UIView *)sourceView;

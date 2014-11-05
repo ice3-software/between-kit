@@ -26,13 +26,50 @@ SpecBegin(I3CloneView)
 
     describe(@"constructor", ^{
         
-        
-        it(@"should setup the view with the source view", ^{
+        it(@"should inject the source view", ^{
+            
             expect(view.sourceView).to.equal(sourceView);
+        
+        });
+    
+    });
+
+
+    describe(@"lazily render sourceView", ^{
+
+        it(@"should be nil before first call to getter", ^{
+            
+            expect([view valueForKey:@"_sourceViewImage"]).to.beNil;
+        
         });
         
-        it(@"should set the clone view up with the same frame as the source view", ^{
-            expect(view.frame).to.equal(sourceView.frame);
+        it(@"should set up the UIImage on first call to getter", ^{
+
+            UIGraphicsBeginImageContext(sourceView.frame.size);
+            
+            [sourceView.layer renderInContext:UIGraphicsGetCurrentContext()];
+            UIImage *compareImage = UIGraphicsGetImageFromCurrentImageContext();
+            
+            UIGraphicsEndImageContext();
+            
+            NSData *compareData = UIImagePNGRepresentation(compareImage);
+            NSData *clonedCompareData = UIImagePNGRepresentation(view.sourceViewImage);
+            
+            expect([compareData isEqual:clonedCompareData]).to.beTruthy;
+        
+        });
+        
+        it(@"should not re-setup the UIImage on subsequent calls to getter", ^{
+        
+            id layer = OCMClassMock([CALayer class]);
+            OCMStub([sourceView layer]).andReturn(layer);
+            
+            [view sourceViewImage];
+            
+            [[layer reject] renderInContext:UIGraphicsGetCurrentContext()];
+
+            [view sourceViewImage];
+            
         });
         
     });
@@ -42,13 +79,14 @@ SpecBegin(I3CloneView)
 
         it(@"should draw the source view in the cloned view on drawRect", ^{
         
-            id layer = OCMClassMock([CALayer class]);
-            OCMStub([sourceView layer]).andReturn(layer);
-
-            [view drawRect:CGRectMake(0, 0, 10, 10)];
+            id mockImage = OCMClassMock([UIImage class]);
+            CGRect mockRect = CGRectMake(0, 0, 200, 200);
             
-            OCMVerify([layer renderInContext:UIGraphicsGetCurrentContext()]);
-
+            [view setValue:mockImage forKey:@"_sourceViewImage"];
+            [view drawRect:mockRect];
+            
+            OCMVerify([mockImage drawInRect:mockRect]);
+            
         });
         
     });
