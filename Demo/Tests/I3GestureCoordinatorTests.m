@@ -506,9 +506,11 @@ SpecBegin(I3GestureCoordinator)
                 
                 CGPoint rearrangeDropPoint = CGPointMake(20, 20);
                 
-                OCMStub([panGestureRecognizer locationInView:[OCMArg any]]).andReturn(rearrangeDropPoint);
+                OCMStub([panGestureRecognizer locationInView:collectionView]).andReturn(rearrangeDropPoint);
                 OCMStub([collectionView pointInside:rearrangeDropPoint withEvent:nil]).andReturn(YES);
 
+                NSLog(@"Trying to get the location: %@", NSStringFromCGPoint([panGestureRecognizer locationInView:collectionView]));
+                
                 OCMStub([draggingCollection dragDataSource]).andReturn(draggingDataSource);
                 OCMStub([draggingDataSource canItemFromPoint:touchPoint beRearrangedWithItemAtPoint:rearrangeDropPoint inCollection:draggingCollection]).andReturn(YES);
                 

@@ -191,6 +191,8 @@
         UIView* collectionView = collection.collectionView;
         CGPoint pointInCollection = [self.gestureRecognizer locationInView:collectionView];
         
+        DND_LOG(@"Testing whether %@ is in %@", NSStringFromCGPoint(pointInCollection), collectionView);
+        
         if([collectionView pointInside:pointInCollection withEvent:nil]){
             
             DND_LOG(@"Found a target collection to drop on!");
@@ -253,6 +255,7 @@
     SEL itemRearrangeSelector = @selector(rearrangeItemAtPoint:withItemAtPoint:inCollection:);
     SEL dropSelector = @selector(dropItemAtPoint:fromCollection:toPoint:inCollection:);
     
+    
     if(
        isRearrange &&
        [dataSource respondsToSelector:canItemRearrangeSelector] &&
@@ -260,9 +263,22 @@
        [dataSource canItemFromPoint:_currentDragOrigin beRearrangedWithItemAtPoint:at inCollection:_currentDraggingCollection]
     ){
         
-        DND_LOG(@"Rearranging items in a collection.");
-        [self.renderDelegate renderRearrangeOnPoint:at fromCoordinator:self];
-        [dataSource rearrangeItemAtPoint:_currentDragOrigin withItemAtPoint:at inCollection:_currentDraggingCollection];
+        UIView *draggingItemView = [_currentDraggingCollection itemAtPoint:_currentDragOrigin];
+        UIView *destinationItemView = [_currentDraggingCollection itemAtPoint:at];
+        
+        
+        DND_LOG(@"Is %@ equal to %@?", draggingItemView, destinationItemView);
+        
+        if([draggingItemView isEqual:destinationItemView]){
+            DND_LOG(@"Rearranging the same views. Snapping back.");
+            [self.renderDelegate renderResetFromPoint:at fromCoordinator:self];
+        }
+        else{
+            DND_LOG(@"Rearranging items in a collection.");
+            [self.renderDelegate renderRearrangeOnPoint:at fromCoordinator:self];
+            [dataSource rearrangeItemAtPoint:_currentDragOrigin withItemAtPoint:at inCollection:_currentDraggingCollection];
+        }
+
     }
     else if(
         !isRearrange &&
