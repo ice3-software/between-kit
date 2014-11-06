@@ -34,8 +34,7 @@
     return self;
 }
 
-
--(UIImage *)sourceViewImage{
+-(void) cloneSourceView{
 
     if(!_sourceViewImage){
     
@@ -45,8 +44,6 @@
         UIGraphicsEndImageContext();
 
     }
-    
-    return _sourceViewImage;
 }
 
 

@@ -35,15 +35,15 @@ SpecBegin(I3CloneView)
     });
 
 
-    describe(@"lazily render sourceView", ^{
+    describe(@"render sourceView", ^{
 
         it(@"should be nil before first call to getter", ^{
             
-            expect([view valueForKey:@"_sourceViewImage"]).to.beNil;
+            expect(view.sourceViewImage).to.beNil;
         
         });
         
-        it(@"should set up the UIImage on first call to getter", ^{
+        it(@"should set up the UIImage on first call", ^{
 
             UIGraphicsBeginImageContext(sourceView.frame.size);
             
@@ -52,6 +52,10 @@ SpecBegin(I3CloneView)
             
             UIGraphicsEndImageContext();
             
+            [view.sourceViewImage cloneSourceView];
+            
+            expect(view.sourceViewImage).toNot.beNil;
+            
             NSData *compareData = UIImagePNGRepresentation(compareImage);
             NSData *clonedCompareData = UIImagePNGRepresentation(view.sourceViewImage);
             
@@ -59,16 +63,23 @@ SpecBegin(I3CloneView)
         
         });
         
+        it(@"should release weak reference to the sourceView on first call", ^{
+        
+            [view.sourceViewImage cloneSourceView];
+            expect(view.sourceView).to.beNil;
+            
+        });
+        
         it(@"should not re-setup the UIImage on subsequent calls to getter", ^{
         
             id layer = OCMClassMock([CALayer class]);
             OCMStub([sourceView layer]).andReturn(layer);
             
-            [view sourceViewImage];
+            [view cloneSourceView];
             
             [[layer reject] renderInContext:UIGraphicsGetCurrentContext()];
 
-            [view sourceViewImage];
+            [view cloneSourceView];
             
         });
         

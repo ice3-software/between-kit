@@ -39,6 +39,17 @@
 
 /**
  
+ Renders the sourceView into the sourceViewImage. Releases reference to the sourceView
+ after. Note that this should only be called once.
+ 
+ @return UIImage *
+ 
+ */
+-(void) cloneSourceView;
+
+
+/**
+ 
  Init.
  
  @param sourceView  The 'source' view. This view is rendered into a UIImage and draw via
