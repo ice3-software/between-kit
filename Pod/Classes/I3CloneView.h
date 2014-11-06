@@ -41,9 +41,7 @@
  
  Renders the sourceView into the sourceViewImage. Releases reference to the sourceView
  after. Note that this should only be called once.
- 
- @return UIImage *
- 
+  
  */
 -(void) cloneSourceView;
 

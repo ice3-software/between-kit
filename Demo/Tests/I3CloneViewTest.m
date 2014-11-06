@@ -52,7 +52,7 @@ SpecBegin(I3CloneView)
             
             UIGraphicsEndImageContext();
             
-            [view.sourceViewImage cloneSourceView];
+            [view cloneSourceView];
             
             expect(view.sourceViewImage).toNot.beNil;
             
@@ -65,7 +65,7 @@ SpecBegin(I3CloneView)
         
         it(@"should release weak reference to the sourceView on first call", ^{
         
-            [view.sourceViewImage cloneSourceView];
+            [view cloneSourceView];
             expect(view.sourceView).to.beNil;
             
         });

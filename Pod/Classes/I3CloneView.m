@@ -34,6 +34,7 @@
     return self;
 }
 
+
 -(void) cloneSourceView{
 
     if(!_sourceViewImage){
