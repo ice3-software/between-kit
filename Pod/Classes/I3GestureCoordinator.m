@@ -153,7 +153,7 @@
             
             DND_LOG(@"We're dragging in a collection!");
             
-            if(collection.dragDataSource && [collection.dragDataSource canItemBeDraggedAtPoint:pointInCollection inCollection:collection]){
+            if([self.dragDataSource canItemBeDraggedAtPoint:pointInCollection inCollection:collection]){
                 
                 DND_LOG(@"We can drag item %d in collection", [self.arena.collections indexOfObject:collection]);
 
@@ -220,19 +220,17 @@
 
 -(void) handleDragStoppedOutsideAtPoint:(CGPoint) at{
     
-    id<I3DragDataSource> dataSource = _currentDraggingCollection.dragDataSource;
-
     SEL canDeleteSelector = @selector(canItemAtPoint:beDeletedIfDroppedOutsideOfCollection:atPoint:);
     SEL deleteSelector = @selector(deleteItemAtPoint:inCollection:);
     
     if(
-       [dataSource respondsToSelector:canDeleteSelector] &&
-       [dataSource respondsToSelector:deleteSelector] &&
-       [dataSource canItemAtPoint:_currentDragOrigin beDeletedIfDroppedOutsideOfCollection:_currentDraggingCollection atPoint:at]
+       [self.dragDataSource respondsToSelector:canDeleteSelector] &&
+       [self.dragDataSource respondsToSelector:deleteSelector] &&
+       [self.dragDataSource canItemAtPoint:_currentDragOrigin beDeletedIfDroppedOutsideOfCollection:_currentDraggingCollection atPoint:at]
     ){
         
         DND_LOG(@"Dragged nowhere so deleting");
-        [dataSource deleteItemAtPoint:_currentDragOrigin inCollection:_currentDraggingCollection];
+        [self.dragDataSource deleteItemAtPoint:_currentDragOrigin inCollection:_currentDraggingCollection];
         [self.renderDelegate renderDeletionAtPoint:at fromCoordinator:self];
     }
     else{
@@ -247,7 +245,6 @@
 -(void) handleDragStoppedInCollection:(id<I3Collection>) to atPoint:(CGPoint) at{
     
     BOOL isRearrange = to == _currentDraggingCollection;
-    id<I3DragDataSource> dataSource = _currentDraggingCollection.dragDataSource;
     
     SEL canItemRearrangeSelector = @selector(canItemFromPoint:beRearrangedWithItemAtPoint:inCollection:);
     SEL canDropSelector = @selector(canItemAtPoint:fromCollection:beDroppedToPoint:inCollection:);
@@ -258,9 +255,9 @@
     
     if(
        isRearrange &&
-       [dataSource respondsToSelector:canItemRearrangeSelector] &&
-       [dataSource respondsToSelector:itemRearrangeSelector] &&
-       [dataSource canItemFromPoint:_currentDragOrigin beRearrangedWithItemAtPoint:at inCollection:_currentDraggingCollection]
+       [self.dragDataSource respondsToSelector:canItemRearrangeSelector] &&
+       [self.dragDataSource respondsToSelector:itemRearrangeSelector] &&
+       [self.dragDataSource canItemFromPoint:_currentDragOrigin beRearrangedWithItemAtPoint:at inCollection:_currentDraggingCollection]
     ){
         
         UIView *draggingItemView = [_currentDraggingCollection itemAtPoint:_currentDragOrigin];
@@ -276,19 +273,19 @@
         else{
             DND_LOG(@"Rearranging items in a collection.");
             [self.renderDelegate renderRearrangeOnPoint:at fromCoordinator:self];
-            [dataSource rearrangeItemAtPoint:_currentDragOrigin withItemAtPoint:at inCollection:_currentDraggingCollection];
+            [self.dragDataSource rearrangeItemAtPoint:_currentDragOrigin withItemAtPoint:at inCollection:_currentDraggingCollection];
         }
 
     }
     else if(
         !isRearrange &&
-        [dataSource respondsToSelector:canDropSelector] &&
-        [dataSource respondsToSelector:dropSelector] &&
-        [dataSource canItemAtPoint:_currentDragOrigin fromCollection:_currentDraggingCollection beDroppedToPoint:at inCollection:to]
+        [self.dragDataSource respondsToSelector:canDropSelector] &&
+        [self.dragDataSource respondsToSelector:dropSelector] &&
+        [self.dragDataSource canItemAtPoint:_currentDragOrigin fromCollection:_currentDraggingCollection beDroppedToPoint:at inCollection:to]
     ){
     
         DND_LOG(@"Exchanging items between collections.");
-        [dataSource dropItemAtPoint:_currentDragOrigin fromCollection:_currentDraggingCollection toPoint:at inCollection:to];
+        [self.dragDataSource dropItemAtPoint:_currentDragOrigin fromCollection:_currentDraggingCollection toPoint:at inCollection:to];
         [self.renderDelegate renderDropOnCollection:to atPoint:at fromCoordinator:self];
     }
     else{

@@ -29,15 +29,13 @@ SpecBegin(I3GestureCoordinator)
     __block id panGestureRecognizer;
 
 
-
     beforeEach(^{
     
-        dragArena = OCMClassMock([I3DragArena class]);
         superview = OCMPartialMock([[UIView alloc] init]);
         panGestureRecognizer = OCMPartialMock([[UIPanGestureRecognizer alloc] init]);
         collections = [[NSMutableOrderedSet alloc] init];
+        dragArena = OCMPartialMock([[I3DragArena alloc] initWithSuperview:superview containingCollections:nil]);
         
-        OCMStub([dragArena superview]).andReturn(superview);
         OCMStub([dragArena collections]).andReturn(collections);
         
     });

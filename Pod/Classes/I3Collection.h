@@ -45,20 +45,6 @@
 
 /**
  
- The delegate object that provides data about draggabillity of the collection and its
- items. The I3Collection interface abstract way 'what' the collection view is and the
- I3DragDataSource is delegated the responsibillity of providing dynamic draggabillity config.
- 
- @note This is primarily used by the I3GestureCoordinator to determine draggable properties
- for the collection view. It isn't really meant to be used directly by the I3Collection 
- implementation.
- 
- */
-@property (nonatomic, weak) id<I3DragDataSource> dragDataSource;
-
-
-/**
- 
  Returns the view for an item in the collection at a specified index path. This can
  be used to access individual item bounds as well as individual item views for rendering.
  

@@ -35,8 +35,8 @@
     [coordinator.arena.superview addSubview:_draggingView];
     
     if(
-       [draggingCollection.dragDataSource respondsToSelector:@selector(hidesItemWhileDraggingAtPoint:inCollection:)] &&
-       [draggingCollection.dragDataSource hidesItemWhileDraggingAtPoint:dragOrigin inCollection:draggingCollection]
+       [coordinator.dragDataSource respondsToSelector:@selector(hidesItemWhileDraggingAtPoint:inCollection:)] &&
+       [coordinator.dragDataSource hidesItemWhileDraggingAtPoint:dragOrigin inCollection:draggingCollection]
     ){
         sourceView.alpha = 0.01f;
     }
@@ -87,8 +87,8 @@
     CGPoint dragOrigin = coordinator.currentDragOrigin;
 
     if(
-       [draggingCollection.dragDataSource respondsToSelector:@selector(hidesItemWhileDraggingAtPoint:inCollection:)] &&
-       [draggingCollection.dragDataSource hidesItemWhileDraggingAtPoint:dragOrigin inCollection:draggingCollection]
+       [coordinator.dragDataSource respondsToSelector:@selector(hidesItemWhileDraggingAtPoint:inCollection:)] &&
+       [coordinator.dragDataSource hidesItemWhileDraggingAtPoint:dragOrigin inCollection:draggingCollection]
     ){
         
         UIView *sourceView = [draggingCollection itemAtPoint:dragOrigin];

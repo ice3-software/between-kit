@@ -89,6 +89,17 @@
 
 
 /**
+
+ The data source
+ 
+ The delegate object that provides data about draggabillity of the collections and their
+ items. It has the responsibillity of providing dynamic draggabillity config.
+ 
+ */
+@property (nonatomic, weak) id<I3DragDataSource> dragDataSource;
+
+
+/**
  
  Ctor.
  
