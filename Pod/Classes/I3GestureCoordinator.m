@@ -293,7 +293,7 @@
     }
     else{
         
-        DND_LOG(@"Can do anything with these 2.");
+        DND_LOG(@"Can't do anything with these 2.");
         [self.renderDelegate renderResetFromPoint:at fromCoordinator:self];
     }
     
