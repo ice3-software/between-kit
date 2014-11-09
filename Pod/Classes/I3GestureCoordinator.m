@@ -183,7 +183,7 @@
         DND_LOG(@"Invalid drag stopped.");
         return;
     }
-    
+        
     id<I3Collection> dstCollection;
     
     for(id<I3Collection> collection in self.arena.collections){

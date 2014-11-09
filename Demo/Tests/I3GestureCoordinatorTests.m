@@ -15,42 +15,44 @@
 #import "I3DragDataSourceJustDrop.h"
 
 
-/// @todo In a couple of scenarios, we're not asserting anything in these tests. E.g. we
-/// are testing that a method is specifically not called. See http://youtu.be/q5Xd1tmIgec?t=33m56s
-/// @todo Make sure we're not using 2 of the same class mocks simultaneously.
-/// @see http://ocmock.org/reference/ -> Limitations
+/// @note We've opted to go for a high redundancy in these tests for the sake of readabillity.
+/// That is, there is a large amount of duplicate setup/mocking/stubbing code. We could reduce
+/// this code so that the setup / teardown occurs only in one place but in the past that has
+/// created too much risk of interdependence between tests. For example, if I set up a mockof the
+/// panGestureRecognizer in the root describe block, we may want to stub different methods to return
+/// different values under different conditions in subsequent tests. Now the tests are dependent on
+/// whether a test before them has stubbed a certain method and whether the mock of tha recognizer
+/// has been stopped before it.
+///
+/// Its cleaner and easier just to re-setup the dependencies locally in each describe block and
+/// makes the tests much more readable.
 
 SpecBegin(I3GestureCoordinator)
 
 
-    __block NSMutableOrderedSet *collections;
-    __block id dragArena;
-    __block id superview;
-    __block id panGestureRecognizer;
+    describe(@"ctor / dtor", ^{
 
-
-    beforeEach(^{
-    
-        superview = OCMPartialMock([[UIView alloc] init]);
-        panGestureRecognizer = OCMPartialMock([[UIPanGestureRecognizer alloc] init]);
-        collections = [[NSMutableOrderedSet alloc] init];
-        dragArena = OCMPartialMock([[I3DragArena alloc] initWithSuperview:superview containingCollections:nil]);
+        __block id dragArena;
+        __block id superview;
+        __block id panGestureRecognizer;
         
-        OCMStub([dragArena collections]).andReturn(collections);
         
-    });
-
-    afterEach(^{
+        beforeEach(^{
+            
+            superview = OCMPartialMock([[UIView alloc] init]);
+            panGestureRecognizer = OCMPartialMock([[UIPanGestureRecognizer alloc] init]);
+            dragArena = OCMPartialMock([[I3DragArena alloc] initWithSuperview:superview containingCollections:nil]);
+            
+        });
         
-        dragArena = nil;
-        superview = nil;
-        panGestureRecognizer = nil;
-        collections = nil;
-    
-    });
+        afterEach(^{
+            
+            dragArena = nil;
+            superview = nil;
+            panGestureRecognizer = nil;
+            
+        });
 
-
-    describe(@"constructor", ^{
         
         it(@"should inject dependencies", ^{
         
@@ -85,22 +87,18 @@ SpecBegin(I3GestureCoordinator)
             expect([superview gestureRecognizers]).to.haveCountOf(1);
 
         });
+
         
-    });
-
-
-    describe(@"destructor", ^{
-
-    
+            
         /** @note Here we use pragma to ignore warnings about weak variables being assigned and
          then released immediately after as this is exactly what we are trying to achieve. In
          order for 'dealloc' to be triggered under ARC we must invoke the ctor by creating a
          weak reference that will unasigned immediately. */
-        
+            
 #pragma clang diagnostic push
 #pragma clang diagnostic ignored "-Warc-unsafe-retained-assign"
-        
-        
+            
+            
         it(@"should unbind gesture recognizer from coordinator and superview", ^{
             
             [superview addGestureRecognizer:panGestureRecognizer];
@@ -118,149 +116,159 @@ SpecBegin(I3GestureCoordinator)
             __weak I3GestureCoordinator *coordinator __unused = [[I3GestureCoordinator alloc] initWithDragArena:dragArena withGestureRecognizer:panGestureRecognizer];
             
         });
-        
+            
 #pragma clang diagnostic pop
         
     });
-
-
-    describe(@"drag/drop coordination", ^{
-
         
+
+    describe(@"starting a drag", ^{
+        
+        
+        __block NSMutableOrderedSet *collections;
         __block I3GestureCoordinator *coordinator;
         __block id renderDelegate;
-        
+        __block id dragDataSource;
+        __block id dragArena;
+        __block id superview;
+        __block id panGestureRecognizer;
+
         CGPoint dragOrigin = CGPointMake(10, 10);
 
         
         beforeEach(^{
+
+            
+            superview = OCMPartialMock([[UIView alloc] init]);
+            panGestureRecognizer = OCMPartialMock([[UIPanGestureRecognizer alloc] init]);
+            dragArena = OCMPartialMock([[I3DragArena alloc] initWithSuperview:superview containingCollections:nil]);
+            collections = [[NSMutableOrderedSet alloc] init];
+
+            renderDelegate = OCMProtocolMock(@protocol(I3DragRenderDelegate));
+            dragDataSource = OCMProtocolMock(@protocol(I3DragDataSource));
             
             coordinator = [[I3GestureCoordinator alloc] initWithDragArena:dragArena withGestureRecognizer:panGestureRecognizer];
-            renderDelegate = OCMProtocolMock(@protocol(I3DragRenderDelegate));
             coordinator.renderDelegate = renderDelegate;
+            coordinator.dragDataSource = dragDataSource;
+
+            OCMStub([dragArena collections]).andReturn(collections);
+            OCMStub([panGestureRecognizer state]).andReturn(UIGestureRecognizerStateBegan);
+            OCMStub([panGestureRecognizer locationInView:[OCMArg any]]).andReturn(dragOrigin);
             
         });
         
         afterEach(^{
             
+            collections = nil;
             coordinator = nil;
             renderDelegate = nil;
-        
-        });
-        
-        
-        describe(@"starting a drag", ^{
-
-            
-            beforeEach(^{
-
-                OCMStub([panGestureRecognizer state]).andReturn(UIGestureRecognizerStateBegan);
-                OCMStub([panGestureRecognizer locationInView:[OCMArg any]]).andReturn(dragOrigin);
-
-            });
-            
-            
-            it(@"should start and render a drag on a collection if the point is inside its bounds and the item is draggable", ^{
-                
-                id draggingCollection = OCMProtocolMock(@protocol(I3Collection));
-                id dragDataSource = OCMProtocolMock(@protocol(I3DragDataSource));
-                id collectionView = OCMPartialMock([[UIView alloc] init]);
-                coordinator.dragDataSource = dragDataSource;
-                
-                OCMStub([dragDataSource canItemBeDraggedAtPoint:dragOrigin inCollection:draggingCollection]).andReturn(YES);
-                OCMStub([draggingCollection collectionView]).andReturn(collectionView);
-                OCMStub([collectionView pointInside:dragOrigin withEvent:nil]).andReturn(YES);
-                [[dragArena collections] addObject:draggingCollection];
-
-                [coordinator handlePan:coordinator.gestureRecognizer];
-                
-                expect(coordinator.currentDraggingCollection).to.equal(draggingCollection);
-                expect(coordinator.currentDragOrigin).to.equal(dragOrigin);
-                
-                OCMVerify([renderDelegate renderDragStart:coordinator]);
-                OCMVerify([draggingCollection dragDataSource]);
-                OCMVerify([dragDataSource canItemBeDraggedAtPoint:dragOrigin inCollection:draggingCollection]);
-                
-            });
-            
-            it(@"should not start dragging an item in a collection that is not draggable", ^{
-                
-                id draggingCollection = OCMProtocolMock(@protocol(I3Collection));
-                id draggingDataSource = OCMProtocolMock(@protocol(I3DragDataSource));
-                id collectionView = OCMPartialMock([[UIView alloc] init]);
-
-                /// Configure the draggingDataSource to allow for the given item at the dragOrigin to be
-                /// dragged
-                
-                OCMStub([draggingCollection dragDataSource]).andReturn(draggingDataSource);
-                OCMStub([draggingCollection collectionView]).andReturn(collectionView);
-                OCMStub([collectionView pointInside:dragOrigin withEvent:nil]).andReturn(YES);
-                OCMStub([draggingDataSource canItemBeDraggedAtPoint:dragOrigin inCollection:draggingCollection]).andReturn(NO);
-                [[dragArena collections] addObject:draggingCollection];
-
-                [coordinator handlePan:coordinator.gestureRecognizer];
-                
-                expect(coordinator.currentDraggingCollection).to.beNil();
-                expect(coordinator.currentDragOrigin).to.equal(CGPointZero);
-                
-                OCMVerify([draggingDataSource canItemBeDraggedAtPoint:dragOrigin inCollection:draggingCollection]);
-
-            });
-            
-            it(@"should start and render dragging on the top-most intersecting collection and none underneith", ^{
-                
-                id topDraggingCollection = OCMProtocolMock(@protocol(I3Collection));
-                id bottomDraggingCollection = OCMProtocolMock(@protocol(I3Collection));
-
-                id topDraggingDataSource = OCMProtocolMock(@protocol(I3DragDataSource));
-                id bottomDraggingDataSource = OCMProtocolMock(@protocol(I3DragDataSource));
-                
-                id topCollectionView = OCMPartialMock([[UIView alloc] init]);
-                
-                OCMStub([topDraggingDataSource canItemBeDraggedAtPoint:dragOrigin inCollection:topDraggingCollection]).andReturn(YES);
-                OCMStub([topDraggingCollection dragDataSource]).andReturn(topDraggingDataSource);
-                OCMStub([topDraggingCollection collectionView]).andReturn(topCollectionView);
-                OCMStub([topCollectionView pointInside:dragOrigin withEvent:nil]).andReturn(YES);
-                [[dragArena collections] addObjectsFromArray:@[topDraggingCollection, bottomDraggingCollection]];
-
-                /// Verify that the bottom drag data source's methods are not called
-                
-                [[bottomDraggingDataSource reject] canItemBeDraggedAtPoint:dragOrigin inCollection:bottomDraggingCollection];
-                [[bottomDraggingCollection reject] dragDataSource];
-                [[bottomDraggingCollection reject] collectionView];
-                
-                [coordinator handlePan:coordinator.gestureRecognizer];
-                
-                expect(coordinator.currentDraggingCollection).to.equal(topDraggingCollection);
-                
-                OCMVerify([renderDelegate renderDragStart:coordinator]);
-                OCMVerify([topDraggingCollection dragDataSource]);
-                OCMVerify([topDraggingDataSource canItemBeDraggedAtPoint:dragOrigin inCollection:topDraggingCollection]);
-
-            });
-            
-            it(@"should not start dragging or call the data source if the point is outside of the collection view", ^{
-                
-                id draggingCollection = OCMProtocolMock(@protocol(I3Collection));
-                id draggingDataSource = OCMProtocolMock(@protocol(I3DragDataSource));
-                id collectionView = OCMPartialMock([[UIView alloc] init]);
-                
-                OCMStub([draggingCollection collectionView]).andReturn(collectionView);
-                OCMStub([collectionView pointInside:dragOrigin withEvent:nil]).andReturn(NO);
-                [[dragArena collections] addObject:draggingCollection];
-
-                [[draggingDataSource reject] canItemBeDraggedAtPoint:dragOrigin inCollection:draggingCollection];
-                [[draggingCollection reject] dragDataSource];
-                
-                [coordinator handlePan:coordinator.gestureRecognizer];
-                
-                expect(coordinator.currentDraggingCollection).to.beNil();
-                expect(coordinator.currentDragOrigin).to.equal(CGPointZero);
-
-            });
+            dragDataSource = nil;
+            dragArena = nil;
+            superview = nil;
+            panGestureRecognizer = nil;
             
         });
+        
+        
+        it(@"should start and render a drag on a collection if the point is inside its bounds and the item is draggable", ^{
+            
+            id draggingCollection = OCMProtocolMock(@protocol(I3Collection));
+            id collectionView = OCMPartialMock([[UIView alloc] init]);
+            
+            OCMStub([dragDataSource canItemBeDraggedAtPoint:dragOrigin inCollection:draggingCollection]).andReturn(YES);
+            OCMStub([draggingCollection collectionView]).andReturn(collectionView);
+            OCMStub([collectionView pointInside:dragOrigin withEvent:nil]).andReturn(YES);
+            [[dragArena collections] addObject:draggingCollection];
+            
+            [coordinator handlePan:coordinator.gestureRecognizer];
+            
+            expect(coordinator.currentDraggingCollection).to.equal(draggingCollection);
+            expect(coordinator.currentDragOrigin).to.equal(dragOrigin);
+            
+            OCMVerify([renderDelegate renderDragStart:coordinator]);
+            OCMVerify([dragDataSource canItemBeDraggedAtPoint:dragOrigin inCollection:draggingCollection]);
+            
+        });
+        
+        it(@"should not start dragging an item in a collection that is not draggable", ^{
+            
+            id draggingCollection = OCMProtocolMock(@protocol(I3Collection));
+            id collectionView = OCMPartialMock([[UIView alloc] init]);
+            
+            /// Configure the draggingDataSource to allow for the given item at the dragOrigin to be
+            /// dragged
 
+            OCMStub([draggingCollection collectionView]).andReturn(collectionView);
+            OCMStub([collectionView pointInside:dragOrigin withEvent:nil]).andReturn(YES);
+            OCMStub([dragDataSource canItemBeDraggedAtPoint:dragOrigin inCollection:draggingCollection]).andReturn(NO);
+            [[dragArena collections] addObject:draggingCollection];
+            
+            [coordinator handlePan:coordinator.gestureRecognizer];
+            
+            expect(coordinator.currentDraggingCollection).to.beNil();
+            expect(coordinator.currentDragOrigin).to.equal(CGPointZero);
+            
+            OCMVerify([dragDataSource canItemBeDraggedAtPoint:dragOrigin inCollection:draggingCollection]);
+            
+        });
+        
+        it(@"should start and render dragging on the top-most intersecting collection and none underneith", ^{
+            
+            id topDraggingCollection = OCMProtocolMock(@protocol(I3Collection));
+            id bottomDraggingCollection = OCMProtocolMock(@protocol(I3Collection));
+            
+            id topCollectionView = OCMPartialMock([[UIView alloc] init]);
+            
+            OCMStub([dragDataSource canItemBeDraggedAtPoint:dragOrigin inCollection:topDraggingCollection]).andReturn(YES);
+            OCMStub([topDraggingCollection collectionView]).andReturn(topCollectionView);
+            OCMStub([topCollectionView pointInside:dragOrigin withEvent:nil]).andReturn(YES);
+            [[dragArena collections] addObjectsFromArray:@[topDraggingCollection, bottomDraggingCollection]];
+            
+            /// Verify that the bottom drag data source's methods are not called
+            
+            [[dragDataSource reject] canItemBeDraggedAtPoint:dragOrigin inCollection:bottomDraggingCollection];
+            [[bottomDraggingCollection reject] collectionView];
+            
+            [coordinator handlePan:coordinator.gestureRecognizer];
+            
+            expect(coordinator.currentDraggingCollection).to.equal(topDraggingCollection);
+            
+            OCMVerify([renderDelegate renderDragStart:coordinator]);
+            OCMVerify([dragDataSource canItemBeDraggedAtPoint:dragOrigin inCollection:topDraggingCollection]);
+            
+        });
+        
+        it(@"should not start dragging or call the data source if the point is outside of the collection view", ^{
+            
+            id draggingCollection = OCMProtocolMock(@protocol(I3Collection));
+            id collectionView = OCMPartialMock([[UIView alloc] init]);
+            
+            OCMStub([draggingCollection collectionView]).andReturn(collectionView);
+            OCMStub([collectionView pointInside:dragOrigin withEvent:nil]).andReturn(NO);
+            [[dragArena collections] addObject:draggingCollection];
+            
+            [[dragDataSource reject] canItemBeDraggedAtPoint:dragOrigin inCollection:draggingCollection];
+            
+            [coordinator handlePan:coordinator.gestureRecognizer];
+            
+            expect(coordinator.currentDraggingCollection).to.beNil();
+            expect(coordinator.currentDragOrigin).to.equal(CGPointZero);
+            
+        });
+        
+    });
+
+    /*
+
+    describe(@"stopping a valid drag", ^{
+    
+    });
+
+    describe(@"stopping an invalid drag", ^{
+
+    });
+
+    describe(@"drag/drop coordination", ^{
         
         describe(@"stopping a drag", ^{
 
@@ -637,8 +645,8 @@ SpecBegin(I3GestureCoordinator)
                 
             });
             
-        });*/
+        });
         
-    });
+    });*/
 
 SpecEnd
