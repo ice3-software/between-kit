@@ -95,6 +95,12 @@
  The delegate object that provides data about draggabillity of the collections and their
  items. It has the responsibillity of providing dynamic draggabillity config.
  
+ @note For the same reason that we haven't covered the absence of `renderDelegate`, we're not
+ covering the absense of the `dragDataSource` with unit tests because delegate calls will just
+ return NO. Therefore all draggabillity configuration (can I drag this? can I drop this here?
+ can I delete this?) will just be assumed to be NO if there is no data source. Its a language
+ feature and does not require tests.
+ 
  */
 @property (nonatomic, weak) id<I3DragDataSource> dragDataSource;
 

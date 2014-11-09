@@ -124,27 +124,12 @@ SpecBegin(I3GestureCoordinator)
     });
 
 
-    describe(@"properties", ^{
-
-        it(@"should set the coordinator's render delegate", ^{
-
-            I3GestureCoordinator *coordinator = [[I3GestureCoordinator alloc] initWithDragArena:dragArena withGestureRecognizer:panGestureRecognizer];
-            id renderDelegate = OCMProtocolMock(@protocol(I3DragRenderDelegate));
-
-            [coordinator setRenderDelegate:renderDelegate];
-            expect(coordinator.renderDelegate).to.equal(renderDelegate);
-
-        });
-        
-    });
-
-
     describe(@"drag/drop coordination", ^{
 
         
         __block I3GestureCoordinator *coordinator;
         __block id renderDelegate;
-
+        
         CGPoint dragOrigin = CGPointMake(10, 10);
 
         
@@ -153,16 +138,16 @@ SpecBegin(I3GestureCoordinator)
             coordinator = [[I3GestureCoordinator alloc] initWithDragArena:dragArena withGestureRecognizer:panGestureRecognizer];
             renderDelegate = OCMProtocolMock(@protocol(I3DragRenderDelegate));
             coordinator.renderDelegate = renderDelegate;
-
+            
         });
         
         afterEach(^{
             
             coordinator = nil;
             renderDelegate = nil;
-            
+        
         });
-
+        
         
         describe(@"starting a drag", ^{
 
@@ -178,11 +163,11 @@ SpecBegin(I3GestureCoordinator)
             it(@"should start and render a drag on a collection if the point is inside its bounds and the item is draggable", ^{
                 
                 id draggingCollection = OCMProtocolMock(@protocol(I3Collection));
-                id draggingDataSource = OCMProtocolMock(@protocol(I3DragDataSource));
+                id dragDataSource = OCMProtocolMock(@protocol(I3DragDataSource));
                 id collectionView = OCMPartialMock([[UIView alloc] init]);
+                coordinator.dragDataSource = dragDataSource;
                 
-                OCMStub([draggingCollection dragDataSource]).andReturn(draggingDataSource);
-                OCMStub([draggingDataSource canItemBeDraggedAtPoint:dragOrigin inCollection:draggingCollection]).andReturn(YES);
+                OCMStub([dragDataSource canItemBeDraggedAtPoint:dragOrigin inCollection:draggingCollection]).andReturn(YES);
                 OCMStub([draggingCollection collectionView]).andReturn(collectionView);
                 OCMStub([collectionView pointInside:dragOrigin withEvent:nil]).andReturn(YES);
                 [[dragArena collections] addObject:draggingCollection];
@@ -194,28 +179,7 @@ SpecBegin(I3GestureCoordinator)
                 
                 OCMVerify([renderDelegate renderDragStart:coordinator]);
                 OCMVerify([draggingCollection dragDataSource]);
-                OCMVerify([draggingDataSource canItemBeDraggedAtPoint:dragOrigin inCollection:draggingCollection]);
-                
-            });
-            
-            it(@"should assume that a collection is completely un-draggable if there is no data source", ^{
-                
-                id undraggableCollection = OCMProtocolMock(@protocol(I3Collection));
-                id collectionView = OCMPartialMock([[UIView alloc] init]);
-
-                /// Explicitly does not mock the retrieving of the data source so that the collection is
-                /// deemed 'undraggable'.
-                
-                OCMStub([undraggableCollection collectionView]).andReturn(collectionView);
-                OCMStub([collectionView pointInside:dragOrigin withEvent:nil]).andReturn(YES);
-                [[dragArena collections] addObject:undraggableCollection];
-
-                [coordinator handlePan:coordinator.gestureRecognizer];
-                
-                expect(coordinator.currentDraggingCollection).to.beNil();
-                expect(coordinator.currentDragOrigin).to.equal(CGPointZero);
-                
-                OCMVerify([undraggableCollection dragDataSource]);
+                OCMVerify([dragDataSource canItemBeDraggedAtPoint:dragOrigin inCollection:draggingCollection]);
                 
             });
             
@@ -239,7 +203,6 @@ SpecBegin(I3GestureCoordinator)
                 expect(coordinator.currentDraggingCollection).to.beNil();
                 expect(coordinator.currentDragOrigin).to.equal(CGPointZero);
                 
-                OCMVerify([draggingCollection dragDataSource]);
                 OCMVerify([draggingDataSource canItemBeDraggedAtPoint:dragOrigin inCollection:draggingCollection]);
 
             });
@@ -399,20 +362,6 @@ SpecBegin(I3GestureCoordinator)
                 
             });
             
-            it(@"should not delete and render reset if collection dropped outside but there is no data source", ^{
-                
-                OCMStub([collectionView pointInside:dropOrigin withEvent:nil]).andReturn(NO);
-                /// @note Re-stubbing method
-                OCMStub([draggingCollection dragDataSource]).andReturn(nil);
-                
-                [[draggingDataSource reject] deleteItemAtPoint:dropOrigin inCollection:[OCMArg any]];
-                [coordinator handlePan:coordinator.gestureRecognizer];
-
-                OCMVerify([draggingCollection dragDataSource]);
-                OCMVerify([renderDelegate renderResetFromPoint:dropOrigin fromCoordinator:coordinator]);
-
-            });
-            
             it(@"should not delete and render reset if data source does not implement can delete selector", ^{
 
                 id dragSource = OCMClassMock([I3DragDataSourceJustDelete class]);
@@ -481,19 +430,6 @@ SpecBegin(I3GestureCoordinator)
                 OCMVerify([draggingDataSource canItemFromPoint:dragOrigin beRearrangedWithItemAtPoint:dropOrigin inCollection:draggingCollection]);
                 OCMVerify([renderDelegate renderRearrangeOnPoint:dropOrigin fromCoordinator:coordinator]);
                 
-            });
-            
-            it(@"should not rearrange and render reset if there is no data source", ^{
-                
-                OCMStub([collectionView pointInside:dropOrigin withEvent:nil]).andReturn(YES);
-
-                [[draggingDataSource reject] rearrangeItemAtPoint:dragOrigin withItemAtPoint:dropOrigin inCollection:draggingCollection];
-                
-                [coordinator handlePan:coordinator.gestureRecognizer];
-                
-                OCMVerify([draggingCollection dragDataSource]);
-                OCMVerify([renderDelegate renderResetFromPoint:dropOrigin fromCoordinator:coordinator]);
-
             });
             
             it(@"should not rearrange and render reset if the data source does not implement can rearrange", ^{
@@ -598,21 +534,6 @@ SpecBegin(I3GestureCoordinator)
                 OCMVerify([draggingDataSource canItemAtPoint:touchPoint fromCollection:draggingCollection beDroppedToPoint:touchPoint inCollection:dstCollection]);
                 OCMVerify([draggingDataSource dropItemAtPoint:touchPoint fromCollection:draggingCollection toPoint:touchPoint inCollection:dstCollection]);
                 OCMVerify([renderDelegate renderDropOnCollection:dstCollection atPoint:touchPoint fromCoordinator:coordinator]);
-
-            });
-            
-            it(@"should not exchange between and render reset if data source is not specified", ^{
-            
-                id dstCollection = OCMProtocolMock(@protocol(I3Collection));
-                OCMStub([dstCollection collectionView]).andReturn(collectionView);
-                OCMStub([collectionView pointInside:touchPoint withEvent:nil]).andReturn(YES);
-                [collections insertObject:dstCollection atIndex:0];
-                
-                [[draggingDataSource reject] dropItemAtPoint:touchPoint fromCollection:draggingCollection toPoint:touchPoint inCollection:dstCollection];
-                [coordinator handlePan:coordinator.gestureRecognizer];
-                
-                OCMVerify([draggingCollection dragDataSource]);
-                OCMVerify([renderDelegate renderResetFromPoint:touchPoint fromCoordinator:coordinator]);
 
             });
             
