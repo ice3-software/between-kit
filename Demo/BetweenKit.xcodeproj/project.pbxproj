@@ -78,8 +78,10 @@
 		6003F5B9195388D20070C39A /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		606FC2411953D9B200FFA9A0 /* Tests-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "Tests-Prefix.pch"; sourceTree = "<group>"; };
 		6ED897CA3FFE4D2C80F8598E /* libPods-BetweenKit.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-BetweenKit.a"; sourceTree = BUILT_PRODUCTS_DIR; };
-		B04C05499C3940DE9DD8A946 /* Pods-Tests.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Tests.xcconfig"; path = "Pods/Pods-Tests.xcconfig"; sourceTree = "<group>"; };
-		F89AA4EC37AA4A41970D8A3F /* Pods-BetweenKit.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-BetweenKit.xcconfig"; path = "Pods/Pods-BetweenKit.xcconfig"; sourceTree = "<group>"; };
+		8FF7D7FB99812AF513439601 /* Pods-BetweenKit.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-BetweenKit.debug.xcconfig"; path = "Pods/Target Support Files/Pods-BetweenKit/Pods-BetweenKit.debug.xcconfig"; sourceTree = "<group>"; };
+		95B878FC516F92C343EA6C33 /* Pods-Tests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Tests.release.xcconfig"; path = "Pods/Target Support Files/Pods-Tests/Pods-Tests.release.xcconfig"; sourceTree = "<group>"; };
+		CC90F22341EDE8F16B554639 /* Pods-BetweenKit.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-BetweenKit.release.xcconfig"; path = "Pods/Target Support Files/Pods-BetweenKit/Pods-BetweenKit.release.xcconfig"; sourceTree = "<group>"; };
+		DDC57E03E9F4C0B7772A8EBA /* Pods-Tests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Tests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Tests/Pods-Tests.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -138,8 +140,7 @@
 				6003F5B5195388D20070C39A /* Tests */,
 				6003F58C195388D20070C39A /* Frameworks */,
 				6003F58B195388D20070C39A /* Products */,
-				F89AA4EC37AA4A41970D8A3F /* Pods-BetweenKit.xcconfig */,
-				B04C05499C3940DE9DD8A946 /* Pods-Tests.xcconfig */,
+				F1D1926F2B28612B54B65EF7 /* Pods */,
 			);
 			sourceTree = "<group>";
 		};
@@ -222,6 +223,17 @@
 				115A1DBD37D24FF1B9EDC084 /* README.md */,
 			);
 			name = "Podspec Metadata";
+			sourceTree = "<group>";
+		};
+		F1D1926F2B28612B54B65EF7 /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				8FF7D7FB99812AF513439601 /* Pods-BetweenKit.debug.xcconfig */,
+				CC90F22341EDE8F16B554639 /* Pods-BetweenKit.release.xcconfig */,
+				DDC57E03E9F4C0B7772A8EBA /* Pods-Tests.debug.xcconfig */,
+				95B878FC516F92C343EA6C33 /* Pods-Tests.release.xcconfig */,
+			);
+			name = Pods;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -366,7 +378,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Pods-BetweenKit-resources.sh\"\n";
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-BetweenKit/Pods-BetweenKit-resources.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 		CC8269D7B7FE497E814CFAD3 /* Copy Pods Resources */ = {
@@ -381,7 +393,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Pods-Tests-resources.sh\"\n";
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-Tests/Pods-Tests-resources.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 /* End PBXShellScriptBuildPhase section */
@@ -529,7 +541,7 @@
 		};
 		6003F5C0195388D20070C39A /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = F89AA4EC37AA4A41970D8A3F /* Pods-BetweenKit.xcconfig */;
+			baseConfigurationReference = 8FF7D7FB99812AF513439601 /* Pods-BetweenKit.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
@@ -544,7 +556,7 @@
 		};
 		6003F5C1195388D20070C39A /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = F89AA4EC37AA4A41970D8A3F /* Pods-BetweenKit.xcconfig */;
+			baseConfigurationReference = CC90F22341EDE8F16B554639 /* Pods-BetweenKit.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
@@ -559,7 +571,7 @@
 		};
 		6003F5C3195388D20070C39A /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = B04C05499C3940DE9DD8A946 /* Pods-Tests.xcconfig */;
+			baseConfigurationReference = DDC57E03E9F4C0B7772A8EBA /* Pods-Tests.debug.xcconfig */;
 			buildSettings = {
 				BUNDLE_LOADER = "$(BUILT_PRODUCTS_DIR)/BetweenKit.app/BetweenKit";
 				FRAMEWORK_SEARCH_PATHS = (
@@ -574,15 +586,6 @@
 					"$(inherited)",
 				);
 				INFOPLIST_FILE = "Tests/Tests-Info.plist";
-				OTHER_LDFLAGS = (
-					"-ObjC",
-					"-framework",
-					Foundation,
-					"-framework",
-					UIKit,
-					"-framework",
-					XCTest,
-				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				TEST_HOST = "$(BUNDLE_LOADER)";
 				WRAPPER_EXTENSION = xctest;
@@ -591,7 +594,7 @@
 		};
 		6003F5C4195388D20070C39A /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = B04C05499C3940DE9DD8A946 /* Pods-Tests.xcconfig */;
+			baseConfigurationReference = 95B878FC516F92C343EA6C33 /* Pods-Tests.release.xcconfig */;
 			buildSettings = {
 				BUNDLE_LOADER = "$(BUILT_PRODUCTS_DIR)/BetweenKit.app/BetweenKit";
 				FRAMEWORK_SEARCH_PATHS = (
@@ -602,15 +605,6 @@
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "Tests/Tests-Prefix.pch";
 				INFOPLIST_FILE = "Tests/Tests-Info.plist";
-				OTHER_LDFLAGS = (
-					"-ObjC",
-					"-framework",
-					Foundation,
-					"-framework",
-					UIKit,
-					"-framework",
-					XCTest,
-				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				TEST_HOST = "$(BUNDLE_LOADER)";
 				WRAPPER_EXTENSION = xctest;
