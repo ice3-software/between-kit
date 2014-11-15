@@ -83,6 +83,9 @@
         SEL panSelector = @selector(handlePan:);
         [_gestureRecognizer addTarget:self action:panSelector];
 
+        DND_LOG(@"Superview: %@", _arena.superview);
+        DND_LOG(@"Gesture recognizers: %@", _arena.superview.gestureRecognizers);
+        
         if(![[_arena.superview gestureRecognizers] containsObject:_gestureRecognizer]){
             [_arena.superview addGestureRecognizer:_gestureRecognizer];
         }
