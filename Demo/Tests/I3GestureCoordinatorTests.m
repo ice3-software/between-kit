@@ -29,6 +29,7 @@ SpecBegin(I3GestureCoordinator)
     __block id panGestureRecognizer;
 
 
+
     beforeEach(^{
     
         dragArena = OCMClassMock([I3DragArena class]);
@@ -116,8 +117,6 @@ SpecBegin(I3GestureCoordinator)
         it(@"should not attempt to remove gesture recognizer from superview if it is no longer present", ^{
             
             [[superview reject] removeGestureRecognizer:panGestureRecognizer];
-            OCMStub([superview gestureRecognizers]).andReturn(@[]);
-            
             __weak I3GestureCoordinator *coordinator __unused = [[I3GestureCoordinator alloc] initWithDragArena:dragArena withGestureRecognizer:panGestureRecognizer];
             
         });
