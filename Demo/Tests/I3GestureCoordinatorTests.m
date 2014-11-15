@@ -112,7 +112,11 @@ SpecBegin(I3GestureCoordinator)
         
         it(@"should not attempt to remove gesture recognizer from superview if it is no longer present", ^{
             
+            NSArray *emptyArray = @[];
+            
             [[superview reject] removeGestureRecognizer:panGestureRecognizer];
+            OCMStub([superview gestureRecognizers]).andReturn(emptyArray);
+            
             __weak I3GestureCoordinator *coordinator __unused = [[I3GestureCoordinator alloc] initWithDragArena:dragArena withGestureRecognizer:panGestureRecognizer];
             
         });
