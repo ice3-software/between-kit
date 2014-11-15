@@ -79,9 +79,11 @@ SpecBegin(I3GestureCoordinator)
         
         it(@"should not attach the gesture recognizer to the superview if its already attached", ^{
 
-            [[superview reject] addGestureRecognizer:[OCMArg any]];
-            OCMStub([superview gestureRecognizers]).andReturn(@[panGestureRecognizer]);
+            [superview addGestureRecognizer:panGestureRecognizer];
+            
             I3GestureCoordinator *coordinator __unused = [[I3GestureCoordinator alloc] initWithDragArena:dragArena withGestureRecognizer:panGestureRecognizer];
+            
+            expect([superview gestureRecognizers]).to.haveCountOf(1);
 
         });
         
@@ -102,7 +104,7 @@ SpecBegin(I3GestureCoordinator)
         
         it(@"should unbind gesture recognizer from coordinator and superview", ^{
             
-            OCMStub([superview gestureRecognizers]).andReturn(@[panGestureRecognizer]);
+            [superview addGestureRecognizer:panGestureRecognizer];
             
             __weak I3GestureCoordinator *coordinator __unused = [[I3GestureCoordinator alloc] initWithDragArena:dragArena withGestureRecognizer:panGestureRecognizer];
             
