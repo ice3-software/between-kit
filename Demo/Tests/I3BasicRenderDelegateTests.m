@@ -8,6 +8,8 @@
 
 #import <BetweenKit/I3BasicRenderDelegate.h>
 #import <BetweenKit/I3CloneView.h>
+#import "I3CollectionFixture.h"
+
 
 
 /// @todo What happens if any of these render delegate methods are called in the incorrect
@@ -16,56 +18,55 @@
 SpecBegin(I3BasicRenderDelegate)
 
 
-    __block I3BasicRenderDelegate *renderDelegate;
-    __block UIView *superview;
-    __block id coordinator;
-    __block id arena;
-    __block id gestureRecognizer;
-    __block id currentDraggingCollection;
-    __block id currentDragDataSource;
-    __block UIView *draggingItem;
-    __block UIView *collectionView;
-    CGPoint touchPoint = CGPointMake(10, 10);
-
-
-    beforeEach(^{
-        
-        renderDelegate = [[I3BasicRenderDelegate alloc] init];
-        coordinator = OCMClassMock([I3GestureCoordinator class]);
-        arena = OCMClassMock([I3DragArena class]);
-        superview = OCMPartialMock([[UIView alloc] init]);
-        currentDraggingCollection = OCMProtocolMock(@protocol(I3Collection));
-        currentDragDataSource = OCMProtocolMock(@protocol(I3DragDataSource));
-        draggingItem = [[UIView alloc] init];
-        collectionView = [[UIView alloc] init];
-        gestureRecognizer = OCMClassMock([UIPanGestureRecognizer class]);
-        
-        OCMStub([arena superview]).andReturn(superview);
-        OCMStub([coordinator arena]).andReturn(arena);
-        OCMStub([currentDraggingCollection itemAtPoint:touchPoint]).andReturn(draggingItem);
-        OCMStub([currentDraggingCollection collectionView]).andReturn(collectionView);
-        OCMStub([currentDraggingCollection dragDataSource]).andReturn(currentDragDataSource);
-        OCMStub([coordinator currentDragOrigin]).andReturn(touchPoint);
-        OCMStub([coordinator currentDraggingCollection]).andReturn(currentDraggingCollection);
-        OCMStub([coordinator gestureRecognizer]).andReturn(gestureRecognizer);
-        
-    });
-
-    afterEach(^{
-    
-        renderDelegate = nil;
-        coordinator = nil;
-        arena = nil;
-        currentDraggingCollection = nil;
-        draggingItem = nil;
-        gestureRecognizer = nil;
-        currentDragDataSource = nil;
-        
-    });
-
-
     describe(@"rendering", ^{
 
+        
+        __block I3BasicRenderDelegate *renderDelegate;
+        __block id dragDataSource;
+        __block id superview;
+        __block id coordinator;
+        __block id arena;
+        __block id gestureRecognizer;
+        __block id currentDraggingCollection;
+        __block UIView *draggingItem;
+        __block UIView *collectionView;
+        CGPoint dragOrigin = CGPointMake(10, 10);
+        
+        
+        beforeEach(^{
+            
+            renderDelegate = [[I3BasicRenderDelegate alloc] init];
+            coordinator = OCMClassMock([I3GestureCoordinator class]);
+            arena = OCMClassMock([I3DragArena class]);
+            superview = OCMPartialMock([[UIView alloc] init]);
+            currentDraggingCollection = OCMPartialMock([[I3CollectionFixture alloc] init]);
+            dragDataSource = OCMProtocolMock(@protocol(I3DragDataSource));
+            draggingItem = [[UIView alloc] init];
+            collectionView = [[UIView alloc] init];
+            gestureRecognizer = OCMClassMock([UIPanGestureRecognizer class]);
+            
+            OCMStub([arena superview]).andReturn(superview);
+            OCMStub([coordinator arena]).andReturn(arena);
+            OCMStub([currentDraggingCollection itemAtPoint:dragOrigin]).andReturn(draggingItem);
+            OCMStub([currentDraggingCollection collectionView]).andReturn(collectionView);
+            OCMStub([coordinator currentDragOrigin]).andReturn(dragOrigin);
+            OCMStub([coordinator currentDraggingCollection]).andReturn(currentDraggingCollection);
+            OCMStub([coordinator gestureRecognizer]).andReturn(gestureRecognizer);
+            
+        });
+        
+        afterEach(^{
+            
+            renderDelegate = nil;
+            coordinator = nil;
+            arena = nil;
+            currentDraggingCollection = nil;
+            draggingItem = nil;
+            gestureRecognizer = nil;
+            dragDataSource = nil;
+            
+        });
+        
         
         describe(@"begin drag", ^{
         
@@ -93,23 +94,23 @@ SpecBegin(I3BasicRenderDelegate)
             
             it(@"should hide the original item if required by the datasource", ^{
             
-                OCMStub([currentDragDataSource hidesItemWhileDraggingAtPoint:touchPoint inCollection:currentDraggingCollection]).andReturn(YES);
+                OCMStub([dragDataSource hidesItemWhileDraggingAtPoint:dragOrigin inCollection:currentDraggingCollection]).andReturn(YES);
                 
                 [renderDelegate renderDragStart:coordinator];
                 
                 expect(draggingItem.alpha).to.equal(0.01f);
-                OCMVerify([currentDragDataSource hidesItemWhileDraggingAtPoint:touchPoint inCollection:currentDraggingCollection]);
+                OCMVerify([dragDataSource hidesItemWhileDraggingAtPoint:dragOrigin inCollection:currentDraggingCollection]);
                 
             });
             
             it(@"should not hide the original item if specified by the datasource", ^{
                 
-                OCMStub([currentDragDataSource hidesItemWhileDraggingAtPoint:touchPoint inCollection:currentDraggingCollection]).andReturn(NO);
+                OCMStub([dragDataSource hidesItemWhileDraggingAtPoint:dragOrigin inCollection:currentDraggingCollection]).andReturn(NO);
                 
                 [renderDelegate renderDragStart:coordinator];
                 
                 expect(draggingItem.alpha).notTo.equal(0.01f);
-                OCMVerify([currentDragDataSource hidesItemWhileDraggingAtPoint:touchPoint inCollection:currentDraggingCollection]);
+                OCMVerify([dragDataSource hidesItemWhileDraggingAtPoint:dragOrigin inCollection:currentDraggingCollection]);
                 
             });
             
@@ -184,7 +185,7 @@ SpecBegin(I3BasicRenderDelegate)
                 
                 [renderDelegate renderDropOnCollection:dstCollection atPoint:CGPointMake(0, 0) fromCoordinator:coordinator];
                 
-                expect([superview.subviews containsObject:renderDelegate.draggingView]).to.beFalsy;
+                expect([[superview subviews] containsObject:renderDelegate.draggingView]).to.beFalsy;
                 expect(renderDelegate.draggingView).to.beNil();
                 
             });
@@ -192,14 +193,14 @@ SpecBegin(I3BasicRenderDelegate)
             it(@"should re-show the hidden item in the collection if specified by the data source", ^{
             
                 id dstCollection = OCMProtocolMock(@protocol(I3Collection));
-                OCMStub([currentDragDataSource hidesItemWhileDraggingAtPoint:touchPoint inCollection:currentDraggingCollection]).andReturn(YES);
-                [[currentDraggingCollection reject] itemAtPoint:touchPoint];
+                OCMStub([dragDataSource hidesItemWhileDraggingAtPoint:dragOrigin inCollection:currentDraggingCollection]).andReturn(YES);
+                [[currentDraggingCollection reject] itemAtPoint:dragOrigin];
 
                 
                 [renderDelegate renderDropOnCollection:dstCollection atPoint:CGPointMake(0, 0) fromCoordinator:coordinator];
 
                 expect(draggingItem.alpha).to.equal(1);
-                OCMVerify([currentDragDataSource hidesItemWhileDraggingAtPoint:touchPoint inCollection:currentDraggingCollection]);
+                OCMVerify([dragDataSource hidesItemWhileDraggingAtPoint:dragOrigin inCollection:currentDraggingCollection]);
                 
             });
             
@@ -207,13 +208,13 @@ SpecBegin(I3BasicRenderDelegate)
             it(@"should not attempt to 'un-hide' the item in the collection if not specified by the data source", ^{
                 
                 id dstCollection = OCMProtocolMock(@protocol(I3Collection));
-                OCMStub([currentDragDataSource hidesItemWhileDraggingAtPoint:touchPoint inCollection:currentDraggingCollection]).andReturn(NO);
-                [[currentDraggingCollection reject] itemAtPoint:touchPoint];
+                OCMStub([dragDataSource hidesItemWhileDraggingAtPoint:dragOrigin inCollection:currentDraggingCollection]).andReturn(NO);
+                [[currentDraggingCollection reject] itemAtPoint:dragOrigin];
                 
                 [renderDelegate renderDropOnCollection:dstCollection atPoint:CGPointMake(0, 0) fromCoordinator:coordinator];
 
                 expect(draggingItem.alpha).to.equal(1);
-                OCMVerify([currentDragDataSource hidesItemWhileDraggingAtPoint:touchPoint inCollection:currentDraggingCollection]);
+                OCMVerify([dragDataSource hidesItemWhileDraggingAtPoint:dragOrigin inCollection:currentDraggingCollection]);
             
             });
             
@@ -261,7 +262,7 @@ SpecBegin(I3BasicRenderDelegate)
                     /// This is so that we can then deduce the cloned exchanging view.
                     
                     NSPredicate *clonedViewPredicate = [NSComparisonPredicate predicateWithLeftExpression:[NSExpression expressionForEvaluatedObject] rightExpression:[NSExpression expressionForConstantValue:[I3CloneView class]] customSelector:@selector(isMemberOfClass:)];
-                    NSArray *clonedViews = [superview.subviews filteredArrayUsingPredicate:clonedViewPredicate];
+                    NSArray *clonedViews = [[superview subviews] filteredArrayUsingPredicate:clonedViewPredicate];
                     
                     /// As we've constructed the superview, it should be guarenteed that it only has 2 I3ClonedView
                     /// subviews. Note that in a real-world scenario this may not be the case: a user of the framework

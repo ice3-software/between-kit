@@ -8,6 +8,8 @@
 
 /* Begin PBXBuildFile section */
 		14CCCFCB9F1F4C51A34244FD /* libPods-BetweenKit.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 6ED897CA3FFE4D2C80F8598E /* libPods-BetweenKit.a */; };
+		4633303D1A194AEB00EBE25D /* I3DragDataSourceFixtures.m in Sources */ = {isa = PBXBuildFile; fileRef = 4633303C1A194AEB00EBE25D /* I3DragDataSourceFixtures.m */; };
+		4633303F1A194BC800EBE25D /* I3CollectionFixture.m in Sources */ = {isa = PBXBuildFile; fileRef = 4633303E1A194BC800EBE25D /* I3CollectionFixture.m */; };
 		467AFC8619C5E20D00FFD1F4 /* LICENSE.md in Resources */ = {isa = PBXBuildFile; fileRef = 467AFC8519C5E20D00FFD1F4 /* LICENSE.md */; };
 		467AFC8819C5F0F000FFD1F4 /* I3GestureCoordinatorTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 467AFC8719C5F0F000FFD1F4 /* I3GestureCoordinatorTests.m */; };
 		46866CFB19D42E1E00C45CCD /* I3DragArenaTest.m in Sources */ = {isa = PBXBuildFile; fileRef = 46866CFA19D42E1E00C45CCD /* I3DragArenaTest.m */; };
@@ -45,17 +47,14 @@
 		025F58760FB246A1B64C64D5 /* libPods-Tests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-Tests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		115A1DBD37D24FF1B9EDC084 /* README.md */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; name = README.md; path = ../README.md; sourceTree = "<group>"; };
 		4633302D1A18F99000EBE25D /* I3CollectionFixture.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = I3CollectionFixture.h; sourceTree = "<group>"; };
+		4633303B1A194AEB00EBE25D /* I3DragDataSourceFixtures.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = I3DragDataSourceFixtures.h; sourceTree = "<group>"; };
+		4633303C1A194AEB00EBE25D /* I3DragDataSourceFixtures.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = I3DragDataSourceFixtures.m; sourceTree = "<group>"; };
+		4633303E1A194BC800EBE25D /* I3CollectionFixture.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = I3CollectionFixture.m; sourceTree = "<group>"; };
 		467AFC8519C5E20D00FFD1F4 /* LICENSE.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = LICENSE.md; path = ../LICENSE.md; sourceTree = "<group>"; };
 		467AFC8719C5F0F000FFD1F4 /* I3GestureCoordinatorTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = I3GestureCoordinatorTests.m; sourceTree = "<group>"; };
 		46866CFA19D42E1E00C45CCD /* I3DragArenaTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = I3DragArenaTest.m; sourceTree = "<group>"; };
 		46A1877A19CF46A20061B355 /* I3BasicRenderDelegateTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = I3BasicRenderDelegateTests.m; sourceTree = "<group>"; };
 		46A1877F19CF5DC20061B355 /* I3CloneViewTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = I3CloneViewTest.m; sourceTree = "<group>"; };
-		46B5AA8D19CE1EC400A51694 /* I3DragDataSourceJustCanDelete.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = I3DragDataSourceJustCanDelete.h; sourceTree = "<group>"; };
-		46B5AA9319CE27E800A51694 /* I3DragDataSourceJustDelete.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = I3DragDataSourceJustDelete.h; sourceTree = "<group>"; };
-		46B5AA9619CE2F0000A51694 /* I3DragDataSourceJustCanRearrange.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = I3DragDataSourceJustCanRearrange.h; sourceTree = "<group>"; };
-		46B5AA9919CE2F3400A51694 /* I3DragDataSourceJustRearrange.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = I3DragDataSourceJustRearrange.h; sourceTree = "<group>"; };
-		46B5AA9C19CE3AE300A51694 /* I3DragDataSourceJustCanDrop.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = I3DragDataSourceJustCanDrop.h; sourceTree = "<group>"; };
-		46B5AA9F19CE3B4900A51694 /* I3DragDataSourceJustDrop.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = I3DragDataSourceJustDrop.h; sourceTree = "<group>"; };
 		46B5AAA219CE433200A51694 /* I3TableViewTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = I3TableViewTests.m; sourceTree = "<group>"; };
 		542B21470EB3452C810F4621 /* BetweenKit.podspec */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; name = BetweenKit.podspec; path = ../BetweenKit.podspec; sourceTree = "<group>"; };
 		6003F58A195388D20070C39A /* BetweenKit.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = BetweenKit.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -123,13 +122,10 @@
 		46B5AA8619CE192600A51694 /* Fixtures */ = {
 			isa = PBXGroup;
 			children = (
-				46B5AA8D19CE1EC400A51694 /* I3DragDataSourceJustCanDelete.h */,
-				46B5AA9319CE27E800A51694 /* I3DragDataSourceJustDelete.h */,
-				46B5AA9619CE2F0000A51694 /* I3DragDataSourceJustCanRearrange.h */,
-				46B5AA9919CE2F3400A51694 /* I3DragDataSourceJustRearrange.h */,
-				46B5AA9C19CE3AE300A51694 /* I3DragDataSourceJustCanDrop.h */,
-				46B5AA9F19CE3B4900A51694 /* I3DragDataSourceJustDrop.h */,
 				4633302D1A18F99000EBE25D /* I3CollectionFixture.h */,
+				4633303E1A194BC800EBE25D /* I3CollectionFixture.m */,
+				4633303B1A194AEB00EBE25D /* I3DragDataSourceFixtures.h */,
+				4633303C1A194AEB00EBE25D /* I3DragDataSourceFixtures.m */,
 			);
 			name = Fixtures;
 			sourceTree = "<group>";
@@ -417,9 +413,11 @@
 			files = (
 				46A1878019CF5DC20061B355 /* I3CloneViewTest.m in Sources */,
 				467AFC8819C5F0F000FFD1F4 /* I3GestureCoordinatorTests.m in Sources */,
+				4633303F1A194BC800EBE25D /* I3CollectionFixture.m in Sources */,
 				46866CFB19D42E1E00C45CCD /* I3DragArenaTest.m in Sources */,
 				46A1877B19CF46A20061B355 /* I3BasicRenderDelegateTests.m in Sources */,
 				46B5AAA319CE433200A51694 /* I3TableViewTests.m in Sources */,
+				4633303D1A194AEB00EBE25D /* I3DragDataSourceFixtures.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

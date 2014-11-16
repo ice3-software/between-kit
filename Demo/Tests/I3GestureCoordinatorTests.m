@@ -7,12 +7,7 @@
 //
 
 #import <BetweenKit/I3GestureCoordinator.h>
-#import "I3DragDataSourceJustCanDelete.h"
-#import "I3DragDataSourceJustDelete.h"
-#import "I3DragDataSourceJustCanRearrange.h"
-#import "I3DragDataSourceJustRearrange.h"
-#import "I3DragDataSourceJustCanDrop.h"
-#import "I3DragDataSourceJustDrop.h"
+#import "I3DragDataSourceFixtures.h"
 #import "I3CollectionFixture.h"
 
 
