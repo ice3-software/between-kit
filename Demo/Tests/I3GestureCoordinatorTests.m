@@ -155,9 +155,9 @@ SpecBegin(I3GestureCoordinator)
             coordinator.renderDelegate = renderDelegate;
             coordinator.dragDataSource = dragDataSource;
 
-            OCMStub([dragArena collections]).andReturn(collections);
             OCMStub([panGestureRecognizer state]).andReturn(UIGestureRecognizerStateBegan);
             OCMStub([panGestureRecognizer locationInView:[OCMArg any]]).andReturn(dragOrigin);
+            OCMStub([dragArena collections]).andReturn(collections);
             
         });
         
@@ -294,6 +294,7 @@ SpecBegin(I3GestureCoordinator)
             [collections addObject:draggingCollection];
             
             OCMStub([panGestureRecognizer locationInView:[OCMArg any]]).andReturn(dropOrigin);
+            OCMStub([dragArena collections]).andReturn(collections);
             
         });
         
@@ -382,7 +383,7 @@ SpecBegin(I3GestureCoordinator)
             /// the drag start tests
             
             draggingCollection = OCMPartialMock([[I3CollectionFixture alloc] init]);
-            collectionView = OCMPartialMock([[I3CollectionFixture alloc] init]);
+            collectionView = OCMPartialMock([[UIView alloc] init]);
             
             [coordinator setValue:draggingCollection forKey:@"_currentDraggingCollection"];
             [coordinator setValue:[NSValue valueWithCGPoint:dragOrigin] forKey:@"_currentDragOrigin"];
@@ -392,7 +393,8 @@ SpecBegin(I3GestureCoordinator)
             //OCMStub([panGestureRecognizer locationInView:collectionView]).andReturn(dropOrigin);
             OCMStub([panGestureRecognizer state]).andReturn(UIGestureRecognizerStateEnded);
             OCMStub([panGestureRecognizer locationInView:[OCMArg any]]).andReturn(dropOrigin);
-            
+            OCMStub([dragArena collections]).andReturn(collections);
+
         });
         
         afterEach(^{
@@ -438,7 +440,7 @@ SpecBegin(I3GestureCoordinator)
             /// now)
             
             OCMStub([dragDataSource canItemAtPoint:dragOrigin fromCollection:draggingCollection beDroppedToPoint:dropOrigin inCollection:bottomCollection]).andReturn(YES);
-            OCMStub([dragDataSource canItemAtPoint:dragOrigin fromCollection:draggingCollection beDroppedToPoint:dropOrigin inCollection:topCollection]);
+            OCMStub([dragDataSource canItemAtPoint:dragOrigin fromCollection:draggingCollection beDroppedToPoint:dropOrigin inCollection:topCollection]).andReturn(YES);
             OCMStub([bottomCollectionView pointInside:dropOrigin withEvent:nil]).andReturn(YES);
             OCMStub([topCollectionView pointInside:dropOrigin withEvent:nil]).andReturn(YES);
             
