@@ -152,7 +152,7 @@
     
     CGFloat midX = CGRectGetMidX(draggingView.frame);
     CGFloat midY = CGRectGetMidY(draggingView.frame);
-    CGRect shrunkFrame = CGRectMake(midX, midY, midX, midY);
+    CGRect shrunkFrame = CGRectMake(midX, midY, 0, 0);
     
     [UIView animateWithDuration:0.15 animations:^{
     

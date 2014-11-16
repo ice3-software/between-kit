@@ -322,7 +322,7 @@ SpecBegin(I3BasicRenderDelegate)
                 
                 CGFloat midX = CGRectGetMidX(draggingView.frame);
                 CGFloat midY = CGRectGetMidY(draggingView.frame);
-                CGRect shrunkFrame = CGRectMake(midX, midY, midX, midY);
+                CGRect shrunkFrame = CGRectMake(midX, midY, 0, 0);
                 
                 double duration = 0.15;
                 id uiViewMock = OCMClassMock([UIView class]);
