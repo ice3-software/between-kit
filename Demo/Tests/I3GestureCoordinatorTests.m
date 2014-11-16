@@ -264,7 +264,6 @@ SpecBegin(I3GestureCoordinator)
         
     });
 
-
     describe(@"routing a valid stop", ^{
 
         __block NSMutableOrderedSet *collections;
@@ -450,7 +449,7 @@ SpecBegin(I3GestureCoordinator)
             OCMStub([defaultDragDataSource canItemAtPoint:dragOrigin fromCollection:draggingCollection beDroppedToPoint:dropOrigin inCollection:topCollection]).andReturn(YES);
             OCMStub([bottomCollectionView pointInside:dropOrigin withEvent:nil]).andReturn(YES);
             OCMStub([topCollectionView pointInside:dropOrigin withEvent:nil]).andReturn(YES);
-            OCMStub([topCollection itemAtPoint:dropOrigin]).andReturn(topCollection);
+            OCMStub([topCollection itemAtPoint:dropOrigin]).andReturn(topCollectionItemView);
             
             [[defaultDragDataSource reject] dropItemAtPoint:dragOrigin fromCollection:draggingCollection toPoint:dropOrigin inCollection:bottomCollection];
             [[renderDelegate reject] renderDropOnCollection:bottomCollection atPoint:dropOrigin fromCoordinator:coordinator];
@@ -705,106 +704,106 @@ SpecBegin(I3GestureCoordinator)
         
     });
 
-
-    /*
-
     describe(@"stopping an invalid drag", ^{
-
-     
+        
+        __block NSMutableOrderedSet *collections;
+        __block I3GestureCoordinator *coordinator;
+        __block id renderDelegate;
+        __block id dragArena;
+        __block id superview;
+        __block id panGestureRecognizer;
+        
+        CGPoint dragOrigin = CGPointMake(10, 10);
+        
+        beforeEach(^{
+            
+            superview = OCMPartialMock([[UIView alloc] init]);
+            panGestureRecognizer = OCMPartialMock([[UIPanGestureRecognizer alloc] init]);
+            dragArena = OCMPartialMock([[I3DragArena alloc] initWithSuperview:superview containingCollections:nil]);
+            collections = [[NSMutableOrderedSet alloc] init];
+            renderDelegate = OCMProtocolMock(@protocol(I3DragRenderDelegate));
+            
+            coordinator = [[I3GestureCoordinator alloc] initWithDragArena:dragArena withGestureRecognizer:panGestureRecognizer];
+            coordinator.renderDelegate = renderDelegate;
+            
+            OCMStub([panGestureRecognizer state]).andReturn(UIGestureRecognizerStateEnded);
+            OCMStub([dragArena collections]).andReturn(collections);
+            
+        });
+        
+        afterEach(^{
+            
+            collections = nil;
+            coordinator = nil;
+            renderDelegate = nil;
+            dragArena = nil;
+            superview = nil;
+            panGestureRecognizer = nil;
+            
+        });
+        
+        it(@"should do nothing if no collection is currently being dragged", ^{
+            
+            [[renderDelegate reject] renderResetFromPoint:dragOrigin fromCoordinator:coordinator];
+            [coordinator handlePan:coordinator.gestureRecognizer];
+            
+        });
+        
     });
 
-    describe(@"drag/drop coordination", ^{
+
+    describe(@"dragging", ^{
         
-        describe(@"stopping a drag", ^{
-
-            /// Here we set up the coordinator as if its already executed a successful drag start
-            /// and holds a reference to a dragging collection.
-            /// @note that this setup is almost identical to how we setup the coordinator in most of
-            /// the drag start tests
+        __block NSMutableOrderedSet *collections;
+        __block I3GestureCoordinator *coordinator;
+        __block id renderDelegate;
+        __block id dragArena;
+        __block id superview;
+        __block id panGestureRecognizer;
+        __block id draggingCollection;
+        
+        
+        beforeEach(^{
             
-            __block id draggingCollection;
-            __block id draggingDataSource;
-            __block id collectionView;
+            superview = OCMPartialMock([[UIView alloc] init]);
+            panGestureRecognizer = OCMPartialMock([[UIPanGestureRecognizer alloc] init]);
+            dragArena = OCMPartialMock([[I3DragArena alloc] initWithSuperview:superview containingCollections:nil]);
+            collections = [[NSMutableOrderedSet alloc] init];
+            renderDelegate = OCMProtocolMock(@protocol(I3DragRenderDelegate));
+            draggingCollection = OCMProtocolMock(@protocol(I3Collection));
             
-            CGPoint dropOrigin = CGPointMake(50, 50);
+            coordinator = [[I3GestureCoordinator alloc] initWithDragArena:dragArena withGestureRecognizer:panGestureRecognizer];
+            coordinator.renderDelegate = renderDelegate;
             
-            beforeEach(^{
-                
-                draggingCollection = OCMProtocolMock(@protocol(I3Collection));
-                draggingDataSource = OCMProtocolMock(@protocol(I3DragDataSource));
-                collectionView = OCMPartialMock([[UIView alloc] init]);
-                
-                [coordinator setValue:draggingCollection forKey:@"_currentDraggingCollection"];
-                [coordinator setValue:[NSValue valueWithCGPoint:dragOrigin] forKey:@"_currentDragOrigin"];
-                [collections addObject:draggingCollection];
-
-                OCMStub([panGestureRecognizer locationInView:collectionView]).andReturn(dropOrigin);
-                OCMStub([panGestureRecognizer state]).andReturn(UIGestureRecognizerStateEnded);
-                OCMStub([draggingCollection collectionView]).andReturn(collectionView);
-                OCMStub([draggingCollection dragDataSource]).andReturn(draggingDataSource);
-                OCMStub([panGestureRecognizer locationInView:[OCMArg any]]).andReturn(dropOrigin);
-
-            });
-
-            afterEach(^{
-                
-                draggingCollection = OCMProtocolMock(@protocol(I3Collection));
-                draggingDataSource = OCMProtocolMock(@protocol(I3DragDataSource));
-                collectionView = OCMPartialMock([[UIView alloc] init]);
+            [coordinator setValue:draggingCollection forKey:@"_currentDraggingCollection"];
+            [coordinator setValue:[NSValue valueWithCGPoint:CGPointMake(10, 10)] forKey:@"_currentDragOrigin"];
+            [collections addObject:draggingCollection];
             
-            });
-     
-     
+            OCMStub([dragArena collections]).andReturn(collections);
+            OCMStub([panGestureRecognizer state]).andReturn(UIGestureRecognizerStateChanged);
+
         });
         
-        
-     
-     
-        });
-        
-        
-        /// @note This describes different behaviour of the above describe block in that it
-        /// it defines how the gesture should respond to the stopping of a drag that was never
-        /// started in a valid state. This might occur, for example, if we drag from an empty area
-        /// in a collection.
-        
-        describe(@"stopping a pan gesture", ^{
+        afterEach(^{
             
-            it(@"should do nothing if no collection is currently being dragged", ^{
-                
-                [[renderDelegate reject] renderResetFromPoint:dragOrigin fromCoordinator:coordinator];
-                [coordinator handlePan:coordinator.gestureRecognizer];
-                
-            });
+            collections = nil;
+            coordinator = nil;
+            renderDelegate = nil;
+            dragArena = nil;
+            superview = nil;
+            panGestureRecognizer = nil;
+            draggingCollection = nil;
             
         });
 
-        describe(@"dragging", ^{
+        it(@"should render dragging", ^{
             
-            it(@"should do nothing if no collection is current being dragged", ^{
-                
-                [[renderDelegate reject] renderDraggingFromCoordinator:coordinator];
-                [coordinator handlePan:coordinator.gestureRecognizer];
-                
-            });
-            
-            it(@"should render dragging", ^{
-                
-                id draggingCollection = OCMProtocolMock(@protocol(I3Collection));
-                
-                [coordinator setValue:draggingCollection forKey:@"_currentDraggingCollection"];
-                [coordinator setValue:[NSValue valueWithCGPoint:touchPoint] forKey:@"_currentDragOrigin"];
-                
-                OCMStub([panGestureRecognizer state]).andReturn(UIGestureRecognizerStateChanged);
-                
-                [coordinator handlePan:coordinator.gestureRecognizer];
-                
-                OCMVerify([renderDelegate renderDraggingFromCoordinator:coordinator]);
-                
-            });
+            [coordinator handlePan:coordinator.gestureRecognizer];
+            OCMVerify([renderDelegate renderDraggingFromCoordinator:coordinator]);
             
         });
         
-    });*/
+    });
+
 
 SpecEnd
