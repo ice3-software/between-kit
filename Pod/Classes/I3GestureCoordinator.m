@@ -263,7 +263,7 @@
         DND_LOG(@"Is %@ equal to %@?", draggingItemView, destinationItemView);
         
         if(!destinationItemView || [draggingItemView isEqual:destinationItemView]){
-            DND_LOG(@"Rearranging the same views. Snapping back.");
+            DND_LOG(@"Rearranging the same views or on an invalid location. Snapping back.");
             [self.renderDelegate renderResetFromPoint:at fromCoordinator:self];
         }
         else{
@@ -279,10 +279,18 @@
         [self.dragDataSource respondsToSelector:dropSelector] &&
         [self.dragDataSource canItemAtPoint:_currentDragOrigin fromCollection:_currentDraggingCollection beDroppedToPoint:at inCollection:to]
     ){
-    
-        DND_LOG(@"Exchanging items between collections.");
-        [self.dragDataSource dropItemAtPoint:_currentDragOrigin fromCollection:_currentDraggingCollection toPoint:at inCollection:to];
-        [self.renderDelegate renderDropOnCollection:to atPoint:at fromCoordinator:self];
+
+        UIView *destinationItemView = [to itemAtPoint:at];
+
+        if(destinationItemView){
+            DND_LOG(@"Exchanging items between collections.");
+            [self.dragDataSource dropItemAtPoint:_currentDragOrigin fromCollection:_currentDraggingCollection toPoint:at inCollection:to];
+            [self.renderDelegate renderDropOnCollection:to atPoint:at fromCoordinator:self];
+        }
+        else{
+            DND_LOG(@"Exchanging in an invalid location on the dst collection. Snapping back.");
+            [self.renderDelegate renderResetFromPoint:at fromCoordinator:self];
+        }
     }
     else{
         

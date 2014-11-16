@@ -428,10 +428,11 @@ SpecBegin(I3GestureCoordinator)
         });
 
         it(@"should delegate the drop to the top-most intersecting collection and none underneith", ^{
-            
+
             id bottomCollection = OCMPartialMock([[I3CollectionFixture alloc] init]);
             id bottomCollectionView = OCMPartialMock([[UIView alloc] init]);
             
+            UIView *topCollectionItemView = [[UIView alloc] init];
             id topCollection = OCMPartialMock([[I3CollectionFixture alloc] init]);
             id topCollectionView = OCMPartialMock([[UIView alloc] init]);
             
@@ -449,6 +450,7 @@ SpecBegin(I3GestureCoordinator)
             OCMStub([defaultDragDataSource canItemAtPoint:dragOrigin fromCollection:draggingCollection beDroppedToPoint:dropOrigin inCollection:topCollection]).andReturn(YES);
             OCMStub([bottomCollectionView pointInside:dropOrigin withEvent:nil]).andReturn(YES);
             OCMStub([topCollectionView pointInside:dropOrigin withEvent:nil]).andReturn(YES);
+            OCMStub([topCollection itemAtPoint:dropOrigin]).andReturn(topCollection);
             
             [[defaultDragDataSource reject] dropItemAtPoint:dragOrigin fromCollection:draggingCollection toPoint:dropOrigin inCollection:bottomCollection];
             [[renderDelegate reject] renderDropOnCollection:bottomCollection atPoint:dropOrigin fromCoordinator:coordinator];
@@ -536,7 +538,6 @@ SpecBegin(I3GestureCoordinator)
             
         });
         
-        
         it(@"should not rearrange and render reset if the data source does not implement rearrange method", ^{
 
             OCMStub([collectionView pointInside:dropOrigin withEvent:nil]).andReturn(YES);
@@ -564,7 +565,6 @@ SpecBegin(I3GestureCoordinator)
             
         });
 
-        
         it(@"should not rearrange and render reset if we're dropping on the same item in the collection", ^{
 
             OCMStub([collectionView pointInside:dropOrigin withEvent:nil]).andReturn(YES);
@@ -695,11 +695,11 @@ SpecBegin(I3GestureCoordinator)
             
             [collections insertObject:dstCollection atIndex:0];
             
+            [[defaultDragDataSource reject] dropItemAtPoint:dragOrigin fromCollection:draggingCollection toPoint:dropOrigin inCollection:dstCollection];
+
             [coordinator handlePan:coordinator.gestureRecognizer];
             
-            OCMVerify([defaultDragDataSource canItemAtPoint:dragOrigin fromCollection:draggingCollection beDroppedToPoint:dropOrigin inCollection:dstCollection]);
-            OCMVerify([defaultDragDataSource dropItemAtPoint:dragOrigin fromCollection:draggingCollection toPoint:dropOrigin inCollection:dstCollection]);
-            OCMVerify([renderDelegate renderDropOnCollection:dstCollection atPoint:dropOrigin fromCoordinator:coordinator]);
+            OCMVerify([renderDelegate renderResetFromPoint:dropOrigin fromCoordinator:coordinator]);
 
         });
         
