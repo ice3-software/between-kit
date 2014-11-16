@@ -54,7 +54,7 @@ static NSString* DequeueReusableCell = @"DequeueReusableCell";
     
     self.dragCoordinator = [[I3GestureCoordinator alloc] initWithDragArena:self.arena withGestureRecognizer:nil];
     self.dragCoordinator.renderDelegate = self.renderDelegate;
-    self.dragCoordinator = self;
+    self.dragCoordinator.dragDataSource = self;
     
 }
 
