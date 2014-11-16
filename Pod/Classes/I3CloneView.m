@@ -44,6 +44,7 @@
         _sourceViewImage = UIGraphicsGetImageFromCurrentImageContext();
         UIGraphicsEndImageContext();
 
+        _sourceView = nil;
     }
 }
 

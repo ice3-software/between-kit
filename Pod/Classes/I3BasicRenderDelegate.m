@@ -33,8 +33,7 @@
     _draggingView = [[I3CloneView alloc] initWithSourceView:sourceView];
     _draggingView.frame = [coordinator.arena.superview convertRect:sourceView.frame fromView:collectionView];
     [coordinator.arena.superview addSubview:_draggingView];
-    
-    DND_LOG(@"Converted rect %@ from view %@ in superview %@", NSStringFromCGRect(sourceView.frame), collectionView, coordinator.arena.superview);
+    [_draggingView cloneSourceView];
     
     if(
        [coordinator.dragDataSource respondsToSelector:@selector(hidesItemWhileDraggingAtPoint:inCollection:)] &&
@@ -116,11 +115,12 @@
     I3CloneView *exchangeView = [[I3CloneView alloc] initWithSourceView:dstSourceView];
     exchangeView.frame = [superview convertRect:dstSourceView.frame fromView:collectionView];
     [superview addSubview:exchangeView];
+    [exchangeView cloneSourceView];
     
     I3CloneView *draggingView = _draggingView;
     [superview bringSubviewToFront:draggingView];
+
     CGRect dragOriginFrame = [superview convertRect:sourceView.frame fromView:collectionView];
-    
     CGPoint draggingViewTargetCenter = CGPointMake(CGRectGetMidX(exchangeView.frame), CGRectGetMidY(exchangeView.frame));
     CGPoint exchangeViewTargetCenter = CGPointMake(CGRectGetMidX(dragOriginFrame), CGRectGetMidY(dragOriginFrame));
     

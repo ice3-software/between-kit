@@ -47,7 +47,7 @@ SpecBegin(I3CloneView)
 
         it(@"should be nil before first clone", ^{
             
-            expect(view.sourceViewImage).to.beNil;
+            expect(view.sourceViewImage).to.beNil();
         
         });
         
@@ -62,19 +62,19 @@ SpecBegin(I3CloneView)
             
             [view cloneSourceView];
             
-            expect(view.sourceViewImage).toNot.beNil;
+            expect(view.sourceViewImage).toNot.beNil();
             
             NSData *compareData = UIImagePNGRepresentation(compareImage);
             NSData *clonedCompareData = UIImagePNGRepresentation(view.sourceViewImage);
             
-            expect([compareData isEqual:clonedCompareData]).to.beTruthy;
+            expect([compareData isEqual:clonedCompareData]).to.beTruthy();
         
         });
         
         it(@"should release weak reference to the sourceView on first call", ^{
         
             [view cloneSourceView];
-            expect(view.sourceView).to.beNil;
+            expect(view.sourceView).to.beNil();
             
         });
         

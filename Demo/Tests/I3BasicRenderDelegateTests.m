@@ -85,7 +85,6 @@ SpecBegin(I3BasicRenderDelegate)
                 [renderDelegate renderDragStart:coordinator];
                 
                 expect(renderDelegate.draggingView).to.beInstanceOf([I3CloneView class]);
-                expect(renderDelegate.draggingView.sourceView).to.equal(draggingItem);
                 expect(renderDelegate.draggingView.frame).to.equal(convertedRect);
 
                 /// We can't seem to compare partial mock references, so I've just used `isEqual`... note sure
@@ -101,8 +100,10 @@ SpecBegin(I3BasicRenderDelegate)
             
                 [renderDelegate renderDragStart:coordinator];
                 
-                expect(renderDelegate.draggingView.sourceViewImage).notTo.beNil;
-                expect(renderDelegate.draggingView.sourceView).to.beNil;
+                NSLog(@"DraggingView source image is %@", renderDelegate.draggingView.sourceViewImage);
+                
+                expect(renderDelegate.draggingView.sourceViewImage).notTo.beNil();
+                expect(renderDelegate.draggingView.sourceView).to.beNil();
 
             });
             
@@ -289,6 +290,7 @@ SpecBegin(I3BasicRenderDelegate)
                     I3CloneView *firstClonedView = [clonedViews firstObject];
                     I3CloneView *exchangeView = firstClonedView.sourceView == draggingItem ? clonedViews.lastObject : firstClonedView;
                     
+                    expect(exchangeView.sourceViewImage).notTo.beNil();
                     expect(exchangeView.center).to.equal(CGPointMake(CGRectGetMidX(draggingItemSuperRect), CGRectGetMidY(draggingItemSuperRect)));
                     expect(draggingView.center).to.equal(CGPointMake(CGRectGetMidX(exchangeItemSuperRect), CGRectGetMidY(exchangeItemSuperRect)));
                     expect([exchangeView.superview isEqual:superview]).to.beTruthy;
@@ -312,5 +314,12 @@ SpecBegin(I3BasicRenderDelegate)
         
     });
 
+    describe(@"delete", ^{
+        
+        it(@"should apply a 'shrinking' animation to the dragging view", ^{
+        
+        });
+
+    });
 
 SpecEnd
