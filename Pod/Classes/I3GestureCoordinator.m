@@ -262,7 +262,7 @@
         
         DND_LOG(@"Is %@ equal to %@?", draggingItemView, destinationItemView);
         
-        if([draggingItemView isEqual:destinationItemView]){
+        if(!destinationItemView || [draggingItemView isEqual:destinationItemView]){
             DND_LOG(@"Rearranging the same views. Snapping back.");
             [self.renderDelegate renderResetFromPoint:at fromCoordinator:self];
         }

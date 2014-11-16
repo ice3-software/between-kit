@@ -15,11 +15,19 @@
 
 @implementation I3CollectionFixture
 
--(BOOL) canItemBeDraggedAtPoint:(CGPoint) at inCollection:(id<I3Collection>) collection{
-    return YES;
+/**
+ 
+ Implementation returns nil. These methods should be stubbed to return valid values
+ in the tests.
+ 
+ */
+
+-(UIView *)collectionView{
+    return nil;
 }
 
--(void) dropItemAtPoint:(CGPoint) from fromCollection:(id<I3Collection>) fromCollection toPoint:(CGPoint) to inCollection:(id<I3Collection>) toCollection{
+-(UIView *)itemAtPoint:(CGPoint) at{
+    return nil;
 }
 
 @end

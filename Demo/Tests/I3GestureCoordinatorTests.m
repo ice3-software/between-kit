@@ -260,6 +260,8 @@ SpecBegin(I3GestureCoordinator)
             
         });
         
+        pending(@"should not start dragging if inside the collection view but no valid item");
+        
     });
 
 
@@ -344,15 +346,16 @@ SpecBegin(I3GestureCoordinator)
         __block NSMutableOrderedSet *collections;
         __block I3GestureCoordinator *coordinator;
         __block id renderDelegate;
-        __block id dragDataSource;
         __block id dragArena;
         __block id superview;
         __block id panGestureRecognizer;
+        __block id defaultDragDataSource;
         
         /// The current collection being draged and its collection view
         
         __block id draggingCollection;
         __block id collectionView;
+        __block id draggingItemView;
 
         /// Immutable origin data
         
@@ -363,20 +366,20 @@ SpecBegin(I3GestureCoordinator)
         beforeEach(^{
 
             /// Initialise the coordinator and all of its core dependencies
+            /// @note that the drag data source that we set up and configure is called named 'default' because
+            /// in some of the subsequent tests we may setup and re-inject a drag data source fixture.
             
             superview = OCMPartialMock([[UIView alloc] init]);
             panGestureRecognizer = OCMPartialMock([[UIPanGestureRecognizer alloc] init]);
             dragArena = OCMPartialMock([[I3DragArena alloc] initWithSuperview:superview containingCollections:nil]);
             collections = [[NSMutableOrderedSet alloc] init];
-            
             renderDelegate = OCMProtocolMock(@protocol(I3DragRenderDelegate));
-            dragDataSource = OCMProtocolMock(@protocol(I3DragDataSource));
+            defaultDragDataSource = OCMProtocolMock(@protocol(I3DragDataSource));
             
             coordinator = [[I3GestureCoordinator alloc] initWithDragArena:dragArena withGestureRecognizer:panGestureRecognizer];
             coordinator.renderDelegate = renderDelegate;
-            coordinator.dragDataSource = dragDataSource;
-            
-            
+            coordinator.dragDataSource = defaultDragDataSource;
+
             /// Here we set up the coordinator as if its already executed a successful drag start
             /// and holds a reference to a dragging collection.
             /// @note that this setup is almost identical to how we setup the coordinator in most of
@@ -384,12 +387,14 @@ SpecBegin(I3GestureCoordinator)
             
             draggingCollection = OCMPartialMock([[I3CollectionFixture alloc] init]);
             collectionView = OCMPartialMock([[UIView alloc] init]);
-            
+            draggingItemView = OCMPartialMock([[UIView alloc] init]);
+
             [coordinator setValue:draggingCollection forKey:@"_currentDraggingCollection"];
             [coordinator setValue:[NSValue valueWithCGPoint:dragOrigin] forKey:@"_currentDragOrigin"];
             [collections addObject:draggingCollection];
             
             OCMStub([draggingCollection collectionView]).andReturn(collectionView);
+            OCMStub([draggingCollection itemAtPoint:dragOrigin]).andReturn(draggingItemView);
             //OCMStub([panGestureRecognizer locationInView:collectionView]).andReturn(dropOrigin);
             OCMStub([panGestureRecognizer state]).andReturn(UIGestureRecognizerStateEnded);
             OCMStub([panGestureRecognizer locationInView:[OCMArg any]]).andReturn(dropOrigin);
@@ -402,12 +407,13 @@ SpecBegin(I3GestureCoordinator)
             collections = nil;
             coordinator = nil;
             renderDelegate = nil;
-            dragDataSource = nil;
             dragArena = nil;
             superview = nil;
             panGestureRecognizer = nil;
             draggingCollection = nil;
             collectionView = nil;
+            defaultDragDataSource = nil;
+            draggingItemView = nil;
             
         });
 
@@ -435,22 +441,161 @@ SpecBegin(I3GestureCoordinator)
             OCMStub([bottomCollection collectionView]).andReturn(bottomCollectionView);
             OCMStub([topCollection collectionView]).andReturn(topCollectionView);
             
+            
             /// Set both of the new dragging views to respond positively to the drop in the data source and their
             /// collection views. @note the new change in the way data sources are dealt with (there is 1 data source
             /// now)
             
-            OCMStub([dragDataSource canItemAtPoint:dragOrigin fromCollection:draggingCollection beDroppedToPoint:dropOrigin inCollection:bottomCollection]).andReturn(YES);
-            OCMStub([dragDataSource canItemAtPoint:dragOrigin fromCollection:draggingCollection beDroppedToPoint:dropOrigin inCollection:topCollection]).andReturn(YES);
+            OCMStub([defaultDragDataSource canItemAtPoint:dragOrigin fromCollection:draggingCollection beDroppedToPoint:dropOrigin inCollection:bottomCollection]).andReturn(YES);
+            OCMStub([defaultDragDataSource canItemAtPoint:dragOrigin fromCollection:draggingCollection beDroppedToPoint:dropOrigin inCollection:topCollection]).andReturn(YES);
             OCMStub([bottomCollectionView pointInside:dropOrigin withEvent:nil]).andReturn(YES);
             OCMStub([topCollectionView pointInside:dropOrigin withEvent:nil]).andReturn(YES);
             
-            [[dragDataSource reject] dropItemAtPoint:dragOrigin fromCollection:draggingCollection toPoint:dropOrigin inCollection:bottomCollection];
+            [[defaultDragDataSource reject] dropItemAtPoint:dragOrigin fromCollection:draggingCollection toPoint:dropOrigin inCollection:bottomCollection];
             [[renderDelegate reject] renderDropOnCollection:bottomCollection atPoint:dropOrigin fromCoordinator:coordinator];
             
             [coordinator handlePan:coordinator.gestureRecognizer];
             
-            OCMVerify([dragDataSource dropItemAtPoint:dragOrigin fromCollection:draggingCollection toPoint:dropOrigin inCollection:topCollection]);
+            OCMVerify([defaultDragDataSource dropItemAtPoint:dragOrigin fromCollection:draggingCollection toPoint:dropOrigin inCollection:topCollection]);
             OCMVerify([renderDelegate renderDropOnCollection:topCollection atPoint:dropOrigin fromCoordinator:coordinator]);
+            
+        });
+
+        it(@"should not delete and render reset if data source does not implement can delete selector", ^{
+            
+            OCMStub([collectionView pointInside:dragOrigin withEvent:nil]).andReturn(NO);
+            
+            [[defaultDragDataSource reject] deleteItemAtPoint:dragOrigin inCollection:draggingCollection];
+            [coordinator handlePan:coordinator.gestureRecognizer];
+            
+            OCMVerify([renderDelegate renderResetFromPoint:dropOrigin fromCoordinator:coordinator]);
+            
+        });
+        
+        it(@"should not delete and render reset if the data source does not implement the delete selector", ^{
+            
+            OCMStub([collectionView pointInside:dragOrigin withEvent:nil]).andReturn(NO);
+            
+            [[defaultDragDataSource reject] deleteItemAtPoint:dragOrigin inCollection:draggingCollection];
+            [coordinator handlePan:coordinator.gestureRecognizer];
+            
+            OCMVerify([renderDelegate renderResetFromPoint:dropOrigin fromCoordinator:coordinator]);
+
+        });
+
+        it(@"should not delete and render reset if the item in the data source is not deleteable", ^{
+            
+            OCMStub([collectionView pointInside:dropOrigin withEvent:nil]).andReturn(NO);
+            OCMStub([defaultDragDataSource canItemAtPoint:dragOrigin beDeletedIfDroppedOutsideOfCollection:draggingCollection atPoint:dropOrigin]).andReturn(NO);
+            
+            [[defaultDragDataSource reject] deleteItemAtPoint:dragOrigin inCollection:draggingCollection];
+            
+            [coordinator handlePan:coordinator.gestureRecognizer];
+            
+            OCMVerify([defaultDragDataSource canItemAtPoint:dragOrigin beDeletedIfDroppedOutsideOfCollection:draggingCollection atPoint:dropOrigin]);
+            OCMVerify([renderDelegate renderResetFromPoint:dropOrigin fromCoordinator:coordinator]);
+            
+        });
+
+        it(@"should delete item if its deleteable under the data source", ^{
+
+            OCMStub([collectionView pointInside:dropOrigin withEvent:nil]).andReturn(NO);
+            OCMStub([defaultDragDataSource canItemAtPoint:dragOrigin beDeletedIfDroppedOutsideOfCollection:draggingCollection atPoint:dropOrigin]).andReturn(YES);
+            
+            [coordinator handlePan:coordinator.gestureRecognizer];
+            
+            OCMVerify([defaultDragDataSource deleteItemAtPoint:dragOrigin inCollection:draggingCollection]);
+            OCMVerify([renderDelegate renderDeletionAtPoint:dropOrigin fromCoordinator:coordinator]);
+            
+        });
+
+        it(@"should rearranging if we're drag/dropping on the same collection and the data source allows", ^{
+            
+            UIView *targetItemView = [[UIView alloc] init];
+
+            OCMStub([collectionView pointInside:dropOrigin withEvent:nil]).andReturn(YES);
+            OCMStub([defaultDragDataSource canItemFromPoint:dragOrigin beRearrangedWithItemAtPoint:dropOrigin inCollection:draggingCollection]).andReturn(YES);
+            OCMStub([draggingCollection itemAtPoint:dropOrigin]).andReturn(targetItemView);
+            
+            [coordinator handlePan:coordinator.gestureRecognizer];
+            
+            OCMVerify([defaultDragDataSource rearrangeItemAtPoint:dragOrigin withItemAtPoint:dropOrigin inCollection:draggingCollection]);
+            OCMVerify([defaultDragDataSource canItemFromPoint:dragOrigin beRearrangedWithItemAtPoint:dropOrigin inCollection:draggingCollection]);
+            OCMVerify([renderDelegate renderRearrangeOnPoint:dropOrigin fromCoordinator:coordinator]);
+            
+        });
+
+        it(@"should not rearrange and render reset if the data source does not implement can rearrange", ^{
+            
+            OCMStub([collectionView pointInside:dropOrigin withEvent:nil]).andReturn(YES);
+            
+            [[defaultDragDataSource reject] rearrangeItemAtPoint:dragOrigin withItemAtPoint:dropOrigin inCollection:draggingCollection];
+            
+            [coordinator handlePan:coordinator.gestureRecognizer];
+            
+            OCMVerify([renderDelegate renderResetFromPoint:dropOrigin fromCoordinator:coordinator]);
+            
+        });
+        
+        
+        it(@"should not rearrange and render reset if the data source does not implement rearrange method", ^{
+
+            OCMStub([collectionView pointInside:dropOrigin withEvent:nil]).andReturn(YES);
+            OCMStub([defaultDragDataSource canItemFromPoint:dragOrigin beRearrangedWithItemAtPoint:dropOrigin inCollection:draggingCollection]).andReturn(YES);
+            
+            [[defaultDragDataSource reject] rearrangeItemAtPoint:dragOrigin withItemAtPoint:dropOrigin inCollection:draggingCollection];
+            
+            [coordinator handlePan:coordinator.gestureRecognizer];
+            
+            OCMVerify([renderDelegate renderResetFromPoint:dropOrigin fromCoordinator:coordinator]);
+            
+        });
+
+        it(@"should not rearrange and render reset if the data source specifies the items as un-rearrangeable", ^{
+            
+            OCMStub([collectionView pointInside:dropOrigin withEvent:nil]).andReturn(YES);
+            OCMStub([defaultDragDataSource canItemFromPoint:dragOrigin beRearrangedWithItemAtPoint:dropOrigin inCollection:draggingCollection]).andReturn(NO);
+            
+            [[defaultDragDataSource reject] rearrangeItemAtPoint:dragOrigin withItemAtPoint:dropOrigin inCollection:draggingCollection];
+            
+            [coordinator handlePan:coordinator.gestureRecognizer];
+            
+            OCMVerify([defaultDragDataSource canItemFromPoint:dragOrigin beRearrangedWithItemAtPoint:dropOrigin inCollection:draggingCollection]);
+            OCMVerify([renderDelegate renderResetFromPoint:dropOrigin fromCoordinator:coordinator]);
+            
+        });
+
+        
+        it(@"should not rearrange and render reset if we're dropping on the same item in the collection", ^{
+
+            OCMStub([collectionView pointInside:dropOrigin withEvent:nil]).andReturn(YES);
+            OCMStub([defaultDragDataSource canItemFromPoint:dragOrigin beRearrangedWithItemAtPoint:dropOrigin inCollection:draggingCollection]).andReturn(YES);
+            OCMStub([draggingCollection itemAtPoint:dropOrigin]).andReturn(draggingItemView);
+            
+            [[defaultDragDataSource reject] rearrangeItemAtPoint:dragOrigin withItemAtPoint:dropOrigin inCollection:draggingCollection];
+            
+            [coordinator handlePan:coordinator.gestureRecognizer];
+            
+            OCMVerify([draggingCollection itemAtPoint:dragOrigin]);
+            OCMVerify([draggingCollection itemAtPoint:dropOrigin]);
+            OCMVerify([renderDelegate renderResetFromPoint:dropOrigin fromCoordinator:coordinator]);
+            
+        });
+
+        it(@"should not rearrange and render reset if we're dropping on an invalid location in the collection", ^{
+
+            /// @note We've stubbed out pointInside to return YES but we _haven't_ stubbed out itemAtPoint for
+            /// the collection to return a valid UIView (it should instead return nil 
+            
+            OCMStub([collectionView pointInside:dropOrigin withEvent:nil]).andReturn(YES);
+            OCMStub([defaultDragDataSource canItemFromPoint:dragOrigin beRearrangedWithItemAtPoint:dropOrigin inCollection:draggingCollection]).andReturn(YES);
+            
+            [[defaultDragDataSource reject] rearrangeItemAtPoint:dragOrigin withItemAtPoint:dropOrigin inCollection:draggingCollection];
+            
+            [coordinator handlePan:coordinator.gestureRecognizer];
+            
+            OCMVerify([draggingCollection itemAtPoint:dropOrigin]);
+            OCMVerify([renderDelegate renderResetFromPoint:dropOrigin fromCoordinator:coordinator]);
             
         });
 
@@ -504,176 +649,8 @@ SpecBegin(I3GestureCoordinator)
                 collectionView = OCMPartialMock([[UIView alloc] init]);
             
             });
-            
-            it(@"should do handle drops for all appropriate states", ^{
-                
-                OCMStub([panGestureRecognizer state]).andReturn(UIGestureRecognizerStateEnded);
-                [coordinator handlePan:coordinator.gestureRecognizer];
-                OCMVerify([renderDelegate renderResetFromPoint:dropOrigin fromCoordinator:coordinator]);
-                
-                OCMStub([panGestureRecognizer state]).andReturn(UIGestureRecognizerStateFailed);
-                [coordinator handlePan:coordinator.gestureRecognizer];
-                OCMVerify([renderDelegate renderResetFromPoint:dropOrigin fromCoordinator:coordinator]);
-                
-                OCMStub([panGestureRecognizer state]).andReturn(UIGestureRecognizerStateCancelled);
-                [coordinator handlePan:coordinator.gestureRecognizer];
-                OCMVerify([renderDelegate renderResetFromPoint:dropOrigin fromCoordinator:coordinator]);
-                
-            });
      
-            it(@"should not delete and render reset if data source does not implement can delete selector", ^{
-
-                id dragSource = OCMClassMock([I3DragDataSourceJustDelete class]);
-                
-                OCMStub([collectionView pointInside:dragOrigin withEvent:nil]).andReturn(NO);
-                /// @note Re-stubbing method
-                OCMStub([draggingCollection dragDataSource]).andReturn(dragSource);
-                
-                [[dragSource reject] deleteItemAtPoint:dragOrigin inCollection:draggingCollection];
-                [coordinator handlePan:coordinator.gestureRecognizer];
-
-                OCMVerify([renderDelegate renderResetFromPoint:dropOrigin fromCoordinator:coordinator]);
-
-            });
-            
-            it(@"should not delete and render reset if data source does not implement delete selector", ^{
-
-                id dragSource = OCMClassMock([I3DragDataSourceJustCanDelete class]);
-                
-                OCMStub([collectionView pointInside:dropOrigin withEvent:nil]).andReturn(NO);
-                /// @note Re-stubbing method
-                OCMStub([draggingCollection dragDataSource]).andReturn(dragSource);
-                OCMStub([dragSource canItemAtPoint:dragOrigin beDeletedIfDroppedOutsideOfCollection:draggingCollection atPoint:dropOrigin]).andReturn(YES);
-                
-                [[dragSource reject] deleteItemAtPoint:dragOrigin inCollection:draggingCollection];
-                [coordinator handlePan:coordinator.gestureRecognizer];
-
-                OCMVerify([renderDelegate renderResetFromPoint:dropOrigin fromCoordinator:coordinator]);
-
-            });
-            
-            it(@"should not delete and render reset if the item in the data source is not deleteable", ^{
-            
-                OCMStub([collectionView pointInside:dropOrigin withEvent:nil]).andReturn(NO);
-                OCMStub([draggingDataSource canItemAtPoint:dragOrigin beDeletedIfDroppedOutsideOfCollection:draggingCollection atPoint:dropOrigin]).andReturn(NO);
-                
-                [[draggingDataSource reject] deleteItemAtPoint:dragOrigin inCollection:draggingCollection];
-                
-                [coordinator handlePan:coordinator.gestureRecognizer];
-
-                OCMVerify([draggingDataSource canItemAtPoint:dragOrigin beDeletedIfDroppedOutsideOfCollection:draggingCollection atPoint:dropOrigin]);
-                OCMVerify([renderDelegate renderResetFromPoint:dropOrigin fromCoordinator:coordinator]);
-
-            });
-            
-            it(@"should delete item if its deleteable under the data source", ^{
-            
-                OCMStub([collectionView pointInside:dropOrigin withEvent:nil]).andReturn(NO);
-                OCMStub([draggingDataSource canItemAtPoint:dragOrigin beDeletedIfDroppedOutsideOfCollection:draggingCollection atPoint:dropOrigin]).andReturn(YES);
-
-                [coordinator handlePan:coordinator.gestureRecognizer];
-
-                OCMVerify([draggingDataSource deleteItemAtPoint:dragOrigin inCollection:draggingCollection]);
-                OCMVerify([renderDelegate renderDeletionAtPoint:dropOrigin fromCoordinator:coordinator]);
-                
-            });
-            
-            it(@"should rearranging if we're drag/dropping on the same collection and the data source allows", ^{
-                
-                OCMStub([collectionView pointInside:dropOrigin withEvent:nil]).andReturn(YES);
-                OCMStub([draggingDataSource canItemFromPoint:dragOrigin beRearrangedWithItemAtPoint:dropOrigin inCollection:draggingCollection]).andReturn(YES);
-
-                [coordinator handlePan:coordinator.gestureRecognizer];
-                
-                OCMVerify([draggingDataSource rearrangeItemAtPoint:dragOrigin withItemAtPoint:dropOrigin inCollection:draggingCollection]);
-                OCMVerify([draggingDataSource canItemFromPoint:dragOrigin beRearrangedWithItemAtPoint:dropOrigin inCollection:draggingCollection]);
-                OCMVerify([renderDelegate renderRearrangeOnPoint:dropOrigin fromCoordinator:coordinator]);
-                
-            });
-            
-            it(@"should not rearrange and render reset if the data source does not implement can rearrange", ^{
-
-                id dragSource = OCMClassMock([I3DragDataSourceJustRearrange class]);
-                
-                OCMStub([collectionView pointInside:dropOrigin withEvent:nil]).andReturn(YES);
-                /// @note Re-stubbed method
-                OCMStub([draggingCollection dragDataSource]).andReturn(dragSource);
-                
-                [[dragSource reject] rearrangeItemAtPoint:dragOrigin withItemAtPoint:dropOrigin inCollection:draggingCollection];
-                
-                [coordinator handlePan:coordinator.gestureRecognizer];
-
-                OCMVerify([renderDelegate renderResetFromPoint:dropOrigin fromCoordinator:coordinator]);
-
-            });
-            
-            it(@"should not rearrange and render reset if the data source does not implement rearrange method", ^{
-            
-                id dragSource = OCMClassMock([I3DragDataSourceJustCanRearrange class]);
-
-                OCMStub([collectionView pointInside:dropOrigin withEvent:nil]).andReturn(YES);
-                /// @note Re-stubbed method
-                OCMStub([draggingCollection dragDataSource]).andReturn(dragSource);
-                OCMStub([dragSource canItemFromPoint:dragOrigin beRearrangedWithItemAtPoint:dropOrigin inCollection:draggingCollection]).andReturn(YES);
-                
-                [[dragSource reject] rearrangeItemAtPoint:dragOrigin withItemAtPoint:dropOrigin inCollection:draggingCollection];
-                
-                [coordinator handlePan:coordinator.gestureRecognizer];
-                
-                OCMVerify([renderDelegate renderResetFromPoint:dropOrigin fromCoordinator:coordinator]);
-
-            });
-            
-            it(@"should not rearrange and render reset if the data source specifies the items as un-rearrangeable", ^{
-
-                OCMStub([collectionView pointInside:dropOrigin withEvent:nil]).andReturn(YES);
-                OCMStub([draggingDataSource canItemFromPoint:dragOrigin beRearrangedWithItemAtPoint:dropOrigin inCollection:draggingCollection]).andReturn(NO);
-                
-                [[draggingDataSource reject] rearrangeItemAtPoint:dragOrigin withItemAtPoint:dropOrigin inCollection:draggingCollection];
-                
-                [coordinator handlePan:coordinator.gestureRecognizer];
-                
-                OCMVerify([draggingDataSource canItemFromPoint:dragOrigin beRearrangedWithItemAtPoint:dropOrigin inCollection:draggingCollection]);
-                OCMVerify([renderDelegate renderResetFromPoint:dropOrigin fromCoordinator:coordinator]);
-
-            });
-            
-            it(@"should not rearrange and render reset if we're dropping on the same item in the collection", ^{
-                
-                OCMStub([collectionView pointInside:dropOrigin withEvent:nil]).andReturn(YES);
-                OCMStub([draggingDataSource canItemFromPoint:dragOrigin beRearrangedWithItemAtPoint:dropOrigin inCollection:draggingCollection]).andReturn(YES);
-                
-                UIView *commonCollectionItem = [[UIView alloc] init];
-                
-                OCMStub([draggingCollection itemAtPoint:dragOrigin]).andReturn(commonCollectionItem);
-                OCMStub([draggingCollection itemAtPoint:dropOrigin]).andReturn(commonCollectionItem);
-                
-                [[draggingDataSource reject] rearrangeItemAtPoint:dragOrigin withItemAtPoint:dropOrigin inCollection:draggingCollection];
-                
-                [coordinator handlePan:coordinator.gestureRecognizer];
-                
-                OCMVerify([draggingCollection itemAtPoint:dragOrigin]);
-                OCMVerify([draggingCollection itemAtPoint:dropOrigin]);
-                OCMVerify([renderDelegate renderResetFromPoint:dropOrigin fromCoordinator:coordinator]);
-                
-            });
-            
-            it(@"should not rearrange and render reset if we're dropping on an invalid location in the collection", ^{
-                
-                OCMStub([collectionView pointInside:dropOrigin withEvent:nil]).andReturn(YES);
-                OCMStub([draggingDataSource canItemFromPoint:dragOrigin beRearrangedWithItemAtPoint:dropOrigin inCollection:draggingCollection]).andReturn(YES);
-
-                OCMStub([draggingCollection itemAtPoint:dropOrigin]).andReturn(nil);
-                //OCMStub([draggingCollection itemAtPoint:dragOrigin]).andReturn([[UIView alloc] init]);
-                
-                [[draggingDataSource reject] rearrangeItemAtPoint:dragOrigin withItemAtPoint:dropOrigin inCollection:draggingCollection];
-                
-                [coordinator handlePan:coordinator.gestureRecognizer];
-                
-                OCMVerify([draggingCollection itemAtPoint:dropOrigin]);
-                OCMVerify([renderDelegate renderResetFromPoint:dropOrigin fromCoordinator:coordinator]);
-                
-            });
+     
         });
         
         
