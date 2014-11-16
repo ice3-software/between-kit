@@ -149,7 +149,10 @@
             
             DND_LOG(@"We're dragging in a collection!");
             
-            if([self.dragDataSource canItemBeDraggedAtPoint:pointInCollection inCollection:collection]){
+            if(
+               [collection itemAtPoint:pointInCollection] &&
+               [self.dragDataSource canItemBeDraggedAtPoint:pointInCollection inCollection:collection]
+            ){
                 
                 DND_LOG(@"We can drag item %d in collection", [self.arena.collections indexOfObject:collection]);
 
