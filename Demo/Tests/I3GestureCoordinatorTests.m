@@ -719,9 +719,7 @@ SpecBegin(I3GestureCoordinator)
             });
             
         });
-
         
     });
-
 
 SpecEnd
