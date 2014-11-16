@@ -11,7 +11,7 @@
 @implementation I3TableView
 
 
-#pragma mark I3Collection implementation
+#pragma mark - I3Collection implementation
 
 
 -(UIView *)collectionView{

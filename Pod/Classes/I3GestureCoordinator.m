@@ -321,7 +321,7 @@
 }
 
 
-#pragma mark Accessor methods
+#pragma mark - Accessor methods
 
 
 -(void) setCurrentDraggingCollection:(id<I3Collection>) currentDraggingCollection{
