@@ -143,8 +143,29 @@
     /// @note When would be need to re-show the item?
     /// @note Can we hide both the dragging and the exchange items while the animation plays out ?
     
-
 }
 
+
+-(void) renderDeletionAtPoint:(CGPoint) at fromCoordinator:(I3GestureCoordinator *)coordinator{
+
+    I3CloneView *draggingView = self.draggingView;
+    
+    CGFloat midX = CGRectGetMidX(draggingView.frame);
+    CGFloat midY = CGRectGetMidY(draggingView.frame);
+    CGRect shrunkFrame = CGRectMake(midX, midY, midX, midY);
+    
+    [UIView animateWithDuration:0.15 animations:^{
+    
+        draggingView.frame = shrunkFrame;
+        
+    } completion:^(BOOL finished){
+        
+        [draggingView removeFromSuperview];
+    
+    }];
+    
+    _draggingView = nil;
+    
+}
 
 @end
