@@ -255,8 +255,8 @@ SpecBegin(I3BasicRenderDelegate)
                 CGRect exchangeItemSuperRect = CGRectMake(0, 0, 100, 100);
                 CGRect draggingItemSuperRect = CGRectMake(0, 100, 100, 100);
                 CGPoint rearrangePoint = CGPointMake(50, 50);
-                double duration = 0.15;
                 
+                double duration = 0.15;
                 id uiViewMock = OCMClassMock([UIView class]);
 
                 OCMStub([currentDraggingCollection itemAtPoint:rearrangePoint]).andReturn(exchangeItem);
@@ -306,18 +306,54 @@ SpecBegin(I3BasicRenderDelegate)
                 
                 expect(renderDelegate.draggingView).to.beNil();
                 OCMVerify([uiViewMock animateWithDuration:duration animations:[OCMArg any] completion:[OCMArg any]]);
+                
                 [uiViewMock stopMocking];
 
             });
             
         });
-        
-    });
 
-    describe(@"delete", ^{
-        
-        it(@"should apply a 'shrinking' animation to the dragging view", ^{
-        
+        describe(@"delete", ^{
+            
+            it(@"should apply a 'shrinking' animation to the dragging view", ^{
+                
+                [renderDelegate renderDragStart:coordinator];
+                I3CloneView *draggingView = renderDelegate.draggingView;
+                
+                CGFloat midX = CGRectGetMidX(draggingView.frame);
+                CGFloat midY = CGRectGetMidY(draggingView.frame);
+                CGRect shrunkFrame = CGRectMake(midX, midY, midX, midY);
+                
+                double duration = 0.15;
+                id uiViewMock = OCMClassMock([UIView class]);
+                
+                OCMStub([uiViewMock animateWithDuration:duration animations:[OCMArg any] completion:[OCMArg any]]).andDo(^(NSInvocation *invocation){
+
+                    void (^animateBlock)();
+                    void (^completionBlock)();
+                    
+                    [invocation getArgument:&animateBlock atIndex:3];
+                    [invocation getArgument:&completionBlock atIndex:4];
+                    
+                    animateBlock();
+                    
+                    expect(draggingView.frame).to.equal(shrunkFrame);
+                    
+                    completionBlock();
+                    
+                    expect(draggingView.superview).to.beNil();
+                    
+                });
+                
+                [renderDelegate renderDeletionAtPoint:dragOrigin fromCoordinator:coordinator];
+
+                expect(renderDelegate.draggingView).to.beNil();
+                OCMVerify([uiViewMock animateWithDuration:duration animations:[OCMArg any] completion:[OCMArg any]]);
+                
+                [uiViewMock stopMocking];
+                
+            });
+            
         });
 
     });
