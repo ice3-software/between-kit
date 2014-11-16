@@ -99,14 +99,13 @@ static NSString* DequeueReusableCell = @"DequeueReusableCell";
     
     UITableViewCell* cell = [tableView dequeueReusableCellWithIdentifier:DequeueReusableCell
                                                             forIndexPath:indexPath];
-    
+    NSInteger row = [indexPath row];
+
     if(tableView == self.leftTableView){
-        NSInteger row = [indexPath row];
-        cell.textLabel.text = [NSString stringWithFormat:@"%@ left", [self.leftData objectAtIndex:row]];
+        cell.textLabel.text = [NSString stringWithFormat:@"%@", [self.leftData objectAtIndex:row]];
     }
     else{
-        NSInteger row = [indexPath row];
-        cell.textLabel.text = [NSString stringWithFormat:@"%@ right", [self.rightData objectAtIndex:row]];
+        cell.textLabel.text = [NSString stringWithFormat:@"%@", [self.rightData objectAtIndex:row]];
     }
     
     return cell;
@@ -116,6 +115,13 @@ static NSString* DequeueReusableCell = @"DequeueReusableCell";
 
 #pragma mark - I3DragDataSource
 
+-(BOOL) canItemAtPoint:(CGPoint) from beDeletedIfDroppedOutsideOfCollection:(id<I3Collection>) collection atPoint:(CGPoint) to{
+    return YES;
+}
+
+-(BOOL) canItemAtPoint:(CGPoint) from fromCollection:(id<I3Collection>) fromCollection beDroppedToPoint:(CGPoint) to inCollection:(id<I3Collection>) collection{
+    return YES;
+}
 
 -(BOOL) canItemBeDraggedAtPoint:(CGPoint) at inCollection:(id<I3Collection>) collection{
     return YES;
@@ -125,7 +131,6 @@ static NSString* DequeueReusableCell = @"DequeueReusableCell";
 -(BOOL) canItemFromPoint:(CGPoint)from beRearrangedWithItemAtPoint:(CGPoint)to inCollection:(id<I3Collection>)collection{
     return YES;
 }
-
 
 -(void) rearrangeItemAtPoint:(CGPoint)from withItemAtPoint:(CGPoint)to inCollection:(id<I3Collection>)collection{
     
@@ -140,5 +145,37 @@ static NSString* DequeueReusableCell = @"DequeueReusableCell";
     [targetTableView reloadRowsAtIndexPaths:@[toIndex, fromIndex] withRowAnimation:UITableViewRowAnimationFade];
 }
 
+-(void) dropItemAtPoint:(CGPoint) from fromCollection:(id<I3Collection>) fromCollection toPoint:(CGPoint) to inCollection:(id<I3Collection>) toCollection{
+
+    
+    UITableView *fromTable = (UITableView *)fromCollection.collectionView;
+    UITableView *toTable = (UITableView *)toCollection.collectionView;
+    
+    NSIndexPath *toIndex = [toTable indexPathForRowAtPoint:to];
+    NSIndexPath *fromIndex = [fromTable indexPathForRowAtPoint:from];
+    
+    
+    /** Determine the `from` and `to` datasets */
+    
+    BOOL isFromLeftTable = fromTable == self.leftTableView;
+    
+    NSNumber *exchangingData = isFromLeftTable ? [self.leftData objectAtIndex:fromIndex.row] : [self.rightData objectAtIndex:fromIndex.row];
+    NSMutableArray *fromDataset = isFromLeftTable ? self.leftData : self.rightData;
+    NSMutableArray *toDataset = isFromLeftTable ? self.rightData : self.leftData;
+    
+
+    /** Update the data source and the individual table view rows */
+    
+    [fromDataset removeObjectAtIndex:fromIndex.row];
+    [toDataset insertObject:exchangingData atIndex:toIndex.row];
+
+    NSLog(@"Left data: %@", self.leftData);
+    NSLog(@"Right data: %@", self.rightData);
+    
+
+    [fromTable deleteRowsAtIndexPaths:@[[NSIndexPath indexPathForRow:fromIndex.row inSection:0]] withRowAnimation:UITableViewRowAnimationFade];
+    [toTable insertRowsAtIndexPaths:@[[NSIndexPath indexPathForRow:toIndex.row inSection:0]] withRowAnimation:UITableViewRowAnimationFade];
+
+}
 
 @end
