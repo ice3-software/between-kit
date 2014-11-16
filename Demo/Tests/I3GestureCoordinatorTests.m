@@ -540,8 +540,11 @@ SpecBegin(I3GestureCoordinator)
             
             it(@"should not rearrange and render reset if the data source specifies the items as un-rearrangeable", ^{
                 
+                UIView *targetItemView = [[UIView alloc] init];
+                
                 OCMStub([collectionView pointInside:dropOrigin withEvent:nil]).andReturn(YES);
                 OCMStub([defaultDragDataSource canItemFromPoint:dragOrigin beRearrangedWithItemAtPoint:dropOrigin inCollection:draggingCollection]).andReturn(NO);
+                OCMStub([draggingCollection itemAtPoint:dropOrigin]).andReturn(targetItemView);
                 
                 [[defaultDragDataSource reject] rearrangeItemAtPoint:dragOrigin withItemAtPoint:dropOrigin inCollection:draggingCollection];
                 

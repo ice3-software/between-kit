@@ -15,7 +15,16 @@
 
 /**
  
- Sets the current dragging view and point.
+ Redeclaration of 'private' properties. Custom setter is implemented to reset _currentDragOrigin
+ appropriately.
+ 
+ */
+@property (nonatomic, weak, readwrite) id<I3Collection> currentDraggingCollection;
+
+
+/**
+ 
+ Sets the current dragging collection from its origin.
  
  */
 -(void) setCurrentDraggingCollection:(id<I3Collection>) collection atPoint:(CGPoint) at;
@@ -162,7 +171,7 @@
             }
             else{
  
-                [self setCurrentDraggingCollection:nil atPoint:CGPointZero];
+                self.currentDraggingCollection = nil;
                 DND_LOG(@"Can't drag this item so calling it a day.");
             }
 
@@ -178,7 +187,7 @@
 
 -(void) handleDragStopped{
 
-    if(!_currentDraggingCollection){
+    if(!self.currentDraggingCollection){
         DND_LOG(@"Invalid drag stopped.");
         return;
     }
@@ -212,7 +221,7 @@
         [self handleDragStoppedOutsideAtPoint:point];
     }
     
-    [self setCurrentDraggingCollection:nil atPoint:CGPointZero];
+    self.currentDraggingCollection = nil;
     
 }
 
@@ -225,11 +234,11 @@
     if(
        [self.dragDataSource respondsToSelector:canDeleteSelector] &&
        [self.dragDataSource respondsToSelector:deleteSelector] &&
-       [self.dragDataSource canItemAtPoint:_currentDragOrigin beDeletedIfDroppedOutsideOfCollection:_currentDraggingCollection atPoint:at]
+       [self.dragDataSource canItemAtPoint:self.currentDragOrigin beDeletedIfDroppedOutsideOfCollection:self.currentDraggingCollection atPoint:at]
     ){
         
         DND_LOG(@"Dragged nowhere so deleting");
-        [self.dragDataSource deleteItemAtPoint:_currentDragOrigin inCollection:_currentDraggingCollection];
+        [self.dragDataSource deleteItemAtPoint:self.currentDragOrigin inCollection:self.currentDraggingCollection];
         [self.renderDelegate renderDeletionAtPoint:at fromCoordinator:self];
     }
     else{
@@ -243,7 +252,7 @@
 
 -(void) handleDragStoppedInCollection:(id<I3Collection>) to atPoint:(CGPoint) at{
     
-    BOOL isRearrange = to == _currentDraggingCollection;
+    BOOL isRearrange = to == self.currentDraggingCollection;
     
     SEL canItemRearrangeSelector = @selector(canItemFromPoint:beRearrangedWithItemAtPoint:inCollection:);
     SEL canDropSelector = @selector(canItemAtPoint:fromCollection:beDroppedToPoint:inCollection:);
@@ -251,49 +260,44 @@
     SEL itemRearrangeSelector = @selector(rearrangeItemAtPoint:withItemAtPoint:inCollection:);
     SEL dropSelector = @selector(dropItemAtPoint:fromCollection:toPoint:inCollection:);
     
-    
+
+    UIView *destinationItemView = [to itemAtPoint:at];
+
     if(
-       isRearrange &&
-       [self.dragDataSource respondsToSelector:canItemRearrangeSelector] &&
-       [self.dragDataSource respondsToSelector:itemRearrangeSelector] &&
-       [self.dragDataSource canItemFromPoint:_currentDragOrigin beRearrangedWithItemAtPoint:at inCollection:_currentDraggingCollection]
+        destinationItemView &&
+        isRearrange &&
+        [self.dragDataSource respondsToSelector:canItemRearrangeSelector] &&
+        [self.dragDataSource respondsToSelector:itemRearrangeSelector] &&
+        [self.dragDataSource canItemFromPoint:self.currentDragOrigin beRearrangedWithItemAtPoint:at inCollection:self.currentDraggingCollection]
     ){
         
-        UIView *draggingItemView = [_currentDraggingCollection itemAtPoint:_currentDragOrigin];
-        UIView *destinationItemView = [_currentDraggingCollection itemAtPoint:at];
-        
+        UIView *draggingItemView = [self.currentDraggingCollection itemAtPoint:self.currentDragOrigin];
         
         DND_LOG(@"Is %@ equal to %@?", draggingItemView, destinationItemView);
         
-        if(!destinationItemView || [draggingItemView isEqual:destinationItemView]){
-            DND_LOG(@"Rearranging the same views or on an invalid location. Snapping back.");
+        if([draggingItemView isEqual:destinationItemView]){
+            DND_LOG(@"Rearranging the same views. Snapping back.");
             [self.renderDelegate renderResetFromPoint:at fromCoordinator:self];
         }
         else{
             DND_LOG(@"Rearranging items in a collection.");
             [self.renderDelegate renderRearrangeOnPoint:at fromCoordinator:self];
-            [self.dragDataSource rearrangeItemAtPoint:_currentDragOrigin withItemAtPoint:at inCollection:_currentDraggingCollection];
+            [self.dragDataSource rearrangeItemAtPoint:self.currentDragOrigin withItemAtPoint:at inCollection:self.currentDraggingCollection];
         }
 
     }
     else if(
+        destinationItemView &&
         !isRearrange &&
         [self.dragDataSource respondsToSelector:canDropSelector] &&
         [self.dragDataSource respondsToSelector:dropSelector] &&
-        [self.dragDataSource canItemAtPoint:_currentDragOrigin fromCollection:_currentDraggingCollection beDroppedToPoint:at inCollection:to]
+        [self.dragDataSource canItemAtPoint:self.currentDragOrigin fromCollection:self.currentDraggingCollection beDroppedToPoint:at inCollection:to]
     ){
 
-        UIView *destinationItemView = [to itemAtPoint:at];
+        DND_LOG(@"Exchanging items between collections.");
+        [self.dragDataSource dropItemAtPoint:self.currentDragOrigin fromCollection:self.currentDraggingCollection toPoint:at inCollection:to];
+        [self.renderDelegate renderDropOnCollection:to atPoint:at fromCoordinator:self];
 
-        if(destinationItemView){
-            DND_LOG(@"Exchanging items between collections.");
-            [self.dragDataSource dropItemAtPoint:_currentDragOrigin fromCollection:_currentDraggingCollection toPoint:at inCollection:to];
-            [self.renderDelegate renderDropOnCollection:to atPoint:at fromCoordinator:self];
-        }
-        else{
-            DND_LOG(@"Exchanging in an invalid location on the dst collection. Snapping back.");
-            [self.renderDelegate renderResetFromPoint:at fromCoordinator:self];
-        }
     }
     else{
         
@@ -306,7 +310,7 @@
 
 -(void) handleDrag{
     
-    if(!_currentDraggingCollection){
+    if(!self.currentDraggingCollection){
         
         DND_LOG(@"Handle drag but we're not dragging.");
         return;
@@ -320,11 +324,17 @@
 #pragma mark Accessor methods
 
 
+-(void) setCurrentDraggingCollection:(id<I3Collection>) currentDraggingCollection{
+    
+    [self setCurrentDraggingCollection:currentDraggingCollection atPoint:CGPointZero];
+}
+
+
 -(void) setCurrentDraggingCollection:(id<I3Collection>) collection atPoint:(CGPoint) at{
 
     _currentDraggingCollection = collection;
     _currentDragOrigin = at;
-}
 
+}
 
 @end
