@@ -34,6 +34,8 @@
     _draggingView.frame = [coordinator.arena.superview convertRect:sourceView.frame fromView:collectionView];
     [coordinator.arena.superview addSubview:_draggingView];
     
+    DND_LOG(@"Converted rect %@ from view %@ in superview %@", NSStringFromCGRect(sourceView.frame), collectionView, coordinator.arena.superview);
+    
     if(
        [coordinator.dragDataSource respondsToSelector:@selector(hidesItemWhileDraggingAtPoint:inCollection:)] &&
        [coordinator.dragDataSource hidesItemWhileDraggingAtPoint:dragOrigin inCollection:draggingCollection]

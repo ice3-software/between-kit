@@ -11,7 +11,6 @@
 #import "I3CollectionFixture.h"
 
 
-
 /// @todo What happens if any of these render delegate methods are called in the incorrect
 //        order? For example, how will the class cope if a user erroneously makes a call
 //        to `renderDropOnCollection:atPoint:fromCoordinator` ?
@@ -30,6 +29,7 @@ SpecBegin(I3BasicRenderDelegate)
         __block id currentDraggingCollection;
         __block UIView *draggingItem;
         __block UIView *collectionView;
+        
         CGPoint dragOrigin = CGPointMake(10, 10);
         
         
@@ -41,17 +41,23 @@ SpecBegin(I3BasicRenderDelegate)
             superview = OCMPartialMock([[UIView alloc] init]);
             currentDraggingCollection = OCMPartialMock([[I3CollectionFixture alloc] init]);
             dragDataSource = OCMProtocolMock(@protocol(I3DragDataSource));
-            draggingItem = [[UIView alloc] init];
             collectionView = [[UIView alloc] init];
             gestureRecognizer = OCMClassMock([UIPanGestureRecognizer class]);
+
+            draggingItem = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 10, 10)];
+            OCMPartialMock(draggingItem);
+
             
-            OCMStub([arena superview]).andReturn(superview);
-            OCMStub([coordinator arena]).andReturn(arena);
             OCMStub([currentDraggingCollection itemAtPoint:dragOrigin]).andReturn(draggingItem);
             OCMStub([currentDraggingCollection collectionView]).andReturn(collectionView);
+
+            OCMStub([coordinator arena]).andReturn(arena);
             OCMStub([coordinator currentDragOrigin]).andReturn(dragOrigin);
             OCMStub([coordinator currentDraggingCollection]).andReturn(currentDraggingCollection);
             OCMStub([coordinator gestureRecognizer]).andReturn(gestureRecognizer);
+            OCMStub([coordinator dragDataSource]).andReturn(dragDataSource);
+            
+            OCMStub([arena superview]).andReturn(superview);
             
         });
         
@@ -73,7 +79,7 @@ SpecBegin(I3BasicRenderDelegate)
             
             it(@"should construct a dragging view from an item in the dragging collection on start", ^{
                 
-                CGRect convertedRect = CGRectMake(100, 100, 100, 100);
+                CGRect convertedRect = CGRectMake(10, 10, 20, 20);
                 OCMStub([superview convertRect:draggingItem.frame fromView:collectionView]).andReturn(convertedRect);
                 
                 [renderDelegate renderDragStart:coordinator];
@@ -83,14 +89,22 @@ SpecBegin(I3BasicRenderDelegate)
                 expect(renderDelegate.draggingView.frame).to.equal(convertedRect);
 
                 /// We can't seem to compare partial mock references, so I've just used `isEqual`... note sure
-                /// if this works.
+                /// how reliable this is but it seems to work.
                 
                 expect([renderDelegate.draggingView.superview isEqual:superview]).to.beTruthy;
-                
+
                 OCMVerify([superview convertRect:draggingItem.frame fromView:collectionView]);
                 
             });
 
+            it(@"should clone the source view into the dragging view straight away", ^{
+            
+                [renderDelegate renderDragStart:coordinator];
+                
+                expect(renderDelegate.draggingView.sourceViewImage).notTo.beNil;
+                expect(renderDelegate.draggingView.sourceView).to.beNil;
+
+            });
             
             it(@"should hide the original item if required by the datasource", ^{
             
@@ -107,10 +121,11 @@ SpecBegin(I3BasicRenderDelegate)
                 
                 OCMStub([dragDataSource hidesItemWhileDraggingAtPoint:dragOrigin inCollection:currentDraggingCollection]).andReturn(NO);
                 
+                [[dragDataSource reject] hidesItemWhileDraggingAtPoint:dragOrigin inCollection:currentDraggingCollection];
+
                 [renderDelegate renderDragStart:coordinator];
                 
-                expect(draggingItem.alpha).notTo.equal(0.01f);
-                OCMVerify([dragDataSource hidesItemWhileDraggingAtPoint:dragOrigin inCollection:currentDraggingCollection]);
+                expect(draggingItem.alpha).to.equal(1);
                 
             });
             
@@ -222,7 +237,7 @@ SpecBegin(I3BasicRenderDelegate)
         
         describe(@"rearrange", ^{
         
-            it(@"should animate an exchange between the dragging view and the destination item", ^{
+            it(@"should animate an rearrange between the dragging view and the destination item", ^{
             
                 [renderDelegate renderDragStart:coordinator];
                 
@@ -274,12 +289,8 @@ SpecBegin(I3BasicRenderDelegate)
                     I3CloneView *firstClonedView = [clonedViews firstObject];
                     I3CloneView *exchangeView = firstClonedView.sourceView == draggingItem ? clonedViews.lastObject : firstClonedView;
                     
-                    expect(exchangeView.frame).to.equal(draggingItemSuperRect);
-                    expect(draggingView.frame).to.equal(exchangeItemSuperRect);
-                    
-                    /// We can't seem to compare partial mock references, so I've just used `isEqual`... note sure
-                    /// if this works.
-                    
+                    expect(exchangeView.center).to.equal(CGPointMake(CGRectGetMidX(draggingItemSuperRect), CGRectGetMidY(draggingItemSuperRect)));
+                    expect(draggingView.center).to.equal(CGPointMake(CGRectGetMidX(exchangeItemSuperRect), CGRectGetMidY(exchangeItemSuperRect)));
                     expect([exchangeView.superview isEqual:superview]).to.beTruthy;
                     
                     completionBlock();

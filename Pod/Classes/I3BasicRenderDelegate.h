@@ -21,6 +21,11 @@
  framework can extend this class to apply 'extra' styling to the rendering.
  
  @todo Provide various examples of approaches to using custom render delegates
+ @note This class (being its delegate) depends entirely on the coordinator to call its methods
+ at the correct time and whilst being in the correct state. It does not provide any safeguarding
+ against users calling its rendering methods in an undefined order or with parameters that don't
+ represent the state of a drag correctly. In short, do _not_ call this class' methods unless you
+ are the I3GestureCoordinator.
  
  */
 @interface I3BasicRenderDelegate : NSObject <I3DragRenderDelegate>

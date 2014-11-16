@@ -19,6 +19,8 @@ SpecBegin(I3CloneView)
     beforeEach(^{
     
         sourceView = OCMPartialMock([[UIView alloc] initWithFrame:CGRectMake(0, 0, 10, 10)]);
+        sourceView.backgroundColor = [UIColor redColor];
+        
         view = [[I3CloneView alloc] initWithSourceView:sourceView];
     
     });
@@ -31,19 +33,25 @@ SpecBegin(I3CloneView)
             expect(view.sourceView).to.equal(sourceView);
         
         });
+        
+        it(@"should set the frame to the source view's frame", ^{
+        
+            expect(view.frame).to.equal(sourceView.frame);
+            
+        });
     
     });
 
 
     describe(@"render sourceView", ^{
 
-        it(@"should be nil before first call to getter", ^{
+        it(@"should be nil before first clone", ^{
             
             expect(view.sourceViewImage).to.beNil;
         
         });
         
-        it(@"should set up the UIImage on first call", ^{
+        it(@"should set up the UIImage on first clone", ^{
 
             UIGraphicsBeginImageContext(sourceView.frame.size);
             
