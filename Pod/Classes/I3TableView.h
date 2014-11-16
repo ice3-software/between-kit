@@ -23,13 +23,4 @@
  */
 @interface I3TableView : UITableView <I3Collection>
 
-
-/**
- 
- @copydoc I3Collection::dragDataSource
- 
- */
-@property (nonatomic, weak) id<I3DragDataSource> dragDataSource;
-
-
 @end
