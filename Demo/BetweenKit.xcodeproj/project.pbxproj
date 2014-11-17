@@ -16,6 +16,7 @@
 		467AFC8819C5F0F000FFD1F4 /* I3GestureCoordinatorTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 467AFC8719C5F0F000FFD1F4 /* I3GestureCoordinatorTests.m */; };
 		46866CFB19D42E1E00C45CCD /* I3DragArenaTest.m in Sources */ = {isa = PBXBuildFile; fileRef = 46866CFA19D42E1E00C45CCD /* I3DragArenaTest.m */; };
 		4694A4AF1A1A317900E0AB9B /* UIView+I3Collection.m in Sources */ = {isa = PBXBuildFile; fileRef = 4694A4AE1A1A317900E0AB9B /* UIView+I3Collection.m */; };
+		4694A4B71A1A3E8B00E0AB9B /* I34BasicViewsExchangeableRearrangeableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4694A4B61A1A3E8B00E0AB9B /* I34BasicViewsExchangeableRearrangeableViewController.m */; };
 		46A1877B19CF46A20061B355 /* I3BasicRenderDelegateTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 46A1877A19CF46A20061B355 /* I3BasicRenderDelegateTests.m */; };
 		46A1878019CF5DC20061B355 /* I3CloneViewTest.m in Sources */ = {isa = PBXBuildFile; fileRef = 46A1877F19CF5DC20061B355 /* I3CloneViewTest.m */; };
 		6003F58E195388D20070C39A /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6003F58D195388D20070C39A /* Foundation.framework */; };
@@ -58,6 +59,8 @@
 		467AFC8719C5F0F000FFD1F4 /* I3GestureCoordinatorTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = I3GestureCoordinatorTests.m; sourceTree = "<group>"; };
 		46866CFA19D42E1E00C45CCD /* I3DragArenaTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = I3DragArenaTest.m; sourceTree = "<group>"; };
 		4694A4AE1A1A317900E0AB9B /* UIView+I3Collection.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIView+I3Collection.m"; sourceTree = "<group>"; };
+		4694A4B51A1A3E8B00E0AB9B /* I34BasicViewsExchangeableRearrangeableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = I34BasicViewsExchangeableRearrangeableViewController.h; sourceTree = "<group>"; };
+		4694A4B61A1A3E8B00E0AB9B /* I34BasicViewsExchangeableRearrangeableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = I34BasicViewsExchangeableRearrangeableViewController.m; sourceTree = "<group>"; };
 		46A1877A19CF46A20061B355 /* I3BasicRenderDelegateTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = I3BasicRenderDelegateTests.m; sourceTree = "<group>"; };
 		46A1877F19CF5DC20061B355 /* I3CloneViewTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = I3CloneViewTest.m; sourceTree = "<group>"; };
 		542B21470EB3452C810F4621 /* BetweenKit.podspec */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; name = BetweenKit.podspec; path = ../BetweenKit.podspec; sourceTree = "<group>"; };
@@ -114,13 +117,31 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		4632574219E5DE3A00E1C633 /* Example Case 1 */ = {
+		4632574219E5DE3A00E1C633 /* 2 Tables - Rearrangeable */ = {
 			isa = PBXGroup;
 			children = (
 				6003F5A5195388D20070C39A /* I32RearrangeableTablesViewController.h */,
 				6003F5A6195388D20070C39A /* I32RearrangeableTablesViewController.m */,
 			);
-			name = "Example Case 1";
+			name = "2 Tables - Rearrangeable";
+			sourceTree = "<group>";
+		};
+		4694A4B31A1A3DCE00E0AB9B /* Use Cases */ = {
+			isa = PBXGroup;
+			children = (
+				4694A4B41A1A3E0D00E0AB9B /* 4 Basic Views - Rerrangeable, Exchangeable, Deleteable */,
+				4632574219E5DE3A00E1C633 /* 2 Tables - Rearrangeable */,
+			);
+			name = "Use Cases";
+			sourceTree = "<group>";
+		};
+		4694A4B41A1A3E0D00E0AB9B /* 4 Basic Views - Rerrangeable, Exchangeable, Deleteable */ = {
+			isa = PBXGroup;
+			children = (
+				4694A4B51A1A3E8B00E0AB9B /* I34BasicViewsExchangeableRearrangeableViewController.h */,
+				4694A4B61A1A3E8B00E0AB9B /* I34BasicViewsExchangeableRearrangeableViewController.m */,
+			);
+			name = "4 Basic Views - Rerrangeable, Exchangeable, Deleteable";
 			sourceTree = "<group>";
 		};
 		46B5AA8619CE192600A51694 /* Fixtures */ = {
@@ -171,7 +192,7 @@
 		6003F593195388D20070C39A /* BetweenKit */ = {
 			isa = PBXGroup;
 			children = (
-				4632574219E5DE3A00E1C633 /* Example Case 1 */,
+				4694A4B31A1A3DCE00E0AB9B /* Use Cases */,
 				6003F59C195388D20070C39A /* I3AppDelegate.h */,
 				6003F59D195388D20070C39A /* I3AppDelegate.m */,
 				6003F59F195388D20070C39A /* Main_iPhone.storyboard */,
@@ -407,6 +428,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				4694A4B71A1A3E8B00E0AB9B /* I34BasicViewsExchangeableRearrangeableViewController.m in Sources */,
 				6003F59E195388D20070C39A /* I3AppDelegate.m in Sources */,
 				6003F5A7195388D20070C39A /* I32RearrangeableTablesViewController.m in Sources */,
 				6003F59A195388D20070C39A /* main.m in Sources */,

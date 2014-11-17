@@ -54,7 +54,7 @@ SpecBegin(UIViewI3Collection)
             expect([view itemAtPoint:CGPointMake(5, 15)]).to.equal(subview2);
 
         });
-
+        
     });
 
 SpecEnd
