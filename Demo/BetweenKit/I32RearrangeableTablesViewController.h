@@ -7,14 +7,14 @@
 //
 
 #import <UIKit/UIKit.h>
-#import <BetweenKit/I3TableView.h>
+#import <BetweenKit/UITableView+I3Collection.h>
 #import <BetweenKit/I3DragDataSource.h>
 
 
 @interface I32RearrangeableTablesViewController : UIViewController<UITableViewDataSource, UITableViewDelegate, I3DragDataSource>
 
-@property (nonatomic, weak) IBOutlet I3TableView *leftTableView;
+@property (nonatomic, weak) IBOutlet UITableView *leftTableView;
 
-@property (nonatomic, weak) IBOutlet I3TableView *rightTableView;
+@property (nonatomic, weak) IBOutlet UITableView *rightTableView;
 
 @end

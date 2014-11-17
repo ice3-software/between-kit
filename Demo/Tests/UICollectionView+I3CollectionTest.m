@@ -32,7 +32,7 @@ SpecBegin(UICollectionViewI3Collection)
             UICollectionViewCell *cell = [[UICollectionViewCell alloc] initWithFrame:CGRectMake(0, 0, 10, 10)];
             OCMStub([collectionView convertPoint:point toView:[collectionView collectionView]]).andReturn(point);
             OCMStub([collectionView indexPathForItemAtPoint:point]).andReturn(index);
-            OCMStub([collectionView cellForRowAtIndexPath:index]).andReturn(cell);
+            OCMStub([collectionView cellForItemAtIndexPath:index]).andReturn(cell);
             
             UIView *item = [collectionView itemAtPoint:point];
             
