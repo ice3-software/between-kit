@@ -20,16 +20,17 @@ SpecBegin(UIViewI3Collection)
             
         });
         
-        it(@"should return subview at given point", ^{
+        it(@"should return subview at given point in the view", ^{
         
-            id view = OCMPartialMock([[UIView alloc] init]);
+            id view = OCMPartialMock([[UIView alloc] initWithFrame:CGRectMake(0, 0, 10, 30)]);
             
-            id subview1 = OCMPartialMock([[UIView alloc] initWithFrame:CGRectMake(0, 0, 10, 10)]);
-            id subview2 = OCMPartialMock([[UIView alloc] initWithFrame:CGRectMake(10, 0, 10, 10)]);
-            id subview3 = OCMPartialMock([[UIView alloc] initWithFrame:CGRectMake(20, 0, 10, 10)]);
+            UIView *subview1 = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 10, 10)];
+            UIView *subview2 = [[UIView alloc] initWithFrame:CGRectMake(0, 10, 10, 10)];
+            UIView *subview3 = [[UIView alloc] initWithFrame:CGRectMake(0, 20, 10, 10)];
             
-            NSArray *subviews = @[subview1, subview2, subview3];
-            OCMStub([view subviews]).andReturn(subviews);
+            [view addSubview:subview1];
+            [view addSubview:subview2];
+            [view addSubview:subview3];
 
             expect([view itemAtPoint:CGPointMake(5, 5)]).to.equal(subview1);
             expect([view itemAtPoint:CGPointMake(5, 15)]).to.equal(subview2);

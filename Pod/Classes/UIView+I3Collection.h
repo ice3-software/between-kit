@@ -10,6 +10,6 @@
 #import "I3Collection.h"
 
 
-@interface UITableView (I3Collection) <I3Collection>
+@interface UIView (I3Collection) <I3Collection>
 
 @end

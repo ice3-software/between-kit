@@ -29,7 +29,6 @@ SpecBegin(UICollectionViewI3Collection)
             CGPoint point = CGPointMake(5, 5);
             NSIndexPath *index = [NSIndexPath indexPathForItem:0 inSection:0];
             UICollectionViewCell *cell = [[UICollectionViewCell alloc] initWithFrame:CGRectMake(0, 0, 10, 10)];
-            OCMStub([collectionView convertPoint:point toView:[collectionView collectionView]]).andReturn(point);
             OCMStub([collectionView indexPathForItemAtPoint:point]).andReturn(index);
             OCMStub([collectionView cellForItemAtIndexPath:index]).andReturn(cell);
             

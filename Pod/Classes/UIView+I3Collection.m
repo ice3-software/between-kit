@@ -22,7 +22,19 @@
 
 -(UIView *)itemAtPoint:(CGPoint) at{
     
-    return nil;
+    UIView *subview = nil;
+    
+    for(UIView *view in self.subviews){
+        CGPoint localAt = [self convertPoint:at toView:view];
+        NSLog(@"Testing whether %@ is in %@", NSStringFromCGPoint(localAt), NSStringFromCGRect(view.frame));
+        if([view pointInside:localAt withEvent:nil]){
+            NSLog(@"It is !");
+            subview = view;
+            break;
+        }
+    }
+    
+    return subview;
 }
 
 

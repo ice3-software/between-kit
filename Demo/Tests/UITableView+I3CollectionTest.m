@@ -29,7 +29,6 @@ SpecBegin(UITableViewI3Collection)
             CGPoint point = CGPointMake(5, 5);
             NSIndexPath *index = [NSIndexPath indexPathForItem:0 inSection:0];
             UITableViewCell *cell = [[UITableViewCell alloc] initWithFrame:CGRectMake(0, 0, 10, 10)];
-            OCMStub([tableView convertPoint:point toView:[tableView collectionView]]).andReturn(point);
             OCMStub([tableView indexPathForRowAtPoint:point]).andReturn(index);
             OCMStub([tableView cellForRowAtIndexPath:index]).andReturn(cell);
             

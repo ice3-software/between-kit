@@ -22,8 +22,7 @@
 
 -(UIView *)itemAtPoint:(CGPoint) at{
     
-    CGPoint localAt = [self convertPoint:at toView:self];
-    NSIndexPath *index = [self indexPathForRowAtPoint:localAt];
+    NSIndexPath *index = [self indexPathForRowAtPoint:at];
     return [self cellForRowAtIndexPath:index];
 }
 
