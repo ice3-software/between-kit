@@ -132,6 +132,10 @@ static NSString* DequeueReusableCell = @"DequeueReusableCell";
     return YES;
 }
 
+-(BOOL) hidesItemWhileDraggingAtPoint:(CGPoint) at inCollection:(id<I3Collection>) collection{
+    return YES;
+}
+
 -(void) rearrangeItemAtPoint:(CGPoint)from withItemAtPoint:(CGPoint)to inCollection:(id<I3Collection>)collection{
     
     UITableView *targetTableView = (UITableView *)collection.collectionView;

@@ -39,7 +39,7 @@
 
     if(!_sourceViewImage){
     
-        UIGraphicsBeginImageContext(self.sourceView.frame.size);
+        UIGraphicsBeginImageContextWithOptions(self.sourceView.bounds.size, NO, 1);
         [self.sourceView.layer renderInContext:UIGraphicsGetCurrentContext()];
         _sourceViewImage = UIGraphicsGetImageFromCurrentImageContext();
         UIGraphicsEndImageContext();
