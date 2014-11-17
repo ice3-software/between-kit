@@ -10,6 +10,7 @@
 		14CCCFCB9F1F4C51A34244FD /* libPods-BetweenKit.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 6ED897CA3FFE4D2C80F8598E /* libPods-BetweenKit.a */; };
 		4633303D1A194AEB00EBE25D /* I3DragDataSourceFixtures.m in Sources */ = {isa = PBXBuildFile; fileRef = 4633303C1A194AEB00EBE25D /* I3DragDataSourceFixtures.m */; };
 		4633303F1A194BC800EBE25D /* I3CollectionFixture.m in Sources */ = {isa = PBXBuildFile; fileRef = 4633303E1A194BC800EBE25D /* I3CollectionFixture.m */; };
+		463330411A1A205B00EBE25D /* UITableView+I3Collection.m in Sources */ = {isa = PBXBuildFile; fileRef = 463330401A1A205B00EBE25D /* UITableView+I3Collection.m */; };
 		467AFC8619C5E20D00FFD1F4 /* LICENSE.md in Resources */ = {isa = PBXBuildFile; fileRef = 467AFC8519C5E20D00FFD1F4 /* LICENSE.md */; };
 		467AFC8819C5F0F000FFD1F4 /* I3GestureCoordinatorTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 467AFC8719C5F0F000FFD1F4 /* I3GestureCoordinatorTests.m */; };
 		46866CFB19D42E1E00C45CCD /* I3DragArenaTest.m in Sources */ = {isa = PBXBuildFile; fileRef = 46866CFA19D42E1E00C45CCD /* I3DragArenaTest.m */; };
@@ -50,6 +51,7 @@
 		4633303B1A194AEB00EBE25D /* I3DragDataSourceFixtures.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = I3DragDataSourceFixtures.h; sourceTree = "<group>"; };
 		4633303C1A194AEB00EBE25D /* I3DragDataSourceFixtures.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = I3DragDataSourceFixtures.m; sourceTree = "<group>"; };
 		4633303E1A194BC800EBE25D /* I3CollectionFixture.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = I3CollectionFixture.m; sourceTree = "<group>"; };
+		463330401A1A205B00EBE25D /* UITableView+I3Collection.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UITableView+I3Collection.m"; sourceTree = "<group>"; };
 		467AFC8519C5E20D00FFD1F4 /* LICENSE.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = LICENSE.md; path = ../LICENSE.md; sourceTree = "<group>"; };
 		467AFC8719C5F0F000FFD1F4 /* I3GestureCoordinatorTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = I3GestureCoordinatorTests.m; sourceTree = "<group>"; };
 		46866CFA19D42E1E00C45CCD /* I3DragArenaTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = I3DragArenaTest.m; sourceTree = "<group>"; };
@@ -199,6 +201,7 @@
 				46B5AAA219CE433200A51694 /* I3TableViewTests.m */,
 				46A1877F19CF5DC20061B355 /* I3CloneViewTest.m */,
 				46866CFA19D42E1E00C45CCD /* I3DragArenaTest.m */,
+				463330401A1A205B00EBE25D /* UITableView+I3Collection.m */,
 			);
 			path = Tests;
 			sourceTree = "<group>";
@@ -412,6 +415,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				46A1878019CF5DC20061B355 /* I3CloneViewTest.m in Sources */,
+				463330411A1A205B00EBE25D /* UITableView+I3Collection.m in Sources */,
 				467AFC8819C5F0F000FFD1F4 /* I3GestureCoordinatorTests.m in Sources */,
 				4633303F1A194BC800EBE25D /* I3CollectionFixture.m in Sources */,
 				46866CFB19D42E1E00C45CCD /* I3DragArenaTest.m in Sources */,
