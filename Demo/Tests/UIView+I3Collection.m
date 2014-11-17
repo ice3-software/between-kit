@@ -37,6 +37,23 @@ SpecBegin(UIViewI3Collection)
             expect([view itemAtPoint:CGPointMake(5, 25)]).to.equal(subview3);
             
         });
+        
+        it(@"should return the top-most intersecting subview", ^{
+        
+            id view = OCMPartialMock([[UIView alloc] initWithFrame:CGRectMake(0, 0, 10, 30)]);
+            
+            UIView *subview1 = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 10, 10)];
+            UIView *subview2 = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 10, 20)];
+            UIView *subview3 = [[UIView alloc] initWithFrame:CGRectMake(0, 10, 10, 20)];
+            
+            [view addSubview:subview1];
+            [view addSubview:subview2];
+            [view addSubview:subview3];
+            
+            expect([view itemAtPoint:CGPointMake(5, 5)]).to.equal(subview1);
+            expect([view itemAtPoint:CGPointMake(5, 15)]).to.equal(subview2);
+
+        });
 
     });
 
