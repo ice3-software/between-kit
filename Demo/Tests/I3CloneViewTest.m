@@ -39,6 +39,13 @@ SpecBegin(I3CloneView)
             expect(view.frame).to.equal(sourceView.frame);
             
         });
+        
+        it(@"should itself and the sourceView to be not opaque", ^{
+            
+            expect(view.opaque).to.beFalsy();
+            expect(view.sourceView.opaque).to.beFalsy();
+            
+        });
     
     });
 

@@ -28,6 +28,9 @@
     if(self){
         
         _sourceView = sourceView;
+        _sourceView.opaque = NO;
+        
+        self.opaque = NO;
         
     }
     
