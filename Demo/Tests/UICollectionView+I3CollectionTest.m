@@ -6,7 +6,6 @@
 //  Copyright (c) 2014 stephen fortune. All rights reserved.
 //
 
-#import <UIKit/UIKit.h>
 #import <BetweenKit/UICollectionView+I3Collection.h>
 
 
