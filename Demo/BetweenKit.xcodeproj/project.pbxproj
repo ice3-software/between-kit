@@ -228,11 +228,11 @@
 			name = "Dynamically Adding / Removing Collections";
 			sourceTree = "<group>";
 		};
-		467B351C1A1F5C410000A77C /* Custom Rendere Delegates */ = {
+		467B351C1A1F5C410000A77C /* Custom Render Delegates */ = {
 			isa = PBXGroup;
 			children = (
 			);
-			name = "Custom Rendere Delegates";
+			name = "Custom Render Delegates";
 			sourceTree = "<group>";
 		};
 		467B351D1A1F5C540000A77C /* Custom Gesture Recognition */ = {
@@ -242,11 +242,19 @@
 			name = "Custom Gesture Recognition";
 			sourceTree = "<group>";
 		};
+		467B351E1A1F5DCF0000A77C /* Complex Cells and Custom Render Delegate */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = "Complex Cells and Custom Render Delegate";
+			sourceTree = "<group>";
+		};
 		4694A4B31A1A3DCE00E0AB9B /* Use Cases */ = {
 			isa = PBXGroup;
 			children = (
+				467B351E1A1F5DCF0000A77C /* Complex Cells and Custom Render Delegate */,
 				467B351D1A1F5C540000A77C /* Custom Gesture Recognition */,
-				467B351C1A1F5C410000A77C /* Custom Rendere Delegates */,
+				467B351C1A1F5C410000A77C /* Custom Render Delegates */,
 				467B351B1A1F5BCC0000A77C /* Dynamically Adding / Removing Collections */,
 				467B351A1A1F5B980000A77C /* Split View Controller */,
 				467B35191A1F5B580000A77C /* Networking */,
