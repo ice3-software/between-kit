@@ -123,9 +123,145 @@
 			name = "2 Tables - Rearrangeable";
 			sourceTree = "<group>";
 		};
+		467B350D1A1F5A1E0000A77C /* 2 Tables - Exchangeable */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = "2 Tables - Exchangeable";
+			sourceTree = "<group>";
+		};
+		467B350E1A1F5A340000A77C /* 2 Tables - Deleteable */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = "2 Tables - Deleteable";
+			sourceTree = "<group>";
+		};
+		467B350F1A1F5A410000A77C /* 2 Tables - All Draggable Properties */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = "2 Tables - All Draggable Properties";
+			sourceTree = "<group>";
+		};
+		467B35101A1F5A520000A77C /* 3 Collections - Complex Configuration */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = "3 Collections - Complex Configuration";
+			sourceTree = "<group>";
+		};
+		467B35111A1F5A770000A77C /* 3 Collections - Dynamic Data Source */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = "3 Collections - Dynamic Data Source";
+			sourceTree = "<group>";
+		};
+		467B35121A1F5A950000A77C /* 2 Collection VIews - All Draggable Properties */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = "2 Collection VIews - All Draggable Properties";
+			sourceTree = "<group>";
+		};
+		467B35131A1F5AC10000A77C /* 2 Collection Views - Complex Configuration */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = "2 Collection Views - Complex Configuration";
+			sourceTree = "<group>";
+		};
+		467B35141A1F5ACC0000A77C /* 2 Collection Views - Exchangeable */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = "2 Collection Views - Exchangeable";
+			sourceTree = "<group>";
+		};
+		467B35151A1F5AD90000A77C /* 2 Collectoin Views - Rearrangeable */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = "2 Collectoin Views - Rearrangeable";
+			sourceTree = "<group>";
+		};
+		467B35161A1F5AE50000A77C /* 1 Table 1 Collection View - Editable / Moveable */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = "1 Table 1 Collection View - Editable / Moveable";
+			sourceTree = "<group>";
+		};
+		467B35171A1F5B170000A77C /* Paint Me */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = "Paint Me";
+			sourceTree = "<group>";
+		};
+		467B35181A1F5B210000A77C /* Fluid UI */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = "Fluid UI";
+			sourceTree = "<group>";
+		};
+		467B35191A1F5B580000A77C /* Networking */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = Networking;
+			sourceTree = "<group>";
+		};
+		467B351A1A1F5B980000A77C /* Split View Controller */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = "Split View Controller";
+			sourceTree = "<group>";
+		};
+		467B351B1A1F5BCC0000A77C /* Dynamically Adding / Removing Collections */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = "Dynamically Adding / Removing Collections";
+			sourceTree = "<group>";
+		};
+		467B351C1A1F5C410000A77C /* Custom Rendere Delegates */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = "Custom Rendere Delegates";
+			sourceTree = "<group>";
+		};
+		467B351D1A1F5C540000A77C /* Custom Gesture Recognition */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = "Custom Gesture Recognition";
+			sourceTree = "<group>";
+		};
 		4694A4B31A1A3DCE00E0AB9B /* Use Cases */ = {
 			isa = PBXGroup;
 			children = (
+				467B351D1A1F5C540000A77C /* Custom Gesture Recognition */,
+				467B351C1A1F5C410000A77C /* Custom Rendere Delegates */,
+				467B351B1A1F5BCC0000A77C /* Dynamically Adding / Removing Collections */,
+				467B351A1A1F5B980000A77C /* Split View Controller */,
+				467B35191A1F5B580000A77C /* Networking */,
+				467B35181A1F5B210000A77C /* Fluid UI */,
+				467B35171A1F5B170000A77C /* Paint Me */,
+				467B35161A1F5AE50000A77C /* 1 Table 1 Collection View - Editable / Moveable */,
+				467B35151A1F5AD90000A77C /* 2 Collectoin Views - Rearrangeable */,
+				467B35141A1F5ACC0000A77C /* 2 Collection Views - Exchangeable */,
+				467B35131A1F5AC10000A77C /* 2 Collection Views - Complex Configuration */,
+				467B35121A1F5A950000A77C /* 2 Collection VIews - All Draggable Properties */,
+				467B35111A1F5A770000A77C /* 3 Collections - Dynamic Data Source */,
+				467B35101A1F5A520000A77C /* 3 Collections - Complex Configuration */,
+				467B350F1A1F5A410000A77C /* 2 Tables - All Draggable Properties */,
+				467B350E1A1F5A340000A77C /* 2 Tables - Deleteable */,
+				467B350D1A1F5A1E0000A77C /* 2 Tables - Exchangeable */,
 				4632574219E5DE3A00E1C633 /* 2 Tables - Rearrangeable */,
 			);
 			name = "Use Cases";

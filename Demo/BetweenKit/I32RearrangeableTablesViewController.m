@@ -115,18 +115,9 @@ static NSString* DequeueReusableCell = @"DequeueReusableCell";
 
 #pragma mark - I3DragDataSource
 
--(BOOL) canItemAtPoint:(CGPoint) from beDeletedIfDroppedOutsideOfCollection:(id<I3Collection>) collection atPoint:(CGPoint) to{
-    return YES;
-}
-
--(BOOL) canItemAtPoint:(CGPoint) from fromCollection:(id<I3Collection>) fromCollection beDroppedToPoint:(CGPoint) to inCollection:(id<I3Collection>) collection{
-    return YES;
-}
-
 -(BOOL) canItemBeDraggedAtPoint:(CGPoint) at inCollection:(id<I3Collection>) collection{
     return YES;
 }
-
 
 -(BOOL) canItemFromPoint:(CGPoint)from beRearrangedWithItemAtPoint:(CGPoint)to inCollection:(id<I3Collection>)collection{
     return YES;
