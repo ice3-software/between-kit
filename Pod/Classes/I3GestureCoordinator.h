@@ -138,4 +138,17 @@
 -(void) handlePan:(UIPanGestureRecognizer*) gestureRecognizer;
 
 
+
+/**
+ 
+ Helper factory method for setting up a basic coordinator for a controller. Sets the environment
+ up with a basic drag render, a new coordinator, and an area spanning the controller's main
+ view.
+ 
+ @param  viewController      UIViewController*
+ @return UIViewController*
+ 
+ */
++(instancetype) basicGestureCoordinatorFromViewController:(UIViewController *)viewController;
+
 @end

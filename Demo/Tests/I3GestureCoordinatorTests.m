@@ -7,9 +7,10 @@
 //
 
 #import <BetweenKit/I3GestureCoordinator.h>
+#import <BetweenKit/I3BasicRenderDelegate.h>
 #import "I3DragDataSourceFixtures.h"
 #import "I3CollectionFixture.h"
-
+#import "I3DataSourceControllerFixture.h"
 
 
 SpecBegin(I3GestureCoordinator)
@@ -766,6 +767,43 @@ SpecBegin(I3GestureCoordinator)
                 OCMVerify([renderDelegate renderDraggingFromCoordinator:coordinator]);
                 
             });
+            
+        });
+        
+    });
+
+
+    describe(@"basic facotry class method", ^{
+
+        it(@"should create a new coodinator", ^{
+            
+            expect([I3GestureCoordinator basicGestureCoordinatorFromViewController:[[UIViewController alloc] init]]).to.beInstanceOf([I3GestureCoordinator class]);
+            
+        });
+        
+        it(@"should create a new coordinator with a basic drag render delegate", ^{
+
+            I3GestureCoordinator *coordinator = [I3GestureCoordinator basicGestureCoordinatorFromViewController:[[UIViewController alloc] init]];
+
+            expect(coordinator.renderDelegate).to.beInstanceOf([I3BasicRenderDelegate class]);
+            
+        });
+        
+        it(@"should set the controller as the gesture's data source if it conforms to protocol", ^{
+        
+            I3DataSourceControllerFixture *controller = [[I3DataSourceControllerFixture alloc] init];
+            I3GestureCoordinator *coordinator = [I3GestureCoordinator basicGestureCoordinatorFromViewController:controller];
+            
+            expect(coordinator.dragDataSource).to.equal(controller);
+            
+        });
+        
+        it(@"should set up arena with the controller's main view as the superview", ^{
+        
+            UIViewController *controller = [[UIViewController alloc] init];
+            I3GestureCoordinator *coordinator = [I3GestureCoordinator basicGestureCoordinatorFromViewController:controller];
+            
+            expect(coordinator.arena.superview).to.equal(controller.view);
             
         });
         
