@@ -262,8 +262,8 @@
 
     }
     else if(
-        !isRearrange &&
         destinationItemView &&
+        !isRearrange &&
         [self.dragDataSource respondsToSelector:@selector(canItemAtPoint:fromCollection:beExchangedWithItemAtPoint:inCollection:)] &&
         [self.dragDataSource respondsToSelector:@selector(exchangeItemAtPoint:inCollection:withItemAtPoint:inCollection:)] &&
         [self.dragDataSource canItemAtPoint:self.currentDragOrigin fromCollection:self.currentDraggingCollection beExchangedWithItemAtPoint:at inCollection:to]
@@ -276,7 +276,6 @@
     }
     else if(
         !isRearrange &&
-        !destinationItemView &&
         [self.dragDataSource respondsToSelector:@selector(canItemAtPoint:fromCollection:beAppendedToCollection:atPoint:)] &&
         [self.dragDataSource respondsToSelector:@selector(appendItemAtPoint:fromCollection:toPoint:onCollection:)] &&
         [self.dragDataSource canItemAtPoint:self.currentDragOrigin fromCollection:self.currentDraggingCollection beAppendedToCollection:to atPoint:at]
