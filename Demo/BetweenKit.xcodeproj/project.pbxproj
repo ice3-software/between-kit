@@ -10,12 +10,14 @@
 		14CCCFCB9F1F4C51A34244FD /* libPods-BetweenKit.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 6ED897CA3FFE4D2C80F8598E /* libPods-BetweenKit.a */; };
 		4633303D1A194AEB00EBE25D /* I3DragDataSourceFixtures.m in Sources */ = {isa = PBXBuildFile; fileRef = 4633303C1A194AEB00EBE25D /* I3DragDataSourceFixtures.m */; };
 		4633303F1A194BC800EBE25D /* I3CollectionFixture.m in Sources */ = {isa = PBXBuildFile; fileRef = 4633303E1A194BC800EBE25D /* I3CollectionFixture.m */; };
+		463330411A1A205B00EBE25D /* UITableView+I3CollectionTest.m in Sources */ = {isa = PBXBuildFile; fileRef = 463330401A1A205B00EBE25D /* UITableView+I3CollectionTest.m */; };
+		463330461A1A299100EBE25D /* UICollectionView+I3CollectionTest.m in Sources */ = {isa = PBXBuildFile; fileRef = 463330451A1A299100EBE25D /* UICollectionView+I3CollectionTest.m */; };
 		467AFC8619C5E20D00FFD1F4 /* LICENSE.md in Resources */ = {isa = PBXBuildFile; fileRef = 467AFC8519C5E20D00FFD1F4 /* LICENSE.md */; };
 		467AFC8819C5F0F000FFD1F4 /* I3GestureCoordinatorTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 467AFC8719C5F0F000FFD1F4 /* I3GestureCoordinatorTests.m */; };
 		46866CFB19D42E1E00C45CCD /* I3DragArenaTest.m in Sources */ = {isa = PBXBuildFile; fileRef = 46866CFA19D42E1E00C45CCD /* I3DragArenaTest.m */; };
+		4694A4AF1A1A317900E0AB9B /* UIView+I3Collection.m in Sources */ = {isa = PBXBuildFile; fileRef = 4694A4AE1A1A317900E0AB9B /* UIView+I3Collection.m */; };
 		46A1877B19CF46A20061B355 /* I3BasicRenderDelegateTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 46A1877A19CF46A20061B355 /* I3BasicRenderDelegateTests.m */; };
 		46A1878019CF5DC20061B355 /* I3CloneViewTest.m in Sources */ = {isa = PBXBuildFile; fileRef = 46A1877F19CF5DC20061B355 /* I3CloneViewTest.m */; };
-		46B5AAA319CE433200A51694 /* I3TableViewTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 46B5AAA219CE433200A51694 /* I3TableViewTests.m */; };
 		6003F58E195388D20070C39A /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6003F58D195388D20070C39A /* Foundation.framework */; };
 		6003F590195388D20070C39A /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6003F58F195388D20070C39A /* CoreGraphics.framework */; };
 		6003F592195388D20070C39A /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6003F591195388D20070C39A /* UIKit.framework */; };
@@ -50,12 +52,14 @@
 		4633303B1A194AEB00EBE25D /* I3DragDataSourceFixtures.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = I3DragDataSourceFixtures.h; sourceTree = "<group>"; };
 		4633303C1A194AEB00EBE25D /* I3DragDataSourceFixtures.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = I3DragDataSourceFixtures.m; sourceTree = "<group>"; };
 		4633303E1A194BC800EBE25D /* I3CollectionFixture.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = I3CollectionFixture.m; sourceTree = "<group>"; };
+		463330401A1A205B00EBE25D /* UITableView+I3CollectionTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UITableView+I3CollectionTest.m"; sourceTree = "<group>"; };
+		463330451A1A299100EBE25D /* UICollectionView+I3CollectionTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UICollectionView+I3CollectionTest.m"; sourceTree = "<group>"; };
 		467AFC8519C5E20D00FFD1F4 /* LICENSE.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = LICENSE.md; path = ../LICENSE.md; sourceTree = "<group>"; };
 		467AFC8719C5F0F000FFD1F4 /* I3GestureCoordinatorTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = I3GestureCoordinatorTests.m; sourceTree = "<group>"; };
 		46866CFA19D42E1E00C45CCD /* I3DragArenaTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = I3DragArenaTest.m; sourceTree = "<group>"; };
+		4694A4AE1A1A317900E0AB9B /* UIView+I3Collection.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIView+I3Collection.m"; sourceTree = "<group>"; };
 		46A1877A19CF46A20061B355 /* I3BasicRenderDelegateTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = I3BasicRenderDelegateTests.m; sourceTree = "<group>"; };
 		46A1877F19CF5DC20061B355 /* I3CloneViewTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = I3CloneViewTest.m; sourceTree = "<group>"; };
-		46B5AAA219CE433200A51694 /* I3TableViewTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = I3TableViewTests.m; sourceTree = "<group>"; };
 		542B21470EB3452C810F4621 /* BetweenKit.podspec */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; name = BetweenKit.podspec; path = ../BetweenKit.podspec; sourceTree = "<group>"; };
 		6003F58A195388D20070C39A /* BetweenKit.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = BetweenKit.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		6003F58D195388D20070C39A /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
@@ -110,13 +114,165 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		4632574219E5DE3A00E1C633 /* Example Case 1 */ = {
+		4632574219E5DE3A00E1C633 /* 2 Tables - Rearrangeable */ = {
 			isa = PBXGroup;
 			children = (
 				6003F5A5195388D20070C39A /* I32RearrangeableTablesViewController.h */,
 				6003F5A6195388D20070C39A /* I32RearrangeableTablesViewController.m */,
 			);
-			name = "Example Case 1";
+			name = "2 Tables - Rearrangeable";
+			sourceTree = "<group>";
+		};
+		467B350D1A1F5A1E0000A77C /* 2 Tables - Exchangeable */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = "2 Tables - Exchangeable";
+			sourceTree = "<group>";
+		};
+		467B350E1A1F5A340000A77C /* 2 Tables - Deleteable */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = "2 Tables - Deleteable";
+			sourceTree = "<group>";
+		};
+		467B350F1A1F5A410000A77C /* 2 Tables - All Draggable Properties */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = "2 Tables - All Draggable Properties";
+			sourceTree = "<group>";
+		};
+		467B35101A1F5A520000A77C /* 3 Collections - Complex Configuration */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = "3 Collections - Complex Configuration";
+			sourceTree = "<group>";
+		};
+		467B35111A1F5A770000A77C /* 3 Collections - Dynamic Data Source */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = "3 Collections - Dynamic Data Source";
+			sourceTree = "<group>";
+		};
+		467B35121A1F5A950000A77C /* 2 Collection VIews - All Draggable Properties */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = "2 Collection VIews - All Draggable Properties";
+			sourceTree = "<group>";
+		};
+		467B35131A1F5AC10000A77C /* 2 Collection Views - Complex Configuration */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = "2 Collection Views - Complex Configuration";
+			sourceTree = "<group>";
+		};
+		467B35141A1F5ACC0000A77C /* 2 Collection Views - Exchangeable */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = "2 Collection Views - Exchangeable";
+			sourceTree = "<group>";
+		};
+		467B35151A1F5AD90000A77C /* 2 Collectoin Views - Rearrangeable */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = "2 Collectoin Views - Rearrangeable";
+			sourceTree = "<group>";
+		};
+		467B35161A1F5AE50000A77C /* 1 Table 1 Collection View - Editable / Moveable */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = "1 Table 1 Collection View - Editable / Moveable";
+			sourceTree = "<group>";
+		};
+		467B35171A1F5B170000A77C /* Paint Me */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = "Paint Me";
+			sourceTree = "<group>";
+		};
+		467B35181A1F5B210000A77C /* Fluid UI */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = "Fluid UI";
+			sourceTree = "<group>";
+		};
+		467B35191A1F5B580000A77C /* Networking */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = Networking;
+			sourceTree = "<group>";
+		};
+		467B351A1A1F5B980000A77C /* Split View Controller */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = "Split View Controller";
+			sourceTree = "<group>";
+		};
+		467B351B1A1F5BCC0000A77C /* Dynamically Adding / Removing Collections */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = "Dynamically Adding / Removing Collections";
+			sourceTree = "<group>";
+		};
+		467B351C1A1F5C410000A77C /* Custom Render Delegates */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = "Custom Render Delegates";
+			sourceTree = "<group>";
+		};
+		467B351D1A1F5C540000A77C /* Custom Gesture Recognition */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = "Custom Gesture Recognition";
+			sourceTree = "<group>";
+		};
+		467B351E1A1F5DCF0000A77C /* Complex Cells and Custom Render Delegate */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = "Complex Cells and Custom Render Delegate";
+			sourceTree = "<group>";
+		};
+		4694A4B31A1A3DCE00E0AB9B /* Use Cases */ = {
+			isa = PBXGroup;
+			children = (
+				467B351E1A1F5DCF0000A77C /* Complex Cells and Custom Render Delegate */,
+				467B351D1A1F5C540000A77C /* Custom Gesture Recognition */,
+				467B351C1A1F5C410000A77C /* Custom Render Delegates */,
+				467B351B1A1F5BCC0000A77C /* Dynamically Adding / Removing Collections */,
+				467B351A1A1F5B980000A77C /* Split View Controller */,
+				467B35191A1F5B580000A77C /* Networking */,
+				467B35181A1F5B210000A77C /* Fluid UI */,
+				467B35171A1F5B170000A77C /* Paint Me */,
+				467B35161A1F5AE50000A77C /* 1 Table 1 Collection View - Editable / Moveable */,
+				467B35151A1F5AD90000A77C /* 2 Collectoin Views - Rearrangeable */,
+				467B35141A1F5ACC0000A77C /* 2 Collection Views - Exchangeable */,
+				467B35131A1F5AC10000A77C /* 2 Collection Views - Complex Configuration */,
+				467B35121A1F5A950000A77C /* 2 Collection VIews - All Draggable Properties */,
+				467B35111A1F5A770000A77C /* 3 Collections - Dynamic Data Source */,
+				467B35101A1F5A520000A77C /* 3 Collections - Complex Configuration */,
+				467B350F1A1F5A410000A77C /* 2 Tables - All Draggable Properties */,
+				467B350E1A1F5A340000A77C /* 2 Tables - Deleteable */,
+				467B350D1A1F5A1E0000A77C /* 2 Tables - Exchangeable */,
+				4632574219E5DE3A00E1C633 /* 2 Tables - Rearrangeable */,
+			);
+			name = "Use Cases";
 			sourceTree = "<group>";
 		};
 		46B5AA8619CE192600A51694 /* Fixtures */ = {
@@ -167,7 +323,7 @@
 		6003F593195388D20070C39A /* BetweenKit */ = {
 			isa = PBXGroup;
 			children = (
-				4632574219E5DE3A00E1C633 /* Example Case 1 */,
+				4694A4B31A1A3DCE00E0AB9B /* Use Cases */,
 				6003F59C195388D20070C39A /* I3AppDelegate.h */,
 				6003F59D195388D20070C39A /* I3AppDelegate.m */,
 				6003F59F195388D20070C39A /* Main_iPhone.storyboard */,
@@ -196,9 +352,11 @@
 				6003F5B6195388D20070C39A /* Supporting Files */,
 				467AFC8719C5F0F000FFD1F4 /* I3GestureCoordinatorTests.m */,
 				46A1877A19CF46A20061B355 /* I3BasicRenderDelegateTests.m */,
-				46B5AAA219CE433200A51694 /* I3TableViewTests.m */,
 				46A1877F19CF5DC20061B355 /* I3CloneViewTest.m */,
 				46866CFA19D42E1E00C45CCD /* I3DragArenaTest.m */,
+				463330401A1A205B00EBE25D /* UITableView+I3CollectionTest.m */,
+				463330451A1A299100EBE25D /* UICollectionView+I3CollectionTest.m */,
+				4694A4AE1A1A317900E0AB9B /* UIView+I3Collection.m */,
 			);
 			path = Tests;
 			sourceTree = "<group>";
@@ -412,12 +570,14 @@
 			buildActionMask = 2147483647;
 			files = (
 				46A1878019CF5DC20061B355 /* I3CloneViewTest.m in Sources */,
+				463330411A1A205B00EBE25D /* UITableView+I3CollectionTest.m in Sources */,
 				467AFC8819C5F0F000FFD1F4 /* I3GestureCoordinatorTests.m in Sources */,
 				4633303F1A194BC800EBE25D /* I3CollectionFixture.m in Sources */,
 				46866CFB19D42E1E00C45CCD /* I3DragArenaTest.m in Sources */,
 				46A1877B19CF46A20061B355 /* I3BasicRenderDelegateTests.m in Sources */,
-				46B5AAA319CE433200A51694 /* I3TableViewTests.m in Sources */,
+				463330461A1A299100EBE25D /* UICollectionView+I3CollectionTest.m in Sources */,
 				4633303D1A194AEB00EBE25D /* I3DragDataSourceFixtures.m in Sources */,
+				4694A4AF1A1A317900E0AB9B /* UIView+I3Collection.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

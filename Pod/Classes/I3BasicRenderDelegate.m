@@ -76,6 +76,12 @@
 
     _draggingView = nil;
     
+    if(
+       [coordinator.dragDataSource respondsToSelector:@selector(hidesItemWhileDraggingAtPoint:inCollection:)] &&
+       [coordinator.dragDataSource hidesItemWhileDraggingAtPoint:coordinator.currentDragOrigin inCollection:coordinator.currentDraggingCollection]
+       ){
+        sourceView.alpha = 1;
+    }
 }
 
 

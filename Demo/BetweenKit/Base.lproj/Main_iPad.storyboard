@@ -17,20 +17,20 @@
                         <rect key="frame" x="0.0" y="0.0" width="768" height="1024"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <subviews>
-                            <tableView clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" translatesAutoresizingMaskIntoConstraints="NO" id="FRx-g6-prY" customClass="I3TableView">
-                                <rect key="frame" x="0.0" y="0.0" width="380" height="896"/>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" translatesAutoresizingMaskIntoConstraints="NO" id="FRx-g6-prY">
+                                <rect key="frame" x="0.0" y="0.0" width="377" height="975"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <connections>
                                     <outlet property="dataSource" destination="gtt-hI-lGJ" id="dto-s0-acq"/>
                                     <outlet property="delegate" destination="gtt-hI-lGJ" id="7Hk-Fp-3Dt"/>
                                 </connections>
                             </tableView>
-                            <tableView clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" translatesAutoresizingMaskIntoConstraints="NO" id="VFs-Kd-bDC" customClass="I3TableView">
-                                <rect key="frame" x="388" y="0.0" width="380" height="380"/>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" translatesAutoresizingMaskIntoConstraints="NO" id="TEJ-nY-Skh">
+                                <rect key="frame" x="391" y="0.0" width="377" height="975"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <connections>
-                                    <outlet property="dataSource" destination="gtt-hI-lGJ" id="fhF-2M-A3i"/>
-                                    <outlet property="delegate" destination="gtt-hI-lGJ" id="3JO-Or-T4U"/>
+                                    <outlet property="dataSource" destination="gtt-hI-lGJ" id="kn7-Oj-xzl"/>
+                                    <outlet property="delegate" destination="gtt-hI-lGJ" id="fY1-gP-Mgm"/>
                                 </connections>
                             </tableView>
                         </subviews>
@@ -39,7 +39,7 @@
                     <tabBarItem key="tabBarItem" title="Item 1" id="7au-5E-dxY"/>
                     <connections>
                         <outlet property="leftTableView" destination="FRx-g6-prY" id="r7w-e0-6Q4"/>
-                        <outlet property="rightTableView" destination="VFs-Kd-bDC" id="7u7-Wo-Ncm"/>
+                        <outlet property="rightTableView" destination="TEJ-nY-Skh" id="AsD-GG-SIL"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="NxQ-0S-cWi" userLabel="First Responder" sceneMemberID="firstResponder"/>

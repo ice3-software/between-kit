@@ -189,6 +189,17 @@ SpecBegin(I3BasicRenderDelegate)
                 
             });
             
+            it(@"should unhide the dragging item if required by the data source", ^{
+            
+                OCMStub([dragDataSource hidesItemWhileDraggingAtPoint:dragOrigin inCollection:currentDraggingCollection]).andReturn(YES);
+                
+                [renderDelegate renderDragStart:coordinator];
+                [renderDelegate renderResetFromPoint:dragOrigin fromCoordinator:coordinator];
+                
+                expect(draggingItem.alpha).to.equal(1);
+                
+            });
+            
         });
         
         
