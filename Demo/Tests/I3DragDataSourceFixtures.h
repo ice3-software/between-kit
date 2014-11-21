@@ -26,9 +26,17 @@
 @end
 
 
-@interface I3DragDataSourceJustCanDrop : NSObject <I3DragDataSource>
+@interface I3DragDataSourceJustCanExchange : NSObject <I3DragDataSource>
 @end
 
 
-@interface I3DragDataSourceJustDrop : NSObject <I3DragDataSource>
+@interface I3DragDataSourceJustExchange : NSObject <I3DragDataSource>
+@end
+
+
+@interface I3DragDataSourceJustCanAppend : NSObject <I3DragDataSource>
+@end
+
+
+@interface I3DragDataSourceJustAppend : NSObject <I3DragDataSource>
 @end

@@ -64,13 +64,13 @@
 
 
 
-@implementation I3DragDataSourceJustCanDrop
+@implementation I3DragDataSourceJustCanExchange
 
 -(BOOL) canItemBeDraggedAtPoint:(CGPoint) at inCollection:(id<I3Collection>) collection{
     return YES;
 }
 
--(BOOL) canItemAtPoint:(CGPoint) from fromCollection:(id<I3Collection>) fromCollection beDroppedToPoint:(CGPoint) to inCollection:(id<I3Collection>) collection{
+-(BOOL) canItemAtPoint:(CGPoint)from fromCollection:(id<I3Collection>)fromCollection beExchangedWithItemAtPoint:(CGPoint)to inCollection:(id<I3Collection>)toCollection{
     return YES;
 }
 
@@ -78,13 +78,40 @@
 
 
 
-@implementation I3DragDataSourceJustDrop
+@implementation I3DragDataSourceJustExchange
 
 -(BOOL) canItemBeDraggedAtPoint:(CGPoint) at inCollection:(id<I3Collection>) collection{
     return YES;
 }
 
--(void) dropItemAtPoint:(CGPoint) from fromCollection:(id<I3Collection>) fromCollection toPoint:(CGPoint) to inCollection:(id<I3Collection>) toCollection{
+-(void) exchangeItemAtPoint:(CGPoint)from inCollection:(id<I3Collection>)fromCollection withItemAtPoint:(CGPoint)to inCollection:(id<I3Collection>)toCollection{
+}
+
+@end
+
+
+
+@implementation I3DragDataSourceJustCanAppend
+
+-(BOOL) canItemBeDraggedAtPoint:(CGPoint) at inCollection:(id<I3Collection>) collection{
+    return YES;
+}
+
+-(BOOL) canItemAtPoint:(CGPoint)from fromCollection:(id<I3Collection>)fromCollection beAppendedToCollection:(id<I3Collection>)toCollection atPoint:(CGPoint)to{
+    return YES;
+}
+
+@end
+
+
+
+@implementation I3DragDataSourceJustAppend
+
+-(BOOL) canItemBeDraggedAtPoint:(CGPoint) at inCollection:(id<I3Collection>) collection{
+    return YES;
+}
+
+-(void) appendItemAtPoint:(CGPoint)from fromCollection:(id<I3Collection>)fromCollection toPoint:(CGPoint)to onCollection:(id<I3Collection>)onCollection{
 }
 
 @end
