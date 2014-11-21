@@ -777,13 +777,13 @@ SpecBegin(I3GestureCoordinator)
 
         it(@"should create a new coodinator", ^{
             
-            expect([I3GestureCoordinator basicGestureCoordinatorFromViewController:[[UIViewController alloc] init]]).to.beInstanceOf([I3GestureCoordinator class]);
+            expect([I3GestureCoordinator basicGestureCoordinatorFromViewController:[[UIViewController alloc] init] withCollections:nil]).to.beInstanceOf([I3GestureCoordinator class]);
             
         });
         
         it(@"should create a new coordinator with a basic drag render delegate", ^{
 
-            I3GestureCoordinator *coordinator = [I3GestureCoordinator basicGestureCoordinatorFromViewController:[[UIViewController alloc] init]];
+            I3GestureCoordinator *coordinator = [I3GestureCoordinator basicGestureCoordinatorFromViewController:[[UIViewController alloc] init] withCollections:nil];
 
             expect(coordinator.renderDelegate).to.beInstanceOf([I3BasicRenderDelegate class]);
             
@@ -792,7 +792,7 @@ SpecBegin(I3GestureCoordinator)
         it(@"should set the controller as the gesture's data source if it conforms to protocol", ^{
         
             I3DataSourceControllerFixture *controller = [[I3DataSourceControllerFixture alloc] init];
-            I3GestureCoordinator *coordinator = [I3GestureCoordinator basicGestureCoordinatorFromViewController:controller];
+            I3GestureCoordinator *coordinator = [I3GestureCoordinator basicGestureCoordinatorFromViewController:controller withCollections:nil];
             
             expect(coordinator.dragDataSource).to.equal(controller);
             
@@ -801,10 +801,24 @@ SpecBegin(I3GestureCoordinator)
         it(@"should set up arena with the controller's main view as the superview", ^{
         
             UIViewController *controller = [[UIViewController alloc] init];
-            I3GestureCoordinator *coordinator = [I3GestureCoordinator basicGestureCoordinatorFromViewController:controller];
+            I3GestureCoordinator *coordinator = [I3GestureCoordinator basicGestureCoordinatorFromViewController:controller withCollections:nil];
             
             expect(coordinator.arena.superview).to.equal(controller.view);
             
+        });
+        
+        it(@"should set up the arena with collections", ^{
+        
+            id collection1 = [[I3CollectionFixture alloc] init];
+            id collection2 = [[I3CollectionFixture alloc] init];
+            id collection3 = [[I3CollectionFixture alloc] init];
+            
+            UIViewController *controller = [[UIViewController alloc] init];
+            I3GestureCoordinator *coordinator = [I3GestureCoordinator basicGestureCoordinatorFromViewController:controller withCollections:@[collection1, collection2, collection3]];
+            
+            expect([coordinator.arena.collections containsObject:collection1]).to.beTruthy();
+            expect([coordinator.arena.collections containsObject:collection2]).to.beTruthy();
+            expect([coordinator.arena.collections containsObject:collection3]).to.beTruthy();
         });
         
     });

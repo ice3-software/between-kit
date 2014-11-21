@@ -84,8 +84,18 @@
  has been no render delegate injected into the coordinator yet a render event occurs, because we
  know exactly what will happen.
  
+ @note This is a strong reference to the delegate object because in most cases, we don't want
+ to be responsible for retaining a reference to it. A common example ...
+ 
+    coordinator.renderDelegate = [[I3BasicRenderDelegate alloc] init];
+ 
+ which, if we didn't retain the renderer here, wouldn't work out. Another note is that at present,
+ I can't seem any reason why a render delegate should ever retain a strong reference to a coordinator.
+ The coordinator is passed by parameter to the render methods - there shouldn't really be a massive
+ risk of retain cycles.
+ 
  */
-@property (nonatomic, weak) id<I3DragRenderDelegate> renderDelegate;
+@property (nonatomic, strong) id<I3DragRenderDelegate> renderDelegate;
 
 
 /**
@@ -146,9 +156,10 @@
  view.
  
  @param  viewController      UIViewController*
+ @param  collection          NSArray*
  @return UIViewController*
  
  */
-+(instancetype) basicGestureCoordinatorFromViewController:(UIViewController *)viewController;
++(instancetype) basicGestureCoordinatorFromViewController:(UIViewController *)viewController withCollections:(NSArray *)collections;
 
 @end
