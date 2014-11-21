@@ -465,6 +465,13 @@ SpecBegin(I3GestureCoordinator)
                 
             });
             
+            
+            /// @note in the same way we test that drops are delegated to the top-most intersecting collection
+            /// with the exchange interactions, we will test whether a delete succeeds or not over a 'valid droppable
+            /// area' by choosing the exchange interactions to represent that outcome.
+            
+            pending(@"should still delete if the gesture stops on a valid droppable collection");
+            
             it(@"should rearranging if we're drag/dropping on the same collection and the data source allows", ^{
                 
                 UIView *targetItemView = [[UIView alloc] init];
