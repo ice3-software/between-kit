@@ -578,34 +578,34 @@ SpecBegin(I3GestureCoordinator)
                 OCMStub([dstCollection collectionView]).andReturn(dstCollectionView);
                 OCMStub([dstCollection itemAtPoint:dropOrigin]).andReturn(dstItemView);
                 OCMStub([dstCollectionView pointInside:dropOrigin withEvent:nil]).andReturn(YES);
-                OCMStub([defaultDragDataSource canItemAtPoint:dragOrigin fromCollection:draggingCollection beDroppedToPoint:dropOrigin inCollection:dstCollection]).andReturn(YES);
+                OCMStub([defaultDragDataSource canItemAtPoint:dragOrigin fromCollection:draggingCollection beExchangedWithItemAtPoint:dropOrigin inCollection:dstCollection]).andReturn(YES);
                 
                 [collections insertObject:dstCollection atIndex:0];
                 
                 [coordinator handlePan:coordinator.gestureRecognizer];
-                
-                OCMVerify([defaultDragDataSource canItemAtPoint:dragOrigin fromCollection:draggingCollection beDroppedToPoint:dropOrigin inCollection:dstCollection]);
-                OCMVerify([defaultDragDataSource dropItemAtPoint:dragOrigin fromCollection:draggingCollection toPoint:dropOrigin inCollection:dstCollection]);
-                OCMVerify([renderDelegate renderDropOnCollection:dstCollection atPoint:dropOrigin fromCoordinator:coordinator]);
+
+                OCMVerify([defaultDragDataSource canItemAtPoint:dragOrigin fromCollection:draggingCollection beExchangedWithItemAtPoint:dropOrigin inCollection:dstCollection]);
+                OCMVerify([defaultDragDataSource exchangeItemAtPoint:dragOrigin inCollection:draggingCollection withItemAtPoint:dropOrigin inCollection:dstCollection]);
+                OCMVerify([renderDelegate renderExchangeToCollection:dstCollection atPoint:dropOrigin fromCoordinator:coordinator]);
                 
             });
             
             it(@"should not exchange between and render reset if data source does not implement exchange selector", ^{
                 
-                id dragDataSource = OCMPartialMock([[I3DragDataSourceJustCanDrop alloc] init]);
+                id dragDataSource = OCMPartialMock([[I3DragDataSourceJustCanExchange alloc] init]);
                 id dstCollection = OCMProtocolMock(@protocol(I3Collection));
                 id dstCollectionView = OCMPartialMock([[UIView alloc] init]);
                 id dstCollectionItemView = [[UIView alloc] init];
 
                 OCMStub([dstCollection collectionView]).andReturn(dstCollectionView);
                 OCMStub([dstCollectionView pointInside:dropOrigin withEvent:nil]).andReturn(YES);
-                OCMStub([dragDataSource canItemAtPoint:dragOrigin fromCollection:draggingCollection beDroppedToPoint:dropOrigin inCollection:dstCollection]).andReturn(YES);
+                OCMStub([dragDataSource canItemAtPoint:dragOrigin fromCollection:draggingCollection beExchangedWithItemAtPoint:dropOrigin inCollection:dstCollection]).andReturn(YES);
                 OCMStub([dstCollection itemAtPoint:dropOrigin]).andReturn(dstCollectionItemView);
 
                 coordinator.dragDataSource = dragDataSource;
                 [collections insertObject:dstCollection atIndex:0];
                 
-                [[dragDataSource reject] dropItemAtPoint:dragOrigin fromCollection:draggingCollection toPoint:dropOrigin inCollection:dstCollection];
+                [[dragDataSource reject] exchangeItemAtPoint:dragOrigin inCollection:draggingCollection withItemAtPoint:dropOrigin inCollection:dstCollection];
                 
                 [coordinator handlePan:coordinator.gestureRecognizer];
                 
@@ -615,7 +615,7 @@ SpecBegin(I3GestureCoordinator)
             
             it(@"should not exchange between and render reset if data source does not implement can exchange selector", ^{
                 
-                id dragDataSource = OCMPartialMock([[I3DragDataSourceJustDrop alloc] init]);
+                id dragDataSource = OCMPartialMock([[I3DragDataSourceJustExchange alloc] init]);
                 id dstCollection = OCMProtocolMock(@protocol(I3Collection));
                 id dstCollectionView = OCMPartialMock([[UIView alloc] init]);
                 id dstCollectionItemView = [[UIView alloc] init];
@@ -623,12 +623,12 @@ SpecBegin(I3GestureCoordinator)
                 OCMStub([dstCollection collectionView]).andReturn(dstCollectionView);
                 OCMStub([dstCollection itemAtPoint:dropOrigin]).andReturn(dstCollectionItemView);
                 OCMStub([dstCollectionView pointInside:dropOrigin withEvent:nil]).andReturn(YES);
-                OCMStub([dragDataSource canItemAtPoint:dragOrigin fromCollection:draggingCollection beDroppedToPoint:dropOrigin inCollection:dstCollection]).andReturn(YES);
+                OCMStub([dragDataSource canItemAtPoint:dragOrigin fromCollection:draggingCollection beExchangedWithItemAtPoint:dropOrigin inCollection:dstCollection]).andReturn(YES);
                 
                 coordinator.dragDataSource = dragDataSource;
                 [collections insertObject:dstCollection atIndex:0];
                 
-                [[dragDataSource reject] dropItemAtPoint:dragOrigin fromCollection:draggingCollection toPoint:dropOrigin inCollection:dstCollection];
+                [[dragDataSource reject] exchangeItemAtPoint:dragOrigin inCollection:draggingCollection withItemAtPoint:dropOrigin inCollection:dstCollection];
                 
                 [coordinator handlePan:coordinator.gestureRecognizer];
                 
