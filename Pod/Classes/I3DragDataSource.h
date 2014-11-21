@@ -177,9 +177,9 @@
  @name Rendering
  @param at          The point at which the item is.
  @param collection  The collection we're providing data for.
- @todo Remove this - it has no place here. If the basic render delegate wants to ask fine-grained 
- questions about whether it should 'hide this' or 'style something like this', it should provide its
- own delegate protocol. Something like `I3RenderDataSource`... Still open to discussion.
+ @todo Remove this - it has no place here. If the basic render delegate wants to ask fine-grained
+ questions about whether it should 'hide this' or 'style something like that', it should provide its
+ own delegate protocol. Something like `I3BasicRenderDelegateDataSource`... Still open to discussion.
  @deprecated
  @return BOOL
  
