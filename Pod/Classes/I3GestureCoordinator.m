@@ -195,6 +195,7 @@
         DND_LOG(@"Data source wants us to delete this! Deleting...");
         [self.dragDataSource deleteItemAtPoint:self.currentDragOrigin inCollection:self.currentDraggingCollection];
         [self.renderDelegate renderDeletionAtPoint:locationInSuperview fromCoordinator:self];
+        
     }
     else{
 
