@@ -271,9 +271,7 @@
     
         DND_LOG(@"Exchanging items between collections.");
         [self.dragDataSource exchangeItemAtPoint:self.currentDragOrigin inCollection:self.currentDraggingCollection withItemAtPoint:at inCollection:to];
-        
-        // @todo Refactor this protocol
-        [self.renderDelegate renderDropOnCollection:to atPoint:at fromCoordinator:self];
+        [self.renderDelegate renderExchangeToCollection:to atPoint:at fromCoordinator:self];
 
     }
     else if(
@@ -286,9 +284,7 @@
         
         DND_LOG(@"Appending item onto collection from another collection.");
         [self.dragDataSource appendItemAtPoint:self.currentDragOrigin fromCollection:self.currentDraggingCollection toPoint:at onCollection:to];
-        
-        // @todo Refactor this protocol
-        [self.renderDelegate renderDropOnCollection:to atPoint:at fromCoordinator:self];
+        [self.renderDelegate renderAppendToCollection:to atPoint:at fromCoordinator:self];
         
     }
     else{
