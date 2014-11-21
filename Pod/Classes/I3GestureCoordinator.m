@@ -349,7 +349,7 @@
     coordinator.renderDelegate = [[I3BasicRenderDelegate alloc] init];
     
     if([viewController conformsToProtocol:@protocol(I3DragDataSource)]){
-        coordinator.dragDataSource = viewController;
+        coordinator.dragDataSource = (id<I3DragDataSource>)viewController;
     }
     
     return coordinator;
