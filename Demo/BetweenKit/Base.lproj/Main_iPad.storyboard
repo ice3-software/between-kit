@@ -44,7 +44,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="NxQ-0S-cWi" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="223" y="-3182"/>
+            <point key="canvasLocation" x="-149" y="-3434"/>
         </scene>
         <!--Tab Bar Controller-->
         <scene sceneID="mut-nX-FPL">
@@ -58,11 +58,53 @@
                     </tabBar>
                     <connections>
                         <segue destination="gtt-hI-lGJ" kind="relationship" relationship="viewControllers" id="bSu-0G-iLg"/>
+                        <segue destination="ii9-nT-TTQ" kind="relationship" relationship="viewControllers" id="zZi-Pn-kcg"/>
                     </connections>
                 </tabBarController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="SRy-7x-fkG" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-1277" y="-3182"/>
+            <point key="canvasLocation" x="-1349" y="-3094"/>
+        </scene>
+        <!--Item 1-->
+        <scene sceneID="r2D-6E-Sln">
+            <objects>
+                <viewController id="ii9-nT-TTQ" customClass="I32ExchangeableTablesViewController" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="tV0-Gk-dov"/>
+                        <viewControllerLayoutGuide type="bottom" id="ap5-40-PXt"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="QiC-l4-2xz">
+                        <rect key="frame" x="0.0" y="0.0" width="768" height="1024"/>
+                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                        <subviews>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" translatesAutoresizingMaskIntoConstraints="NO" id="gET-I2-bBd">
+                                <rect key="frame" x="0.0" y="0.0" width="377" height="975"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <connections>
+                                    <outlet property="dataSource" destination="ii9-nT-TTQ" id="T1E-RD-ZZh"/>
+                                    <outlet property="delegate" destination="ii9-nT-TTQ" id="M8n-Z9-vdj"/>
+                                </connections>
+                            </tableView>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" translatesAutoresizingMaskIntoConstraints="NO" id="GxS-bY-06v">
+                                <rect key="frame" x="391" y="0.0" width="377" height="975"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <connections>
+                                    <outlet property="dataSource" destination="ii9-nT-TTQ" id="dVX-qc-HSp"/>
+                                    <outlet property="delegate" destination="ii9-nT-TTQ" id="Lu8-iB-BMD"/>
+                                </connections>
+                            </tableView>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+                    </view>
+                    <tabBarItem key="tabBarItem" title="Item 1" id="d09-Ab-k1V"/>
+                    <connections>
+                        <outlet property="leftTableView" destination="gET-I2-bBd" id="I8t-p6-WAb"/>
+                        <outlet property="rightTableView" destination="GxS-bY-06v" id="KDq-1y-aIh"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="as7-PL-OgH" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-149" y="-2218"/>
         </scene>
     </scenes>
     <simulatedMetricsContainer key="defaultSimulatedMetrics">

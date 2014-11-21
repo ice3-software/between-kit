@@ -153,7 +153,7 @@ SpecBegin(I3BasicRenderDelegate)
         
         describe(@"reset from point", ^{
 
-            it(@"should release strong reference to the dragging view, whilst animating it back to the origin in an async animation", ^{
+            it(@"should release strong reference to the dragging view, whilst animating it back to the origin in an async animation and unhiding it if specified", ^{
                 
                 [renderDelegate renderDragStart:coordinator];
                 
@@ -164,6 +164,7 @@ SpecBegin(I3BasicRenderDelegate)
                 
                 id uiViewMock = OCMClassMock([UIView class]);
                 OCMStub([superview convertRect:draggingItem.frame fromView:collectionView]).andReturn(resetRect);
+                OCMStub([dragDataSource hidesItemWhileDraggingAtPoint:dragOrigin inCollection:currentDraggingCollection]).andReturn(YES);
                 OCMStub([uiViewMock animateWithDuration:duration animations:[OCMArg any] completion:[OCMArg any]]).andDo(^(NSInvocation *invocation){
                     
                     void (^animateBlock)();
@@ -177,6 +178,7 @@ SpecBegin(I3BasicRenderDelegate)
 
                     expect(draggingView.frame).to.equal(resetRect);
                     expect(draggingView.superview).to.beNil();
+                    expect(draggingItem.alpha).to.equal(1);
 
                 });
                 
@@ -186,17 +188,6 @@ SpecBegin(I3BasicRenderDelegate)
                 OCMVerify([uiViewMock animateWithDuration:duration animations:[OCMArg any] completion:[OCMArg any]]);
                 
                 [uiViewMock stopMocking];
-                
-            });
-            
-            it(@"should unhide the dragging item if required by the data source", ^{
-            
-                OCMStub([dragDataSource hidesItemWhileDraggingAtPoint:dragOrigin inCollection:currentDraggingCollection]).andReturn(YES);
-                
-                [renderDelegate renderDragStart:coordinator];
-                [renderDelegate renderResetFromPoint:dragOrigin fromCoordinator:coordinator];
-                
-                expect(draggingItem.alpha).to.equal(1);
                 
             });
             

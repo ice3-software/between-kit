@@ -15,6 +15,7 @@
 		467AFC8619C5E20D00FFD1F4 /* LICENSE.md in Resources */ = {isa = PBXBuildFile; fileRef = 467AFC8519C5E20D00FFD1F4 /* LICENSE.md */; };
 		467AFC8819C5F0F000FFD1F4 /* I3GestureCoordinatorTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 467AFC8719C5F0F000FFD1F4 /* I3GestureCoordinatorTests.m */; };
 		467B35261A1F7AA70000A77C /* I3DataSourceControllerFixture.m in Sources */ = {isa = PBXBuildFile; fileRef = 467B35251A1F7AA70000A77C /* I3DataSourceControllerFixture.m */; };
+		467B35291A1F93050000A77C /* I32ExchangeableTablesViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 467B35281A1F93050000A77C /* I32ExchangeableTablesViewController.m */; };
 		46866CFB19D42E1E00C45CCD /* I3DragArenaTest.m in Sources */ = {isa = PBXBuildFile; fileRef = 46866CFA19D42E1E00C45CCD /* I3DragArenaTest.m */; };
 		4694A4AF1A1A317900E0AB9B /* UIView+I3Collection.m in Sources */ = {isa = PBXBuildFile; fileRef = 4694A4AE1A1A317900E0AB9B /* UIView+I3Collection.m */; };
 		46A1877B19CF46A20061B355 /* I3BasicRenderDelegateTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 46A1877A19CF46A20061B355 /* I3BasicRenderDelegateTests.m */; };
@@ -59,6 +60,8 @@
 		467AFC8719C5F0F000FFD1F4 /* I3GestureCoordinatorTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = I3GestureCoordinatorTests.m; sourceTree = "<group>"; };
 		467B35241A1F7AA70000A77C /* I3DataSourceControllerFixture.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = I3DataSourceControllerFixture.h; sourceTree = "<group>"; };
 		467B35251A1F7AA70000A77C /* I3DataSourceControllerFixture.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = I3DataSourceControllerFixture.m; sourceTree = "<group>"; };
+		467B35271A1F93050000A77C /* I32ExchangeableTablesViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = I32ExchangeableTablesViewController.h; sourceTree = "<group>"; };
+		467B35281A1F93050000A77C /* I32ExchangeableTablesViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = I32ExchangeableTablesViewController.m; sourceTree = "<group>"; };
 		46866CFA19D42E1E00C45CCD /* I3DragArenaTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = I3DragArenaTest.m; sourceTree = "<group>"; };
 		4694A4AE1A1A317900E0AB9B /* UIView+I3Collection.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIView+I3Collection.m"; sourceTree = "<group>"; };
 		46A1877A19CF46A20061B355 /* I3BasicRenderDelegateTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = I3BasicRenderDelegateTests.m; sourceTree = "<group>"; };
@@ -129,6 +132,8 @@
 		467B350D1A1F5A1E0000A77C /* 2 Tables - Exchangeable */ = {
 			isa = PBXGroup;
 			children = (
+				467B35271A1F93050000A77C /* I32ExchangeableTablesViewController.h */,
+				467B35281A1F93050000A77C /* I32ExchangeableTablesViewController.m */,
 			);
 			name = "2 Tables - Exchangeable";
 			sourceTree = "<group>";
@@ -567,6 +572,7 @@
 				6003F59E195388D20070C39A /* I3AppDelegate.m in Sources */,
 				6003F5A7195388D20070C39A /* I32RearrangeableTablesViewController.m in Sources */,
 				6003F59A195388D20070C39A /* main.m in Sources */,
+				467B35291A1F93050000A77C /* I32ExchangeableTablesViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

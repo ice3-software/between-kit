@@ -1,12 +1,12 @@
 //
-//  I3ViewController.m
+//  I32ExchangeableTablesViewController.m
 //  BetweenKit
 //
-//  Created by stephen fortune on 09/14/2014.
+//  Created by Stephen Fortune on 21/11/2014.
 //  Copyright (c) 2014 stephen fortune. All rights reserved.
 //
 
-#import "I32RearrangeableTablesViewController.h"
+#import "I32ExchangeableTablesViewController.h"
 #import <BetweenKit/I3GestureCoordinator.h>
 #import <BetweenKit/I3BasicRenderDelegate.h>
 
@@ -14,7 +14,7 @@
 static NSString* DequeueReusableCell = @"DequeueReusableCell";
 
 
-@interface I32RearrangeableTablesViewController ()
+@interface I32ExchangeableTablesViewController ()
 
 @property (nonatomic, strong) I3GestureCoordinator *dragCoordinator;
 
@@ -25,22 +25,24 @@ static NSString* DequeueReusableCell = @"DequeueReusableCell";
 @end
 
 
-@implementation I32RearrangeableTablesViewController
+@implementation I32ExchangeableTablesViewController
 
 
 -(void) viewDidLoad{
     
     [super viewDidLoad];
-
+    
     
     /** Setup the table views with their data */
 
-    NSArray *data = @[@1, @2, @3, @4, @5];
-    self.leftData = [NSMutableArray arrayWithArray:data];
-    self.rightData = [NSMutableArray arrayWithArray:data];
-
+    self.leftData = [NSMutableArray arrayWithArray:@[@"1 Left", @"2 Left", @"3 Left", @"4 Left", @"5 Left"]];
+    self.rightData = [NSMutableArray arrayWithArray:@[@"1 Right", @"2 Right", @"3 Right", @"4 Right", @"5 Right"]];
+    
     [self.leftTableView registerClass:[UITableViewCell class] forCellReuseIdentifier:DequeueReusableCell];
     [self.rightTableView registerClass:[UITableViewCell class] forCellReuseIdentifier:DequeueReusableCell];
+    
+    
+    /** Create the basic drag coordinator */
     
     self.dragCoordinator = [I3GestureCoordinator basicGestureCoordinatorFromViewController:self withCollections:@[self.leftTableView, self.rightTableView]];
     
@@ -50,7 +52,7 @@ static NSString* DequeueReusableCell = @"DequeueReusableCell";
 -(void) didReceiveMemoryWarning{
     
     [super didReceiveMemoryWarning];
-
+    
 }
 
 
@@ -63,28 +65,17 @@ static NSString* DequeueReusableCell = @"DequeueReusableCell";
 
 
 -(NSInteger) tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger) section{
-    
-    if(tableView == self.leftTableView){
-        return [self.leftData count];
-    }
-    else{
-        return [self.rightData count];
-    }
+    return [(tableView == self.leftTableView ? self.leftData : self.rightData) count];
 }
 
 
 -(UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
     
-    UITableViewCell* cell = [tableView dequeueReusableCellWithIdentifier:DequeueReusableCell
-                                                            forIndexPath:indexPath];
+    UITableViewCell* cell = [tableView dequeueReusableCellWithIdentifier:DequeueReusableCell forIndexPath:indexPath];
     NSInteger row = [indexPath row];
-
-    if(tableView == self.leftTableView){
-        cell.textLabel.text = [NSString stringWithFormat:@"%@", [self.leftData objectAtIndex:row]];
-    }
-    else{
-        cell.textLabel.text = [NSString stringWithFormat:@"%@", [self.rightData objectAtIndex:row]];
-    }
+    NSArray *data = tableView == self.leftTableView ? self.leftData : self.rightData;
+    
+    cell.textLabel.text = [data objectAtIndex:row];
     
     return cell;
 }
@@ -98,7 +89,7 @@ static NSString* DequeueReusableCell = @"DequeueReusableCell";
 }
 
 
--(BOOL) canItemFromPoint:(CGPoint)from beRearrangedWithItemAtPoint:(CGPoint)to inCollection:(id<I3Collection>)collection{
+-(BOOL) canItemAtPoint:(CGPoint)from fromCollection:(id<I3Collection>)fromCollection beDroppedToPoint:(CGPoint)to inCollection:(id<I3Collection>)collection{
     return YES;
 }
 
@@ -108,22 +99,8 @@ static NSString* DequeueReusableCell = @"DequeueReusableCell";
 }
 
 
--(void) rearrangeItemAtPoint:(CGPoint)from withItemAtPoint:(CGPoint)to inCollection:(id<I3Collection>)collection{
-    
-    UITableView *targetTableView = (UITableView *)collection.collectionView;
-    
-    NSIndexPath *toIndex = [targetTableView indexPathForRowAtPoint:to];
-    NSIndexPath *fromIndex = [targetTableView indexPathForRowAtPoint:from];
-
-    NSMutableArray *targetDataset = targetTableView == self.leftTableView ? self.leftData : self.rightData;
-    
-    [targetDataset exchangeObjectAtIndex:toIndex.row withObjectAtIndex:fromIndex.row];
-    [targetTableView reloadRowsAtIndexPaths:@[toIndex, fromIndex] withRowAnimation:UITableViewRowAnimationFade];
-}
-
-
 -(void) dropItemAtPoint:(CGPoint) from fromCollection:(id<I3Collection>) fromCollection toPoint:(CGPoint) to inCollection:(id<I3Collection>) toCollection{
-
+    
     
     UITableView *fromTable = (UITableView *)fromCollection.collectionView;
     UITableView *toTable = (UITableView *)toCollection.collectionView;
@@ -140,33 +117,15 @@ static NSString* DequeueReusableCell = @"DequeueReusableCell";
     NSMutableArray *fromDataset = isFromLeftTable ? self.leftData : self.rightData;
     NSMutableArray *toDataset = isFromLeftTable ? self.rightData : self.leftData;
     
-
+    
     /** Update the data source and the individual table view rows */
     
     [fromDataset removeObjectAtIndex:fromIndex.row];
     [toDataset insertObject:exchangingData atIndex:toIndex.row];
-
-    NSLog(@"Left data: %@", self.leftData);
-    NSLog(@"Right data: %@", self.rightData);
     
-
     [fromTable deleteRowsAtIndexPaths:@[[NSIndexPath indexPathForRow:fromIndex.row inSection:0]] withRowAnimation:UITableViewRowAnimationFade];
     [toTable insertRowsAtIndexPaths:@[[NSIndexPath indexPathForRow:toIndex.row inSection:0]] withRowAnimation:UITableViewRowAnimationFade];
-
-}
-
-
--(void) deleteItemAtPoint:(CGPoint) at inCollection:(id<I3Collection>) collection{
     
-    UITableView *fromTable = (UITableView *)collection.collectionView;
-    NSIndexPath *fromIndex = [fromTable indexPathForRowAtPoint:at];
-    
-    BOOL isFromLeftTable = fromTable == self.leftTableView;
-    NSMutableArray *fromDataset = isFromLeftTable ? self.leftData : self.rightData;
-    
-    [fromDataset removeObjectAtIndex:fromIndex.row];
-    [fromTable deleteRowsAtIndexPaths:@[[NSIndexPath indexPathForRow:fromIndex.row inSection:0]] withRowAnimation:UITableViewRowAnimationFade];
-
 }
 
 
