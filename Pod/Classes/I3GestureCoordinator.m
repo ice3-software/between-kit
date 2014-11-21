@@ -60,16 +60,7 @@
 
 /**
  
- Called when a drag, started from a collection has stopped outside of all valid collections at
- a particular point.
- 
- */
--(void) handleDragStoppedOutsideAtPoint:(CGPoint) at;
-
-
-/**
- 
- Called when a drag from a collection has stopped on another collection at a given point.
+ Called when a drag has stopped on a origin within a collection.
  
  */
 -(void) handleDragStoppedInCollection:(id<I3Collection>) to atPoint:(CGPoint) at;
@@ -192,61 +183,50 @@
         DND_LOG(@"Invalid drag stopped.");
         return;
     }
-        
-    id<I3Collection> dstCollection;
     
-    for(id<I3Collection> collection in self.arena.collections){
-        
-        UIView* collectionView = collection.collectionView;
-        CGPoint pointInCollection = [self.gestureRecognizer locationInView:collectionView];
-        
-        DND_LOG(@"Testing whether %@ is in %@", NSStringFromCGPoint(pointInCollection), collectionView);
-        
-        if([collectionView pointInside:pointInCollection withEvent:nil]){
-            
-            DND_LOG(@"Found a target collection to drop on!");
-
-            [self handleDragStoppedInCollection:collection atPoint:pointInCollection];
-            dstCollection = collection;
-            break;
-            /// @todo see the todo in handleDragStarted
-            
-        }
-    }
-    
-    if(!dstCollection){
-        
-        DND_LOG(@"Didn't find a target collection to drop on.");
-
-        CGPoint point = [_gestureRecognizer locationInView:self.arena.superview];
-        [self handleDragStoppedOutsideAtPoint:point];
-    }
-    
-    self.currentDraggingCollection = nil;
-    
-}
-
-
--(void) handleDragStoppedOutsideAtPoint:(CGPoint) at{
-    
-    SEL canDeleteSelector = @selector(canItemAtPoint:beDeletedIfDroppedOutsideOfCollection:atPoint:);
-    SEL deleteSelector = @selector(deleteItemAtPoint:inCollection:);
+    CGPoint locationInSuperview = [_gestureRecognizer locationInView:self.arena.superview];
     
     if(
-       [self.dragDataSource respondsToSelector:canDeleteSelector] &&
-       [self.dragDataSource respondsToSelector:deleteSelector] &&
-       [self.dragDataSource canItemAtPoint:self.currentDragOrigin beDeletedIfDroppedOutsideOfCollection:self.currentDraggingCollection atPoint:at]
-    ){
+       [self.dragDataSource respondsToSelector:@selector(canItemAtPoint:beDeletedIfDroppedOutsideOfCollection:atPoint:)] &&
+       [self.dragDataSource respondsToSelector:@selector(deleteItemAtPoint:inCollection:)] &&
+       [self.dragDataSource canItemAtPoint:self.currentDragOrigin beDeletedIfDroppedOutsideOfCollection:self.currentDraggingCollection atPoint:locationInSuperview]
+       ){
         
-        DND_LOG(@"Dragged nowhere so deleting");
+        DND_LOG(@"Data source wants us to delete this! Deleting...");
         [self.dragDataSource deleteItemAtPoint:self.currentDragOrigin inCollection:self.currentDraggingCollection];
-        [self.renderDelegate renderDeletionAtPoint:at fromCoordinator:self];
+        [self.renderDelegate renderDeletionAtPoint:locationInSuperview fromCoordinator:self];
     }
     else{
+
+        id<I3Collection> dstCollection;
         
-        DND_LOG(@"Dragged nowhere and can't delete. Snapping back");
-        [self.renderDelegate renderResetFromPoint:at fromCoordinator:self];
+        for(id<I3Collection> collection in self.arena.collections){
+            
+            UIView* collectionView = collection.collectionView;
+            CGPoint pointInCollection = [self.gestureRecognizer locationInView:collectionView];
+            
+            DND_LOG(@"Testing whether %@ is in %@", NSStringFromCGPoint(pointInCollection), collectionView);
+            
+            if([collectionView pointInside:pointInCollection withEvent:nil]){
+                
+                DND_LOG(@"Found a target collection to drop on!");
+                
+                [self handleDragStoppedInCollection:collection atPoint:pointInCollection];
+                dstCollection = collection;
+                break;
+                /// @todo see the todo in handleDragStarted
+                
+            }
+        }
+
+        if(!dstCollection){
+            DND_LOG(@"Didn't find a target collection to drop on. Snapping back.");
+            [self.renderDelegate renderResetFromPoint:locationInSuperview fromCoordinator:self];
+        }
+
     }
+
+    self.currentDraggingCollection = nil;
     
 }
 
@@ -254,22 +234,16 @@
 -(void) handleDragStoppedInCollection:(id<I3Collection>) to atPoint:(CGPoint) at{
     
     BOOL isRearrange = to == self.currentDraggingCollection;
-    
-    SEL canItemRearrangeSelector = @selector(canItemFromPoint:beRearrangedWithItemAtPoint:inCollection:);
-    SEL canDropSelector = @selector(canItemAtPoint:fromCollection:beDroppedToPoint:inCollection:);
-    
-    SEL itemRearrangeSelector = @selector(rearrangeItemAtPoint:withItemAtPoint:inCollection:);
-    SEL dropSelector = @selector(dropItemAtPoint:fromCollection:toPoint:inCollection:);
-    
-
     UIView *destinationItemView = [to itemAtPoint:at];
 
+    DND_LOG(@"Determining what to do with this drop.");
+    
     if(
-        destinationItemView &&
-        isRearrange &&
-        [self.dragDataSource respondsToSelector:canItemRearrangeSelector] &&
-        [self.dragDataSource respondsToSelector:itemRearrangeSelector] &&
-        [self.dragDataSource canItemFromPoint:self.currentDragOrigin beRearrangedWithItemAtPoint:at inCollection:self.currentDraggingCollection]
+       destinationItemView &&
+       isRearrange &&
+       [self.dragDataSource respondsToSelector:@selector(canItemFromPoint:beRearrangedWithItemAtPoint:inCollection:)] &&
+       [self.dragDataSource respondsToSelector:@selector(rearrangeItemAtPoint:withItemAtPoint:inCollection:)] &&
+       [self.dragDataSource canItemFromPoint:self.currentDragOrigin beRearrangedWithItemAtPoint:at inCollection:self.currentDraggingCollection]
     ){
         
         UIView *draggingItemView = [self.currentDraggingCollection itemAtPoint:self.currentDragOrigin];
@@ -288,21 +262,37 @@
 
     }
     else if(
-        destinationItemView &&
         !isRearrange &&
-        [self.dragDataSource respondsToSelector:canDropSelector] &&
-        [self.dragDataSource respondsToSelector:dropSelector] &&
-        [self.dragDataSource canItemAtPoint:self.currentDragOrigin fromCollection:self.currentDraggingCollection beDroppedToPoint:at inCollection:to]
+        destinationItemView &&
+        [self.dragDataSource respondsToSelector:@selector(canItemAtPoint:fromCollection:beExchangedWithItemAtPoint:inCollection:)] &&
+        [self.dragDataSource respondsToSelector:@selector(exchangeItemAtPoint:inCollection:withItemAtPoint:inCollection:)] &&
+        [self.dragDataSource canItemAtPoint:self.currentDragOrigin fromCollection:self.currentDraggingCollection beExchangedWithItemAtPoint:at inCollection:to]
     ){
-
+    
         DND_LOG(@"Exchanging items between collections.");
-        [self.dragDataSource dropItemAtPoint:self.currentDragOrigin fromCollection:self.currentDraggingCollection toPoint:at inCollection:to];
+        [self.dragDataSource exchangeItemAtPoint:self.currentDragOrigin inCollection:self.currentDraggingCollection withItemAtPoint:at inCollection:to];
+        
+        // @todo Refactor this protocol
         [self.renderDelegate renderDropOnCollection:to atPoint:at fromCoordinator:self];
 
     }
-    else{
+    else if(
+        !isRearrange &&
+        !destinationItemView &&
+        [self.dragDataSource respondsToSelector:@selector(canItemAtPoint:fromCollection:beAppendedToCollection:atPoint:)] &&
+        [self.dragDataSource respondsToSelector:@selector(appendItemAtPoint:fromCollection:toPoint:onCollection:)] &&
+        [self.dragDataSource canItemAtPoint:self.currentDragOrigin fromCollection:self.currentDraggingCollection beAppendedToCollection:to atPoint:at]
+    ){
         
-        DND_LOG(@"Can't do anything with these 2.");
+        DND_LOG(@"Appending item onto collection from another collection.");
+        [self.dragDataSource appendItemAtPoint:self.currentDragOrigin fromCollection:self.currentDraggingCollection toPoint:at onCollection:to];
+        
+        // @todo Refactor this protocol
+        [self.renderDelegate renderDropOnCollection:to atPoint:at fromCoordinator:self];
+        
+    }
+    else{
+        DND_LOG(@"Nope. Can't do anything here - this may be for any number of reasons (see documentation). Snapping back.");
         [self.renderDelegate renderResetFromPoint:at fromCoordinator:self];
     }
     

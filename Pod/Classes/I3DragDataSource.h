@@ -136,7 +136,7 @@
  @return BOOL
 
  */
--(BOOL) canItemAtPoint:(CGPoint) from fromCollection:(id<I3Collection>) fromCollection beAppendedToCollection:(id<I3Collection>) toCollection atPoint: to;
+-(BOOL) canItemAtPoint:(CGPoint) from fromCollection:(id<I3Collection>) fromCollection beAppendedToCollection:(id<I3Collection>) toCollection atPoint:(CGPoint) to;
 
 /**
  
