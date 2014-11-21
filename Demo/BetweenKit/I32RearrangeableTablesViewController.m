@@ -18,10 +18,6 @@ static NSString* DequeueReusableCell = @"DequeueReusableCell";
 
 @property (nonatomic, strong) I3GestureCoordinator *dragCoordinator;
 
-@property (nonatomic, strong) I3DragArena *arena;
-
-@property (nonatomic, strong) I3BasicRenderDelegate *renderDelegate;
-
 @property (nonatomic, strong) NSMutableArray *leftData;
 
 @property (nonatomic, strong) NSMutableArray *rightData;
@@ -46,15 +42,7 @@ static NSString* DequeueReusableCell = @"DequeueReusableCell";
     [self.leftTableView registerClass:[UITableViewCell class] forCellReuseIdentifier:DequeueReusableCell];
     [self.rightTableView registerClass:[UITableViewCell class] forCellReuseIdentifier:DequeueReusableCell];
     
-    
-    /** Setup the coordinator with its dependencies */
-    
-    self.renderDelegate = [[I3BasicRenderDelegate alloc] init];
-    self.arena = [[I3DragArena alloc] initWithSuperview:self.view containingCollections:@[self.leftTableView, self.rightTableView]];
-    
-    self.dragCoordinator = [[I3GestureCoordinator alloc] initWithDragArena:self.arena withGestureRecognizer:nil];
-    self.dragCoordinator.renderDelegate = self.renderDelegate;
-    self.dragCoordinator.dragDataSource = self;
+    self.dragCoordinator = [I3GestureCoordinator basicGestureCoordinatorFromViewController:self withCollections:@[self.leftTableView, self.rightTableView]];
     
 }
 

@@ -7,6 +7,7 @@
 //
 
 #import "UIView+I3Collection.h"
+#import "I3Logging.h"
 
 
 @implementation UIView (I3Collection)
@@ -26,9 +27,9 @@
     
     for(UIView *view in self.subviews){
         CGPoint localAt = [self convertPoint:at toView:view];
-        NSLog(@"Testing whether %@ is in %@", NSStringFromCGPoint(localAt), NSStringFromCGRect(view.frame));
+        DND_LOG(@"Testing whether %@ is in %@", NSStringFromCGPoint(localAt), NSStringFromCGRect(view.frame));
         if([view pointInside:localAt withEvent:nil]){
-            NSLog(@"It is !");
+            DND_LOG(@"It is !");
             subview = view;
             break;
         }
