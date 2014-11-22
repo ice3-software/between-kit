@@ -94,21 +94,18 @@ static NSString* DequeueReusableCell = @"DequeueReusableCell";
 }
 
 
+-(BOOL) canItemAtPoint:(CGPoint) from fromCollection:(id<I3Collection>) fromCollection beAppendedToCollection:(id<I3Collection>) toCollection atPoint:(CGPoint) to{
+    return YES;
+}
+
+
 -(BOOL) hidesItemWhileDraggingAtPoint:(CGPoint) at inCollection:(id<I3Collection>) collection{
     return YES;
 }
 
 
--(void) exchangeItemAtPoint:(CGPoint)from inCollection:(id<I3Collection>)fromCollection withItemAtPoint:(CGPoint)to inCollection:(id<I3Collection>)toCollection{
-    
-    
-    UITableView *fromTable = (UITableView *)fromCollection.collectionView;
-    UITableView *toTable = (UITableView *)toCollection.collectionView;
-    
-    NSIndexPath *toIndex = [toTable indexPathForRowAtPoint:to];
-    NSIndexPath *fromIndex = [fromTable indexPathForRowAtPoint:from];
-    
-    
+-(void) dropRowFromTable:(UITableView *)fromTable atIndexPath:(NSIndexPath *)fromIndex toTable:(UITableView *)toTable toIndexPath:(NSIndexPath *)toIndex{
+
     /** Determine the `from` and `to` datasets */
     
     BOOL isFromLeftTable = fromTable == self.leftTableView;
@@ -125,6 +122,32 @@ static NSString* DequeueReusableCell = @"DequeueReusableCell";
     
     [fromTable deleteRowsAtIndexPaths:@[[NSIndexPath indexPathForRow:fromIndex.row inSection:0]] withRowAnimation:UITableViewRowAnimationFade];
     [toTable insertRowsAtIndexPaths:@[[NSIndexPath indexPathForRow:toIndex.row inSection:0]] withRowAnimation:UITableViewRowAnimationFade];
+
+}
+
+
+-(void) appendItemAtPoint:(CGPoint) from fromCollection:(id<I3Collection>) fromCollection toPoint:(CGPoint) to onCollection:(id<I3Collection>) onCollection{
+
+    UITableView *fromTable = (UITableView *)fromCollection.collectionView;
+    UITableView *toTable = (UITableView *)onCollection.collectionView;
+    
+    NSIndexPath *toIndex = [NSIndexPath indexPathForRow:[self tableView:toTable numberOfRowsInSection:0] inSection:0];
+    NSIndexPath *fromIndex = [fromTable indexPathForRowAtPoint:from];
+    
+    [self dropRowFromTable:fromTable atIndexPath:fromIndex toTable:toTable toIndexPath:toIndex];
+
+}
+
+
+-(void) exchangeItemAtPoint:(CGPoint)from inCollection:(id<I3Collection>)fromCollection withItemAtPoint:(CGPoint)to inCollection:(id<I3Collection>)toCollection{
+    
+    UITableView *fromTable = (UITableView *)fromCollection.collectionView;
+    UITableView *toTable = (UITableView *)toCollection.collectionView;
+    
+    NSIndexPath *toIndex = [toTable indexPathForRowAtPoint:to];
+    NSIndexPath *fromIndex = [fromTable indexPathForRowAtPoint:from];
+    
+    [self dropRowFromTable:fromTable atIndexPath:fromIndex toTable:toTable toIndexPath:toIndex];
     
 }
 
