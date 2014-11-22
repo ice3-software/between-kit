@@ -465,12 +465,31 @@ SpecBegin(I3GestureCoordinator)
                 
             });
             
+            it(@"should still delete if the gesture stops on a valid droppable collection", ^{
             
-            /// @note in the same way we test that drops are delegated to the top-most intersecting collection
-            /// with the exchange interactions, we will test whether a delete succeeds or not over a 'valid droppable
-            /// area' by choosing the exchange interactions to represent that outcome.
-            
-            pending(@"should still delete if the gesture stops on a valid droppable collection");
+                /// @note in the same way we test that drops are delegated to the top-most intersecting collection
+                /// with the exchange interactions, we will test whether a delete succeeds or not over a 'valid droppable
+                /// area' by choosing the exchange interactions to represent that property of the collection.
+    
+                UIView *dstItemView = [[UIView alloc] init];
+                
+                id dstCollection = OCMProtocolMock(@protocol(I3Collection));
+                id dstCollectionView = OCMPartialMock([[UIView alloc] init]);
+                
+                OCMStub([dstCollection collectionView]).andReturn(dstCollectionView);
+                OCMStub([dstCollection itemAtPoint:dropOrigin]).andReturn(dstItemView);
+                OCMStub([dstCollectionView pointInside:dropOrigin withEvent:nil]).andReturn(YES);
+                OCMStub([defaultDragDataSource canItemAtPoint:dragOrigin fromCollection:draggingCollection beExchangedWithItemAtPoint:dropOrigin inCollection:dstCollection]).andReturn(YES);
+                OCMStub([defaultDragDataSource canItemAtPoint:dragOrigin beDeletedIfDroppedOutsideOfCollection:draggingCollection atPoint:dropOrigin]).andReturn(YES);
+                
+                [collections insertObject:dstCollection atIndex:0];
+                
+                [coordinator handlePan:coordinator.gestureRecognizer];
+
+                OCMVerify([defaultDragDataSource deleteItemAtPoint:dragOrigin inCollection:draggingCollection]);
+                OCMVerify([renderDelegate renderDeletionAtPoint:dropOrigin fromCoordinator:coordinator]);
+
+            });
             
             it(@"should rearranging if we're drag/dropping on the same collection and the data source allows", ^{
                 
@@ -686,11 +705,112 @@ SpecBegin(I3GestureCoordinator)
                 
             });
             
-            pending(@"should append onto collection if we're drag/dropping between collections, there is no drag item and the data source allows");
-            pending(@"should append onto collection if we're dropping onto an item that is not exchangeable and the data source allows");
-            pending(@"should not append onto collection if the data source does not allow");
-            pending(@"should not append onto collection if the data source does not implement append selector");
-            pending(@"should not append onto collection if the data source does not implement can append selector");
+            it(@"should append onto collection if we're drag/dropping between collections, there is no drag item and the data source allows", ^{
+                
+                id dstCollection = OCMProtocolMock(@protocol(I3Collection));
+                id dstCollectionView = OCMPartialMock([[UIView alloc] init]);
+                
+                OCMStub([dstCollection collectionView]).andReturn(dstCollectionView);
+                OCMStub([dstCollectionView pointInside:dropOrigin withEvent:nil]).andReturn(YES);
+                OCMStub([defaultDragDataSource canItemAtPoint:dragOrigin fromCollection:draggingCollection beAppendedToCollection:dstCollection atPoint:dropOrigin]).andReturn(YES);
+                
+                [collections insertObject:dstCollection atIndex:0];
+                
+                [coordinator handlePan:coordinator.gestureRecognizer];
+                
+                OCMVerify([defaultDragDataSource canItemAtPoint:dragOrigin fromCollection:draggingCollection beAppendedToCollection:dstCollection atPoint:dropOrigin]);
+                OCMVerify([defaultDragDataSource appendItemAtPoint:dragOrigin fromCollection:draggingCollection toPoint:dropOrigin onCollection:dstCollection]);
+                OCMVerify([renderDelegate renderAppendToCollection:dstCollection atPoint:dropOrigin fromCoordinator:coordinator]);
+                
+            });
+            
+            it(@"should append onto collection if we're dropping onto an item that is not exchangeable and the data source allows", ^{
+            
+                UIView *dstItemView = [[UIView alloc] init];
+                
+                id dstCollection = OCMProtocolMock(@protocol(I3Collection));
+                id dstCollectionView = OCMPartialMock([[UIView alloc] init]);
+                
+                OCMStub([dstCollection collectionView]).andReturn(dstCollectionView);
+                OCMStub([dstCollection itemAtPoint:dropOrigin]).andReturn(dstItemView);
+                OCMStub([dstCollectionView pointInside:dropOrigin withEvent:nil]).andReturn(YES);
+                
+                OCMStub([defaultDragDataSource canItemAtPoint:dragOrigin fromCollection:draggingCollection beExchangedWithItemAtPoint:dropOrigin inCollection:dstCollection]).andReturn(NO);
+                OCMStub([defaultDragDataSource canItemAtPoint:dragOrigin fromCollection:draggingCollection beAppendedToCollection:dstCollection atPoint:dropOrigin]).andReturn(YES);
+                
+                [collections insertObject:dstCollection atIndex:0];
+                
+                [coordinator handlePan:coordinator.gestureRecognizer];
+                
+                OCMVerify([defaultDragDataSource canItemAtPoint:dragOrigin fromCollection:draggingCollection beAppendedToCollection:dstCollection atPoint:dropOrigin]);
+                OCMVerify([defaultDragDataSource appendItemAtPoint:dragOrigin fromCollection:draggingCollection toPoint:dropOrigin onCollection:dstCollection]);
+                OCMVerify([renderDelegate renderAppendToCollection:dstCollection atPoint:dropOrigin fromCoordinator:coordinator]);
+                
+            });
+
+            it(@"should not append onto collection if the data source does not allow", ^{
+            
+                id dstCollection = OCMProtocolMock(@protocol(I3Collection));
+                id dstCollectionView = OCMPartialMock([[UIView alloc] init]);
+                
+                OCMStub([dstCollection collectionView]).andReturn(dstCollectionView);
+                OCMStub([dstCollectionView pointInside:dropOrigin withEvent:nil]).andReturn(YES);
+                OCMStub([defaultDragDataSource canItemAtPoint:dragOrigin fromCollection:draggingCollection beAppendedToCollection:dstCollection atPoint:dropOrigin]).andReturn(NO);
+                
+                [collections insertObject:dstCollection atIndex:0];
+                
+                [[defaultDragDataSource reject] appendItemAtPoint:dragOrigin fromCollection:draggingCollection toPoint:dropOrigin onCollection:dstCollection];
+                [[renderDelegate reject] renderAppendToCollection:dstCollection atPoint:dropOrigin fromCoordinator:coordinator];
+                
+                [coordinator handlePan:coordinator.gestureRecognizer];
+                
+                OCMVerify([renderDelegate renderResetFromPoint:dropOrigin fromCoordinator:coordinator]);
+                
+            });
+            
+            it(@"should not append onto collection if the data source does not implement append selector", ^{
+            
+                id dragDataSource = OCMPartialMock([[I3DragDataSourceJustCanAppend alloc] init]);
+                id dstCollection = OCMProtocolMock(@protocol(I3Collection));
+                id dstCollectionView = OCMPartialMock([[UIView alloc] init]);
+                
+                OCMStub([dstCollection collectionView]).andReturn(dstCollectionView);
+                OCMStub([dstCollectionView pointInside:dropOrigin withEvent:nil]).andReturn(YES);
+                OCMStub([defaultDragDataSource canItemAtPoint:dragOrigin fromCollection:draggingCollection beAppendedToCollection:dstCollection atPoint:dropOrigin]).andReturn(NO);
+                
+                coordinator.dragDataSource = dragDataSource;
+                [collections insertObject:dstCollection atIndex:0];
+                
+                [[defaultDragDataSource reject] appendItemAtPoint:dragOrigin fromCollection:draggingCollection toPoint:dropOrigin onCollection:dstCollection];
+                [[renderDelegate reject] renderAppendToCollection:dstCollection atPoint:dropOrigin fromCoordinator:coordinator];
+                
+                [coordinator handlePan:coordinator.gestureRecognizer];
+                
+                OCMVerify([renderDelegate renderResetFromPoint:dropOrigin fromCoordinator:coordinator]);
+                
+            });
+            
+            it(@"should not append onto collection if the data source does not implement can append selector", ^{
+            
+                id dragDataSource = OCMPartialMock([[I3DragDataSourceJustAppend alloc] init]);
+                id dstCollection = OCMProtocolMock(@protocol(I3Collection));
+                id dstCollectionView = OCMPartialMock([[UIView alloc] init]);
+                
+                OCMStub([dstCollection collectionView]).andReturn(dstCollectionView);
+                OCMStub([dstCollectionView pointInside:dropOrigin withEvent:nil]).andReturn(YES);
+                OCMStub([defaultDragDataSource canItemAtPoint:dragOrigin fromCollection:draggingCollection beAppendedToCollection:dstCollection atPoint:dropOrigin]).andReturn(NO);
+                
+                coordinator.dragDataSource = dragDataSource;
+                [collections insertObject:dstCollection atIndex:0];
+                
+                [[defaultDragDataSource reject] appendItemAtPoint:dragOrigin fromCollection:draggingCollection toPoint:dropOrigin onCollection:dstCollection];
+                [[renderDelegate reject] renderAppendToCollection:dstCollection atPoint:dropOrigin fromCoordinator:coordinator];
+                
+                [coordinator handlePan:coordinator.gestureRecognizer];
+                
+                OCMVerify([renderDelegate renderResetFromPoint:dropOrigin fromCoordinator:coordinator]);
+
+            });
             
             it(@"should handle drop for the top-most intersecting collection and none underneith", ^{
                 
