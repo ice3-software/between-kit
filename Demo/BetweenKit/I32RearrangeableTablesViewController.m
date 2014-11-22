@@ -155,19 +155,4 @@ static NSString* DequeueReusableCell = @"DequeueReusableCell";
 
 }
 
-
--(void) deleteItemAtPoint:(CGPoint) at inCollection:(id<I3Collection>) collection{
-    
-    UITableView *fromTable = (UITableView *)collection.collectionView;
-    NSIndexPath *fromIndex = [fromTable indexPathForRowAtPoint:at];
-    
-    BOOL isFromLeftTable = fromTable == self.leftTableView;
-    NSMutableArray *fromDataset = isFromLeftTable ? self.leftData : self.rightData;
-    
-    [fromDataset removeObjectAtIndex:fromIndex.row];
-    [fromTable deleteRowsAtIndexPaths:@[[NSIndexPath indexPathForRow:fromIndex.row inSection:0]] withRowAnimation:UITableViewRowAnimationFade];
-
-}
-
-
 @end

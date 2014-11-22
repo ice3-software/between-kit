@@ -59,6 +59,7 @@
                     <connections>
                         <segue destination="gtt-hI-lGJ" kind="relationship" relationship="viewControllers" id="bSu-0G-iLg"/>
                         <segue destination="ii9-nT-TTQ" kind="relationship" relationship="viewControllers" id="zZi-Pn-kcg"/>
+                        <segue destination="zp4-LF-o4B" kind="relationship" relationship="viewControllers" id="BVE-xe-naW"/>
                     </connections>
                 </tabBarController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="SRy-7x-fkG" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -105,6 +106,60 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="as7-PL-OgH" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="-149" y="-2218"/>
+        </scene>
+        <!--Item 1-->
+        <scene sceneID="qNB-fC-nUA">
+            <objects>
+                <viewController id="zp4-LF-o4B" customClass="I32DeleteableTablesViewController" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="Hcq-UN-mLa"/>
+                        <viewControllerLayoutGuide type="bottom" id="RXJ-Yk-yeH"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="RD4-gb-LEl">
+                        <rect key="frame" x="0.0" y="0.0" width="768" height="1024"/>
+                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                        <subviews>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" translatesAutoresizingMaskIntoConstraints="NO" id="qJ0-A0-EkE">
+                                <rect key="frame" x="0.0" y="0.0" width="377" height="975"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <connections>
+                                    <outlet property="dataSource" destination="zp4-LF-o4B" id="cdv-aA-SKJ"/>
+                                    <outlet property="delegate" destination="zp4-LF-o4B" id="K2H-7E-tbc"/>
+                                </connections>
+                            </tableView>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" translatesAutoresizingMaskIntoConstraints="NO" id="E7E-hT-izD">
+                                <rect key="frame" x="391" y="0.0" width="377" height="975"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <connections>
+                                    <outlet property="dataSource" destination="zp4-LF-o4B" id="smh-xq-905"/>
+                                    <outlet property="delegate" destination="zp4-LF-o4B" id="WXq-pl-YBU"/>
+                                </connections>
+                            </tableView>
+                            <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="sg4-6o-wUw">
+                                <rect key="frame" x="192" y="375" width="384" height="250"/>
+                                <subviews>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Delete" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="tj6-Dd-s6u">
+                                        <rect key="frame" x="168" y="114" width="49" height="21"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                        <color key="textColor" red="1" green="0.99997437000274658" blue="0.99999129772186279" alpha="1" colorSpace="calibratedRGB"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                </subviews>
+                                <color key="backgroundColor" red="0.98986607789993286" green="0.47669693827629089" blue="0.50016826391220093" alpha="1" colorSpace="calibratedRGB"/>
+                            </view>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+                    </view>
+                    <tabBarItem key="tabBarItem" title="Item 1" id="YIu-ip-KUq"/>
+                    <connections>
+                        <outlet property="deleteArea" destination="sg4-6o-wUw" id="RVL-yF-cgg"/>
+                        <outlet property="leftTableView" destination="qJ0-A0-EkE" id="4ou-M9-kC8"/>
+                        <outlet property="rightTableView" destination="E7E-hT-izD" id="YSG-NM-cbq"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="yrq-nd-uw5" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-1096" y="-1902"/>
         </scene>
     </scenes>
     <simulatedMetricsContainer key="defaultSimulatedMetrics">
