@@ -165,7 +165,7 @@
  @return BOOL
  
  */
--(BOOL) canItemAtPoint:(CGPoint) from beDeletedIfDroppedOutsideOfCollection:(id<I3Collection>) collection atPoint:(CGPoint) to;
+-(BOOL) canItemAtPoint:(CGPoint) from beDeletedFromCollection:(id<I3Collection>) collection atPoint:(CGPoint) to;
 
 
 /**

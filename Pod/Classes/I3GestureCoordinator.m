@@ -187,9 +187,9 @@
     CGPoint locationInSuperview = [_gestureRecognizer locationInView:self.arena.superview];
     
     if(
-       [self.dragDataSource respondsToSelector:@selector(canItemAtPoint:beDeletedIfDroppedOutsideOfCollection:atPoint:)] &&
+       [self.dragDataSource respondsToSelector:@selector(canItemAtPoint:beDeletedFromCollection:atPoint:)] &&
        [self.dragDataSource respondsToSelector:@selector(deleteItemAtPoint:inCollection:)] &&
-       [self.dragDataSource canItemAtPoint:self.currentDragOrigin beDeletedIfDroppedOutsideOfCollection:self.currentDraggingCollection atPoint:locationInSuperview]
+       [self.dragDataSource canItemAtPoint:self.currentDragOrigin beDeletedFromCollection:self.currentDraggingCollection atPoint:locationInSuperview]
        ){
         
         DND_LOG(@"Data source wants us to delete this! Deleting...");

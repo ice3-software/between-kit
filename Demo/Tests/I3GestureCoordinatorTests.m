@@ -429,7 +429,7 @@ SpecBegin(I3GestureCoordinator)
                 id dragDataSource = OCMPartialMock([[I3DragDataSourceJustCanDelete alloc] init]);
                 coordinator.dragDataSource = dragDataSource;
 
-                OCMStub([dragDataSource canItemAtPoint:dragOrigin beDeletedIfDroppedOutsideOfCollection:draggingCollection atPoint:dropOrigin]).andReturn(YES);
+                OCMStub([dragDataSource canItemAtPoint:dragOrigin beDeletedFromCollection:draggingCollection atPoint:dropOrigin]).andReturn(YES);
                 OCMStub([collectionView pointInside:dragOrigin withEvent:nil]).andReturn(NO);
                 
                 [[dragDataSource reject] deleteItemAtPoint:dragOrigin inCollection:draggingCollection];
@@ -442,13 +442,13 @@ SpecBegin(I3GestureCoordinator)
             it(@"should not delete and render reset if the item in the data source is not deleteable", ^{
                 
                 OCMStub([collectionView pointInside:dropOrigin withEvent:nil]).andReturn(NO);
-                OCMStub([defaultDragDataSource canItemAtPoint:dragOrigin beDeletedIfDroppedOutsideOfCollection:draggingCollection atPoint:dropOrigin]).andReturn(NO);
+                OCMStub([defaultDragDataSource canItemAtPoint:dragOrigin beDeletedFromCollection:draggingCollection atPoint:dropOrigin]).andReturn(NO);
                 
                 [[defaultDragDataSource reject] deleteItemAtPoint:dragOrigin inCollection:draggingCollection];
                 
                 [coordinator handlePan:coordinator.gestureRecognizer];
                 
-                OCMVerify([defaultDragDataSource canItemAtPoint:dragOrigin beDeletedIfDroppedOutsideOfCollection:draggingCollection atPoint:dropOrigin]);
+                OCMVerify([defaultDragDataSource canItemAtPoint:dragOrigin beDeletedFromCollection:draggingCollection atPoint:dropOrigin]);
                 OCMVerify([renderDelegate renderResetFromPoint:dropOrigin fromCoordinator:coordinator]);
                 
             });
@@ -456,7 +456,7 @@ SpecBegin(I3GestureCoordinator)
             it(@"should delete item if its deleteable under the data source", ^{
                 
                 OCMStub([collectionView pointInside:dropOrigin withEvent:nil]).andReturn(NO);
-                OCMStub([defaultDragDataSource canItemAtPoint:dragOrigin beDeletedIfDroppedOutsideOfCollection:draggingCollection atPoint:dropOrigin]).andReturn(YES);
+                OCMStub([defaultDragDataSource canItemAtPoint:dragOrigin beDeletedFromCollection:draggingCollection atPoint:dropOrigin]).andReturn(YES);
                 
                 [coordinator handlePan:coordinator.gestureRecognizer];
                 
@@ -480,7 +480,7 @@ SpecBegin(I3GestureCoordinator)
                 OCMStub([dstCollection itemAtPoint:dropOrigin]).andReturn(dstItemView);
                 OCMStub([dstCollectionView pointInside:dropOrigin withEvent:nil]).andReturn(YES);
                 OCMStub([defaultDragDataSource canItemAtPoint:dragOrigin fromCollection:draggingCollection beExchangedWithItemAtPoint:dropOrigin inCollection:dstCollection]).andReturn(YES);
-                OCMStub([defaultDragDataSource canItemAtPoint:dragOrigin beDeletedIfDroppedOutsideOfCollection:draggingCollection atPoint:dropOrigin]).andReturn(YES);
+                OCMStub([defaultDragDataSource canItemAtPoint:dragOrigin beDeletedFromCollection:draggingCollection atPoint:dropOrigin]).andReturn(YES);
                 
                 [collections insertObject:dstCollection atIndex:0];
                 
