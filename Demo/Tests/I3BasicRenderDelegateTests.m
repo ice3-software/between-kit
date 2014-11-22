@@ -194,31 +194,40 @@ SpecBegin(I3BasicRenderDelegate)
         });
         
         
-        describe(@"drop on another collection", ^{
+        /// @note This shared behaviour requires that a block is passed in to trigger the actual render
+        /// method to be called.
+        
+        sharedExamples(@"drop on collection", ^(NSDictionary *data){
+        
+            __block void (^performDropRender)(id<I3Collection> collection, CGPoint point, I3GestureCoordinator *coordinator) = data[@"performDrop"];
+            
+            beforeEach(^{
 
-            it(@"should release reference to dragging view and remove it from superview on exchange between collections", ^{
-                
                 [renderDelegate renderDragStart:coordinator];
-                id dstCollection = OCMProtocolMock(@protocol(I3Collection));
-                
-                //[renderDelegate renderDropOnCollection:dstCollection atPoint:CGPointMake(0, 0) fromCoordinator:coordinator];
-                
-                expect([[superview subviews] containsObject:renderDelegate.draggingView]).to.beFalsy;
-                //expect(renderDelegate.draggingView).to.beNil();
                 
             });
-
-            it(@"should re-show the hidden item in the collection if specified by the data source", ^{
             
+            it(@"should release reference to dragging view and remove it from superview on exchange between collections", ^{
+                
+                id dstCollection = OCMProtocolMock(@protocol(I3Collection));
+                
+                performDropRender(dstCollection, CGPointMake(0, 0), coordinator);
+                
+                expect([[superview subviews] containsObject:renderDelegate.draggingView]).to.beFalsy();
+                expect(renderDelegate.draggingView).to.beNil();
+                
+            });
+            
+            it(@"should re-show the hidden item in the collection if specified by the data source", ^{
+                
                 id dstCollection = OCMProtocolMock(@protocol(I3Collection));
                 OCMStub([dragDataSource hidesItemWhileDraggingAtPoint:dragOrigin inCollection:currentDraggingCollection]).andReturn(YES);
                 [[currentDraggingCollection reject] itemAtPoint:dragOrigin];
-
                 
-                //[renderDelegate renderDropOnCollection:dstCollection atPoint:CGPointMake(0, 0) fromCoordinator:coordinator];
-
+                performDropRender(dstCollection, CGPointMake(0, 0), coordinator);
+                
                 expect(draggingItem.alpha).to.equal(1);
-                //OCMVerify([dragDataSource hidesItemWhileDraggingAtPoint:dragOrigin inCollection:currentDraggingCollection]);
+                OCMVerify([dragDataSource hidesItemWhileDraggingAtPoint:dragOrigin inCollection:currentDraggingCollection]);
                 
             });
             
@@ -229,12 +238,29 @@ SpecBegin(I3BasicRenderDelegate)
                 OCMStub([dragDataSource hidesItemWhileDraggingAtPoint:dragOrigin inCollection:currentDraggingCollection]).andReturn(NO);
                 [[currentDraggingCollection reject] itemAtPoint:dragOrigin];
                 
-                //[renderDelegate renderDropOnCollection:dstCollection atPoint:CGPointMake(0, 0) fromCoordinator:coordinator];
-
+                performDropRender(dstCollection, CGPointMake(0, 0), coordinator);
+                
                 expect(draggingItem.alpha).to.equal(1);
-                //OCMVerify([dragDataSource hidesItemWhileDraggingAtPoint:dragOrigin inCollection:currentDraggingCollection]);
-            
+                OCMVerify([dragDataSource hidesItemWhileDraggingAtPoint:dragOrigin inCollection:currentDraggingCollection]);
+                
             });
+            
+        });
+
+        
+        describe(@"exchange", ^{
+            
+            itShouldBehaveLike(@"drop on collection", @{@"performDrop": ^(id<I3Collection> collection, CGPoint point, I3GestureCoordinator *coordinator){
+                [renderDelegate renderExchangeToCollection:collection atPoint:point fromCoordinator:coordinator];
+            }});
+            
+        });
+        
+        describe(@"append", ^{
+            
+            itShouldBehaveLike(@"drop on collection", @{@"performDrop": ^(id<I3Collection> collection, CGPoint point, I3GestureCoordinator *coordinator){
+                [renderDelegate renderAppendToCollection:collection atPoint:point fromCoordinator:coordinator];
+            }});
             
         });
         

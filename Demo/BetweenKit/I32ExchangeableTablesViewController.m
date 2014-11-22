@@ -89,7 +89,7 @@ static NSString* DequeueReusableCell = @"DequeueReusableCell";
 }
 
 
--(BOOL) canItemAtPoint:(CGPoint)from fromCollection:(id<I3Collection>)fromCollection beDroppedToPoint:(CGPoint)to inCollection:(id<I3Collection>)collection{
+-(BOOL) canItemAtPoint:(CGPoint)from fromCollection:(id<I3Collection>)fromCollection beExchangedWithItemAtPoint:(CGPoint)to inCollection:(id<I3Collection>)toCollection{
     return YES;
 }
 
@@ -99,7 +99,7 @@ static NSString* DequeueReusableCell = @"DequeueReusableCell";
 }
 
 
--(void) dropItemAtPoint:(CGPoint) from fromCollection:(id<I3Collection>) fromCollection toPoint:(CGPoint) to inCollection:(id<I3Collection>) toCollection{
+-(void) exchangeItemAtPoint:(CGPoint)from inCollection:(id<I3Collection>)fromCollection withItemAtPoint:(CGPoint)to inCollection:(id<I3Collection>)toCollection{
     
     
     UITableView *fromTable = (UITableView *)fromCollection.collectionView;

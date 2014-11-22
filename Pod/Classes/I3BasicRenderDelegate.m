@@ -12,6 +12,16 @@
 
 @interface I3BasicRenderDelegate ()
 
+
+/**
+ 
+ Private method that renders a drop from one collection onto another. This is called on both
+ appendation and exchange.
+ 
+ */
+-(void) renderDropOnCollection:(id<I3Collection>) dstCollection atPoint:(CGPoint) at fromCoordinator:(I3GestureCoordinator *)coordinator;
+
+
 @end
 
 
@@ -86,27 +96,6 @@
 }
 
 
--(void) renderDropOnCollection:(id<I3Collection>) dstCollection atPoint:(CGPoint) at fromCoordinator:(I3GestureCoordinator *)coordinator{
-
-    [_draggingView removeFromSuperview];
-    _draggingView = nil;
- 
-    id<I3Collection> draggingCollection = coordinator.currentDraggingCollection;
-    CGPoint dragOrigin = coordinator.currentDragOrigin;
-
-    if(
-       [coordinator.dragDataSource respondsToSelector:@selector(hidesItemWhileDraggingAtPoint:inCollection:)] &&
-       [coordinator.dragDataSource hidesItemWhileDraggingAtPoint:dragOrigin inCollection:draggingCollection]
-    ){
-        
-        UIView *sourceView = [draggingCollection itemAtPoint:dragOrigin];
-        sourceView.alpha = 1;
-    
-    }
-
-}
-
-
 -(void) renderRearrangeOnPoint:(CGPoint) at fromCoordinator:(I3GestureCoordinator *)coordinator{
     
     id<I3Collection> draggingCollection = coordinator.currentDraggingCollection;
@@ -172,6 +161,40 @@
     }];
     
     _draggingView = nil;
+    
+}
+
+
+-(void) renderExchangeToCollection:(id<I3Collection>) dstCollection atPoint:(CGPoint) at fromCoordinator:(I3GestureCoordinator *)coordinator{
+    [self renderDropOnCollection:dstCollection atPoint:at fromCoordinator:coordinator];
+}
+
+
+-(void) renderAppendToCollection:(id<I3Collection>)dstCollection atPoint:(CGPoint)at fromCoordinator:(I3GestureCoordinator *)coordinator{
+    [self renderDropOnCollection:dstCollection atPoint:at fromCoordinator:coordinator];
+}
+
+
+#pragma mark - Private methods
+
+
+-(void) renderDropOnCollection:(id<I3Collection>) dstCollection atPoint:(CGPoint) at fromCoordinator:(I3GestureCoordinator *)coordinator{
+    
+    [_draggingView removeFromSuperview];
+    _draggingView = nil;
+    
+    id<I3Collection> draggingCollection = coordinator.currentDraggingCollection;
+    CGPoint dragOrigin = coordinator.currentDragOrigin;
+    
+    if(
+       [coordinator.dragDataSource respondsToSelector:@selector(hidesItemWhileDraggingAtPoint:inCollection:)] &&
+       [coordinator.dragDataSource hidesItemWhileDraggingAtPoint:dragOrigin inCollection:draggingCollection]
+       ){
+        
+        UIView *sourceView = [draggingCollection itemAtPoint:dragOrigin];
+        sourceView.alpha = 1;
+        
+    }
     
 }
 
