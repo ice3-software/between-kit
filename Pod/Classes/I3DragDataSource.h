@@ -167,23 +167,4 @@
  */
 -(BOOL) canItemAtPoint:(CGPoint) from beDeletedFromCollection:(id<I3Collection>) collection atPoint:(CGPoint) to;
 
-
-/**
- 
- Should an item's original view be 'hidden' whilst it is being dragged? If YES, the item
- view will appear to have been lifted off the collection and be dragged about. If NO, a
- 'ghost' duplicate will appear to track around with the user's pan gesture.
- 
- @name Rendering
- @param at          The point at which the item is.
- @param collection  The collection we're providing data for.
- @todo Remove this - it has no place here. If the basic render delegate wants to ask fine-grained
- questions about whether it should 'hide this' or 'style something like that', it should provide its
- own delegate protocol. Something like `I3BasicRenderDelegateDataSource`... Still open to discussion.
- @deprecated
- @return BOOL
- 
- */
--(BOOL) hidesItemWhileDraggingAtPoint:(CGPoint) at inCollection:(id<I3Collection>) collection;
-
 @end
