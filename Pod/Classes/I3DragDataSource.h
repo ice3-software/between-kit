@@ -167,4 +167,5 @@
  */
 -(BOOL) canItemAtPoint:(CGPoint) from beDeletedFromCollection:(id<I3Collection>) collection atPoint:(CGPoint) to;
 
+
 @end

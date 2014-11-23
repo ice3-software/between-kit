@@ -103,11 +103,6 @@ static NSString* DequeueReusableCell = @"DequeueReusableCell";
 }
 
 
--(BOOL) hidesItemWhileDraggingAtPoint:(CGPoint) at inCollection:(id<I3Collection>) collection{
-    return YES;
-}
-
-
 -(void) rearrangeItemAtPoint:(CGPoint)from withItemAtPoint:(CGPoint)to inCollection:(id<I3Collection>)collection{
     
     UITableView *targetTableView = (UITableView *)collection.collectionView;
@@ -121,38 +116,5 @@ static NSString* DequeueReusableCell = @"DequeueReusableCell";
     [targetTableView reloadRowsAtIndexPaths:@[toIndex, fromIndex] withRowAnimation:UITableViewRowAnimationFade];
 }
 
-
--(void) dropItemAtPoint:(CGPoint) from fromCollection:(id<I3Collection>) fromCollection toPoint:(CGPoint) to inCollection:(id<I3Collection>) toCollection{
-
-    
-    UITableView *fromTable = (UITableView *)fromCollection.collectionView;
-    UITableView *toTable = (UITableView *)toCollection.collectionView;
-    
-    NSIndexPath *toIndex = [toTable indexPathForRowAtPoint:to];
-    NSIndexPath *fromIndex = [fromTable indexPathForRowAtPoint:from];
-    
-    
-    /** Determine the `from` and `to` datasets */
-    
-    BOOL isFromLeftTable = fromTable == self.leftTableView;
-    
-    NSNumber *exchangingData = isFromLeftTable ? [self.leftData objectAtIndex:fromIndex.row] : [self.rightData objectAtIndex:fromIndex.row];
-    NSMutableArray *fromDataset = isFromLeftTable ? self.leftData : self.rightData;
-    NSMutableArray *toDataset = isFromLeftTable ? self.rightData : self.leftData;
-    
-
-    /** Update the data source and the individual table view rows */
-    
-    [fromDataset removeObjectAtIndex:fromIndex.row];
-    [toDataset insertObject:exchangingData atIndex:toIndex.row];
-
-    NSLog(@"Left data: %@", self.leftData);
-    NSLog(@"Right data: %@", self.rightData);
-    
-
-    [fromTable deleteRowsAtIndexPaths:@[[NSIndexPath indexPathForRow:fromIndex.row inSection:0]] withRowAnimation:UITableViewRowAnimationFade];
-    [toTable insertRowsAtIndexPaths:@[[NSIndexPath indexPathForRow:toIndex.row inSection:0]] withRowAnimation:UITableViewRowAnimationFade];
-
-}
 
 @end
