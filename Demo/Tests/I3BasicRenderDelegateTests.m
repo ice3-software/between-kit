@@ -74,6 +74,19 @@ SpecBegin(I3BasicRenderDelegate)
         });
         
         
+        describe(@"ctor", ^{
+        
+            it(@"should initialise draggingItemOpacity to 0.01", ^{
+                expect(renderDelegate.draggingItemOpacity).to.equal(0.01);
+            });
+        
+            it(@"should initialise the draggingViewOpacity to 1", ^{
+                expect(renderDelegate.draggingViewOpacity).to.equal(1);
+            });
+            
+        });
+        
+        
         describe(@"begin drag", ^{
             
             it(@"should construct a dragging view from an item in the dragging collection on start", ^{
@@ -106,26 +119,21 @@ SpecBegin(I3BasicRenderDelegate)
 
             });
             
-            it(@"should hide the original item if required by the datasource", ^{
-            
-                OCMStub([dragDataSource hidesItemWhileDraggingAtPoint:dragOrigin inCollection:currentDraggingCollection]).andReturn(YES);
-                
+            it(@"should set the original item's opacity to draggingItemOpacity", ^{
+
+                renderDelegate.draggingItemOpacity = 0.5;
                 [renderDelegate renderDragStart:coordinator];
                 
-                expect(draggingItem.alpha).to.equal(0.01f);
-                OCMVerify([dragDataSource hidesItemWhileDraggingAtPoint:dragOrigin inCollection:currentDraggingCollection]);
+                expect(draggingItem.alpha).to.equal(0.5);
                 
             });
             
-            it(@"should not hide the original item if specified by the datasource", ^{
+            it(@"should set the cloned draggingView to draggingViewOpacity", ^{
                 
-                OCMStub([dragDataSource hidesItemWhileDraggingAtPoint:dragOrigin inCollection:currentDraggingCollection]).andReturn(NO);
-                
-                [[dragDataSource reject] hidesItemWhileDraggingAtPoint:dragOrigin inCollection:currentDraggingCollection];
-
+                renderDelegate.draggingViewOpacity = 0.3;
                 [renderDelegate renderDragStart:coordinator];
                 
-                expect(draggingItem.alpha).to.equal(1);
+                expect(renderDelegate.draggingView.alpha).to.equal(0.3);
                 
             });
             
@@ -164,7 +172,7 @@ SpecBegin(I3BasicRenderDelegate)
         
         describe(@"reset from point", ^{
 
-            it(@"should release strong reference to the dragging view, whilst animating it back to the origin in an async animation and unhiding it if specified", ^{
+            it(@"should release strong reference to the dragging view, whilst animating it back to the origin in an async animation", ^{
                 
                 [renderDelegate renderDragStart:coordinator];
                 
@@ -175,7 +183,6 @@ SpecBegin(I3BasicRenderDelegate)
                 
                 id uiViewMock = OCMClassMock([UIView class]);
                 OCMStub([superview convertRect:draggingItem.frame fromView:collectionView]).andReturn(resetRect);
-                OCMStub([dragDataSource hidesItemWhileDraggingAtPoint:dragOrigin inCollection:currentDraggingCollection]).andReturn(YES);
                 OCMStub([uiViewMock animateWithDuration:duration animations:[OCMArg any] completion:[OCMArg any]]).andDo(^(NSInvocation *invocation){
                     
                     void (^animateBlock)();
@@ -229,30 +236,14 @@ SpecBegin(I3BasicRenderDelegate)
                 
             });
             
-            it(@"should re-show the hidden item in the collection if specified by the data source", ^{
+            it(@"should re-show the hidden item in the collection", ^{
                 
                 id dstCollection = OCMProtocolMock(@protocol(I3Collection));
-                OCMStub([dragDataSource hidesItemWhileDraggingAtPoint:dragOrigin inCollection:currentDraggingCollection]).andReturn(YES);
-                [[currentDraggingCollection reject] itemAtPoint:dragOrigin];
+                draggingItem.alpha = 0.3;
                 
                 performDropRender(dstCollection, CGPointMake(0, 0), coordinator);
                 
                 expect(draggingItem.alpha).to.equal(1);
-                OCMVerify([dragDataSource hidesItemWhileDraggingAtPoint:dragOrigin inCollection:currentDraggingCollection]);
-                
-            });
-            
-            
-            it(@"should not attempt to 'un-hide' the item in the collection if not specified by the data source", ^{
-                
-                id dstCollection = OCMProtocolMock(@protocol(I3Collection));
-                OCMStub([dragDataSource hidesItemWhileDraggingAtPoint:dragOrigin inCollection:currentDraggingCollection]).andReturn(NO);
-                [[currentDraggingCollection reject] itemAtPoint:dragOrigin];
-                
-                performDropRender(dstCollection, CGPointMake(0, 0), coordinator);
-                
-                expect(draggingItem.alpha).to.equal(1);
-                OCMVerify([dragDataSource hidesItemWhileDraggingAtPoint:dragOrigin inCollection:currentDraggingCollection]);
                 
             });
             

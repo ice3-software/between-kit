@@ -33,6 +33,24 @@
 
 /**
  
+ The opacity that the dragging item in the collection will be set to on drag start. This is _not_ 
+ the opacity of the cloned dragging, its the opacity of cell grounded in the collection whilst
+ that cloned view is being dragged about in the superview.
+ 
+ */
+@property (nonatomic, assign) CGFloat draggingItemOpacity;
+
+
+/**
+ 
+ The opacity of the cloned draggingView whilst dragging occurs.
+ 
+ */
+@property (nonatomic, assign) CGFloat draggingViewOpacity;
+
+
+/**
+ 
  The cloned view that is current being rendered according to the drag position.
  
  */

@@ -32,6 +32,21 @@
 @implementation I3BasicRenderDelegate
 
 
+-(id) init{
+
+    self = [super init];
+    
+    if(self){
+    
+        _draggingItemOpacity = 0.01;
+        _draggingViewOpacity = 1;
+        
+    }
+
+    return self;
+}
+
+
 -(void) renderDragStart:(I3GestureCoordinator *)coordinator{
     
     id<I3Collection> draggingCollection = coordinator.currentDraggingCollection;
@@ -42,15 +57,11 @@
         
     _draggingView = [[I3CloneView alloc] initWithSourceView:sourceView];
     _draggingView.frame = [coordinator.arena.superview convertRect:sourceView.frame fromView:collectionView];
+    _draggingView.alpha = _draggingViewOpacity;
     [coordinator.arena.superview addSubview:_draggingView];
     [_draggingView cloneSourceView];
     
-    if(
-       [coordinator.dragDataSource respondsToSelector:@selector(hidesItemWhileDraggingAtPoint:inCollection:)] &&
-       [coordinator.dragDataSource hidesItemWhileDraggingAtPoint:dragOrigin inCollection:draggingCollection]
-    ){
-        sourceView.alpha = 0.01f;
-    }
+    sourceView.alpha = _draggingItemOpacity;
 }
 
 
@@ -77,13 +88,7 @@
     } completion:^(BOOL finished){
         
         [draggingView removeFromSuperview];
-
-        if(
-           [coordinator.dragDataSource respondsToSelector:@selector(hidesItemWhileDraggingAtPoint:inCollection:)] &&
-           [coordinator.dragDataSource hidesItemWhileDraggingAtPoint:coordinator.currentDragOrigin inCollection:coordinator.currentDraggingCollection]
-           ){
-            sourceView.alpha = 1;
-        }
+        sourceView.alpha = 1;
         
     }];
 
@@ -130,7 +135,6 @@
     }];
 
     _draggingView = nil;
-    
     
     /// @note When would be need to re-show the item?
     /// @note Can we hide both the dragging and the exchange items while the animation plays out ?
@@ -181,17 +185,10 @@
     
     id<I3Collection> draggingCollection = coordinator.currentDraggingCollection;
     CGPoint dragOrigin = coordinator.currentDragOrigin;
-    
-    if(
-       [coordinator.dragDataSource respondsToSelector:@selector(hidesItemWhileDraggingAtPoint:inCollection:)] &&
-       [coordinator.dragDataSource hidesItemWhileDraggingAtPoint:dragOrigin inCollection:draggingCollection]
-       ){
-        
-        UIView *sourceView = [draggingCollection itemAtPoint:dragOrigin];
-        sourceView.alpha = 1;
-        
-    }
-    
+
+    UIView *sourceView = [draggingCollection itemAtPoint:dragOrigin];
+    sourceView.alpha = 1;
+
 }
 
 @end
