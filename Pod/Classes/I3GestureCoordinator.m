@@ -72,7 +72,7 @@
 @implementation I3GestureCoordinator
 
 
--(id) initWithDragArena:(I3DragArena *)arena withGestureRecognizer:(UIPanGestureRecognizer *)gestureRecognizer{
+-(id) initWithDragArena:(I3DragArena *)arena withGestureRecognizer:(UIGestureRecognizer *)gestureRecognizer{
 
     self = [super init];
     
@@ -107,7 +107,7 @@
 #pragma mark - Coordination methods
 
 
--(void) handlePan:(UIPanGestureRecognizer*) gestureRecognizer{
+-(void) handlePan:(UIGestureRecognizer*) gestureRecognizer{
     
     switch([gestureRecognizer state]){
             
@@ -329,9 +329,9 @@
 
 
 +(instancetype) basicGestureCoordinatorFromViewController:(UIViewController *)viewController withCollections:(NSArray *)collections{
-
+    
     I3DragArena *arena = [[I3DragArena alloc] initWithSuperview:viewController.view containingCollections:collections];
-    I3GestureCoordinator *coordinator = [[I3GestureCoordinator alloc] initWithDragArena:arena withGestureRecognizer:nil];
+    I3GestureCoordinator *coordinator = [[I3GestureCoordinator alloc] initWithDragArena:arena withGestureRecognizer:[[UILongPressGestureRecognizer alloc] init]];
     coordinator.renderDelegate = [[I3BasicRenderDelegate alloc] init];
     
     if([viewController conformsToProtocol:@protocol(I3DragDataSource)]){

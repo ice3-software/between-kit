@@ -56,12 +56,8 @@
 
 -(void) renderDraggingFromCoordinator:(I3GestureCoordinator *)coordinator{
 
-    CGPoint translation = [coordinator.gestureRecognizer translationInView:coordinator.arena.superview];
-    NSInteger xTranslation = self.draggingView.center.x + translation.x;
-    NSInteger yTranslation = self.draggingView.center.y + translation.y;
-    
-    self.draggingView.center = CGPointMake(xTranslation, yTranslation);
-    [coordinator.gestureRecognizer setTranslation:CGPointZero inView:coordinator.arena.superview];
+    CGPoint translation = [coordinator.gestureRecognizer locationInView:coordinator.arena.superview];
+    self.draggingView.center = CGPointMake(translation.x, translation.y);
     
 }
 

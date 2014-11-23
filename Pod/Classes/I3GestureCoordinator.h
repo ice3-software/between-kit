@@ -56,7 +56,7 @@
  the scenes' for convenience.
  
  */
-@property (nonatomic, strong, readonly) UIPanGestureRecognizer *gestureRecognizer;
+@property (nonatomic, strong, readonly) UIGestureRecognizer *gestureRecognizer;
 
 
 /**
@@ -124,7 +124,7 @@
  @return id
  
  */
--(id) initWithDragArena:(I3DragArena *)arena withGestureRecognizer:(UIPanGestureRecognizer *)gestureRecognizer;
+-(id) initWithDragArena:(I3DragArena *)arena withGestureRecognizer:(UIGestureRecognizer *)gestureRecognizer;
 
 
 /**
@@ -145,7 +145,7 @@
  without knowing the inner workings of the UIGestureRecognizer.
  
  */
--(void) handlePan:(UIPanGestureRecognizer*) gestureRecognizer;
+-(void) handlePan:(UIGestureRecognizer*) gestureRecognizer;
 
 
 
