@@ -910,54 +910,81 @@ SpecBegin(I3GestureCoordinator)
     });
 
 
-    describe(@"basic facotry class method", ^{
+    sharedExamples(@"factory", ^(NSDictionary *data) {
 
+        id coordinator = data[@"coordinator"];
+        UIViewController *controller = data[@"controller"];
+        
+        
         it(@"should create a new coodinator", ^{
-            
-            expect([I3GestureCoordinator basicGestureCoordinatorFromViewController:[[UIViewController alloc] init] withCollections:nil]).to.beInstanceOf([I3GestureCoordinator class]);
-            
+            expect(coordinator).to.beInstanceOf([I3GestureCoordinator class]);
         });
         
         it(@"should create a new coordinator with a basic drag render delegate", ^{
-
-            I3GestureCoordinator *coordinator = [I3GestureCoordinator basicGestureCoordinatorFromViewController:[[UIViewController alloc] init] withCollections:nil];
-
-            expect(coordinator.renderDelegate).to.beInstanceOf([I3BasicRenderDelegate class]);
-            
+            expect([coordinator renderDelegate]).to.beInstanceOf([I3BasicRenderDelegate class]);
         });
         
         it(@"should set the controller as the gesture's data source if it conforms to protocol", ^{
-        
-            I3DataSourceControllerFixture *controller = [[I3DataSourceControllerFixture alloc] init];
-            I3GestureCoordinator *coordinator = [I3GestureCoordinator basicGestureCoordinatorFromViewController:controller withCollections:nil];
-            
-            expect(coordinator.dragDataSource).to.equal(controller);
-            
+            expect([coordinator dragDataSource]).to.equal(controller);
         });
         
         it(@"should set up arena with the controller's main view as the superview", ^{
-        
-            UIViewController *controller = [[UIViewController alloc] init];
-            I3GestureCoordinator *coordinator = [I3GestureCoordinator basicGestureCoordinatorFromViewController:controller withCollections:nil];
-            
-            expect(coordinator.arena.superview).to.equal(controller.view);
-            
+            expect([coordinator arena].superview).to.equal(controller.view);
         });
         
         it(@"should set up the arena with collections", ^{
-        
-            id collection1 = [[I3CollectionFixture alloc] init];
-            id collection2 = [[I3CollectionFixture alloc] init];
-            id collection3 = [[I3CollectionFixture alloc] init];
             
-            UIViewController *controller = [[UIViewController alloc] init];
-            I3GestureCoordinator *coordinator = [I3GestureCoordinator basicGestureCoordinatorFromViewController:controller withCollections:@[collection1, collection2, collection3]];
+            I3CollectionFixture *collection1 = data[@"collection1"];
+            I3CollectionFixture *collection2 = data[@"collection2"];
+            I3CollectionFixture *collection3 = data[@"collection3"];
             
-            expect([coordinator.arena.collections containsObject:collection1]).to.beTruthy();
-            expect([coordinator.arena.collections containsObject:collection2]).to.beTruthy();
-            expect([coordinator.arena.collections containsObject:collection3]).to.beTruthy();
+            expect([[coordinator arena].collections containsObject:collection1]).to.beTruthy();
+            expect([[coordinator arena].collections containsObject:collection2]).to.beTruthy();
+            expect([[coordinator arena].collections containsObject:collection3]).to.beTruthy();
+            
         });
+    
+    });
+
+    describe(@"basic factory method", ^{
+
+        I3DataSourceControllerFixture* controller = [[I3DataSourceControllerFixture alloc] init];
+        I3CollectionFixture *collection1 = [[I3CollectionFixture alloc] init];
+        I3CollectionFixture *collection2 = [[I3CollectionFixture alloc] init];
+        I3CollectionFixture *collection3 = [[I3CollectionFixture alloc] init];
         
+        itShouldBehaveLike(@"factory", @{
+                                         @"coordinator": [I3GestureCoordinator basicGestureCoordinatorFromViewController:controller withCollections:@[collection1, collection2, collection3]],
+                                         @"controller":  controller,
+                                         @"collection1": collection1,
+                                         @"collection2": collection2,
+                                         @"collection3": collection3,
+                                         });
+        
+    });
+
+
+    describe(@"basic factory method with gesture", ^{
+
+        I3DataSourceControllerFixture* controller = [[I3DataSourceControllerFixture alloc] init];
+        I3CollectionFixture *collection1 = [[I3CollectionFixture alloc] init];
+        I3CollectionFixture *collection2 = [[I3CollectionFixture alloc] init];
+        I3CollectionFixture *collection3 = [[I3CollectionFixture alloc] init];
+        UILongPressGestureRecognizer *recognizer = [[UILongPressGestureRecognizer alloc] init];
+        I3GestureCoordinator *coordinator = [I3GestureCoordinator basicCoordinatorFromViewController:controller withCollections:@[collection1, collection2, collection3] withRecognizer:recognizer];
+        
+        itShouldBehaveLike(@"factory", @{
+                                         @"coordinator": coordinator,
+                                         @"controller":  controller,
+                                         @"collection1": collection1,
+                                         @"collection2": collection2,
+                                         @"collection3": collection3,
+                                         });
+        
+        it(@"should initialise the coordinator with a long press gesture recognizer", ^{
+            expect(coordinator.gestureRecognizer).to.equal(recognizer);
+        });
+    
     });
 
 SpecEnd
