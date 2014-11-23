@@ -55,10 +55,10 @@
 
 
 -(void) renderDraggingFromCoordinator:(I3GestureCoordinator *)coordinator{
-
-    CGPoint translation = [coordinator.gestureRecognizer locationInView:coordinator.arena.superview];
-    self.draggingView.center = CGPointMake(translation.x, translation.y);
     
+    [UIView animateWithDuration:0.05 animations:^{
+        self.draggingView.center = [coordinator.gestureRecognizer locationInView:coordinator.arena.superview];
+    }];
 }
 
 

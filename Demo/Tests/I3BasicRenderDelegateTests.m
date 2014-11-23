@@ -75,7 +75,6 @@ SpecBegin(I3BasicRenderDelegate)
         
         
         describe(@"begin drag", ^{
-        
             
             it(@"should construct a dragging view from an item in the dragging collection on start", ^{
                 
@@ -134,19 +133,31 @@ SpecBegin(I3BasicRenderDelegate)
         
         describe(@"dragging", ^{
         
-            
-            it(@"should translate the current dragging view and then reset the recognizer's translation", ^{
-                
+            it(@"should animate the current dragging view to the gesture location", ^{
+
                 CGPoint translation = CGPointMake(5, 5);
                 [renderDelegate renderDragStart:coordinator];
                 [renderDelegate.draggingView setCenter:CGPointMake(50, 50)];
-                
-                OCMStub([gestureRecognizer translationInView:superview]).andReturn(translation);
+
+                id uiViewMock = OCMClassMock([UIView class]);
+
+                OCMStub([gestureRecognizer locationInView:superview]).andReturn(translation);
+                OCMStub([uiViewMock animateWithDuration:0.5 animations:[OCMArg any]]).andDo(^(NSInvocation *invocation){
+                    
+                    void (^animateBlock)();
+                    [invocation getArgument:&animateBlock atIndex:3];
+                    
+                    animateBlock();
+                    
+                    expect(renderDelegate.draggingView.center).to.equal(translation);
+                    
+                });
                 
                 [renderDelegate renderDraggingFromCoordinator:coordinator];
                 
-                expect(renderDelegate.draggingView.center).to.equal(CGPointMake(55, 55));
-                
+                OCMVerify([uiViewMock animateWithDuration:0.05 animations:[OCMArg any]]);
+                [uiViewMock stopMocking];
+
             });
         
         });
