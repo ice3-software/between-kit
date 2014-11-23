@@ -88,23 +88,14 @@ SpecBegin(I3BasicRenderDelegate)
         
         
         describe(@"begin drag", ^{
+
             
             it(@"should construct a dragging view from an item in the dragging collection on start", ^{
-                
-                CGRect convertedRect = CGRectMake(10, 10, 20, 20);
-                OCMStub([superview convertRect:draggingItem.frame fromView:collectionView]).andReturn(convertedRect);
                 
                 [renderDelegate renderDragStart:coordinator];
                 
                 expect(renderDelegate.draggingView).to.beInstanceOf([I3CloneView class]);
-                expect(renderDelegate.draggingView.frame).to.equal(convertedRect);
-
-                /// We can't seem to compare partial mock references, so I've just used `isEqual`... note sure
-                /// how reliable this is but it seems to work.
-                
-                expect([renderDelegate.draggingView.superview isEqual:superview]).to.beTruthy;
-
-                OCMVerify([superview convertRect:draggingItem.frame fromView:collectionView]);
+                expect([[superview subviews] containsObject:renderDelegate.draggingView]).to.beTruthy();
                 
             });
 
@@ -137,6 +128,38 @@ SpecBegin(I3BasicRenderDelegate)
                 
             });
             
+            
+            /// @note that this could be a shared behaviour...
+            
+            it(@"should animate the dragging view to the initial gesture location", ^{
+                
+                CGPoint translation = CGPointMake(5, 5);
+                CGRect convertedRect = CGRectMake(10, 10, 20, 20);
+
+                id uiViewMock = OCMClassMock([UIView class]);
+                
+                OCMStub([gestureRecognizer locationInView:superview]).andReturn(translation);
+                OCMStub([superview convertRect:draggingItem.frame fromView:collectionView]).andReturn(convertedRect);
+
+                OCMStub([uiViewMock animateWithDuration:0.5 animations:[OCMArg any]]).andDo(^(NSInvocation *invocation){
+                    
+                    expect(renderDelegate.draggingView.frame).to.equal(convertedRect);
+                    
+                    void (^animateBlock)();
+                    [invocation getArgument:&animateBlock atIndex:3];
+                    animateBlock();
+                    
+                    expect(renderDelegate.draggingView.center).to.equal(translation);
+                    
+                });
+                
+                [renderDelegate renderDragStart:coordinator];
+                
+                OCMVerify([uiViewMock animateWithDuration:0.05 animations:[OCMArg any]]);
+                [uiViewMock stopMocking];
+                
+            });
+
         });
         
         describe(@"dragging", ^{

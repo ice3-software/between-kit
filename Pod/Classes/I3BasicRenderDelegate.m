@@ -57,11 +57,14 @@
         
     _draggingView = [[I3CloneView alloc] initWithSourceView:sourceView];
     _draggingView.frame = [coordinator.arena.superview convertRect:sourceView.frame fromView:collectionView];
-    _draggingView.alpha = _draggingViewOpacity;
-    [coordinator.arena.superview addSubview:_draggingView];
     [_draggingView cloneSourceView];
+
+    [coordinator.arena.superview addSubview:_draggingView];
     
+    _draggingView.alpha = _draggingViewOpacity;
     sourceView.alpha = _draggingItemOpacity;
+    
+    [self renderDraggingFromCoordinator:coordinator];
 }
 
 
