@@ -342,4 +342,20 @@
     
 }
 
+
++(instancetype) basicGestureCoordinatorFromViewController:(UIViewController *)viewController withCollections:(NSArray *)collections withRecognizer:(UIGestureRecognizer *)recognizer{
+
+    I3DragArena *arena = [[I3DragArena alloc] initWithSuperview:viewController.view containingCollections:collections];
+    I3GestureCoordinator *coordinator = [[I3GestureCoordinator alloc] initWithDragArena:arena withGestureRecognizer:recognizer];
+    coordinator.renderDelegate = [[I3BasicRenderDelegate alloc] init];
+    
+    if([viewController conformsToProtocol:@protocol(I3DragDataSource)]){
+        coordinator.dragDataSource = (id<I3DragDataSource>)viewController;
+    }
+    
+    return coordinator;
+
+}
+
+
 @end

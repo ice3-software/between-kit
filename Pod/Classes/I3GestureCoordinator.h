@@ -155,11 +155,25 @@
  up with a basic drag render, a new coordinator, and an area spanning the controller's main
  view.
  
- @param  viewController      UIViewController*
- @param  collection          NSArray*
- @return UIViewController*
+ @param viewController      UIViewController*
+ @param collection          NSArray*
  
  */
 +(instancetype) basicGestureCoordinatorFromViewController:(UIViewController *)viewController withCollections:(NSArray *)collections;
+
+
+/**
+ 
+ Helper factory method for setting up a basic coordinator for a controller. Sets the environment
+ up with a basic drag render, a new coordinator, and an area spanning the controller's main
+ view.
+ 
+ @param viewController      UIViewController*
+ @param collection          NSArray*
+ @param recognizer          UIGestureRecognizer*
+ 
+ */
++(instancetype) basicGestureCoordinatorFromViewController:(UIViewController *)viewController withCollections:(NSArray *)collections withRecognizer:(UIGestureRecognizer *)recognizer;
+
 
 @end

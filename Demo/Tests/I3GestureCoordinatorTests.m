@@ -915,7 +915,6 @@ SpecBegin(I3GestureCoordinator)
         id coordinator = data[@"coordinator"];
         UIViewController *controller = data[@"controller"];
         
-        
         it(@"should create a new coodinator", ^{
             expect(coordinator).to.beInstanceOf([I3GestureCoordinator class]);
         });
@@ -971,7 +970,7 @@ SpecBegin(I3GestureCoordinator)
         I3CollectionFixture *collection2 = [[I3CollectionFixture alloc] init];
         I3CollectionFixture *collection3 = [[I3CollectionFixture alloc] init];
         UILongPressGestureRecognizer *recognizer = [[UILongPressGestureRecognizer alloc] init];
-        I3GestureCoordinator *coordinator = [I3GestureCoordinator basicCoordinatorFromViewController:controller withCollections:@[collection1, collection2, collection3] withRecognizer:recognizer];
+        I3GestureCoordinator *coordinator = [I3GestureCoordinator basicGestureCoordinatorFromViewController:controller withCollections:@[collection1, collection2, collection3] withRecognizer:recognizer];
         
         itShouldBehaveLike(@"factory", @{
                                          @"coordinator": coordinator,
