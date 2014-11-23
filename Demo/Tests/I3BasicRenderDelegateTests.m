@@ -112,19 +112,19 @@ SpecBegin(I3BasicRenderDelegate)
             
             it(@"should set the original item's opacity to draggingItemOpacity", ^{
 
-                renderDelegate.draggingItemOpacity = 0.5;
+                renderDelegate.draggingItemOpacity = 0.5f;
                 [renderDelegate renderDragStart:coordinator];
                 
-                expect(draggingItem.alpha).to.equal(0.5);
+                expect(draggingItem.alpha).to.equal(0.5f);
                 
             });
             
             it(@"should set the cloned draggingView to draggingViewOpacity", ^{
                 
-                renderDelegate.draggingViewOpacity = 0.3;
+                renderDelegate.draggingViewOpacity = 0.3f;
                 [renderDelegate renderDragStart:coordinator];
                 
-                expect(renderDelegate.draggingView.alpha).to.equal(0.3);
+                expect(renderDelegate.draggingView.alpha).to.equal(0.3f);
                 
             });
             
