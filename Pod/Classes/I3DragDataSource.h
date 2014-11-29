@@ -59,7 +59,7 @@
  @param toCollection    The collection we're providing data for.
  
  */
--(void) exchangeItemAt:(NSIndexPath *)from inCollection:(id<I3Collection>) fromCollection withItemAtPoint:(NSindexPath *)to inCollection:(id<I3Collection>) toCollection;
+-(void) exchangeItemAt:(NSIndexPath *)from inCollection:(id<I3Collection>) fromCollection withItemAt:(NSIndexPath *)to inCollection:(id<I3Collection>) toCollection;
 
 
 /**
@@ -157,7 +157,7 @@
  @return BOOL
  
  */
--(BOOL) canItemFrom:(NSindexPath *)from beRearrangedWithItemAt:(NSIndexPath *)to inCollection:(id<I3Collection>) collection;
+-(BOOL) canItemFrom:(NSIndexPath *)from beRearrangedWithItemAt:(NSIndexPath *)to inCollection:(id<I3Collection>) collection;
 
 
 /**

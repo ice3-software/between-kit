@@ -66,23 +66,6 @@
 -(void) handleDragStoppedInCollection:(id<I3Collection>) to atPoint:(CGPoint) at;
 
 
-/**
- 
- Helper method that returns the item view for the current drag origin in the current dragging 
- collection.
- 
- */
--(UIView *)itemForCurrentDragOrigin;
-
-
-/**
- 
- Helper method that returns an item view at a given point in a given collection.
- 
- */
--(UIView *)itemForPoint:(CGPoint) at inCollection:(id<I3Collection>) collection;
-
-
 @end
 
 
@@ -293,24 +276,24 @@
         destinationItemView &&
         !isRearrange &&
         [self.dragDataSource respondsToSelector:@selector(canItemAt:fromCollection:beExchangedWithItemAt:inCollection:)] &&
-        [self.dragDataSource respondsToSelector:@selector(exchangeItemAtPoint:inCollection:withItemAtPoint:inCollection:)] &&
-        [self.dragDataSource canItemAtPoint:self.currentDragOrigin fromCollection:self.currentDraggingCollection beExchangedWithItemAtPoint:at inCollection:to]
+        [self.dragDataSource respondsToSelector:@selector(exchangeItemAt:inCollection:withItemAt:inCollection:)] &&
+        [self.dragDataSource canItemAt:self.currentDraggingIndexPath fromCollection:self.currentDraggingCollection beExchangedWithItemAt:atIndex inCollection:to]
     ){
     
         DND_LOG(@"Exchanging items between collections.");
-        [self.dragDataSource exchangeItemAtPoint:self.currentDragOrigin inCollection:self.currentDraggingCollection withItemAtPoint:at inCollection:to];
+        [self.dragDataSource exchangeItemAt:self.currentDraggingIndexPath inCollection:self.currentDraggingCollection withItemAt:atIndex inCollection:to];
         [self.renderDelegate renderExchangeToCollection:to atPoint:at fromCoordinator:self];
 
     }
     else if(
         !isRearrange &&
-        [self.dragDataSource respondsToSelector:@selector(canItemAtPoint:fromCollection:beAppendedToCollection:atPoint:)] &&
-        [self.dragDataSource respondsToSelector:@selector(appendItemAtPoint:fromCollection:toPoint:onCollection:)] &&
-        [self.dragDataSource canItemAtPoint:self.currentDragOrigin fromCollection:self.currentDraggingCollection beAppendedToCollection:to atPoint:at]
+        [self.dragDataSource respondsToSelector:@selector(canItemAt:fromCollection:beAppendedToCollection:atPoint:)] &&
+        [self.dragDataSource respondsToSelector:@selector(appendItemAt:fromCollection:toPoint:onCollection:)] &&
+        [self.dragDataSource canItemAt:self.currentDraggingIndexPath fromCollection:self.currentDraggingCollection beAppendedToCollection:to atPoint:at]
     ){
         
         DND_LOG(@"Appending item onto collection from another collection.");
-        [self.dragDataSource appendItemAtPoint:self.currentDragOrigin fromCollection:self.currentDraggingCollection toPoint:at onCollection:to];
+        [self.dragDataSource appendItemAt:self.currentDraggingIndexPath fromCollection:self.currentDraggingCollection toPoint:at onCollection:to];
         [self.renderDelegate renderAppendToCollection:to atPoint:at fromCoordinator:self];
         
     }
@@ -338,12 +321,7 @@
 #pragma mark - Helper methods
 
 
--(UIView *)itemForPoint:(CGPoint) at inCollection:(id<I3Collection>) collection{
-
-    NSIndexPath *index = [collection indexPathForItemAtPoint:at];
-    return [collection itemAtIndexPath:index]
-    
-}
+/// ...
 
 
 #pragma mark - Accessor methods
