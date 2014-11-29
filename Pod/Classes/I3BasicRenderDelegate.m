@@ -50,13 +50,10 @@
 -(void) renderDragStart:(I3GestureCoordinator *)coordinator{
     
     id<I3Collection> draggingCollection = coordinator.currentDraggingCollection;
-    CGPoint dragOrigin = coordinator.currentDragOrigin;
+    UIView *sourceView = coordinator.currentDraggingItem;
     
-    UIView *sourceView = [draggingCollection itemAtPoint:dragOrigin];
-    UIView *collectionView = draggingCollection.collectionView;
-        
     _draggingView = [[I3CloneView alloc] initWithSourceView:sourceView];
-    _draggingView.frame = [coordinator.arena.superview convertRect:sourceView.frame fromView:collectionView];
+    _draggingView.frame = [coordinator.arena.superview convertRect:sourceView.frame fromView:draggingCollection.collectionView];
     [_draggingView cloneSourceView];
 
     [coordinator.arena.superview addSubview:_draggingView];
@@ -78,10 +75,10 @@
 
 -(void) renderResetFromPoint:(CGPoint) at fromCoordinator:(I3GestureCoordinator *)coordinator{
     
-    UIView *sourceView = [coordinator.currentDraggingCollection itemAtPoint:coordinator.currentDragOrigin];
-    UIView *collectionView = coordinator.currentDraggingCollection.collectionView;
+    id<I3Collection> draggingCollection = coordinator.currentDraggingCollection;
+    UIView *sourceView = coordinator.currentDraggingItem;
 
-    CGRect dragOriginFrame = [coordinator.arena.superview convertRect:sourceView.frame fromView:collectionView];
+    CGRect dragOriginFrame = [coordinator.arena.superview convertRect:sourceView.frame fromView:draggingCollection.collectionView];
     I3CloneView *draggingView = _draggingView;
     
     [UIView animateWithDuration:0.15 animations:^{
@@ -103,14 +100,13 @@
 -(void) renderRearrangeOnPoint:(CGPoint) at fromCoordinator:(I3GestureCoordinator *)coordinator{
     
     id<I3Collection> draggingCollection = coordinator.currentDraggingCollection;
-    CGPoint dragOrigin = coordinator.currentDragOrigin;
+    NSIndexPath *atIndex = [draggingCollection indexPathForItemAtPoint:at];
     
     UIView *collectionView = draggingCollection.collectionView;
     UIView *superview = coordinator.arena.superview;
     
-    UIView *dstSourceView = [draggingCollection itemAtPoint:at];
-    UIView *sourceView = [draggingCollection itemAtPoint:dragOrigin];
-    
+    UIView *dstSourceView = [draggingCollection itemAtIndexPath:atIndex];
+    UIView *sourceView = coordinator.currentDraggingItem;
     
     I3CloneView *exchangeView = [[I3CloneView alloc] initWithSourceView:dstSourceView];
     exchangeView.frame = [superview convertRect:dstSourceView.frame fromView:collectionView];
@@ -186,11 +182,7 @@
     [_draggingView removeFromSuperview];
     _draggingView = nil;
     
-    id<I3Collection> draggingCollection = coordinator.currentDraggingCollection;
-    CGPoint dragOrigin = coordinator.currentDragOrigin;
-
-    UIView *sourceView = [draggingCollection itemAtPoint:dragOrigin];
-    sourceView.alpha = 1;
+    coordinator.currentDraggingItem.alpha = 1;
 
 }
 
