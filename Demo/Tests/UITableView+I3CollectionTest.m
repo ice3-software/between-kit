@@ -22,22 +22,29 @@ SpecBegin(UITableViewI3Collection)
             
         });
         
-        it(@"should return one of its NSIndexPath s for a ")
-        
-        it(@"should return on of its UITableViewCells for a valid point within it", ^{
+        it(@"should return one of its NSIndexPath s for a given point", ^{
             
-            id tableView = OCMPartialMock([[UITableView alloc] initWithFrame:CGRectMake(0, 0, 10, 10)]);
-
+            UITableView *tableView = OCMPartialMock([[UITableView alloc] initWithFrame:CGRectMake(0, 0, 50, 50)]);
+            
             CGPoint point = CGPointMake(5, 5);
-            NSIndexPath *index = [NSIndexPath indexPathForItem:0 inSection:0];
-            UITableViewCell *cell = [[UITableViewCell alloc] initWithFrame:CGRectMake(0, 0, 10, 10)];
+            NSIndexPath *index = [NSIndexPath indexPathForRow:0 inSection:0];
+            
             OCMStub([tableView indexPathForRowAtPoint:point]).andReturn(index);
+            
+            expect([tableView indexPathForItemAtPoint:point]).to.equal(index);
+        
+        });
+        
+        it(@"shoudl return a UITableViewCell for a given index", ^{
+            
+            UITableView *tableView = OCMPartialMock([[UITableView alloc] initWithFrame:CGRectMake(0, 0, 50, 50)]);
+
+            UITableViewCell *cell = [[UITableViewCell alloc] initWithFrame:CGRectMake(0, 0, 100, 100)];
+            NSIndexPath *index = [NSIndexPath indexPathForRow:0 inSection:0];
+            
             OCMStub([tableView cellForRowAtIndexPath:index]).andReturn(cell);
-            
-            UIView *item = [tableView itemAtPoint:point];
-            
-            expect(item).to.equal(cell);
-            
+            expect([tableView itemAtIndexPath:index]).to.equal(cell);
+        
         });
         
     });
