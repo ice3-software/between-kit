@@ -39,6 +39,8 @@
  used to access the bounds of the collection for coordination as well as the for
  rendering.
  
+ @todo Get rid of this as per #42
+ 
  */
 @property (nonatomic, strong, readonly) UIView *collectionView;
 
