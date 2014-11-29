@@ -52,9 +52,17 @@
 
 /**
  
- Should be implemented to retrieve the actual item view for a given NSIndexPath. Note that 
- if this returns nil where the index is given by `indexPathForItemAtPoint:` it will be assumed
- that there is not a valid item here.
+ Should be implemented to retrieve the actual item view for a given NSIndexPath. 
+ 
+ @note that whether or not an item actual exists at a given index path depends on the return 
+ value of this method. If `indexPathForItemAtPoint:` return an NSIndexPath and this method 
+ does not, we should assume that there is no valid index path here. Therefore
+ `indexPathForItemAtPoint:` should not be used to check whether a valid item exists.
+ 
+ @note follow on from above, this method may be called with a nil value for index. More often
+ than not (particularly in the coordinator) the return value of `indexPathForItemAtPoint:` will
+ be passed straight to this method to check whether an item exists. If `indexPathForItemAtPoint:`
+ returns nil it will be forward to this method.
  
  @param     index   NSIndexPath
  @return    UIView

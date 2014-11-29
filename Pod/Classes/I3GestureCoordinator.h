@@ -77,6 +77,22 @@
 
 /**
  
+ Dynamic property for the index path of the current dragging item in the current dragging collection
+ 
+ */
+@property (nonatomic, strong, readonly) NSIndexPath *currentDraggingIndexPath;
+
+
+/**
+ 
+ Dynamic property for the view for the current item being dragged.
+ 
+ */
+@property (nonatomic, strong, readonly) UIView *currentDraggingItem;
+
+
+/**
+ 
  The render delegate. 
  
  @note One of the language features of objective-c is that calling a method on nil objects 

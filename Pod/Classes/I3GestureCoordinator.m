@@ -66,10 +66,34 @@
 -(void) handleDragStoppedInCollection:(id<I3Collection>) to atPoint:(CGPoint) at;
 
 
+/**
+ 
+ Helper method that returns the item view for the current drag origin in the current dragging 
+ collection.
+ 
+ */
+-(UIView *)itemForCurrentDragOrigin;
+
+
+/**
+ 
+ Helper method that returns an item view at a given point in a given collection.
+ 
+ */
+-(UIView *)itemForPoint:(CGPoint) at inCollection:(id<I3Collection>) collection;
+
+
 @end
 
 
 @implementation I3GestureCoordinator
+
+
+@dynamic currentDraggingIndexPath;
+@dynamic currentDraggingItem;
+
+
+#pragma Ctor / Dtor
 
 
 -(id) initWithDragArena:(I3DragArena *)arena withGestureRecognizer:(UIGestureRecognizer *)gestureRecognizer{
@@ -148,11 +172,15 @@
         
         if([collectionView pointInside:pointInCollection withEvent:nil]){
             
+            NSIndexPath *index = [collection indexPathForItemAtPoint:pointInCollection];
+            
             DND_LOG(@"We're dragging in a collection!");
+            DND_LOG(@"Do we have an index path? %@", index);
+            DND_LOG(@"Is there a cell for this index path? %@", [collection itemAtIndexPath:index]);
             
             if(
-               [collection itemAtPoint:pointInCollection] &&
-               [self.dragDataSource canItemBeDraggedAtPoint:pointInCollection inCollection:collection]
+               [collection itemAtIndexPath:index] &&
+               [self.dragDataSource canItemBeDraggedAt:index inCollection:collection]
             ){
                 
                 DND_LOG(@"We can drag item %d in collection", [self.arena.collections indexOfObject:collection]);
@@ -187,13 +215,13 @@
     CGPoint locationInSuperview = [_gestureRecognizer locationInView:self.arena.superview];
     
     if(
-       [self.dragDataSource respondsToSelector:@selector(canItemAtPoint:beDeletedFromCollection:atPoint:)] &&
-       [self.dragDataSource respondsToSelector:@selector(deleteItemAtPoint:inCollection:)] &&
-       [self.dragDataSource canItemAtPoint:self.currentDragOrigin beDeletedFromCollection:self.currentDraggingCollection atPoint:locationInSuperview]
+       [self.dragDataSource respondsToSelector:@selector(canItemAt:beDeletedFromCollection:atPoint:)] &&
+       [self.dragDataSource respondsToSelector:@selector(deleteItemAt:inCollection:)] &&
+       [self.dragDataSource canItemAt:self.currentDraggingIndexPath beDeletedFromCollection:self.currentDraggingCollection atPoint:locationInSuperview]
        ){
         
         DND_LOG(@"Data source wants us to delete this! Deleting...");
-        [self.dragDataSource deleteItemAtPoint:self.currentDragOrigin inCollection:self.currentDraggingCollection];
+        [self.dragDataSource deleteItemAt:self.currentDraggingIndexPath inCollection:self.currentDraggingCollection];
         [self.renderDelegate renderDeletionAtPoint:locationInSuperview fromCoordinator:self];
         
     }
@@ -235,37 +263,36 @@
 -(void) handleDragStoppedInCollection:(id<I3Collection>) to atPoint:(CGPoint) at{
     
     BOOL isRearrange = to == self.currentDraggingCollection;
-    UIView *destinationItemView = [to itemAtPoint:at];
+    NSIndexPath *atIndex = [to indexPathForItemAtPoint:at];
+    UIView *destinationItemView = [to itemAtIndexPath:atIndex];
 
     DND_LOG(@"Determining what to do with this drop.");
     
     if(
        destinationItemView &&
        isRearrange &&
-       [self.dragDataSource respondsToSelector:@selector(canItemFromPoint:beRearrangedWithItemAtPoint:inCollection:)] &&
-       [self.dragDataSource respondsToSelector:@selector(rearrangeItemAtPoint:withItemAtPoint:inCollection:)] &&
-       [self.dragDataSource canItemFromPoint:self.currentDragOrigin beRearrangedWithItemAtPoint:at inCollection:self.currentDraggingCollection]
+       [self.dragDataSource respondsToSelector:@selector(canItemFrom:beRearrangedWithItemAt:inCollection:)] &&
+       [self.dragDataSource respondsToSelector:@selector(rearrangeItemAt:withItemAt:inCollection:)] &&
+       [self.dragDataSource canItemFrom:self.currentDraggingIndexPath beRearrangedWithItemAt:atIndex inCollection:self.currentDraggingCollection]
     ){
         
-        UIView *draggingItemView = [self.currentDraggingCollection itemAtPoint:self.currentDragOrigin];
+        DND_LOG(@"Is %@ equal to %@?", self.currentDraggingItem, destinationItemView);
         
-        DND_LOG(@"Is %@ equal to %@?", draggingItemView, destinationItemView);
-        
-        if([draggingItemView isEqual:destinationItemView]){
+        if([self.currentDraggingItem isEqual:destinationItemView]){
             DND_LOG(@"Rearranging the same views. Snapping back.");
             [self.renderDelegate renderResetFromPoint:at fromCoordinator:self];
         }
         else{
             DND_LOG(@"Rearranging items in a collection.");
             [self.renderDelegate renderRearrangeOnPoint:at fromCoordinator:self];
-            [self.dragDataSource rearrangeItemAtPoint:self.currentDragOrigin withItemAtPoint:at inCollection:self.currentDraggingCollection];
+            [self.dragDataSource rearrangeItemAt:self.currentDraggingIndexPath withItemAt:atIndex inCollection:self.currentDraggingCollection];
         }
 
     }
     else if(
         destinationItemView &&
         !isRearrange &&
-        [self.dragDataSource respondsToSelector:@selector(canItemAtPoint:fromCollection:beExchangedWithItemAtPoint:inCollection:)] &&
+        [self.dragDataSource respondsToSelector:@selector(canItemAt:fromCollection:beExchangedWithItemAt:inCollection:)] &&
         [self.dragDataSource respondsToSelector:@selector(exchangeItemAtPoint:inCollection:withItemAtPoint:inCollection:)] &&
         [self.dragDataSource canItemAtPoint:self.currentDragOrigin fromCollection:self.currentDraggingCollection beExchangedWithItemAtPoint:at inCollection:to]
     ){
@@ -308,7 +335,30 @@
 }
 
 
+#pragma mark - Helper methods
+
+
+-(UIView *)itemForPoint:(CGPoint) at inCollection:(id<I3Collection>) collection{
+
+    NSIndexPath *index = [collection indexPathForItemAtPoint:at];
+    return [collection itemAtIndexPath:index]
+    
+}
+
+
 #pragma mark - Accessor methods
+
+
+-(UIView *)currentDraggingItem{
+    
+    return [self.currentDraggingCollection itemAtIndexPath:self.currentDraggingIndexPath];
+}
+
+
+-(NSIndexPath *)currentDraggingIndexPath{
+    
+    return [self.currentDraggingCollection indexPathForItemAtPoint:self.currentDragOrigin];
+}
 
 
 -(void) setCurrentDraggingCollection:(id<I3Collection>) currentDraggingCollection{
