@@ -47,14 +47,29 @@
 
 /**
  
- Returns the view for an item in the collection at a specified index path. This can
- be used to access individual item bounds as well as individual item views for rendering.
+ Should be implemented to map a given point to an NSIndexPath. Should return nil if an
+ item does not exist at the given index path.
  
- @param at The point at which the item is.
- @return UIView * | nil if one does not exist
+ @param     at      CGPoint
+ @return    NSIndexPath
  
  */
--(UIView *)itemAtPoint:(CGPoint) at;
+-(NSIndexPath *)indexPathForItemAtPoint:(CGPoint) at;
+
+
+/**
+ 
+ Should be implemented to retrieve the actual item view for a given NSIndexPath. Must _not_
+ return nil if `indexPathForItemAtPoint:` returns that given index path for a point
+ 
+ @todo Implement the gesture coordinator to throw if the constraint specified above is not
+ met
+ 
+ @param     index   NSIndexPath
+ @return    UIView
+ 
+ */
+-(UIView *)itemAtIndexPath:(NSIndexPath *)index;
 
 
 @end
