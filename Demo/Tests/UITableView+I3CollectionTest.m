@@ -22,6 +22,8 @@ SpecBegin(UITableViewI3Collection)
             
         });
         
+        it(@"should return one of its NSIndexPath s for a ")
+        
         it(@"should return on of its UITableViewCells for a valid point within it", ^{
             
             id tableView = OCMPartialMock([[UITableView alloc] initWithFrame:CGRectMake(0, 0, 10, 10)]);

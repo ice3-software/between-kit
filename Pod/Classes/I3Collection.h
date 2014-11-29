@@ -21,13 +21,6 @@
  
  @todo How do we enforce the constraint the items's are subviews of the collection view?
  1.* didn't enforce this but I feel we should.
- 
- @todo Right now, the implementation is repsonsable for mapping a CGPoint to a given item
- in the collection so that the coordinator and the rendered aren't dependent on
- `UITableView`/`UICollectionView`-specific point->index convertion methods. We need to
- provide some sort of separate helper utility that allows users to do this easily without
- having to implement the same boilerplate for all of their `UITableView`/
- `UICollectionView`s.
 
  */
 @protocol I3Collection <NSObject>
@@ -59,11 +52,9 @@
 
 /**
  
- Should be implemented to retrieve the actual item view for a given NSIndexPath. Must _not_
- return nil if `indexPathForItemAtPoint:` returns that given index path for a point
- 
- @todo Implement the gesture coordinator to throw if the constraint specified above is not
- met
+ Should be implemented to retrieve the actual item view for a given NSIndexPath. Note that 
+ if this returns nil where the index is given by `indexPathForItemAtPoint:` it will be assumed
+ that there is not a valid item here.
  
  @param     index   NSIndexPath
  @return    UIView
