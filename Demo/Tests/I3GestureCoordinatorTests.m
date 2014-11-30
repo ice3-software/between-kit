@@ -150,6 +150,54 @@ SpecBegin(I3GestureCoordinator)
             renderDelegate = nil;
             
         });
+        
+        
+        describe(@"dynamic properties", ^{
+
+            __block id draggingCollection;
+            CGPoint dragOrigin = CGPointMake(10, 10);
+            
+            beforeEach(^{
+                
+                draggingCollection = OCMProtocolMock(@protocol(I3Collection));
+                
+                [coordinator setValue:draggingCollection forKey:@"_currentDraggingCollection"];
+                [coordinator setValue:[NSValue valueWithCGPoint:dragOrigin] forKey:@"_currentDragOrigin"];
+                
+            });
+            
+            afterEach(^{
+                
+                draggingCollection = nil;
+                
+            });
+            
+            
+            /// @note Haven't tested the interactions here, just the result of the dynamic property invokation
+            
+            it(@"should return index path for dragging point in dragging collection", ^{
+            
+                NSIndexPath *index = [NSIndexPath indexPathForItem:0 inSection:0];
+                
+                OCMStub([draggingCollection indexPathForItemAtPoint:dragOrigin]).andReturn(index);
+
+                expect(coordinator.currentDraggingIndexPath).to.equal(index);
+                
+            });
+            
+            it(@"should return item at dragging point in dragging collection", ^{
+            
+                NSIndexPath *index = [NSIndexPath indexPathForItem:0 inSection:0];
+                UIView *item = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 40, 40)];
+                
+                OCMStub([draggingCollection indexPathForItemAtPoint:dragOrigin]).andReturn(index);
+                OCMStub([draggingCollection itemAtIndexPath:index]).andReturn(item);
+                
+                expect(coordinator.currentDraggingItem).to.equal(item);
+            
+            });
+
+        });
 
         
         describe(@"starting a drag", ^{
