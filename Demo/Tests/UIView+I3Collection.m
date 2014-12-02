@@ -11,7 +11,7 @@
 
 SpecBegin(UIViewI3Collection)
 
-    describe(@"I3Collection interface", ^{
+    /*describe(@"I3Collection interface", ^{
 
         it(@"should return self as the collection view", ^{
         
@@ -55,6 +55,6 @@ SpecBegin(UIViewI3Collection)
 
         });
         
-    });
+    });*/
 
 SpecEnd

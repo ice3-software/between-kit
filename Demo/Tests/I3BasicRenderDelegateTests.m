@@ -17,7 +17,7 @@
 SpecBegin(I3BasicRenderDelegate)
 
 
-    describe(@"rendering", ^{
+    /*describe(@"rendering", ^{
 
         
         __block I3BasicRenderDelegate *renderDelegate;
@@ -409,6 +409,6 @@ SpecBegin(I3BasicRenderDelegate)
             
         });
 
-    });
+    });*/
 
 SpecEnd

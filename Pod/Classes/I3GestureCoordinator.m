@@ -246,7 +246,13 @@
 -(void) handleDragStoppedInCollection:(id<I3Collection>) to atPoint:(CGPoint) at{
     
     BOOL isRearrange = to == self.currentDraggingCollection;
+    
+    DND_LOG(@"Finding index path for item...");
+    
     NSIndexPath *atIndex = [to indexPathForItemAtPoint:at];
+
+    DND_LOG(@"Finding item view from index path...");
+
     UIView *destinationItemView = [to itemAtIndexPath:atIndex];
 
     DND_LOG(@"Determining what to do with this drop.");
