@@ -22,7 +22,7 @@ SpecBegin(UICollectionViewI3Collection)
         
         it(@"should return a UICollectionViewCell for a given index", ^{
             
-            UICollectionView *collectionView = OCMPartialMock([[UICollectionView alloc] initWithFrame:CGRectMake(0, 0, 50, 50)]);
+            UICollectionView *collectionView = OCMPartialMock([[UICollectionView alloc] initWithFrame:CGRectMake(0, 0, 50, 50) collectionViewLayout:[[UICollectionViewFlowLayout alloc] init]]);
             
             UICollectionViewCell *cell = [[UICollectionViewCell alloc] initWithFrame:CGRectMake(0, 0, 100, 100)];
             NSIndexPath *index = [NSIndexPath indexPathForItem:0 inSection:0];

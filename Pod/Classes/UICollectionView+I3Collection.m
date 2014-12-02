@@ -20,9 +20,7 @@
 }
 
 
--(UIView *)itemAtPoint:(CGPoint) at{
-    
-    NSIndexPath *index = [self indexPathForItemAtPoint:at];
+-(UIView *)itemAtIndexPath:(NSIndexPath *)index{
     return [self cellForItemAtIndexPath:index];
 }
 
