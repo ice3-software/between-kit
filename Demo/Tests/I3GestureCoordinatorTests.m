@@ -670,30 +670,32 @@ SpecBegin(I3GestureCoordinator)
                 
             });
             
-            /*
-            
             it(@"should exchange between collections if we're drag/dropping between different collections and data source allows", ^{
                 
                 UIView *dstItemView = [[UIView alloc] init];
                 
                 id dstCollection = OCMProtocolMock(@protocol(I3Collection));
                 id dstCollectionView = OCMPartialMock([[UIView alloc] init]);
+                id dstIndex = [NSIndexPath indexPathForItem:0 inSection:0];
                 
                 OCMStub([dstCollection collectionView]).andReturn(dstCollectionView);
-                OCMStub([dstCollection itemAtPoint:dropOrigin]).andReturn(dstItemView);
+                OCMStub([dstCollection indexPathForItemAtPoint:dropOrigin]).andReturn(dstIndex);
+                OCMStub([dstCollection itemAtIndexPath:dstIndex]).andReturn(dstItemView);
                 OCMStub([dstCollectionView pointInside:dropOrigin withEvent:nil]).andReturn(YES);
-                OCMStub([defaultDragDataSource canItemAtPoint:dragOrigin fromCollection:draggingCollection beExchangedWithItemAtPoint:dropOrigin inCollection:dstCollection]).andReturn(YES);
+                OCMStub([defaultDragDataSource canItemAt:dragIndex fromCollection:draggingCollection beExchangedWithItemAt:dstIndex inCollection:dstCollection]).andReturn(YES);
                 
                 [collections insertObject:dstCollection atIndex:0];
                 
                 [coordinator handlePan:coordinator.gestureRecognizer];
 
-                OCMVerify([defaultDragDataSource canItemAtPoint:dragOrigin fromCollection:draggingCollection beExchangedWithItemAtPoint:dropOrigin inCollection:dstCollection]);
-                OCMVerify([defaultDragDataSource exchangeItemAtPoint:dragOrigin inCollection:draggingCollection withItemAtPoint:dropOrigin inCollection:dstCollection]);
+                OCMVerify([defaultDragDataSource canItemAt:dragIndex fromCollection:draggingCollection beExchangedWithItemAt:dstIndex inCollection:dstCollection]);
+                OCMVerify([defaultDragDataSource exchangeItemAt:dragIndex inCollection:draggingCollection withItemAt:dstIndex inCollection:dstCollection]);
                 OCMVerify([renderDelegate renderExchangeToCollection:dstCollection atPoint:dropOrigin fromCoordinator:coordinator]);
                 
             });
             
+            /*
+
             it(@"should not exchange between and render reset if data source does not implement exchange selector", ^{
                 
                 id dragDataSource = OCMPartialMock([[I3DragDataSourceJustCanExchange alloc] init]);

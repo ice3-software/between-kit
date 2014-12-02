@@ -33,7 +33,7 @@ SpecBegin(UITableViewI3Collection)
         
         });
         
-        it(@"shoudl return a UITableViewCell for a given index", ^{
+        it(@"should return a UITableViewCell for a given index", ^{
             
             UITableView *tableView = OCMPartialMock([[UITableView alloc] initWithFrame:CGRectMake(0, 0, 50, 50)]);
 
