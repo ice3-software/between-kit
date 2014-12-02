@@ -257,10 +257,7 @@ SpecBegin(I3GestureCoordinator)
                 id collectionView = OCMPartialMock([[UIView alloc] init]);
                 id collectionItemView = [[UIView alloc] init];
 
-                /// Configure the draggingDataSource to allow for the given item at the dragOrigin to be
-                /// dragged
- 
-                OCMStub([dragDataSource canItemBeDraggedAt:dragIndex inCollection:draggingCollection]).andReturn(YES);
+                OCMStub([dragDataSource canItemBeDraggedAt:dragIndex inCollection:draggingCollection]).andReturn(NO);
                 OCMStub([draggingCollection collectionView]).andReturn(collectionView);
                 OCMStub([collectionView pointInside:dragOrigin withEvent:nil]).andReturn(YES);
                 OCMStub([draggingCollection indexPathForItemAtPoint:dragOrigin]).andReturn(dragIndex);
