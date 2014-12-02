@@ -12,4 +12,12 @@
 
 @interface I3CollectionFixture : NSObject <I3Collection>
 
+@property (nonatomic, readonly, copy) NSMutableDictionary *items;
+
+-(id) initWithItemAtPoint:(CGPoint) at;
+
+-(void) setValidPointInsideCollection:(CGPoint) point;
+
+-(void) setValidIndexPath:(NSIndexPath *)index;
+
 @end
