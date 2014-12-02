@@ -204,11 +204,14 @@ SpecBegin(I3GestureCoordinator)
             
             
             __block id dragDataSource;
+            __block NSIndexPath *dragIndex;
+
             CGPoint dragOrigin = CGPointMake(10, 10);
             
             
             beforeEach(^{
                 
+                dragIndex = [NSIndexPath indexPathForItem:0 inSection:0];
                 dragDataSource = OCMProtocolMock(@protocol(I3DragDataSource));
                 coordinator.dragDataSource = dragDataSource;
                 
@@ -219,6 +222,7 @@ SpecBegin(I3GestureCoordinator)
             
             afterEach(^{
 
+                dragIndex = nil;
                 dragDataSource = nil;
                 
             });
@@ -230,10 +234,11 @@ SpecBegin(I3GestureCoordinator)
                 id collectionView = OCMPartialMock([[UIView alloc] init]);
                 id collectionItemView = [[UIView alloc] init];
                 
-                OCMStub([dragDataSource canItemBeDraggedAtPoint:dragOrigin inCollection:draggingCollection]).andReturn(YES);
+                OCMStub([dragDataSource canItemBeDraggedAt:dragIndex inCollection:draggingCollection]).andReturn(YES);
                 OCMStub([draggingCollection collectionView]).andReturn(collectionView);
                 OCMStub([collectionView pointInside:dragOrigin withEvent:nil]).andReturn(YES);
-                OCMStub([draggingCollection itemAtPoint:dragOrigin]).andReturn(collectionItemView);
+                OCMStub([draggingCollection indexPathForItemAtPoint:dragOrigin]).andReturn(dragIndex);
+                OCMStub([draggingCollection itemAtIndexPath:dragIndex]).andReturn(collectionItemView);
                 [[dragArena collections] addObject:draggingCollection];
                 
                 [coordinator handlePan:coordinator.gestureRecognizer];
@@ -242,7 +247,7 @@ SpecBegin(I3GestureCoordinator)
                 expect(coordinator.currentDragOrigin).to.equal(dragOrigin);
                 
                 OCMVerify([renderDelegate renderDragStart:coordinator]);
-                OCMVerify([dragDataSource canItemBeDraggedAtPoint:dragOrigin inCollection:draggingCollection]);
+                OCMVerify([dragDataSource canItemBeDraggedAt:dragIndex inCollection:draggingCollection]);
                 
             });
             
@@ -254,11 +259,12 @@ SpecBegin(I3GestureCoordinator)
 
                 /// Configure the draggingDataSource to allow for the given item at the dragOrigin to be
                 /// dragged
-                
+ 
+                OCMStub([dragDataSource canItemBeDraggedAt:dragIndex inCollection:draggingCollection]).andReturn(YES);
                 OCMStub([draggingCollection collectionView]).andReturn(collectionView);
                 OCMStub([collectionView pointInside:dragOrigin withEvent:nil]).andReturn(YES);
-                OCMStub([dragDataSource canItemBeDraggedAtPoint:dragOrigin inCollection:draggingCollection]).andReturn(NO);
-                OCMStub([draggingCollection itemAtPoint:dragOrigin]).andReturn(collectionItemView);
+                OCMStub([draggingCollection indexPathForItemAtPoint:dragOrigin]).andReturn(dragIndex);
+                OCMStub([draggingCollection itemAtIndexPath:dragIndex]).andReturn(collectionItemView);
                 [[dragArena collections] addObject:draggingCollection];
                 
                 [coordinator handlePan:coordinator.gestureRecognizer];
@@ -266,7 +272,7 @@ SpecBegin(I3GestureCoordinator)
                 expect(coordinator.currentDraggingCollection).to.beNil();
                 expect(coordinator.currentDragOrigin).to.equal(CGPointZero);
                 
-                OCMVerify([dragDataSource canItemBeDraggedAtPoint:dragOrigin inCollection:draggingCollection]);
+                OCMVerify([dragDataSource canItemBeDraggedAt:dragIndex inCollection:draggingCollection]);
                 
             });
             
@@ -278,15 +284,16 @@ SpecBegin(I3GestureCoordinator)
                 id topCollectionItemView = [[UIView alloc] init];
                 id topCollectionView = OCMPartialMock([[UIView alloc] init]);
                 
-                OCMStub([dragDataSource canItemBeDraggedAtPoint:dragOrigin inCollection:topDraggingCollection]).andReturn(YES);
+                OCMStub([dragDataSource canItemBeDraggedAt:dragIndex inCollection:topDraggingCollection]).andReturn(YES);
                 OCMStub([topDraggingCollection collectionView]).andReturn(topCollectionView);
-                OCMStub([topDraggingCollection itemAtPoint:dragOrigin]).andReturn(topCollectionItemView);
+                OCMStub([topDraggingCollection indexPathForItemAtPoint:dragOrigin]).andReturn(dragIndex);
+                OCMStub([topDraggingCollection itemAtIndexPath:dragIndex]).andReturn(topCollectionItemView);
                 OCMStub([topCollectionView pointInside:dragOrigin withEvent:nil]).andReturn(YES);
                 [[dragArena collections] addObjectsFromArray:@[topDraggingCollection, bottomDraggingCollection]];
                 
                 /// Verify that the bottom drag data source's methods are not called
                 
-                [[dragDataSource reject] canItemBeDraggedAtPoint:dragOrigin inCollection:bottomDraggingCollection];
+                [[dragDataSource reject] canItemBeDraggedAt:dragIndex inCollection:bottomDraggingCollection];
                 [[bottomDraggingCollection reject] collectionView];
                 
                 [coordinator handlePan:coordinator.gestureRecognizer];
@@ -294,7 +301,7 @@ SpecBegin(I3GestureCoordinator)
                 expect(coordinator.currentDraggingCollection).to.equal(topDraggingCollection);
                 
                 OCMVerify([renderDelegate renderDragStart:coordinator]);
-                OCMVerify([dragDataSource canItemBeDraggedAtPoint:dragOrigin inCollection:topDraggingCollection]);
+                OCMVerify([dragDataSource canItemBeDraggedAt:dragIndex inCollection:topDraggingCollection]);
                 
             });
             
@@ -304,10 +311,11 @@ SpecBegin(I3GestureCoordinator)
                 id collectionView = OCMPartialMock([[UIView alloc] init]);
                 
                 OCMStub([draggingCollection collectionView]).andReturn(collectionView);
+                OCMStub([draggingCollection indexPathForItemAtPoint:dragOrigin]).andReturn(dragIndex);
                 OCMStub([collectionView pointInside:dragOrigin withEvent:nil]).andReturn(NO);
-                [[dragArena collections] addObject:draggingCollection];
+               [[dragArena collections] addObject:draggingCollection];
                 
-                [[dragDataSource reject] canItemBeDraggedAtPoint:dragOrigin inCollection:draggingCollection];
+                [[dragDataSource reject] canItemBeDraggedAt:dragIndex inCollection:draggingCollection];
                 
                 [coordinator handlePan:coordinator.gestureRecognizer];
                 
@@ -325,11 +333,12 @@ SpecBegin(I3GestureCoordinator)
                 id collectionView = OCMPartialMock([[UIView alloc] init]);
                 
                 OCMStub([draggingCollection collectionView]).andReturn(collectionView);
+                OCMStub([draggingCollection indexPathForItemAtPoint:dragOrigin]).andReturn(dragIndex);
                 OCMStub([collectionView pointInside:dragOrigin withEvent:nil]).andReturn(YES);
                 
                 [[dragArena collections] addObject:draggingCollection];
 
-                [[dragDataSource reject] canItemBeDraggedAtPoint:dragOrigin inCollection:draggingCollection];
+                [[dragDataSource reject] canItemBeDraggedAt:dragIndex inCollection:draggingCollection];
                 
                 [coordinator handlePan:coordinator.gestureRecognizer];
                 
@@ -408,6 +417,7 @@ SpecBegin(I3GestureCoordinator)
             
             CGPoint dropOrigin = CGPointMake(50, 50);
             CGPoint dragOrigin = CGPointMake(10, 10);
+            NSIndexPath *dragIndex = [NSIndexPath indexPathForItem:0 inSection:0];
             
             
             beforeEach(^{
@@ -432,7 +442,8 @@ SpecBegin(I3GestureCoordinator)
                 [collections addObject:draggingCollection];
                 
                 OCMStub([draggingCollection collectionView]).andReturn(collectionView);
-                OCMStub([draggingCollection itemAtPoint:dragOrigin]).andReturn(draggingItemView);
+                OCMStub([draggingCollection indexPathForItemAtPoint:dragOrigin]).andReturn(dragIndex);
+                OCMStub([draggingCollection itemAtIndexPath:dragIndex]).andReturn(draggingItemView);
                 OCMStub([panGestureRecognizer state]).andReturn(UIGestureRecognizerStateEnded);
                 OCMStub([panGestureRecognizer locationInView:[OCMArg any]]).andReturn(dropOrigin);
                 
@@ -465,7 +476,7 @@ SpecBegin(I3GestureCoordinator)
 
                 OCMStub([collectionView pointInside:dragOrigin withEvent:nil]).andReturn(NO);
                 
-                [[dragDataSource reject] deleteItemAtPoint:dragOrigin inCollection:draggingCollection];
+                [[dragDataSource reject] deleteItemAt:dragIndex inCollection:draggingCollection];
                 [coordinator handlePan:coordinator.gestureRecognizer];
                 
                 OCMVerify([renderDelegate renderResetFromPoint:dropOrigin fromCoordinator:coordinator]);
@@ -477,10 +488,10 @@ SpecBegin(I3GestureCoordinator)
                 id dragDataSource = OCMPartialMock([[I3DragDataSourceJustCanDelete alloc] init]);
                 coordinator.dragDataSource = dragDataSource;
 
-                OCMStub([dragDataSource canItemAtPoint:dragOrigin beDeletedFromCollection:draggingCollection atPoint:dropOrigin]).andReturn(YES);
+                OCMStub([dragDataSource canItemAt:dragIndex beDeletedFromCollection:draggingCollection atPoint:dropOrigin]).andReturn(YES);
                 OCMStub([collectionView pointInside:dragOrigin withEvent:nil]).andReturn(NO);
                 
-                [[dragDataSource reject] deleteItemAtPoint:dragOrigin inCollection:draggingCollection];
+                [[dragDataSource reject] deleteItemAt:dragIndex inCollection:draggingCollection];
                 [coordinator handlePan:coordinator.gestureRecognizer];
                 
                 OCMVerify([renderDelegate renderResetFromPoint:dropOrigin fromCoordinator:coordinator]);
@@ -490,13 +501,13 @@ SpecBegin(I3GestureCoordinator)
             it(@"should not delete and render reset if the item in the data source is not deleteable", ^{
                 
                 OCMStub([collectionView pointInside:dropOrigin withEvent:nil]).andReturn(NO);
-                OCMStub([defaultDragDataSource canItemAtPoint:dragOrigin beDeletedFromCollection:draggingCollection atPoint:dropOrigin]).andReturn(NO);
+                OCMStub([defaultDragDataSource canItemAt:dragIndex beDeletedFromCollection:draggingCollection atPoint:dropOrigin]).andReturn(NO);
                 
-                [[defaultDragDataSource reject] deleteItemAtPoint:dragOrigin inCollection:draggingCollection];
+                [[defaultDragDataSource reject] deleteItemAt:dragIndex inCollection:draggingCollection];
                 
                 [coordinator handlePan:coordinator.gestureRecognizer];
                 
-                OCMVerify([defaultDragDataSource canItemAtPoint:dragOrigin beDeletedFromCollection:draggingCollection atPoint:dropOrigin]);
+                OCMVerify([defaultDragDataSource canItemAt:dragIndex beDeletedFromCollection:draggingCollection atPoint:dropOrigin]);
                 OCMVerify([renderDelegate renderResetFromPoint:dropOrigin fromCoordinator:coordinator]);
                 
             });
@@ -504,11 +515,11 @@ SpecBegin(I3GestureCoordinator)
             it(@"should delete item if its deleteable under the data source", ^{
                 
                 OCMStub([collectionView pointInside:dropOrigin withEvent:nil]).andReturn(NO);
-                OCMStub([defaultDragDataSource canItemAtPoint:dragOrigin beDeletedFromCollection:draggingCollection atPoint:dropOrigin]).andReturn(YES);
+                OCMStub([defaultDragDataSource canItemAt:dragIndex beDeletedFromCollection:draggingCollection atPoint:dropOrigin]).andReturn(YES);
                 
                 [coordinator handlePan:coordinator.gestureRecognizer];
                 
-                OCMVerify([defaultDragDataSource deleteItemAtPoint:dragOrigin inCollection:draggingCollection]);
+                OCMVerify([defaultDragDataSource deleteItemAt:dragIndex inCollection:draggingCollection]);
                 OCMVerify([renderDelegate renderDeletionAtPoint:dropOrigin fromCoordinator:coordinator]);
                 
             });
