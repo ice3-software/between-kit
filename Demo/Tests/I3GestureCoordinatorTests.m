@@ -403,12 +403,19 @@ SpecBegin(I3GestureCoordinator)
         describe(@"stopping a valid drag", ^{
             
             __block id defaultDragDataSource;
+            
+            /// The current collection being draged and its collection view
+            
             __block id draggingCollection;
+            __block id collectionView;
+            __block id draggingItemView;
             
             /// Immutable origin data
             
             CGPoint dropOrigin = CGPointMake(50, 50);
             CGPoint dragOrigin = CGPointMake(10, 10);
+            NSIndexPath *dragIndex = [NSIndexPath indexPathForItem:0 inSection:0];
+            
             
             beforeEach(^{
                 
@@ -423,12 +430,17 @@ SpecBegin(I3GestureCoordinator)
                 /// @note that this setup is almost identical to how we setup the coordinator in most of
                 /// the drag start tests
                 
-                draggingCollection = OCMPartialMock([[I3CollectionFixture alloc] initWithItemAtPoint:dragOrigin]);
+                draggingCollection = OCMPartialMock([[I3CollectionFixture alloc] init]);
+                collectionView = OCMPartialMock([[UIView alloc] init]);
+                draggingItemView = OCMPartialMock([[UIView alloc] init]);
                 
                 [coordinator setValue:draggingCollection forKey:@"_currentDraggingCollection"];
                 [coordinator setValue:[NSValue valueWithCGPoint:dragOrigin] forKey:@"_currentDragOrigin"];
                 [collections addObject:draggingCollection];
                 
+                OCMStub([draggingCollection collectionView]).andReturn(collectionView);
+                OCMStub([draggingCollection indexPathForItemAtPoint:dragOrigin]).andReturn(dragIndex);
+                OCMStub([draggingCollection itemAtIndexPath:dragIndex]).andReturn(draggingItemView);
                 OCMStub([panGestureRecognizer state]).andReturn(UIGestureRecognizerStateEnded);
                 OCMStub([panGestureRecognizer locationInView:[OCMArg any]]).andReturn(dropOrigin);
                 
