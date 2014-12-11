@@ -8,8 +8,31 @@
 
 #import <Foundation/Foundation.h>
 #import <BetweenKit/I3Collection.h>
+#import <BetweenKit/I3DragArena.h>
 
 
-@interface I3CollectionFixture : NSObject <I3Collection>
+/**
+ 
+ Helper fixture that mocks a collection. Creates mocks behind the scenes for index paths,
+ item views and the collection view.
+ 
+ */
+@interface I3CollectionFixture : NSObject <I3Collection>{
+    
+    UIView *_collectionView;
+    NSMutableDictionary *_pointIndexPathMap;
+    NSMutableDictionary *_indexPathViewMap;
+    
+}
+
+-(id) initInArea:(I3DragArena *)arena;
+
+-(id) initWithSetPoint:(CGPoint) point;
+
+-(id) initWithSetPoint:(CGPoint) point inArena:(I3DragArena *)arena;
+
+-(void) setPoint:(CGPoint) point isInside:(BOOL) isInside;
+
+-(void) setItemAtPoint:(CGPoint) point;
 
 @end

@@ -64,6 +64,9 @@
  be passed straight to this method to check whether an item exists. If `indexPathForItemAtPoint:`
  returns nil it will be forward to this method.
  
+ @note this method should _never_ return a view for a nil index path. The coordinator will 
+ throw if it does
+ 
  @param     index   NSIndexPath
  @return    UIView
  

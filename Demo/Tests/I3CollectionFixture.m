@@ -8,22 +8,90 @@
 
 #import "I3CollectionFixture.h"
 
-
 @implementation I3CollectionFixture
 
-/**
- 
- Implementation returns nil. These methods should be stubbed to return valid values
- in the tests.
- 
- */
+-(id) init{
 
--(UIView *)collectionView{
-    return nil;
+    self = [super init];
+    
+    if(self){
+        
+        _collectionView = OCMPartialMock([[UIView alloc] init]);
+        _indexPathViewMap = [[NSMutableDictionary alloc] init];
+        _pointIndexPathMap = [[NSMutableDictionary alloc] init];
+        
+    }
+    
+    return self;
 }
 
--(UIView *)itemAtPoint:(CGPoint) at{
-    return nil;
+-(void) dealloc{
+
+    [_indexPathViewMap removeAllObjects];
+    [_pointIndexPathMap removeAllObjects];
+}
+
+-(id) initWithSetPoint:(CGPoint) point{
+
+    self = [super init];
+    [self setItemAtPoint:point];
+    return self;
+}
+
+-(id) initInArea:(I3DragArena *)arena{
+
+    self = [super init];
+    [self appendToArena:arena];
+    return self;
+}
+
+-(id) initWithSetPoint:(CGPoint) point inArena:(I3DragArena *)arena{
+
+    self = [super init];
+    [self setItemAtPoint:point];
+    [self appendToArena:arena];
+    return self;
+}
+
+-(void) appendToArena:(I3DragArena *)arena{
+    [arena.collections addObject:self];
+}
+
+-(NSString *)keyFromPoint:(CGPoint) point{
+    return NSStringFromCGPoint(point);
+}
+
+-(UIView *)collectionView{
+    return _collectionView;
+}
+
+-(NSIndexPath *)indexPathForItemAtPoint:(CGPoint) at{
+    NSLog(@"Finding index path %@ for point %@", [_pointIndexPathMap objectForKey:[self keyFromPoint:at]], NSStringFromCGPoint(at));
+    return [_pointIndexPathMap objectForKey:[self keyFromPoint:at]];
+}
+
+-(UIView *)itemAtIndexPath:(NSIndexPath *)index{
+    NSLog(@"Finding view %@ for index for %@", [_indexPathViewMap objectForKey:index], index);
+    return [_indexPathViewMap objectForKey:index];
+}
+
+-(void) setPoint:(CGPoint) point isInside:(BOOL) isInside{
+    OCMStub([_collectionView pointInside:point withEvent:nil]).andReturn(YES);
+}
+
+-(void) setItemAtPoint:(CGPoint) point{
+    
+    NSIndexPath *indexPath = [NSIndexPath indexPathForItem:_pointIndexPathMap.count inSection:0];
+    UIView *itemView = OCMPartialMock([[UIView alloc] init]);
+    
+    [_pointIndexPathMap setObject:indexPath forKey:[self keyFromPoint:point]];
+    [_indexPathViewMap setObject:itemView forKey:indexPath];
+
+    NSLog(@"Setting point %@, index path %@, view %@", [self keyFromPoint:point], indexPath, itemView);
+    NSLog(@"Has index path for point? %@", [_pointIndexPathMap objectForKey:[self keyFromPoint:point]]);
+    NSLog(@"Has view for index path? %@", [_indexPathViewMap objectForKey:indexPath]);
+    
+    [self setPoint:point isInside:YES];
 }
 
 @end
