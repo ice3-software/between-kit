@@ -31,24 +31,24 @@
     [_pointIndexPathMap removeAllObjects];
 }
 
--(id) initWithSetPoint:(CGPoint) point{
+-(id) initWithMockPoint:(CGPoint) point{
 
-    self = [super init];
-    [self setItemAtPoint:point];
+    self = [self init];
+    [self mockItemAtPoint:point];
     return self;
 }
 
 -(id) initInArea:(I3DragArena *)arena{
 
-    self = [super init];
+    self = [self init];
     [self appendToArena:arena];
     return self;
 }
 
--(id) initWithSetPoint:(CGPoint) point inArena:(I3DragArena *)arena{
+-(id) initWithMockPoint:(CGPoint) point inArena:(I3DragArena *)arena{
 
-    self = [super init];
-    [self setItemAtPoint:point];
+    self = [self init];
+    [self mockItemAtPoint:point];
     [self appendToArena:arena];
     return self;
 }
@@ -75,11 +75,11 @@
     return [_indexPathViewMap objectForKey:index];
 }
 
--(void) setPoint:(CGPoint) point isInside:(BOOL) isInside{
+-(void) mockPoint:(CGPoint) point isInside:(BOOL) isInside{
     OCMStub([_collectionView pointInside:point withEvent:nil]).andReturn(YES);
 }
 
--(void) setItemAtPoint:(CGPoint) point{
+-(NSIndexPath *)mockItemAtPoint:(CGPoint) point{
     
     NSIndexPath *indexPath = [NSIndexPath indexPathForItem:_pointIndexPathMap.count inSection:0];
     UIView *itemView = OCMPartialMock([[UIView alloc] init]);
@@ -87,11 +87,13 @@
     [_pointIndexPathMap setObject:indexPath forKey:[self keyFromPoint:point]];
     [_indexPathViewMap setObject:itemView forKey:indexPath];
 
-    NSLog(@"Setting point %@, index path %@, view %@", [self keyFromPoint:point], indexPath, itemView);
+    NSLog(@"Mocking point %@, index path %@, view %@", [self keyFromPoint:point], indexPath, itemView);
     NSLog(@"Has index path for point? %@", [_pointIndexPathMap objectForKey:[self keyFromPoint:point]]);
     NSLog(@"Has view for index path? %@", [_indexPathViewMap objectForKey:indexPath]);
     
-    [self setPoint:point isInside:YES];
+    [self mockPoint:point isInside:YES];
+    
+    return indexPath;
 }
 
 @end

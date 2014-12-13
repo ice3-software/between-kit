@@ -27,12 +27,12 @@
 
 -(id) initInArea:(I3DragArena *)arena;
 
--(id) initWithSetPoint:(CGPoint) point;
+-(id) initWithMockPoint:(CGPoint) point;
 
--(id) initWithSetPoint:(CGPoint) point inArena:(I3DragArena *)arena;
+-(id) initWithMockPoint:(CGPoint) point inArena:(I3DragArena *)arena;
 
--(void) setPoint:(CGPoint) point isInside:(BOOL) isInside;
+-(void) mockPoint:(CGPoint) point isInside:(BOOL) isInside;
 
--(void) setItemAtPoint:(CGPoint) point;
+-(NSIndexPath *) mockItemAtPoint:(CGPoint) point;
 
 @end
