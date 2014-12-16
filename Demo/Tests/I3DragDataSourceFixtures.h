@@ -10,6 +10,9 @@
 #import <BetweenKit/I3DragDataSource.h>
 
 
+/** @note - All can* delegate methods are implemented to return YES */
+
+
 @interface I3DragDataSourceJustCanDelete : NSObject <I3DragDataSource>
 @end
 

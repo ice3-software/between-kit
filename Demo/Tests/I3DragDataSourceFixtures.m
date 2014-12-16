@@ -12,11 +12,11 @@
 
 @implementation I3DragDataSourceJustCanDelete
 
--(BOOL) canItemBeDraggedAtPoint:(CGPoint) at inCollection:(id<I3Collection>) collection{
+-(BOOL) canItemBeDraggedAt:(NSIndexPath *)at inCollection:(id<I3Collection>)collection{
     return YES;
 }
 
--(BOOL) canItemAtPoint:(CGPoint) from beDeletedIfDroppedOutsideOfCollection:(id<I3Collection>) collection atPoint:(CGPoint) to{
+-(BOOL) canItemAt:(NSIndexPath *)from beDeletedFromCollection:(id<I3Collection>)collection atPoint:(CGPoint)to{
     return YES;
 }
 
@@ -26,12 +26,11 @@
 
 @implementation I3DragDataSourceJustDelete
 
--(BOOL) canItemBeDraggedAtPoint:(CGPoint) at inCollection:(id<I3Collection>) collection{
+-(BOOL) canItemBeDraggedAt:(NSIndexPath *)at inCollection:(id<I3Collection>)collection{
     return YES;
 }
 
--(void) deleteItemAtPoint:(CGPoint) at inCollection:(id<I3Collection>) collection{
-}
+-(void) deleteItemAt:(NSIndexPath *)at inCollection:(id<I3Collection>)collection{}
 
 @end
 
@@ -39,11 +38,11 @@
 
 @implementation I3DragDataSourceJustCanRearrange
 
--(BOOL) canItemBeDraggedAtPoint:(CGPoint) at inCollection:(id<I3Collection>) collection{
+-(BOOL) canItemBeDraggedAt:(NSIndexPath *)at inCollection:(id<I3Collection>)collection{
     return YES;
 }
 
--(BOOL) canItemFromPoint:(CGPoint)from beRearrangedWithItemAtPoint:(CGPoint)to inCollection:(id<I3Collection>)collection{
+-(BOOL) canItemFrom:(NSIndexPath *)from beRearrangedWithItemAt:(NSIndexPath *)to inCollection:(id<I3Collection>)collection{
     return YES;
 }
 
@@ -53,12 +52,11 @@
 
 @implementation I3DragDataSourceJustRearrange
 
--(BOOL) canItemBeDraggedAtPoint:(CGPoint) at inCollection:(id<I3Collection>) collection{
+-(BOOL) canItemBeDraggedAt:(NSIndexPath *)at inCollection:(id<I3Collection>)collection{
     return YES;
 }
 
--(void) rearrangeItemAtPoint:(CGPoint) from withItemAtPoint:(CGPoint) to inCollection:(id<I3Collection>) collection{
-}
+-(void) rearrangeItemAt:(NSIndexPath *)from withItemAt:(NSIndexPath *)to inCollection:(id<I3Collection>)collection{}
 
 @end
 
@@ -66,11 +64,11 @@
 
 @implementation I3DragDataSourceJustCanExchange
 
--(BOOL) canItemBeDraggedAtPoint:(CGPoint) at inCollection:(id<I3Collection>) collection{
+-(BOOL) canItemBeDraggedAt:(NSIndexPath *)at inCollection:(id<I3Collection>)collection{
     return YES;
 }
 
--(BOOL) canItemAtPoint:(CGPoint)from fromCollection:(id<I3Collection>)fromCollection beExchangedWithItemAtPoint:(CGPoint)to inCollection:(id<I3Collection>)toCollection{
+-(BOOL) canItemAt:(NSIndexPath *)from fromCollection:(id<I3Collection>)fromCollection beExchangedWithItemAt:(NSIndexPath *)to inCollection:(id<I3Collection>)toCollection{
     return YES;
 }
 
@@ -80,12 +78,11 @@
 
 @implementation I3DragDataSourceJustExchange
 
--(BOOL) canItemBeDraggedAtPoint:(CGPoint) at inCollection:(id<I3Collection>) collection{
+-(BOOL) canItemBeDraggedAt:(NSIndexPath *)at inCollection:(id<I3Collection>)collection{
     return YES;
 }
 
--(void) exchangeItemAtPoint:(CGPoint)from inCollection:(id<I3Collection>)fromCollection withItemAtPoint:(CGPoint)to inCollection:(id<I3Collection>)toCollection{
-}
+-(void) exchangeItemAt:(NSIndexPath *)from inCollection:(id<I3Collection>)fromCollection withItemAt:(NSIndexPath *)to inCollection:(id<I3Collection>)toCollection{}
 
 @end
 
@@ -93,11 +90,11 @@
 
 @implementation I3DragDataSourceJustCanAppend
 
--(BOOL) canItemBeDraggedAtPoint:(CGPoint) at inCollection:(id<I3Collection>) collection{
+-(BOOL) canItemBeDraggedAt:(NSIndexPath *)at inCollection:(id<I3Collection>)collection{
     return YES;
 }
 
--(BOOL) canItemAtPoint:(CGPoint)from fromCollection:(id<I3Collection>)fromCollection beAppendedToCollection:(id<I3Collection>)toCollection atPoint:(CGPoint)to{
+-(BOOL) canItemAt:(NSIndexPath *)from fromCollection:(id<I3Collection>)fromCollection beAppendedToCollection:(id<I3Collection>)toCollection atPoint:(CGPoint)to{
     return YES;
 }
 
@@ -107,12 +104,11 @@
 
 @implementation I3DragDataSourceJustAppend
 
--(BOOL) canItemBeDraggedAtPoint:(CGPoint) at inCollection:(id<I3Collection>) collection{
+-(BOOL) canItemBeDraggedAt:(NSIndexPath *)at inCollection:(id<I3Collection>)collection{
     return YES;
 }
 
--(void) appendItemAtPoint:(CGPoint)from fromCollection:(id<I3Collection>)fromCollection toPoint:(CGPoint)to onCollection:(id<I3Collection>)onCollection{
-}
+-(void) appendItemAt:(NSIndexPath *)from fromCollection:(id<I3Collection>)fromCollection toPoint:(CGPoint)to onCollection:(id<I3Collection>)onCollection{}
 
 @end
 
