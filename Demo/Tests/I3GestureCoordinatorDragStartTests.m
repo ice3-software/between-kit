@@ -16,16 +16,13 @@ SpecBegin(I3GestureCoordinatorDragStart)
 
 
     describe(@"successful drag start", ^{
-
         
         __block I3GestureCoordinator *coordinator;
         __block id dragDataSource;
-        __block CGPoint dragOrigin;
-        
+        __block CGPoint dragOrigin = CGPointMake(10, 10);
     
         beforeAll(^{
             
-            dragOrigin = CGPointMake(10, 10);
             dragDataSource = OCMProtocolMock(@protocol(I3DragDataSource));
         
             /// @note This tests successful drags - we set the data source up to return positively for eveything.
@@ -92,17 +89,11 @@ SpecBegin(I3GestureCoordinatorDragStart)
     });
 
     describe(@"unsuccessful drag start", ^{
-
         
         __block I3GestureCoordinator *coordinator;
         __block id dragDataSource;
-        __block CGPoint dragOrigin;
-        
-        
-        beforeAll(^{
-            dragOrigin = CGPointMake(10, 10);
-        });
-        
+        __block CGPoint dragOrigin = CGPointMake(10, 10);
+
         beforeEach(^{
             
             coordinator = I3GestureCoordinatorSetupMock(dragDataSource);
