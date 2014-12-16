@@ -10,11 +10,10 @@
 #import <BetweenKit/I3Collection.h>
 #import <BetweenKit/I3DragArena.h>
 
-
 /**
  
- Helper fixture that mocks a collection. Creates mocks behind the scenes for index paths,
- item views and the collection view.
+ Helper fixture that mocks a collection. Creates mocks behind the scenes for all of the collection's
+ dependencies that may need to be spied upon, include item views, index paths, and the collection view.
  
  */
 @interface I3CollectionFixture : NSObject <I3Collection>{
@@ -26,8 +25,6 @@
 }
 
 -(id) initInArea:(I3DragArena *)arena;
-
--(id) initWithMockPoint:(CGPoint) point;
 
 -(id) initWithMockPoint:(CGPoint) point inArena:(I3DragArena *)arena;
 

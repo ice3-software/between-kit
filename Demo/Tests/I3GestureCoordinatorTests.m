@@ -7,34 +7,17 @@
 //
 
 #import <BetweenKit/I3GestureCoordinator.h>
-#import "I3CollectionFixture.h"
 
 
 SpecBegin(I3GestureCoordinator)
 
-
-    __block I3DragArena *dragArena;
-    __block id superview;
-    __block id panGestureRecognizer;
-
-
-    beforeEach(^{
-        superview = OCMPartialMock([[UIView alloc] init]);
-        panGestureRecognizer = OCMPartialMock([[UIPanGestureRecognizer alloc] init]);
-        dragArena = OCMPartialMock([[I3DragArena alloc] initWithSuperview:superview containingCollections:nil]);
-    });
-
-    afterEach(^{
-        dragArena = nil;
-        superview = nil;
-        panGestureRecognizer = nil;
-    });
-
-
     describe(@"ctor", ^{
-        
+
         it(@"should inject dependencies", ^{
         
+            UIPanGestureRecognizer *panGestureRecognizer = [[UIPanGestureRecognizer alloc] init];
+            I3DragArena *dragArena = [[I3DragArena alloc] init];
+            
             I3GestureCoordinator *coordinator = [[I3GestureCoordinator alloc] initWithDragArena:dragArena withGestureRecognizer:panGestureRecognizer];
             
             expect(coordinator.gestureRecognizer).to.equal(panGestureRecognizer);
@@ -44,20 +27,29 @@ SpecBegin(I3GestureCoordinator)
     
         it(@"should create a UIPanGestureRecognizer by default", ^{
         
-            I3GestureCoordinator *coordinator = [[I3GestureCoordinator alloc] initWithDragArena:dragArena withGestureRecognizer:nil];
+            I3GestureCoordinator *coordinator = [[I3GestureCoordinator alloc] initWithDragArena:[[I3DragArena alloc] init] withGestureRecognizer:nil];
             expect(coordinator.gestureRecognizer).to.beInstanceOf([UIPanGestureRecognizer class]);
             
         });
         
         it(@"should setup the gesture recognizer's target and superview correctly", ^{
         
+            UIPanGestureRecognizer *panGestureRecognizer = OCMClassMock([UIPanGestureRecognizer class]);
+            UIView *superview = OCMClassMock([UIView class]);
+            I3DragArena *dragArena = [[I3DragArena alloc] initWithSuperview:superview containingCollections:nil];
+            
             I3GestureCoordinator *coordinator = [[I3GestureCoordinator alloc] initWithDragArena:dragArena withGestureRecognizer:panGestureRecognizer];
+            
             OCMVerify([panGestureRecognizer addTarget:coordinator action:[OCMArg anySelector]]);
             OCMVerify([superview addGestureRecognizer:panGestureRecognizer]);
             
         });
         
         it(@"should not attach the gesture recognizer to the superview if its already attached", ^{
+
+            UIPanGestureRecognizer *panGestureRecognizer = [[UIPanGestureRecognizer alloc] init];
+            UIView *superview = [[UIView alloc] init];
+            I3DragArena *dragArena = [[I3DragArena alloc] initWithSuperview:superview containingCollections:nil];
 
             [superview addGestureRecognizer:panGestureRecognizer];
             
@@ -71,11 +63,21 @@ SpecBegin(I3GestureCoordinator)
 
     describe(@"dtor", ^{
 
+        __block id panGestureRecognizer;
+        __block id superview;
+        __block I3DragArena *dragArena;
+
+        beforeEach(^{
+            panGestureRecognizer = OCMClassMock([UIPanGestureRecognizer class]);
+            superview = OCMClassMock([UIView class]);
+            dragArena = [[I3DragArena alloc] initWithSuperview:superview containingCollections:nil];
+        });
         
-        /** @note Here we use pragma to ignore warnings about weak variables being assigned and
-            then released immediately after as this is exactly what we are trying to achieve. In
-            order for 'dealloc' to be triggered under ARC we must invoke the ctor by creating a
-            weak reference that will unasigned immediately. */
+        afterEach(^{
+            panGestureRecognizer = nil;
+            superview = nil;
+            dragArena = nil;
+        });
         
 #pragma clang diagnostic push
 #pragma clang diagnostic ignored "-Warc-unsafe-retained-assign"
@@ -105,48 +107,6 @@ SpecBegin(I3GestureCoordinator)
         
 #pragma clang diagnostic pop
 
-    });
-
-
-    describe(@"dynamic properties", ^{
-        
-        __block I3GestureCoordinator *coordinator;
-        __block I3CollectionFixture *draggingCollection;
-        __block NSIndexPath *index;
-        
-        
-        beforeEach(^{
-            
-            coordinator = [[I3GestureCoordinator alloc] initWithDragArena:dragArena withGestureRecognizer:panGestureRecognizer];
-            draggingCollection = [[I3CollectionFixture alloc] initInArea:dragArena];
-
-            CGPoint dragOrigin = CGPointMake(10, 10);
-            index = [draggingCollection mockItemAtPoint:dragOrigin];
-            
-            [coordinator setValue:draggingCollection forKey:@"_currentDraggingCollection"];
-            [coordinator setValue:[NSValue valueWithCGPoint:dragOrigin] forKey:@"_currentDragOrigin"];
-            
-        });
-        
-        afterEach(^{
-            
-            draggingCollection = nil;
-            coordinator = nil;
-        
-        });
-        
-        it(@"should return index path for dragging point in dragging collection", ^{
-            
-            expect(coordinator.currentDraggingIndexPath).to.equal(index);
-
-        });
-        
-        it(@"should return item at dragging point in dragging collection", ^{
-
-            expect(coordinator.currentDraggingItem).to.equal([draggingCollection itemAtIndexPath:index]);
-        
-        });
-        
     });
 
 SpecEnd

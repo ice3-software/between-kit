@@ -34,22 +34,36 @@
 -(id) initWithMockPoint:(CGPoint) point{
 
     self = [self init];
-    [self mockItemAtPoint:point];
+    
+    if(self){
+        [self mockItemAtPoint:point];
+    }
+    
     return self;
 }
 
 -(id) initInArea:(I3DragArena *)arena{
 
     self = [self init];
-    [self appendToArena:arena];
+
+    if(self){
+        [self appendToArena:arena];
+    }
+        
     return self;
 }
 
 -(id) initWithMockPoint:(CGPoint) point inArena:(I3DragArena *)arena{
 
     self = [self init];
-    [self mockItemAtPoint:point];
-    [self appendToArena:arena];
+
+    if(self){
+    
+        [self mockItemAtPoint:point];
+        [self appendToArena:arena];
+    
+    }
+        
     return self;
 }
 
