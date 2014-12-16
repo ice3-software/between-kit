@@ -64,12 +64,19 @@
 
 -(NSIndexPath *)mockItemAtPoint:(CGPoint) point{
     
-    NSIndexPath *indexPath = [NSIndexPath indexPathForItem:_pointIndexPathMap.count inSection:0];
+    NSIndexPath *indexPath = [self mockIndexPathOnlyAtPoint:point];
     UIView *itemView = OCMPartialMock([[UIView alloc] init]);
     
-    [_pointIndexPathMap setObject:indexPath forKey:[self keyFromPoint:point]];
     [_indexPathViewMap setObject:itemView forKey:indexPath];
     
+    return indexPath;
+}
+
+-(NSIndexPath *)mockIndexPathOnlyAtPoint:(CGPoint) point{
+
+    NSIndexPath *indexPath = [NSIndexPath indexPathForItem:_pointIndexPathMap.count inSection:0];
+    [_pointIndexPathMap setObject:indexPath forKey:[self keyFromPoint:point]];
+
     [self mockPoint:point isInside:YES];
     
     return indexPath;

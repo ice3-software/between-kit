@@ -50,9 +50,22 @@
  @note This implicitly calls `mockPoint:isInside:` as it is assumed that any item of a collection is inside
  its bounds.
  
- @return The auto-generated NSIndexPath for assertions
+ @return The auto-generated NSIndexPath
  
  */
--(NSIndexPath *) mockItemAtPoint:(CGPoint) point;
+-(NSIndexPath *)mockItemAtPoint:(CGPoint) point;
+
+
+/**
+ 
+ Same as `mockItemAtPoint:` just does not create a mock for an associated view. Can be used in scenarios
+ where you want to simulate the collection returning a valid index path but not a valid item view.
+ 
+ @see `mockItemAtPoint:`
+ 
+ @return The auto-generated NSIndexPath
+
+ */
+-(NSIndexPath *)mockIndexPathOnlyAtPoint:(CGPoint) point;
 
 @end
