@@ -18,4 +18,17 @@
  @name CreationMethod
  
  */
-I3GestureCoordinator *I3GestureCoordinatorSetupMockWithDataSource(id<I3DragDataSource> dataSource);
+I3GestureCoordinator *I3GestureCoordinatorSetupMock(id<I3DragDataSource> dataSource);
+
+
+/**
+ 
+ Setup a gesture coordinator and its dependencies as if a drag has already started. The
+ environment will already be populated with a collection that contains 1 valid item for
+ the drag origin.
+ 
+ @name CreationMethod
+ @todo Implement if necessary
+ 
+ */
+I3GestureCoordinator *I3GestureCoordinatorSetupDraggingMock(id<I3DragDataSource> dataSource);

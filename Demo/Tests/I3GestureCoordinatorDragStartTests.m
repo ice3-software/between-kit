@@ -41,7 +41,7 @@ SpecBegin(I3GestureCoordinatorDragStart)
         
         beforeEach(^{
 
-            coordinator = I3GestureCoordinatorSetupMockWithDataSource(dragDataSource);
+            coordinator = I3GestureCoordinatorSetupMock(dragDataSource);
             
             OCMStub([coordinator.gestureRecognizer state]).andReturn(UIGestureRecognizerStateBegan);
             OCMStub([coordinator.gestureRecognizer locationInView:[OCMArg any]]).andReturn(dragOrigin);
@@ -105,7 +105,7 @@ SpecBegin(I3GestureCoordinatorDragStart)
         
         beforeEach(^{
             
-            coordinator = I3GestureCoordinatorSetupMockWithDataSource(dragDataSource);
+            coordinator = I3GestureCoordinatorSetupMock(dragDataSource);
             dragDataSource = OCMProtocolMock(@protocol(I3DragDataSource));
             
             OCMStub([coordinator.gestureRecognizer state]).andReturn(UIGestureRecognizerStateBegan);
@@ -212,11 +212,32 @@ SpecBegin(I3GestureCoordinatorDragStart)
     });
 
     describe(@"current drag index", ^{
+        
+        it(@"should return index path for dragging point in dragging collection", ^{
+        
+            I3GestureCoordinator *coordinator = I3GestureCoordinatorSetupDraggingMock(nil);
+            
+            CGPoint dragOrigin = coordinator.currentDragOrigin;
+            NSIndexPath *dragIndex = [coordinator.currentDraggingCollection indexPathForItemAtPoint:dragOrigin];
+            
+            expect(coordinator.currentDraggingIndexPath).to.equal(dragIndex);
+            
+        });
 
     });
 
     describe(@"current drag item view", ^{
+        
+        it(@"should return item view at dragging point in dragging collection", ^{
 
+            I3GestureCoordinator *coordinator = I3GestureCoordinatorSetupDraggingMock(nil);
+
+            NSIndexPath *dragIndex = [coordinator.currentDraggingCollection indexPathForItemAtPoint:coordinator.currentDragOrigin];
+            UIView *draggingItemView = [coordinator.currentDraggingCollection itemAtIndexPath:dragIndex];
+            
+            expect(coordinator.currentDraggingItem).to.equal(draggingItemView);
+            
+        });
     });
 
 SpecEnd

@@ -10,7 +10,7 @@
 #import "I3CollectionFixture.h"
 
 
-I3GestureCoordinator *I3GestureCoordinatorSetupMockWithDataSource(id<I3DragDataSource> dataSource){
+I3GestureCoordinator *I3GestureCoordinatorSetupMock(id<I3DragDataSource> dataSource){
     
     UIView *superview = OCMPartialMock([[UIView alloc] init]);
     UIPanGestureRecognizer *panGestureRecognizer = OCMPartialMock([[UIPanGestureRecognizer alloc] init]);
@@ -22,4 +22,22 @@ I3GestureCoordinator *I3GestureCoordinatorSetupMockWithDataSource(id<I3DragDataS
     coordinator.renderDelegate = OCMProtocolMock(@protocol(I3DragRenderDelegate));
     
     return coordinator;
+}
+
+I3GestureCoordinator *I3GestureCoordinatorSetupDraggingMock(id<I3DragDataSource> dataSource){
+
+    CGPoint dragOrigin = CGPointMake(10, 10);
+
+    I3GestureCoordinator *coordinator = I3GestureCoordinatorSetupMock(dataSource);
+    I3CollectionFixture *draggingCollection = [[I3CollectionFixture alloc] initInArena:coordinator.arena];
+    
+    [draggingCollection mockItemAtPoint:dragOrigin];
+    
+    [coordinator setValue:draggingCollection forKey:@"_currentDraggingCollection"];
+    [coordinator setValue:[NSValue valueWithCGPoint:dragOrigin] forKey:@"_currentDragOrigin"];
+    
+    return coordinator;
+    
+    return nil;
+
 }
