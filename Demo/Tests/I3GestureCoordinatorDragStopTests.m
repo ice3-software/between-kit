@@ -186,7 +186,8 @@ SpecBegin(I3GestureCoordinatorDragStop)
       
         beforeEach(^{
             
-            coordinator = I3GestureCoordinatorSetupDraggingMock(nil);
+            dragDataSource = OCMProtocolMock(@protocol(I3DragDataSource));
+            coordinator = I3GestureCoordinatorSetupDraggingMock(dragDataSource);
             
             OCMStub([coordinator.gestureRecognizer locationInView:[OCMArg any]]).andReturn(dropOrigin);
             OCMStub([coordinator.gestureRecognizer state]).andReturn(UIGestureRecognizerStateFailed);
@@ -201,10 +202,6 @@ SpecBegin(I3GestureCoordinatorDragStop)
 
         it(@"should rearranging if we're drag/dropping on the same collection and the data source allows", ^{
             
-            id dragDataSource = OCMProtocolMock(@protocol(I3DragDataSource));
-            
-            coordinator.dragDataSource = dragDataSource;
-            
             I3CollectionFixture *draggingCollection = (I3CollectionFixture *)coordinator.currentDraggingCollection;
             NSIndexPath *dstIndex = [draggingCollection mockItemAtPoint:dropOrigin];
             NSIndexPath *draggingIndex = coordinator.currentDraggingIndexPath;
@@ -215,9 +212,37 @@ SpecBegin(I3GestureCoordinatorDragStop)
             
         });
         
+        it(@"should render rearrange if successfully rearranged", ^{
+
+            [(I3CollectionFixture *)coordinator.currentDraggingCollection mockItemAtPoint:dropOrigin];
+            
+            [coordinator handlePan:coordinator.gestureRecognizer];
+            
+            OCMVerify([coordinator.renderDelegate renderRearrangeOnPoint:dropOrigin fromCoordinator:coordinator]);
+
+        });
+        
     });
 
-    describe(@"unsuccessful rearrange", ^{});
+    describe(@"unsuccessful rearrange", ^{
+    
+        __block I3GestureCoordinator *coordinator;
+        __block CGPoint dropOrigin = CGPointMake(50, 50);
+        
+        beforeEach(^{
+            
+            coordinator = I3GestureCoordinatorSetupDraggingMock(nil);
+            
+            OCMStub([coordinator.gestureRecognizer locationInView:[OCMArg any]]).andReturn(dropOrigin);
+            OCMStub([coordinator.gestureRecognizer state]).andReturn(UIGestureRecognizerStateFailed);
+            
+        });
+        
+        afterEach(^{
+            coordinator = nil;
+        });
+
+    });
 
     describe(@"successful exchange", ^{});
 
