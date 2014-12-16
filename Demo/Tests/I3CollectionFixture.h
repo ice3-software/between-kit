@@ -58,6 +58,16 @@
 
 /**
  
+ Same as `mockItemAtPoint:` but uses the given `index` as the index path.
+ 
+ @see `mockItemAtPoint:`
+ 
+ */
+-(NSIndexPath *)mockItemAtPoint:(CGPoint) point withIndexPath:(NSIndexPath *)index;
+
+
+/**
+ 
  Same as `mockItemAtPoint:` just does not create a mock for an associated view. Can be used in scenarios
  where you want to simulate the collection returning a valid index path but not a valid item view.
  
@@ -66,6 +76,6 @@
  @return The auto-generated NSIndexPath
 
  */
--(NSIndexPath *)mockIndexPathOnlyAtPoint:(CGPoint) point;
+-(NSIndexPath *)mockIndexPathAtPoint:(CGPoint) point;
 
 @end

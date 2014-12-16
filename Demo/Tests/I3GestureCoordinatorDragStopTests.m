@@ -242,6 +242,85 @@ SpecBegin(I3GestureCoordinatorDragStop)
             coordinator = nil;
         });
 
+        it(@"should not rearrange if the data source does not implement can rearrange", ^{
+        
+            id dragDataSource = OCMPartialMock([[I3DragDataSourceJustRearrange alloc] init]);
+            coordinator.dragDataSource = dragDataSource;
+            
+            NSIndexPath *dstIndex = [(I3CollectionFixture *)coordinator.currentDraggingCollection mockItemAtPoint:dropOrigin];
+            
+            [[dragDataSource reject] rearrangeItemAt:coordinator.currentDraggingIndexPath withItemAt:dstIndex inCollection:coordinator.currentDraggingCollection];
+            
+            [coordinator handlePan:coordinator.gestureRecognizer];
+            
+        });
+
+        it(@"should not rearrange if the data source does not implement rearrange method", ^{
+            
+            id dragDataSource = OCMPartialMock([[I3DragDataSourceJustCanRearrange alloc] init]);
+            coordinator.dragDataSource = dragDataSource;
+            
+            NSIndexPath *dstIndex = [(I3CollectionFixture *)coordinator.currentDraggingCollection mockItemAtPoint:dropOrigin];
+            
+            [[dragDataSource reject] rearrangeItemAt:coordinator.currentDraggingIndexPath withItemAt:dstIndex inCollection:coordinator.currentDraggingCollection];
+            
+            [coordinator handlePan:coordinator.gestureRecognizer];
+            
+        });
+        
+        it(@"should not rearrange if the data source does not implement rearrange method", ^{
+            
+            id dragDataSource = OCMPartialMock([[I3DragDataSourceJustCanRearrange alloc] init]);
+            coordinator.dragDataSource = dragDataSource;
+            
+            NSIndexPath *dstIndex = [(I3CollectionFixture *)coordinator.currentDraggingCollection mockItemAtPoint:dropOrigin];
+            
+            [[dragDataSource reject] rearrangeItemAt:coordinator.currentDraggingIndexPath withItemAt:dstIndex inCollection:coordinator.currentDraggingCollection];
+            
+            [coordinator handlePan:coordinator.gestureRecognizer];
+            
+        });
+        
+        it(@"should not rearrange if the data source specifies the items as un-rearrangeable", ^{
+        
+            id dragDataSource = OCMProtocolMock(@protocol(I3DragDataSource));
+            coordinator.dragDataSource = dragDataSource;
+
+            NSIndexPath *dstIndex = [(I3CollectionFixture *)coordinator.currentDraggingCollection mockItemAtPoint:dropOrigin];
+            
+            [[dragDataSource reject] rearrangeItemAt:coordinator.currentDraggingIndexPath withItemAt:dstIndex inCollection:coordinator.currentDraggingCollection];
+            
+            [coordinator handlePan:coordinator.gestureRecognizer];
+        
+        });
+        
+        it(@"should not rearrange if we're dropping on the same item in the collection", ^{
+        
+            id dragDataSource = OCMProtocolMock(@protocol(I3DragDataSource));
+            coordinator.dragDataSource = dragDataSource;
+            
+            NSIndexPath *dragIndex = coordinator.currentDraggingIndexPath;
+            [(I3CollectionFixture *)coordinator.currentDraggingCollection mockItemAtPoint:dropOrigin withIndexPath:dragIndex];
+            
+            [[dragDataSource reject] rearrangeItemAt:[OCMArg any] withItemAt:[OCMArg any] inCollection:coordinator.currentDraggingCollection];
+            
+            [coordinator handlePan:coordinator.gestureRecognizer];
+        
+        });
+        
+        it(@"should not rearrange if we're dropping on an invalid location in the collection", ^{
+        
+            id dragDataSource = OCMProtocolMock(@protocol(I3DragDataSource));
+            coordinator.dragDataSource = dragDataSource;
+            
+            NSIndexPath *dstIndex = [(I3CollectionFixture *)coordinator.currentDraggingCollection mockIndexPathAtPoint:dropOrigin];
+            
+            [[dragDataSource reject] rearrangeItemAt:coordinator.currentDraggingIndexPath withItemAt:dstIndex inCollection:coordinator.currentDraggingCollection];
+            
+            [coordinator handlePan:coordinator.gestureRecognizer];
+            
+        });
+        
     });
 
     describe(@"successful exchange", ^{});

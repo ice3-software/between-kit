@@ -158,7 +158,7 @@ SpecBegin(I3GestureCoordinatorDragStart)
         it(@"should not start dragging if no valid item view at index path in collection", ^{
             
             I3CollectionFixture *collection = [[I3CollectionFixture alloc] initInArena:coordinator.arena];
-            [collection mockIndexPathOnlyAtPoint:dragOrigin];
+            [collection mockIndexPathAtPoint:dragOrigin];
 
             [coordinator handlePan:coordinator.gestureRecognizer];
 
@@ -168,7 +168,7 @@ SpecBegin(I3GestureCoordinatorDragStart)
         it(@"should not call data source access method if no valid item view for index path", ^{
         
             I3CollectionFixture *collection = [[I3CollectionFixture alloc] initInArena:coordinator.arena];
-            [collection mockIndexPathOnlyAtPoint:dragOrigin];
+            [collection mockIndexPathAtPoint:dragOrigin];
 
             [[dragDataSource reject] canItemBeDraggedAt:[OCMArg any] inCollection:collection];
             
