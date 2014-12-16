@@ -24,12 +24,35 @@
     
 }
 
--(id) initInArea:(I3DragArena *)arena;
 
--(id) initWithMockPoint:(CGPoint) point inArena:(I3DragArena *)arena;
+/**
+ 
+ Inits the collection and appends it onto the given arena. This saves the boilerplate of having to
+ append every collection fixture onto the arena.
+ 
+ */
+-(id) initInArena:(I3DragArena *)arena;
 
+
+/**
+ 
+ Stubs `collectionView` to return `isInside` for `pointIsInside`.
+ 
+ */
 -(void) mockPoint:(CGPoint) point isInside:(BOOL) isInside;
 
+
+/**
+ 
+ Sets up a mock item at a given point in the collection. Behind the scenes, this creates an associated
+ NSIndexPath and partial mock UIView that will be used by the protocol impl.
+ 
+ @note This implicitly calls `mockPoint:isInside:` as it is assumed that any item of a collection is inside
+ its bounds.
+ 
+ @return The auto-generated NSIndexPath for assertions
+ 
+ */
 -(NSIndexPath *) mockItemAtPoint:(CGPoint) point;
 
 @end

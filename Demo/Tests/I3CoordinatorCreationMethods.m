@@ -10,26 +10,16 @@
 #import "I3CollectionFixture.h"
 
 
-I3GestureCoordinator *I3GestureCoordinatorSetupMock(){
+I3GestureCoordinator *I3GestureCoordinatorSetupMockWithDataSource(id<I3DragDataSource> dataSource){
     
     UIView *superview = OCMPartialMock([[UIView alloc] init]);
     UIPanGestureRecognizer *panGestureRecognizer = OCMPartialMock([[UIPanGestureRecognizer alloc] init]);
+    
     I3DragArena *dragArena = OCMPartialMock([[I3DragArena alloc] initWithSuperview:superview containingCollections:nil]);
-
-    return [[I3GestureCoordinator alloc] initWithDragArena:dragArena withGestureRecognizer:panGestureRecognizer];
+    I3GestureCoordinator *coordinator = [[I3GestureCoordinator alloc] initWithDragArena:dragArena withGestureRecognizer:panGestureRecognizer];
     
-}
-
-I3GestureCoordinator *I3GestureCoordinatorSetupDraggingMock(){
-
-    I3GestureCoordinator *coordinator = I3GestureCoordinatorSetupMock();
-    I3CollectionFixture *draggingCollection = [[I3CollectionFixture alloc] initInArea:coordinator.arena];
-    
-    CGPoint dragOrigin = CGPointMake(10, 10);
-    
-    [coordinator setValue:draggingCollection forKey:@"_currentDraggingCollection"];
-    [coordinator setValue:[NSValue valueWithCGPoint:dragOrigin] forKey:@"_currentDragOrigin"];
+    coordinator.dragDataSource = dataSource;
+    coordinator.renderDelegate = OCMProtocolMock(@protocol(I3DragRenderDelegate));
     
     return coordinator;
-
 }

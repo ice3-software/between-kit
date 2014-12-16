@@ -12,19 +12,10 @@
 
 /**
  
- Helper function for unit tests. Sets up a gesture coodinator with all of its main 
- mock dependencies.
+ Setup basic gesture coordinator, its dependencies mock dependencies with a given 
+ dataSource.
  
- Implemented to reduce all the boilerplate of repeatedly setting up mock coordinators
- 
- */
-I3GestureCoordinator *I3GestureCoordinatorSetupMock();
-
-
-/**
- 
- Helper function for unit tests. Sets up a gesture cooridnator as if a drag as already
- started.
+ @name CreationMethod
  
  */
-I3GestureCoordinator *I3GestureCoordinatorSetupDraggingMock();
+I3GestureCoordinator *I3GestureCoordinatorSetupMockWithDataSource(id<I3DragDataSource> dataSource);

@@ -31,44 +31,15 @@
     [_pointIndexPathMap removeAllObjects];
 }
 
--(id) initWithMockPoint:(CGPoint) point{
-
-    self = [self init];
-    
-    if(self){
-        [self mockItemAtPoint:point];
-    }
-    
-    return self;
-}
-
--(id) initInArea:(I3DragArena *)arena{
+-(id) initInArena:(I3DragArena *)arena{
 
     self = [self init];
 
     if(self){
-        [self appendToArena:arena];
+        [arena.collections addObject:self];
     }
         
     return self;
-}
-
--(id) initWithMockPoint:(CGPoint) point inArena:(I3DragArena *)arena{
-
-    self = [self init];
-
-    if(self){
-    
-        [self mockItemAtPoint:point];
-        [self appendToArena:arena];
-    
-    }
-        
-    return self;
-}
-
--(void) appendToArena:(I3DragArena *)arena{
-    [arena.collections addObject:self];
 }
 
 -(NSString *)keyFromPoint:(CGPoint) point{
@@ -80,12 +51,10 @@
 }
 
 -(NSIndexPath *)indexPathForItemAtPoint:(CGPoint) at{
-    NSLog(@"Finding index path %@ for point %@", [_pointIndexPathMap objectForKey:[self keyFromPoint:at]], NSStringFromCGPoint(at));
     return [_pointIndexPathMap objectForKey:[self keyFromPoint:at]];
 }
 
 -(UIView *)itemAtIndexPath:(NSIndexPath *)index{
-    NSLog(@"Finding view %@ for index for %@", [_indexPathViewMap objectForKey:index], index);
     return [_indexPathViewMap objectForKey:index];
 }
 
@@ -100,10 +69,6 @@
     
     [_pointIndexPathMap setObject:indexPath forKey:[self keyFromPoint:point]];
     [_indexPathViewMap setObject:itemView forKey:indexPath];
-
-    NSLog(@"Mocking point %@, index path %@, view %@", [self keyFromPoint:point], indexPath, itemView);
-    NSLog(@"Has index path for point? %@", [_pointIndexPathMap objectForKey:[self keyFromPoint:point]]);
-    NSLog(@"Has view for index path? %@", [_indexPathViewMap objectForKey:indexPath]);
     
     [self mockPoint:point isInside:YES];
     

@@ -69,7 +69,7 @@ SpecBegin(I3GestureCoordinator)
 
         beforeEach(^{
             panGestureRecognizer = OCMClassMock([UIPanGestureRecognizer class]);
-            superview = OCMClassMock([UIView class]);
+            superview = OCMPartialMock([[UIView alloc] init]);
             dragArena = [[I3DragArena alloc] initWithSuperview:superview containingCollections:nil];
         });
         
