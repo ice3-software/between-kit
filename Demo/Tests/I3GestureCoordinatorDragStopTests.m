@@ -86,18 +86,18 @@ SpecBegin(I3GestureCoordinatorDragStop)
         });
         
         
-        it(@"should delete item if its deleteable under the data source", ^{
+        it(@"should call data source to delete item", ^{
             
             NSIndexPath *dragIndex = coordinator.currentDraggingIndexPath;
             id draggingCollection = coordinator.currentDraggingCollection;
             
             [coordinator handlePan:coordinator.gestureRecognizer];
-            
+
             OCMVerify([dragDataSource deleteItemAt:dragIndex inCollection:draggingCollection]);
             
         });
         
-        it(@"should render deletion if successfully delete", ^{
+        it(@"should render deletion", ^{
             
             [coordinator handlePan:coordinator.gestureRecognizer];
             
@@ -153,7 +153,7 @@ SpecBegin(I3GestureCoordinatorDragStop)
             id dragDataSource = OCMClassMock([I3DragDataSourceJustDelete class]);
             coordinator.dragDataSource = dragDataSource;
             
-            OCMStub([dragDataSource canItemAt:coordinator.currentDraggingIndexPath beDeletedFromCollection:coordinator.currentDraggingCollection atPoint:dropOrigin]).andReturn(YES);
+            OCMStub([dragDataSource canItemAt:[OCMArg any] beDeletedFromCollection:[OCMArg any] atPoint:dropOrigin]).andReturn(YES);
 
             [[dragDataSource reject] deleteItemAt:[OCMArg any] inCollection:[OCMArg any]];
             
@@ -166,7 +166,7 @@ SpecBegin(I3GestureCoordinatorDragStop)
             id dragDataSource = OCMClassMock([I3DragDataSourceJustCanDelete class]);
             coordinator.dragDataSource = dragDataSource;
             
-            OCMStub([dragDataSource canItemAt:coordinator.currentDraggingIndexPath beDeletedFromCollection:coordinator.currentDraggingCollection atPoint:dropOrigin]).andReturn(YES);
+            OCMStub([dragDataSource canItemAt:[OCMArg any] beDeletedFromCollection:[OCMArg any] atPoint:dropOrigin]).andReturn(YES);
             
             [[dragDataSource reject] deleteItemAt:[OCMArg any] inCollection:[OCMArg any]];
             
@@ -216,7 +216,7 @@ SpecBegin(I3GestureCoordinatorDragStop)
         });
         
 
-        it(@"should rearranging if we're drag/dropping on the same collection and the data source allows", ^{
+        it(@"should call the data source to rearrange", ^{
             
             I3CollectionFixture *draggingCollection = (I3CollectionFixture *)coordinator.currentDraggingCollection;
             NSIndexPath *dstIndex = [draggingCollection mockItemAtPoint:dropOrigin];
@@ -228,7 +228,7 @@ SpecBegin(I3GestureCoordinatorDragStop)
             
         });
         
-        it(@"should render rearrange if successfully rearranged", ^{
+        it(@"should render rearrange", ^{
 
             [(I3CollectionFixture *)coordinator.currentDraggingCollection mockItemAtPoint:dropOrigin];
             
@@ -281,6 +281,8 @@ SpecBegin(I3GestureCoordinatorDragStop)
             id dragDataSource = OCMPartialMock([[I3DragDataSourceJustCanRearrange alloc] init]);
             coordinator.dragDataSource = dragDataSource;
             
+            OCMStub([dragDataSource canItemFrom:[OCMArg any] beRearrangedWithItemAt:[OCMArg any] inCollection:[OCMArg any]]).andReturn(YES);
+
             [(I3CollectionFixture *)coordinator.currentDraggingCollection mockItemAtPoint:dropOrigin];
             
             [[dragDataSource reject] rearrangeItemAt:[OCMArg any] withItemAt:[OCMArg any] inCollection:[OCMArg any]];
@@ -421,6 +423,8 @@ SpecBegin(I3GestureCoordinatorDragStop)
             coordinator.dragDataSource = dragDataSource;
             
             [dstCollection mockItemAtPoint:dropOrigin];
+            
+            OCMStub([dragDataSource canItemAt:[OCMArg any] fromCollection:[OCMArg any] beExchangedWithItemAt:[OCMArg any] inCollection:[OCMArg any]]).andReturn(YES);
 
             [[dragDataSource reject] exchangeItemAt:[OCMArg any] inCollection:[OCMArg any] withItemAt:[OCMArg any] inCollection:[OCMArg any]];
             
@@ -434,7 +438,7 @@ SpecBegin(I3GestureCoordinatorDragStop)
             coordinator.dragDataSource = dragDataSource;
             
             [dstCollection mockItemAtPoint:dropOrigin];
-            
+                        
             [[dragDataSource reject] exchangeItemAt:[OCMArg any] inCollection:[OCMArg any] withItemAt:[OCMArg any] inCollection:[OCMArg any]];
             
             [coordinator handlePan:coordinator.gestureRecognizer];

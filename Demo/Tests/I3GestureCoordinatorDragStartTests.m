@@ -134,8 +134,10 @@ SpecBegin(I3GestureCoordinatorDragStart)
         it(@"should not start dragging if the point is outside of the collection view", ^{
         
             I3CollectionFixture *collection = [[I3CollectionFixture alloc] initInArena:coordinator.arena];
-            [collection mockPoint:dragOrigin isInside:NO];
             
+            [collection mockPoint:dragOrigin isInside:NO];
+            OCMStub([dragDataSource canItemBeDraggedAt:[OCMArg any] inCollection:[OCMArg any]]).andReturn(YES);
+
             [coordinator handlePan:coordinator.gestureRecognizer];
             
             expect(coordinator).to.haveEmptyDrag();
@@ -145,8 +147,10 @@ SpecBegin(I3GestureCoordinatorDragStart)
         it(@"should not call data source access method if the point is outside of the collection view", ^{
             
             I3CollectionFixture *collection = [[I3CollectionFixture alloc] initInArena:coordinator.arena];
+
             [collection mockPoint:dragOrigin isInside:NO];
-            
+            OCMStub([dragDataSource canItemBeDraggedAt:[OCMArg any] inCollection:[OCMArg any]]).andReturn(YES);
+
             [[dragDataSource reject] canItemBeDraggedAt:[OCMArg any] inCollection:collection];
             
             [coordinator handlePan:coordinator.gestureRecognizer];
@@ -156,7 +160,9 @@ SpecBegin(I3GestureCoordinatorDragStart)
         it(@"should not start dragging if no valid index path at point in collection", ^{
 
             I3CollectionFixture *collection = [[I3CollectionFixture alloc] initInArena:coordinator.arena];
+            
             [collection mockPoint:dragOrigin isInside:YES];
+            OCMStub([dragDataSource canItemBeDraggedAt:[OCMArg any] inCollection:[OCMArg any]]).andReturn(YES);
 
             /// @note Explicitly don't call `mockItemAtPoint`
             
@@ -168,7 +174,9 @@ SpecBegin(I3GestureCoordinatorDragStart)
         it(@"should not start dragging if no valid item view at index path in collection", ^{
             
             I3CollectionFixture *collection = [[I3CollectionFixture alloc] initInArena:coordinator.arena];
+            
             [collection mockIndexPathAtPoint:dragOrigin];
+            OCMStub([dragDataSource canItemBeDraggedAt:[OCMArg any] inCollection:[OCMArg any]]).andReturn(YES);
 
             [coordinator handlePan:coordinator.gestureRecognizer];
 
@@ -178,7 +186,9 @@ SpecBegin(I3GestureCoordinatorDragStart)
         it(@"should not call data source access method if no valid item view for index path", ^{
         
             I3CollectionFixture *collection = [[I3CollectionFixture alloc] initInArena:coordinator.arena];
+            
             [collection mockIndexPathAtPoint:dragOrigin];
+            OCMStub([dragDataSource canItemBeDraggedAt:[OCMArg any] inCollection:[OCMArg any]]).andReturn(YES);
 
             [[dragDataSource reject] canItemBeDraggedAt:[OCMArg any] inCollection:collection];
             
@@ -189,7 +199,10 @@ SpecBegin(I3GestureCoordinatorDragStart)
         it(@"should not call data source access method if no valid index path for point in the collection", ^{
 
             I3CollectionFixture *collection = [[I3CollectionFixture alloc] initInArena:coordinator.arena];
+            
             [collection mockPoint:dragOrigin isInside:YES];
+            OCMStub([dragDataSource canItemBeDraggedAt:[OCMArg any] inCollection:[OCMArg any]]).andReturn(YES);
+            
             /// @note Explicitly don't call `mockItemAtPoint`
             
             [[dragDataSource reject] canItemBeDraggedAt:[OCMArg any] inCollection:collection];
@@ -201,7 +214,9 @@ SpecBegin(I3GestureCoordinatorDragStart)
         it(@"should not call the render delegate on failed drag start", ^{
 
             I3CollectionFixture *collection = [[I3CollectionFixture alloc] initInArena:coordinator.arena];
+            
             [collection mockPoint:dragOrigin isInside:NO];
+            OCMStub([dragDataSource canItemBeDraggedAt:[OCMArg any] inCollection:[OCMArg any]]).andReturn(YES);
 
             [[(id)coordinator.renderDelegate reject] renderDragStart:coordinator];
 
