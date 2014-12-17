@@ -11,6 +11,7 @@
 
 SpecBegin(UITableViewI3Collection)
 
+
     describe(@"I3Collection interface", ^{
         
         it(@"should return a UITableView (itself) for the collectionView", ^{
@@ -46,5 +47,6 @@ SpecBegin(UITableViewI3Collection)
         });
         
     });
+
 
 SpecEnd

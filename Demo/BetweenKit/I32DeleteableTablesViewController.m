@@ -60,7 +60,7 @@ static NSString* DequeueReusableCell = @"DequeueReusableCell";
 
 -(CGFloat) tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
     return 50.0f;
-};
+}
 
 
 -(NSInteger) tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger) section{
@@ -83,29 +83,29 @@ static NSString* DequeueReusableCell = @"DequeueReusableCell";
 #pragma mark - I3DragDataSource
 
 
--(BOOL) canItemBeDraggedAtPoint:(CGPoint) at inCollection:(id<I3Collection>) collection{
+-(BOOL) canItemBeDraggedAt:(NSIndexPath *)at inCollection:(id<I3Collection>)collection{
     return YES;
 }
 
 
--(BOOL) canItemAtPoint:(CGPoint)from beDeletedFromCollection:(id<I3Collection>) collection atPoint:(CGPoint) to{
-    
+-(BOOL) canItemAt:(NSIndexPath *)from beDeletedFromCollection:(id<I3Collection>) collection atPoint:(CGPoint) to{
+
     CGPoint localPoint = [self.deleteArea convertPoint:to fromView:self.view];
     return [self.deleteArea pointInside:localPoint withEvent:nil];
 }
 
 
--(void) deleteItemAtPoint:(CGPoint)at inCollection:(id<I3Collection>)collection{
+-(void) deleteItemAt:(NSIndexPath *)at inCollection:(id<I3Collection>) collection{
 
     UITableView *fromTable = (UITableView *)collection.collectionView;
-    NSIndexPath *fromIndex = [fromTable indexPathForRowAtPoint:at];
     
     BOOL isFromLeftTable = fromTable == self.leftTableView;
     NSMutableArray *fromDataset = isFromLeftTable ? self.leftData : self.rightData;
     
-    [fromDataset removeObjectAtIndex:fromIndex.row];
-    [fromTable deleteRowsAtIndexPaths:@[[NSIndexPath indexPathForRow:fromIndex.row inSection:0]] withRowAnimation:UITableViewRowAnimationFade];
-
+    [fromDataset removeObjectAtIndex:at.row];
+    [fromTable deleteRowsAtIndexPaths:@[[NSIndexPath indexPathForRow:at.row inSection:0]] withRowAnimation:UITableViewRowAnimationFade];
+    
 }
+
 
 @end

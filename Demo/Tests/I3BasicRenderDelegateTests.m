@@ -56,7 +56,6 @@ SpecBegin(I3BasicRenderDelegate)
     
     describe(@"begin drag", ^{
 
-        
         it(@"should construct a dragging view from an item in the dragging collection on start", ^{
             
             [renderDelegate renderDragStart:coordinator];
@@ -94,7 +93,6 @@ SpecBegin(I3BasicRenderDelegate)
             expect(renderDelegate.draggingView.alpha).to.equal(0.3f);
             
         });
-        
         
         /// @note that this could be a shared behaviour...
         
@@ -394,5 +392,6 @@ SpecBegin(I3BasicRenderDelegate)
         });
         
     });
+
 
 SpecEnd

@@ -93,28 +93,24 @@ static NSString* DequeueReusableCell = @"DequeueReusableCell";
 #pragma mark - I3DragDataSource
 
 
--(BOOL) canItemBeDraggedAtPoint:(CGPoint) at inCollection:(id<I3Collection>) collection{
+-(BOOL) canItemBeDraggedAt:(NSIndexPath *)at inCollection:(id<I3Collection>)collection{
     return YES;
 }
 
 
--(BOOL) canItemFromPoint:(CGPoint)from beRearrangedWithItemAtPoint:(CGPoint)to inCollection:(id<I3Collection>)collection{
+-(BOOL) canItemFrom:(NSIndexPath *)from beRearrangedWithItemAt:(NSIndexPath *)to inCollection:(id<I3Collection>)collection{
     return YES;
 }
 
 
--(void) rearrangeItemAtPoint:(CGPoint)from withItemAtPoint:(CGPoint)to inCollection:(id<I3Collection>)collection{
+-(void) rearrangeItemAt:(NSIndexPath *)from withItemAt:(NSIndexPath *)to inCollection:(id<I3Collection>)collection{
     
     UITableView *targetTableView = (UITableView *)collection.collectionView;
-    
-    NSIndexPath *toIndex = [targetTableView indexPathForRowAtPoint:to];
-    NSIndexPath *fromIndex = [targetTableView indexPathForRowAtPoint:from];
-
     NSMutableArray *targetDataset = targetTableView == self.leftTableView ? self.leftData : self.rightData;
     
-    [targetDataset exchangeObjectAtIndex:toIndex.row withObjectAtIndex:fromIndex.row];
-    [targetTableView reloadRowsAtIndexPaths:@[toIndex, fromIndex] withRowAnimation:UITableViewRowAnimationFade];
+    [targetDataset exchangeObjectAtIndex:to.row withObjectAtIndex:from.row];
+    [targetTableView reloadRowsAtIndexPaths:@[to, from] withRowAnimation:UITableViewRowAnimationFade];
+    
 }
-
 
 @end
