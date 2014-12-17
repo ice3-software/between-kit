@@ -626,6 +626,25 @@ SpecBegin(I3GestureCoordinatorDragStop)
 
     describe(@"stopping an invalid drag", ^{
 
+        __block I3GestureCoordinator *coordinator;
+        CGPoint dropOrigin = CGPointMake(50, 50);
+        
+        beforeEach(^{
+            
+            coordinator = I3GestureCoordinatorSetupMock(nil);
+        
+            OCMStub([coordinator.gestureRecognizer locationInView:[OCMArg any]]).andReturn(dropOrigin);
+            OCMStub([coordinator.gestureRecognizer state]).andReturn(UIGestureRecognizerStateFailed);
+
+        });
+        
+        it(@"should do nothing if no collection is being dragged", ^{
+        
+            [[(id)coordinator.renderDelegate reject] renderResetFromPoint:dropOrigin fromCoordinator:coordinator];
+            [coordinator handlePan:coordinator.gestureRecognizer];
+            
+        });
+        
     });
 
 SpecEnd

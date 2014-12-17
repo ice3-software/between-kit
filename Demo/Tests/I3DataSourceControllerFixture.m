@@ -14,7 +14,7 @@
 
 @implementation I3DataSourceControllerFixture
 
--(BOOL) canItemBeDraggedAtPoint:(CGPoint)at inCollection:(id<I3Collection>)collection{
+-(BOOL) canItemBeDraggedAt:(NSIndexPath *)at inCollection:(id<I3Collection>) collection{
     return YES;
 }
 
