@@ -69,7 +69,7 @@
 -(NSIndexPath *)mockItemAtPoint:(CGPoint) point withIndexPath:(NSIndexPath *)index{
 
     NSIndexPath *indexPath = index ?: [NSIndexPath indexPathForItem:_pointIndexPathMap.count inSection:0];
-    UIView *itemView = [[UIView alloc] init];
+    UIView *itemView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 10, 10)];
     
     [_pointIndexPathMap setObject:indexPath forKey:[self keyFromPoint:point]];
     [_indexPathViewMap setObject:itemView forKey:indexPath];

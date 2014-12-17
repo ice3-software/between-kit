@@ -9,6 +9,7 @@
 #import <BetweenKit/I3BasicRenderDelegate.h>
 #import <BetweenKit/I3CloneView.h>
 #import "I3CollectionFixture.h"
+#import "I3CoordinatorCreationMethods.h"
 
 
 /// @todo What happens if any of these render delegate methods are called in the incorrect
@@ -17,58 +18,29 @@
 SpecBegin(I3BasicRenderDelegate)
 
 
-    /*describe(@"rendering", ^{
+    describe(@"rendering", ^{
 
         
         __block I3BasicRenderDelegate *renderDelegate;
+        __block I3GestureCoordinator *coordinator;
         __block id dragDataSource;
-        __block id superview;
-        __block id coordinator;
-        __block id arena;
-        __block id gestureRecognizer;
-        __block id currentDraggingCollection;
-        __block UIView *draggingItem;
-        __block UIView *collectionView;
-        
-        CGPoint dragOrigin = CGPointMake(10, 10);
         
         
         beforeEach(^{
             
             renderDelegate = [[I3BasicRenderDelegate alloc] init];
-            coordinator = OCMClassMock([I3GestureCoordinator class]);
-            arena = OCMClassMock([I3DragArena class]);
-            superview = OCMPartialMock([[UIView alloc] init]);
-            currentDraggingCollection = OCMPartialMock([[I3CollectionFixture alloc] init]);
             dragDataSource = OCMProtocolMock(@protocol(I3DragDataSource));
-            collectionView = [[UIView alloc] init];
-            gestureRecognizer = OCMClassMock([UIPanGestureRecognizer class]);
-
-            draggingItem = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 10, 10)];
-            OCMPartialMock(draggingItem);
-
             
-            OCMStub([currentDraggingCollection itemAtPoint:dragOrigin]).andReturn(draggingItem);
-            OCMStub([currentDraggingCollection collectionView]).andReturn(collectionView);
-
-            OCMStub([coordinator arena]).andReturn(arena);
-            OCMStub([coordinator currentDragOrigin]).andReturn(dragOrigin);
-            OCMStub([coordinator currentDraggingCollection]).andReturn(currentDraggingCollection);
-            OCMStub([coordinator gestureRecognizer]).andReturn(gestureRecognizer);
-            OCMStub([coordinator dragDataSource]).andReturn(dragDataSource);
+            /// @todo Better setup method
             
-            OCMStub([arena superview]).andReturn(superview);
-            
+            coordinator = I3GestureCoordinatorSetupDraggingMock(dragDataSource);
+            coordinator.renderDelegate = renderDelegate;
         });
         
         afterEach(^{
             
             renderDelegate = nil;
             coordinator = nil;
-            arena = nil;
-            currentDraggingCollection = nil;
-            draggingItem = nil;
-            gestureRecognizer = nil;
             dragDataSource = nil;
             
         });
@@ -95,7 +67,7 @@ SpecBegin(I3BasicRenderDelegate)
                 [renderDelegate renderDragStart:coordinator];
                 
                 expect(renderDelegate.draggingView).to.beInstanceOf([I3CloneView class]);
-                expect([[superview subviews] containsObject:renderDelegate.draggingView]).to.beTruthy();
+                expect([[coordinator.arena.superview subviews] containsObject:renderDelegate.draggingView]).to.beTruthy();
                 
             });
 
@@ -115,7 +87,7 @@ SpecBegin(I3BasicRenderDelegate)
                 renderDelegate.draggingItemOpacity = 0.5f;
                 [renderDelegate renderDragStart:coordinator];
                 
-                expect(draggingItem.alpha).to.equal(0.5f);
+                expect(coordinator.currentDraggingItem.alpha).to.equal(0.5f);
                 
             });
             
@@ -133,12 +105,16 @@ SpecBegin(I3BasicRenderDelegate)
             
             it(@"should animate the dragging view to the initial gesture location", ^{
                 
+                UIView *superview = coordinator.arena.superview;
+                UIView *draggingItem = coordinator.currentDraggingItem;
+                UIView *collectionView = coordinator.currentDraggingCollection.collectionView;
+                
                 CGPoint translation = CGPointMake(5, 5);
                 CGRect convertedRect = CGRectMake(10, 10, 20, 20);
 
                 id uiViewMock = OCMClassMock([UIView class]);
                 
-                OCMStub([gestureRecognizer locationInView:superview]).andReturn(translation);
+                OCMStub([coordinator.gestureRecognizer locationInView:superview]).andReturn(translation);
                 OCMStub([superview convertRect:draggingItem.frame fromView:collectionView]).andReturn(convertedRect);
 
                 OCMStub([uiViewMock animateWithDuration:0.5 animations:[OCMArg any]]).andDo(^(NSInvocation *invocation){
@@ -172,7 +148,7 @@ SpecBegin(I3BasicRenderDelegate)
 
                 id uiViewMock = OCMClassMock([UIView class]);
 
-                OCMStub([gestureRecognizer locationInView:superview]).andReturn(translation);
+                OCMStub([coordinator.gestureRecognizer locationInView:coordinator.arena.superview]).andReturn(translation);
                 OCMStub([uiViewMock animateWithDuration:0.5 animations:[OCMArg any]]).andDo(^(NSInvocation *invocation){
                     
                     void (^animateBlock)();
@@ -199,13 +175,19 @@ SpecBegin(I3BasicRenderDelegate)
                 
                 [renderDelegate renderDragStart:coordinator];
                 
+                UIView *draggingItem = coordinator.currentDraggingItem;
+                UIView *collectionView = coordinator.currentDraggingCollection.collectionView;
                 UIView *draggingView = renderDelegate.draggingView;
+                UIView *superview = coordinator.arena.superview;
+                
                 CGPoint resetPoint = CGPointMake(25, 25);
                 CGRect resetRect = CGRectMake(0, 0, 100, 100);
                 double duration = 0.15;
                 
-                id uiViewMock = OCMClassMock([UIView class]);
                 OCMStub([superview convertRect:draggingItem.frame fromView:collectionView]).andReturn(resetRect);
+                
+                id uiViewMock = OCMClassMock([UIView class]);
+
                 OCMStub([uiViewMock animateWithDuration:duration animations:[OCMArg any] completion:[OCMArg any]]).andDo(^(NSInvocation *invocation){
                     
                     void (^animateBlock)();
@@ -254,7 +236,7 @@ SpecBegin(I3BasicRenderDelegate)
                 
                 performDropRender(dstCollection, CGPointMake(0, 0), coordinator);
                 
-                expect([[superview subviews] containsObject:renderDelegate.draggingView]).to.beFalsy();
+                expect([[coordinator.arena.superview subviews] containsObject:renderDelegate.draggingView]).to.beFalsy();
                 expect(renderDelegate.draggingView).to.beNil();
                 
             });
@@ -262,6 +244,8 @@ SpecBegin(I3BasicRenderDelegate)
             it(@"should re-show the hidden item in the collection", ^{
                 
                 id dstCollection = OCMProtocolMock(@protocol(I3Collection));
+                UIView *draggingItem = coordinator.currentDraggingItem;
+                
                 draggingItem.alpha = 0.3;
                 
                 performDropRender(dstCollection, CGPointMake(0, 0), coordinator);
@@ -295,24 +279,31 @@ SpecBegin(I3BasicRenderDelegate)
             
                 [renderDelegate renderDragStart:coordinator];
                 
+                I3CollectionFixture *currentDraggingCollection = coordinator.currentDraggingCollection;
+                UIView *collectionView = currentDraggingCollection.collectionView;
+                UIView *superview = coordinator.arena.superview;
+                UIView *draggingItem = coordinator.currentDraggingItem;
                 I3CloneView *draggingView = renderDelegate.draggingView;
-                UIView *exchangeItem = [[UIView alloc] init];
+
                 
                 /// @note that these rect dimensions are really meaningless, that is, their only requirements is
                 /// that they are different so that OCMStub can tell the different between the different invokations
                 /// of `convertRect:fromView:`
+
+                CGRect exchangeItemSuperRect = CGRectMake(0, 0, 100, 100);
+                CGRect draggingItemSuperRect = CGRectMake(0, 100, 100, 100);
+                CGPoint rearrangePoint = CGPointMake(50, 50);
+
+                NSIndexPath *rearrangeIndex = [currentDraggingCollection mockItemAtPoint:rearrangePoint];
+                UIView *exchangeItem = [currentDraggingCollection itemAtIndexPath:rearrangeIndex];
+                
                 
                 exchangeItem.frame = CGRectMake(1, 1, 99, 99);
                 draggingItem.frame = CGRectMake(2, 2, 88, 88);
                 
-                CGRect exchangeItemSuperRect = CGRectMake(0, 0, 100, 100);
-                CGRect draggingItemSuperRect = CGRectMake(0, 100, 100, 100);
-                CGPoint rearrangePoint = CGPointMake(50, 50);
-                
                 double duration = 0.15;
                 id uiViewMock = OCMClassMock([UIView class]);
 
-                OCMStub([currentDraggingCollection itemAtPoint:rearrangePoint]).andReturn(exchangeItem);
                 OCMStub([superview convertRect:exchangeItem.frame fromView:collectionView]).andReturn(exchangeItemSuperRect);
                 OCMStub([superview convertRect:draggingItem.frame fromView:collectionView]).andReturn(draggingItemSuperRect);
     
@@ -398,7 +389,7 @@ SpecBegin(I3BasicRenderDelegate)
                     
                 });
                 
-                [renderDelegate renderDeletionAtPoint:dragOrigin fromCoordinator:coordinator];
+                [renderDelegate renderDeletionAtPoint:coordinator.currentDragOrigin fromCoordinator:coordinator];
 
                 expect(renderDelegate.draggingView).to.beNil();
                 OCMVerify([uiViewMock animateWithDuration:duration animations:[OCMArg any] completion:[OCMArg any]]);
@@ -409,6 +400,6 @@ SpecBegin(I3BasicRenderDelegate)
             
         });
 
-    });*/
+    });
 
 SpecEnd
