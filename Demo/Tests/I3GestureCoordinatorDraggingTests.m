@@ -12,6 +12,7 @@
 
 SpecBegin(I3GestureCoordinatorDragging)
 
+
     describe(@"dragging", ^{
         
         it(@"should render dragging", ^{
@@ -27,5 +28,6 @@ SpecBegin(I3GestureCoordinatorDragging)
         });
         
     });
+
 
 SpecEnd

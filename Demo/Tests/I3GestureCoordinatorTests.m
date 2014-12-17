@@ -14,6 +14,7 @@
 
 SpecBegin(I3GestureCoordinator)
 
+
     describe(@"ctor", ^{
 
         it(@"should inject dependencies", ^{
@@ -64,23 +65,31 @@ SpecBegin(I3GestureCoordinator)
 
     });
 
+
     describe(@"dtor", ^{
+        
 
         __block id panGestureRecognizer;
         __block id superview;
         __block I3DragArena *dragArena;
 
+        
         beforeEach(^{
+            
             panGestureRecognizer = OCMClassMock([UIPanGestureRecognizer class]);
             superview = OCMPartialMock([[UIView alloc] init]);
             dragArena = [[I3DragArena alloc] initWithSuperview:superview containingCollections:nil];
+        
         });
         
         afterEach(^{
+        
             panGestureRecognizer = nil;
             superview = nil;
             dragArena = nil;
+        
         });
+        
         
 #pragma clang diagnostic push
 #pragma clang diagnostic ignored "-Warc-unsafe-retained-assign"
@@ -112,6 +121,7 @@ SpecBegin(I3GestureCoordinator)
 
     });
 
+
     describe(@"basic factory method with gesture", ^{
         
         /// @note All this data is immutable. We don't need to wrap it in a beforeEach block
@@ -123,20 +133,29 @@ SpecBegin(I3GestureCoordinator)
         UILongPressGestureRecognizer *recognizer = [[UILongPressGestureRecognizer alloc] init];
         I3GestureCoordinator *coordinator = [I3GestureCoordinator basicGestureCoordinatorFromViewController:controller withCollections:@[collection1, collection2, collection3] withRecognizer:recognizer];
         
+        
         it(@"should create a new coodinator", ^{
+        
             expect(coordinator).to.beInstanceOf([I3GestureCoordinator class]);
+        
         });
         
         it(@"should create a new coordinator with a basic drag render delegate", ^{
+        
             expect([coordinator renderDelegate]).to.beInstanceOf([I3BasicRenderDelegate class]);
+        
         });
         
         it(@"should set the controller as the gesture's data source if it conforms to protocol", ^{
+        
             expect([coordinator dragDataSource]).to.equal(controller);
+        
         });
         
         it(@"should set up arena with the controller's main view as the superview", ^{
+        
             expect([coordinator arena].superview).to.equal(controller.view);
+        
         });
         
         it(@"should set up the arena with collections", ^{
@@ -144,10 +163,13 @@ SpecBegin(I3GestureCoordinator)
             expect([[coordinator arena].collections containsObject:collection1]).to.beTruthy();
             expect([[coordinator arena].collections containsObject:collection2]).to.beTruthy();
             expect([[coordinator arena].collections containsObject:collection3]).to.beTruthy();
+        
         });
         
         it(@"should initialise the coordinator with a long press gesture recognizer", ^{
+        
             expect(coordinator.gestureRecognizer).to.equal(recognizer);
+        
         });
 
     });

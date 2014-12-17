@@ -17,10 +17,12 @@ SpecBegin(I3GestureCoordinatorDragStart)
 
     describe(@"successful drag start", ^{
         
+        
         __block I3GestureCoordinator *coordinator;
         __block id dragDataSource;
         __block CGPoint dragOrigin = CGPointMake(10, 10);
     
+        
         beforeAll(^{
             
             dragDataSource = OCMProtocolMock(@protocol(I3DragDataSource));
@@ -36,6 +38,7 @@ SpecBegin(I3GestureCoordinatorDragStart)
             dragDataSource = nil;
         });
         
+        
         beforeEach(^{
 
             coordinator = I3GestureCoordinatorSetupMock(dragDataSource);
@@ -48,7 +51,9 @@ SpecBegin(I3GestureCoordinatorDragStart)
         afterEach(^{
             
             coordinator = nil;
+            
         });
+        
         
         it(@"should start a drag on a collection with an item at a valid point", ^{
             
@@ -88,12 +93,15 @@ SpecBegin(I3GestureCoordinatorDragStart)
         
     });
 
+
     describe(@"unsuccessful drag start", ^{
+        
         
         __block I3GestureCoordinator *coordinator;
         __block id dragDataSource;
         __block CGPoint dragOrigin = CGPointMake(10, 10);
 
+        
         beforeEach(^{
             
             coordinator = I3GestureCoordinatorSetupMock(dragDataSource);
@@ -107,7 +115,9 @@ SpecBegin(I3GestureCoordinatorDragStart)
         afterEach(^{
             
             coordinator = nil;
+            
         });
+        
         
         it(@"should not start dragging an undraggable item", ^{
         
@@ -199,8 +209,8 @@ SpecBegin(I3GestureCoordinatorDragStart)
 
         });
         
-        
     });
+
 
     describe(@"current drag index", ^{
         
@@ -229,6 +239,8 @@ SpecBegin(I3GestureCoordinatorDragStart)
             expect(coordinator.currentDraggingItem).to.equal(draggingItemView);
             
         });
+        
     });
+
 
 SpecEnd

@@ -12,9 +12,7 @@
 SpecBegin(I3DragArena)
 
 
-
     describe(@"constructor", ^{
-        
         
         it(@"should create a mutable orderable set from the elements passed in the array", ^{
 
@@ -31,7 +29,6 @@ SpecBegin(I3DragArena)
             expect([arena.collections objectAtIndex:2]).to.equal(object3);
             
         });
-        
         
         it(@"should inject the superview", ^{
         

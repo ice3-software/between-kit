@@ -23,7 +23,6 @@
 		467B35291A1F93050000A77C /* I32ExchangeableTablesViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 467B35281A1F93050000A77C /* I32ExchangeableTablesViewController.m */; };
 		4681C91B1A214D5B00504DF6 /* I32DeleteableTablesViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4681C91A1A214D5B00504DF6 /* I32DeleteableTablesViewController.m */; };
 		46866CFB19D42E1E00C45CCD /* I3DragArenaTest.m in Sources */ = {isa = PBXBuildFile; fileRef = 46866CFA19D42E1E00C45CCD /* I3DragArenaTest.m */; };
-		4694A4AF1A1A317900E0AB9B /* UIView+I3Collection.m in Sources */ = {isa = PBXBuildFile; fileRef = 4694A4AE1A1A317900E0AB9B /* UIView+I3Collection.m */; };
 		46A1877B19CF46A20061B355 /* I3BasicRenderDelegateTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 46A1877A19CF46A20061B355 /* I3BasicRenderDelegateTests.m */; };
 		46A1878019CF5DC20061B355 /* I3CloneViewTest.m in Sources */ = {isa = PBXBuildFile; fileRef = 46A1877F19CF5DC20061B355 /* I3CloneViewTest.m */; };
 		6003F58E195388D20070C39A /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6003F58D195388D20070C39A /* Foundation.framework */; };
@@ -78,7 +77,6 @@
 		4681C9191A214D5B00504DF6 /* I32DeleteableTablesViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = I32DeleteableTablesViewController.h; sourceTree = "<group>"; };
 		4681C91A1A214D5B00504DF6 /* I32DeleteableTablesViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = I32DeleteableTablesViewController.m; sourceTree = "<group>"; };
 		46866CFA19D42E1E00C45CCD /* I3DragArenaTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = I3DragArenaTest.m; sourceTree = "<group>"; };
-		4694A4AE1A1A317900E0AB9B /* UIView+I3Collection.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIView+I3Collection.m"; sourceTree = "<group>"; };
 		46A1877A19CF46A20061B355 /* I3BasicRenderDelegateTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = I3BasicRenderDelegateTests.m; sourceTree = "<group>"; };
 		46A1877F19CF5DC20061B355 /* I3CloneViewTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = I3CloneViewTest.m; sourceTree = "<group>"; };
 		542B21470EB3452C810F4621 /* BetweenKit.podspec */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; name = BetweenKit.podspec; path = ../BetweenKit.podspec; sourceTree = "<group>"; };
@@ -406,7 +404,6 @@
 				46866CFA19D42E1E00C45CCD /* I3DragArenaTest.m */,
 				463330401A1A205B00EBE25D /* UITableView+I3CollectionTest.m */,
 				463330451A1A299100EBE25D /* UICollectionView+I3CollectionTest.m */,
-				4694A4AE1A1A317900E0AB9B /* UIView+I3Collection.m */,
 			);
 			path = Tests;
 			sourceTree = "<group>";
@@ -635,7 +632,6 @@
 				4633303D1A194AEB00EBE25D /* I3DragDataSourceFixtures.m in Sources */,
 				466BA24B1A3C9CCB006CD452 /* I3GestureCoordinatorTests.m in Sources */,
 				466BA25D1A4099D5006CD452 /* I3GestureCoordinatorDragStopTests.m in Sources */,
-				4694A4AF1A1A317900E0AB9B /* UIView+I3Collection.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
