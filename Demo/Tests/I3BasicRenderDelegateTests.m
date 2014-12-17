@@ -12,9 +12,6 @@
 #import "I3CoordinatorCreationMethods.h"
 
 
-/// @todo What happens if any of these render delegate methods are called in the incorrect
-//        order? For example, how will the class cope if a user erroneously makes a call
-//        to `renderDropOnCollection:atPoint:fromCoordinator` ?
 SpecBegin(I3BasicRenderDelegate)
 
 
