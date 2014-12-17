@@ -451,7 +451,69 @@ SpecBegin(I3GestureCoordinatorDragStop)
         
     });
 
-    describe(@"successful append", ^{});
+    describe(@"successful append", ^{
+    
+        __block I3GestureCoordinator *coordinator;
+        __block CGPoint dropOrigin = CGPointMake(50, 50);
+        __block id dstCollection;
+        __block id dragDataSource;
+        
+        beforeEach(^{
+            
+            dragDataSource = OCMProtocolMock(@protocol(I3DragDataSource));
+            coordinator = I3GestureCoordinatorSetupDraggingMock(dragDataSource);
+            dstCollection = [[I3CollectionFixture alloc] initInArena:coordinator.arena];
+            
+            OCMStub([coordinator.gestureRecognizer locationInView:[OCMArg any]]).andReturn(dropOrigin);
+            OCMStub([coordinator.gestureRecognizer state]).andReturn(UIGestureRecognizerStateFailed);
+            
+            OCMStub([dragDataSource canItemAt:[OCMArg any] fromCollection:[OCMArg any] beAppendedToCollection:[OCMArg any] atPoint:dropOrigin]).andReturn(YES);
+            
+        });
+        
+        afterEach(^{
+            coordinator = nil;
+            dragDataSource = nil;
+            dstCollection = nil;
+        });
+        
+        it(@"should append onto collection if we're drag/dropping between collections, there is no drag item and the data source allows", ^{
+            
+            [dstCollection mockPoint:dropOrigin isInside:YES];
+
+            NSIndexPath *draggingIndex = coordinator.currentDraggingIndexPath;
+            id draggingCollection = coordinator.currentDraggingCollection;
+            
+            [coordinator handlePan:coordinator.gestureRecognizer];
+            
+            OCMVerify([dragDataSource appendItemAt:draggingIndex fromCollection:draggingCollection toPoint:dropOrigin onCollection:dstCollection]);
+            
+        });
+        
+        it(@"should append onto collection if we're dropping onto an item that is not exchangeable and the data source allows", ^{
+        
+            NSIndexPath *dstIndex = [dstCollection mockItemAtPoint:dropOrigin];
+            NSIndexPath *draggingIndex = coordinator.currentDraggingIndexPath;
+            id draggingCollection = coordinator.currentDraggingCollection;
+            
+            OCMStub([dragDataSource canItemAt:draggingIndex fromCollection:draggingCollection beExchangedWithItemAt:dstIndex inCollection:dstCollection]).andReturn(NO);
+            
+            [coordinator handlePan:coordinator.gestureRecognizer];
+            
+            OCMVerify([dragDataSource appendItemAt:draggingIndex fromCollection:draggingCollection toPoint:dropOrigin onCollection:dstCollection]);
+
+        });
+        
+        it(@"should render appendation", ^{
+        
+            [dstCollection mockPoint:dropOrigin isInside:YES];
+
+            [coordinator handlePan:coordinator.gestureRecognizer];
+        
+            OCMVerify([coordinator.renderDelegate renderAppendToCollection:dstCollection atPoint:dropOrigin fromCoordinator:coordinator]);
+        });
+    
+    });
 
     describe(@"unsuccessful append", ^{});
 

@@ -37,7 +37,5 @@ I3GestureCoordinator *I3GestureCoordinatorSetupDraggingMock(id<I3DragDataSource>
     [coordinator setValue:[NSValue valueWithCGPoint:dragOrigin] forKey:@"_currentDragOrigin"];
     
     return coordinator;
-    
-    return nil;
 
 }
