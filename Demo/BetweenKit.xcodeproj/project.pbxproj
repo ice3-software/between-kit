@@ -17,6 +17,7 @@
 		466BA2521A406A16006CD452 /* I3GestureCoordinatorDragStartTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 466BA2511A406A16006CD452 /* I3GestureCoordinatorDragStartTests.m */; };
 		466BA25B1A4077AA006CD452 /* EXPMatchers+haveStartedDrag.m in Sources */ = {isa = PBXBuildFile; fileRef = 466BA25A1A4077AA006CD452 /* EXPMatchers+haveStartedDrag.m */; };
 		466BA25D1A4099D5006CD452 /* I3GestureCoordinatorDragStopTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 466BA25C1A4099D5006CD452 /* I3GestureCoordinatorDragStopTests.m */; };
+		466BA25F1A41DB93006CD452 /* I3GestureCoordinatorDraggingTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 466BA25E1A41DB93006CD452 /* I3GestureCoordinatorDraggingTests.m */; };
 		467AFC8619C5E20D00FFD1F4 /* LICENSE.md in Resources */ = {isa = PBXBuildFile; fileRef = 467AFC8519C5E20D00FFD1F4 /* LICENSE.md */; };
 		467B35261A1F7AA70000A77C /* I3DataSourceControllerFixture.m in Sources */ = {isa = PBXBuildFile; fileRef = 467B35251A1F7AA70000A77C /* I3DataSourceControllerFixture.m */; };
 		467B35291A1F93050000A77C /* I32ExchangeableTablesViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 467B35281A1F93050000A77C /* I32ExchangeableTablesViewController.m */; };
@@ -68,6 +69,7 @@
 		466BA2591A4077AA006CD452 /* EXPMatchers+haveStartedDrag.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "EXPMatchers+haveStartedDrag.h"; sourceTree = "<group>"; };
 		466BA25A1A4077AA006CD452 /* EXPMatchers+haveStartedDrag.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "EXPMatchers+haveStartedDrag.m"; sourceTree = "<group>"; };
 		466BA25C1A4099D5006CD452 /* I3GestureCoordinatorDragStopTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = I3GestureCoordinatorDragStopTests.m; sourceTree = "<group>"; };
+		466BA25E1A41DB93006CD452 /* I3GestureCoordinatorDraggingTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = I3GestureCoordinatorDraggingTests.m; sourceTree = "<group>"; };
 		467AFC8519C5E20D00FFD1F4 /* LICENSE.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = LICENSE.md; path = ../LICENSE.md; sourceTree = "<group>"; };
 		467B35241A1F7AA70000A77C /* I3DataSourceControllerFixture.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = I3DataSourceControllerFixture.h; sourceTree = "<group>"; };
 		467B35251A1F7AA70000A77C /* I3DataSourceControllerFixture.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = I3DataSourceControllerFixture.m; sourceTree = "<group>"; };
@@ -396,6 +398,7 @@
 				46B5AA8619CE192600A51694 /* Fixtures */,
 				6003F5B6195388D20070C39A /* Supporting Files */,
 				466BA2491A3C9CCB006CD452 /* I3GestureCoordinatorTests.m */,
+				466BA25E1A41DB93006CD452 /* I3GestureCoordinatorDraggingTests.m */,
 				466BA2511A406A16006CD452 /* I3GestureCoordinatorDragStartTests.m */,
 				466BA25C1A4099D5006CD452 /* I3GestureCoordinatorDragStopTests.m */,
 				46A1877A19CF46A20061B355 /* I3BasicRenderDelegateTests.m */,
@@ -627,6 +630,7 @@
 				467B35261A1F7AA70000A77C /* I3DataSourceControllerFixture.m in Sources */,
 				466BA25B1A4077AA006CD452 /* EXPMatchers+haveStartedDrag.m in Sources */,
 				46A1877B19CF46A20061B355 /* I3BasicRenderDelegateTests.m in Sources */,
+				466BA25F1A41DB93006CD452 /* I3GestureCoordinatorDraggingTests.m in Sources */,
 				463330461A1A299100EBE25D /* UICollectionView+I3CollectionTest.m in Sources */,
 				4633303D1A194AEB00EBE25D /* I3DragDataSourceFixtures.m in Sources */,
 				466BA24B1A3C9CCB006CD452 /* I3GestureCoordinatorTests.m in Sources */,

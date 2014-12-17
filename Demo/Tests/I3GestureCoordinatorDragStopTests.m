@@ -14,9 +14,12 @@
 
 SpecBegin(I3GestureCoordinatorDragStop)
 
+
     describe(@"handle gesture recognizer states", ^{
 
+        
         __block I3GestureCoordinator *coordinator;
+        
         CGPoint dropOrigin = CGPointMake(50, 50);
         
         beforeEach(^{
@@ -28,6 +31,7 @@ SpecBegin(I3GestureCoordinatorDragStop)
         afterEach(^{
             coordinator = nil;
         });
+        
         
         it(@"should handle drop for UIGestureRecognizerStateEnded", ^{
             
@@ -57,9 +61,12 @@ SpecBegin(I3GestureCoordinatorDragStop)
 
     describe(@"successful delete", ^{
         
+        
         __block I3GestureCoordinator *coordinator;
         __block id dragDataSource;
+        
         CGPoint dropOrigin = CGPointMake(50, 50);
+        
         
         beforeEach(^{
             
@@ -74,10 +81,10 @@ SpecBegin(I3GestureCoordinatorDragStop)
         });
 
         afterEach(^{
-            
             dragDataSource = nil;
             coordinator = nil;
         });
+        
         
         it(@"should delete item if its deleteable under the data source", ^{
             
@@ -119,9 +126,12 @@ SpecBegin(I3GestureCoordinatorDragStop)
     
     });
 
+
     describe(@"unsuccessful delete", ^{
     
+        
         __block I3GestureCoordinator *coordinator;
+        
         CGPoint dropOrigin = CGPointMake(50, 50);
         
         beforeEach(^{
@@ -137,6 +147,7 @@ SpecBegin(I3GestureCoordinatorDragStop)
             coordinator = nil;
         });
 
+        
         it(@"should not delete if data source does not implement can delete selector", ^{
             
             id dragDataSource = OCMClassMock([I3DragDataSourceJustDelete class]);
@@ -178,12 +189,16 @@ SpecBegin(I3GestureCoordinatorDragStop)
 
     });
 
+
     describe(@"successful rearrange", ^{
         
+        
         __block I3GestureCoordinator *coordinator;
-        CGPoint dropOrigin = CGPointMake(50, 50);
         __block id dragDataSource;
-      
+
+        CGPoint dropOrigin = CGPointMake(50, 50);
+
+        
         beforeEach(^{
             
             dragDataSource = OCMProtocolMock(@protocol(I3DragDataSource));
@@ -199,6 +214,7 @@ SpecBegin(I3GestureCoordinatorDragStop)
         afterEach(^{
             coordinator = nil;
         });
+        
 
         it(@"should rearranging if we're drag/dropping on the same collection and the data source allows", ^{
             
@@ -224,10 +240,14 @@ SpecBegin(I3GestureCoordinatorDragStop)
         
     });
 
+
     describe(@"unsuccessful rearrange", ^{
     
+        
         __block I3GestureCoordinator *coordinator;
+        
         CGPoint dropOrigin = CGPointMake(50, 50);
+        
         
         beforeEach(^{
             
@@ -241,6 +261,7 @@ SpecBegin(I3GestureCoordinatorDragStop)
         afterEach(^{
             coordinator = nil;
         });
+        
 
         it(@"should not rearrange if the data source does not implement can rearrange", ^{
         
@@ -313,14 +334,18 @@ SpecBegin(I3GestureCoordinatorDragStop)
         
     });
 
+
     describe(@"successful exchange", ^{
+
         
         __block I3GestureCoordinator *coordinator;
-        CGPoint dropOrigin = CGPointMake(50, 50);
         __block NSIndexPath *dstIndex;
         __block id dstCollection;
         __block id dragDataSource;
 
+        CGPoint dropOrigin = CGPointMake(50, 50);
+
+        
         beforeEach(^{
         
             dragDataSource = OCMProtocolMock(@protocol(I3DragDataSource));
@@ -340,6 +365,7 @@ SpecBegin(I3GestureCoordinatorDragStop)
             dragDataSource = nil;
             dstCollection = nil;
         });
+        
         
         it(@"should exchange between collections", ^{
         
@@ -361,11 +387,15 @@ SpecBegin(I3GestureCoordinatorDragStop)
 
     });
 
+
     describe(@"unsuccessful exchange", ^{
     
+        
         __block I3GestureCoordinator *coordinator;
-        CGPoint dropOrigin = CGPointMake(50, 50);
         __block id dstCollection;
+        
+        CGPoint dropOrigin = CGPointMake(50, 50);
+
         
         beforeEach(^{
 
@@ -383,6 +413,7 @@ SpecBegin(I3GestureCoordinatorDragStop)
             coordinator = nil;
             dstCollection = nil;
         });
+        
         
         it(@"should not exchange if data source does not implement exchange selector", ^{
         
@@ -441,12 +472,16 @@ SpecBegin(I3GestureCoordinatorDragStop)
         
     });
 
+
     describe(@"successful append", ^{
     
+        
         __block I3GestureCoordinator *coordinator;
-        CGPoint dropOrigin = CGPointMake(50, 50);
         __block id dstCollection;
         __block id dragDataSource;
+        
+        CGPoint dropOrigin = CGPointMake(50, 50);
+
         
         beforeEach(^{
             
@@ -466,6 +501,7 @@ SpecBegin(I3GestureCoordinatorDragStop)
             dragDataSource = nil;
             dstCollection = nil;
         });
+        
         
         it(@"should append onto collection if we're drag/dropping between collections, there is no drag item and the data source allows", ^{
             
@@ -505,11 +541,15 @@ SpecBegin(I3GestureCoordinatorDragStop)
     
     });
 
+
     describe(@"unsuccessful append", ^{
     
+        
         __block I3GestureCoordinator *coordinator;
-        CGPoint dropOrigin = CGPointMake(50, 50);
         __block id dstCollection;
+
+        CGPoint dropOrigin = CGPointMake(50, 50);
+
         
         beforeEach(^{
             
@@ -527,6 +567,7 @@ SpecBegin(I3GestureCoordinatorDragStop)
             coordinator = nil;
             dstCollection = nil;
         });
+        
 
         it(@"should not append onto collection if the data source does not allow", ^{
         
@@ -569,11 +610,15 @@ SpecBegin(I3GestureCoordinatorDragStop)
         
     });
 
+
     describe(@"generic drops", ^{
+        
         
         __block I3GestureCoordinator *coordinator;
         __block id dragDataSource;
+        
         CGPoint dropOrigin = CGPointMake(50, 50);
+        
         
         beforeEach(^{
             
@@ -591,6 +636,7 @@ SpecBegin(I3GestureCoordinatorDragStop)
             coordinator = nil;
             
         });
+        
         
         it(@"should reset the drag and render if there was no valid destination", ^{
             
@@ -624,10 +670,14 @@ SpecBegin(I3GestureCoordinatorDragStop)
         
     });
 
+
     describe(@"stopping an invalid drag", ^{
 
+        
         __block I3GestureCoordinator *coordinator;
+        
         CGPoint dropOrigin = CGPointMake(50, 50);
+        
         
         beforeEach(^{
             
@@ -637,6 +687,7 @@ SpecBegin(I3GestureCoordinatorDragStop)
             OCMStub([coordinator.gestureRecognizer state]).andReturn(UIGestureRecognizerStateFailed);
 
         });
+        
         
         it(@"should do nothing if no collection is being dragged", ^{
         
