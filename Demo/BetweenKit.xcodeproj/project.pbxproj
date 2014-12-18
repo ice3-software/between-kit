@@ -262,11 +262,11 @@
 			name = "2 Collection Views - Exchangeable";
 			sourceTree = "<group>";
 		};
-		467B35151A1F5AD90000A77C /* 2 Collectoin Views - Rearrangeable */ = {
+		467B35151A1F5AD90000A77C /* 2 Collection Views - Rearrangeable */ = {
 			isa = PBXGroup;
 			children = (
 			);
-			name = "2 Collectoin Views - Rearrangeable";
+			name = "2 Collection Views - Rearrangeable";
 			sourceTree = "<group>";
 		};
 		467B35161A1F5AE50000A77C /* 1 Table 1 Collection View - Editable / Moveable */ = {
@@ -346,7 +346,7 @@
 				467B35181A1F5B210000A77C /* Fluid UI */,
 				467B35171A1F5B170000A77C /* Paint Me */,
 				467B35161A1F5AE50000A77C /* 1 Table 1 Collection View - Editable / Moveable */,
-				467B35151A1F5AD90000A77C /* 2 Collectoin Views - Rearrangeable */,
+				467B35151A1F5AD90000A77C /* 2 Collection Views - Rearrangeable */,
 				467B35141A1F5ACC0000A77C /* 2 Collection Views - Exchangeable */,
 				467B35131A1F5AC10000A77C /* 2 Collection Views - Complex Configuration */,
 				467B35121A1F5A950000A77C /* 2 Collection VIews - All Draggable Properties */,
