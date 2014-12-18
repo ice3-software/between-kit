@@ -30,4 +30,14 @@
 }
 
 
+-(void) deleteItemAtIndexPaths:(NSArray *)indeces{
+    [self deleteRowsAtIndexPaths:indeces withRowAnimation:UITableViewRowAnimationFade];
+}
+
+
+-(void) reloadItemsAtIndexPaths:(NSArray *)indeces{
+    [self reloadRowsAtIndexPaths:indeces withRowAnimation:UITableViewRowAnimationFade];
+}
+
+
 @end

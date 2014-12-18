@@ -12,7 +12,7 @@
 SpecBegin(UITableViewI3Collection)
 
 
-    describe(@"I3Collection interface", ^{
+    describe(@"required methods", ^{
         
         it(@"should return a UITableView (itself) for the collectionView", ^{
             
@@ -46,20 +46,50 @@ SpecBegin(UITableViewI3Collection)
         
         });
         
-        it(@"should delete a set of rows for given indeces", ^{
+    });
+
+
+    describe(@"optional methods", ^{
+
         
-            UITableView *tableView = OCMPartialMock([[UITableView alloc] initWithFrame:CGRectMake(0, 0, 50, 50)]);
-            NSArray *indeces = @[[NSIndexPath indexPathForRow:0 inSection:0], [NSIndexPath indexPathForRow:1 inSection:0], [NSIndexPath indexPathForRow:2 inSection:0]];
+        __block UITableView *tableView;
+        __block NSArray *indeces = @[[NSIndexPath indexPathForRow:0 inSection:0], [NSIndexPath indexPathForRow:1 inSection:0], [NSIndexPath indexPathForRow:2 inSection:0]];
+        
+        
+        beforeEach(^{
+            
+            tableView = OCMPartialMock([[UITableView alloc] initWithFrame:CGRectMake(0, 0, 50, 50)]);
+            
+        });
+        
+        
+        afterEach(^{
+            
+            tableView = nil;
+            
+        });
+        
+        
+        it(@"should delete a set of rows for given indeces", ^{
             
             OCMStub([tableView deleteRowsAtIndexPaths:[OCMArg any] withRowAnimation:UITableViewRowAnimationFade]);
             
             [tableView deleteItemAtIndexPaths:indeces];
             
             OCMVerify([tableView deleteRowsAtIndexPaths:indeces withRowAnimation:UITableViewRowAnimationFade]);
-
+            
         });
-    
         
+        it(@"should reload a set of rows for given indeces", ^{
+            
+            OCMStub([tableView reloadRowsAtIndexPaths:[OCMArg any] withRowAnimation:UITableViewRowAnimationFade]);
+            
+            [tableView reloadItemsAtIndexPaths:indeces];
+            
+            OCMVerify([tableView reloadRowsAtIndexPaths:indeces withRowAnimation:UITableViewRowAnimationFade]);
+            
+        });
+
     });
 
 
