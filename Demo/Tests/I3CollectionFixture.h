@@ -16,9 +16,8 @@
  dependencies that may need to be spied upon, include item views, index paths, and the collection view.
  
  */
-@interface I3CollectionFixture : NSObject <I3Collection>{
+@interface I3CollectionFixture : UIView <I3Collection>{
     
-    UIView *_collectionView;
     NSMutableDictionary *_pointIndexPathMap;
     NSMutableDictionary *_indexPathViewMap;
     

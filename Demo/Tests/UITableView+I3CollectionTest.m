@@ -67,7 +67,7 @@ SpecBegin(UITableViewI3Collection)
             
             OCMStub([tableView deleteRowsAtIndexPaths:[OCMArg any] withRowAnimation:UITableViewRowAnimationFade]);
             
-            [tableView deleteItemAtIndexPaths:indeces];
+            [tableView deleteItemsAtIndexPaths:indeces];
             
             OCMVerify([tableView deleteRowsAtIndexPaths:indeces withRowAnimation:UITableViewRowAnimationFade]);
             

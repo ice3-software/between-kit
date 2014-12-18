@@ -30,7 +30,7 @@
 }
 
 
--(void) deleteItemAtIndexPaths:(NSArray *)indeces{
+-(void) deleteItemsAtIndexPaths:(NSArray *)indeces{
     [self deleteRowsAtIndexPaths:indeces withRowAnimation:UITableViewRowAnimationFade];
 }
 

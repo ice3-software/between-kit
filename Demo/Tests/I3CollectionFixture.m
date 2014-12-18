@@ -16,10 +16,10 @@
     
     if(self){
         
-        _collectionView = OCMPartialMock([[UIView alloc] init]);
         _indexPathViewMap = [[NSMutableDictionary alloc] init];
         _pointIndexPathMap = [[NSMutableDictionary alloc] init];
-        
+
+        OCMPartialMock(self);
     }
     
     return self;
@@ -46,10 +46,6 @@
     return NSStringFromCGPoint(point);
 }
 
--(UIView *)collectionView{
-    return _collectionView;
-}
-
 -(NSIndexPath *)indexPathForItemAtPoint:(CGPoint) at{
     return [_pointIndexPathMap objectForKey:[self keyFromPoint:at]];
 }
@@ -59,7 +55,7 @@
 }
 
 -(void) mockPoint:(CGPoint) point isInside:(BOOL) isInside{
-    OCMStub([_collectionView pointInside:point withEvent:nil]).andReturn(YES);
+    OCMStub([self pointInside:point withEvent:nil]).andReturn(YES);
 }
 
 -(NSIndexPath *)mockItemAtPoint:(CGPoint) point{

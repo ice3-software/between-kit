@@ -80,7 +80,7 @@
  @param indeces     NSArray *   Array of index paths to delete items at
  
  */
--(void) deleteItemAtIndexPaths:(NSArray *)indeces;
+-(void) deleteItemsAtIndexPaths:(NSArray *)indeces;
 
 
 /**
