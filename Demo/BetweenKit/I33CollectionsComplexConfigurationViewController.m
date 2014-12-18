@@ -56,7 +56,7 @@ static NSString* DequeueReusableCell = @"DequeueReusableCell";
     [self.trCollection registerNib:[UINib nibWithNibName:I3SubtitleCollectionViewCellIdentifier bundle:nil] forCellWithReuseIdentifier:I3SubtitleCollectionViewCellIdentifier];
     [self.bCollection registerNib:[UINib nibWithNibName:I3SubtitleCollectionViewCellIdentifier bundle:nil] forCellWithReuseIdentifier:I3SubtitleCollectionViewCellIdentifier];
 
-    self.dragCoordinator = [I3GestureCoordinator basicGestureCoordinatorFromViewController:self withCollections:@[self.tlTable, self.trCollection, self.bCollection]];
+    self.dragCoordinator = [I3GestureCoordinator basicGestureCoordinatorFromViewController:self withCollections:@[self.tlTable, self.trCollection, self.bCollection] withRecognizer:[[UILongPressGestureRecognizer alloc] init]];
     
 }
 

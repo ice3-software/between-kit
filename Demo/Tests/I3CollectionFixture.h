@@ -12,8 +12,14 @@
 
 /**
  
- Helper fixture that mocks a collection. Creates mocks behind the scenes for all of the collection's
- dependencies that may need to be spied upon, include item views, index paths, and the collection view.
+ Helper fixture that mocks a collection.
+ 
+ @note This no longer actually uses OCMock at all - originally this abstracted away off of
+ the OCMock boilerplate when setting up a collection, but it seems to have evolved to be in-
+ dependent of OCMock entirely. This occured most noteably when we refactored the I3Collection 
+ protocol away from using the `collectionView` property and towards being passed as an actual
+ view. The easiest way to get the tests to pass again was to implement out own stub of
+ `pointInside:withEvent`
  
  */
 @interface I3CollectionFixture : UIView <I3Collection>{
