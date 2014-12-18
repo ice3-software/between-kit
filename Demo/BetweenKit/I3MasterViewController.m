@@ -19,8 +19,6 @@ static NSString* DequeueReusableCell = @"DequeueReusableCell";
 
 @property (nonatomic, strong) I3GestureCoordinator *dragCoordinator;
 
-@property (nonatomic, strong) UILongPressGestureRecognizer *gestureRecongizer;
-
 @end
 
 
@@ -39,10 +37,6 @@ static NSString* DequeueReusableCell = @"DequeueReusableCell";
                                                  @"Master - 5",
                                                  ]];
     
-    /// Customize our split screen controller - this would ordinarily probably be done in the
-    /// app delegate, but because all the use cases for this app run in a single app, we've opted
-    /// to configure it here.
-    
     self.detailController = [self.splitViewController.viewControllers lastObject];
 
     /// So here we need to construct our own drag arena and gesture coordinator with dependencies
@@ -52,11 +46,8 @@ static NSString* DequeueReusableCell = @"DequeueReusableCell";
     
     UIWindow *applicationWindow = [[UIApplication sharedApplication] keyWindow];
     
-    self.gestureRecongizer = [[UILongPressGestureRecognizer alloc] init];
-
-    
     I3DragArena *arena = [[I3DragArena alloc] initWithSuperview:applicationWindow containingCollections:@[self.tableView, self.detailController.collectionView]];
-    I3GestureCoordinator *coordinator = [[I3GestureCoordinator alloc] initWithDragArena:arena withGestureRecognizer:self.gestureRecongizer];
+    I3GestureCoordinator *coordinator = [[I3GestureCoordinator alloc] initWithDragArena:arena withGestureRecognizer:[[UILongPressGestureRecognizer alloc] init]];
     
     coordinator.renderDelegate = [[I3BasicRenderDelegate alloc] init];
     coordinator.dragDataSource = self;
@@ -135,16 +126,6 @@ static NSString* DequeueReusableCell = @"DequeueReusableCell";
     [fromCollection deleteItemsAtIndexPaths:@[from]];
     [onCollection insertItemsAtIndexPaths:@[toIndex]];
 
-}
-
-
-#pragma mark - Navigation
-
-
--(BOOL) splitViewController:(UISplitViewController *)svc shouldHideViewController:(UIViewController *)vc inOrientation:(UIInterfaceOrientation)orientation{
-    
-    NSLog(@"should I hide this? %@", !!self.dragCoordinator.currentDraggingCollection ? @"YES" : @"NO");
-    return !!self.dragCoordinator.currentDraggingCollection;
 }
 
 
