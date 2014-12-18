@@ -90,6 +90,16 @@ SpecBegin(UITableViewI3Collection)
             
         });
 
+        it(@"should insert a set of rows for given indeces", ^{
+        
+            OCMStub([tableView insertRowsAtIndexPaths:[OCMArg any] withRowAnimation:UITableViewRowAnimationFade]);
+            
+            [tableView insertItemsAtIndexPaths:indeces];
+            
+            OCMVerify([tableView insertRowsAtIndexPaths:indeces withRowAnimation:UITableViewRowAnimationFade]);
+
+        });
+        
     });
 
 

@@ -40,4 +40,9 @@
 }
 
 
+-(void) insertItemsAtIndexPaths:(NSArray *)indeces{
+    [self insertRowsAtIndexPaths:indeces withRowAnimation:UITableViewRowAnimationFade];
+}
+
+
 @end
