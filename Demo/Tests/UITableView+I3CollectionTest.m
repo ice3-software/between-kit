@@ -46,6 +46,20 @@ SpecBegin(UITableViewI3Collection)
         
         });
         
+        it(@"should delete a set of rows for given indeces", ^{
+        
+            UITableView *tableView = OCMPartialMock([[UITableView alloc] initWithFrame:CGRectMake(0, 0, 50, 50)]);
+            NSArray *indeces = @[[NSIndexPath indexPathForRow:0 inSection:0], [NSIndexPath indexPathForRow:1 inSection:0], [NSIndexPath indexPathForRow:2 inSection:0]];
+            
+            OCMStub([tableView deleteRowsAtIndexPaths:[OCMArg any] withRowAnimation:UITableViewRowAnimationFade]);
+            
+            [tableView deleteItemAtIndexPaths:indeces];
+            
+            OCMVerify([tableView deleteRowsAtIndexPaths:indeces withRowAnimation:UITableViewRowAnimationFade]);
+
+        });
+    
+        
     });
 
 
