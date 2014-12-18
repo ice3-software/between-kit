@@ -30,4 +30,19 @@
 }
 
 
+-(void) deleteItemsAtIndexPaths:(NSArray *)indeces{
+    [self deleteRowsAtIndexPaths:indeces withRowAnimation:UITableViewRowAnimationFade];
+}
+
+
+-(void) reloadItemsAtIndexPaths:(NSArray *)indeces{
+    [self reloadRowsAtIndexPaths:indeces withRowAnimation:UITableViewRowAnimationFade];
+}
+
+
+-(void) insertItemsAtIndexPaths:(NSArray *)indeces{
+    [self insertRowsAtIndexPaths:indeces withRowAnimation:UITableViewRowAnimationFade];
+}
+
+
 @end

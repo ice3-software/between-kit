@@ -98,9 +98,9 @@ SpecBegin(I3BasicRenderDelegate)
         
         it(@"should animate the dragging view to the initial gesture location", ^{
             
+            I3CollectionFixture *collectionView = (I3CollectionFixture *)coordinator.currentDraggingCollection;
             UIView *superview = coordinator.arena.superview;
             UIView *draggingItem = coordinator.currentDraggingItem;
-            UIView *collectionView = coordinator.currentDraggingCollection.collectionView;
             
             CGPoint translation = CGPointMake(5, 5);
             CGRect convertedRect = CGRectMake(10, 10, 20, 20);
@@ -168,8 +168,8 @@ SpecBegin(I3BasicRenderDelegate)
             
             [renderDelegate renderDragStart:coordinator];
             
+            I3CollectionFixture *collectionView = (I3CollectionFixture *)coordinator.currentDraggingCollection;
             UIView *draggingItem = coordinator.currentDraggingItem;
-            UIView *collectionView = coordinator.currentDraggingCollection.collectionView;
             UIView *draggingView = renderDelegate.draggingView;
             UIView *superview = coordinator.arena.superview;
             
@@ -215,7 +215,7 @@ SpecBegin(I3BasicRenderDelegate)
     
     sharedExamples(@"drop on collection", ^(NSDictionary *data){
     
-        __block void (^performDropRender)(id<I3Collection> collection, CGPoint point, I3GestureCoordinator *coordinator) = data[@"performDrop"];
+        __block void (^performDropRender)(UIView<I3Collection> *collection, CGPoint point, I3GestureCoordinator *coordinator) = data[@"performDrop"];
         
         beforeEach(^{
 
@@ -252,7 +252,7 @@ SpecBegin(I3BasicRenderDelegate)
     
     describe(@"exchange", ^{
         
-        itShouldBehaveLike(@"drop on collection", @{@"performDrop": ^(id<I3Collection> collection, CGPoint point, I3GestureCoordinator *coordinator){
+        itShouldBehaveLike(@"drop on collection", @{@"performDrop": ^(UIView<I3Collection> *collection, CGPoint point, I3GestureCoordinator *coordinator){
             [renderDelegate renderExchangeToCollection:collection atPoint:point fromCoordinator:coordinator];
         }});
         
@@ -260,7 +260,7 @@ SpecBegin(I3BasicRenderDelegate)
     
     describe(@"append", ^{
         
-        itShouldBehaveLike(@"drop on collection", @{@"performDrop": ^(id<I3Collection> collection, CGPoint point, I3GestureCoordinator *coordinator){
+        itShouldBehaveLike(@"drop on collection", @{@"performDrop": ^(UIView<I3Collection> *collection, CGPoint point, I3GestureCoordinator *coordinator){
             [renderDelegate renderAppendToCollection:collection atPoint:point fromCoordinator:coordinator];
         }});
         
@@ -272,8 +272,7 @@ SpecBegin(I3BasicRenderDelegate)
         
             [renderDelegate renderDragStart:coordinator];
             
-            I3CollectionFixture *currentDraggingCollection = coordinator.currentDraggingCollection;
-            UIView *collectionView = currentDraggingCollection.collectionView;
+            I3CollectionFixture *currentDraggingCollection = (I3CollectionFixture *)coordinator.currentDraggingCollection;
             UIView *superview = coordinator.arena.superview;
             UIView *draggingItem = coordinator.currentDraggingItem;
             I3CloneView *draggingView = renderDelegate.draggingView;
@@ -297,8 +296,8 @@ SpecBegin(I3BasicRenderDelegate)
             double duration = 0.15;
             id uiViewMock = OCMClassMock([UIView class]);
 
-            OCMStub([superview convertRect:exchangeItem.frame fromView:collectionView]).andReturn(exchangeItemSuperRect);
-            OCMStub([superview convertRect:draggingItem.frame fromView:collectionView]).andReturn(draggingItemSuperRect);
+            OCMStub([superview convertRect:exchangeItem.frame fromView:currentDraggingCollection]).andReturn(exchangeItemSuperRect);
+            OCMStub([superview convertRect:draggingItem.frame fromView:currentDraggingCollection]).andReturn(draggingItemSuperRect);
 
             OCMStub([uiViewMock animateWithDuration:duration animations:[OCMArg any] completion:[OCMArg any]]).andDo(^(NSInvocation *invocation){
                 

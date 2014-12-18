@@ -88,19 +88,19 @@ static NSString* DequeueReusableCell = @"DequeueReusableCell";
 #pragma mark - I3DragDataSource
 
 
--(BOOL) canItemBeDraggedAt:(NSIndexPath *)at inCollection:(id<I3Collection>)collection{
+-(BOOL) canItemBeDraggedAt:(NSIndexPath *)at inCollection:(UIView<I3Collection> *)collection{
     return YES;
 }
 
 
--(BOOL) canItemFrom:(NSIndexPath *)from beRearrangedWithItemAt:(NSIndexPath *)to inCollection:(id<I3Collection>)collection{
+-(BOOL) canItemFrom:(NSIndexPath *)from beRearrangedWithItemAt:(NSIndexPath *)to inCollection:(UIView<I3Collection> *)collection{
     return YES;
 }
 
 
--(void) rearrangeItemAt:(NSIndexPath *)from withItemAt:(NSIndexPath *)to inCollection:(id<I3Collection>)collection{
+-(void) rearrangeItemAt:(NSIndexPath *)from withItemAt:(NSIndexPath *)to inCollection:(UIView<I3Collection> *)collection{
     
-    UITableView *targetTableView = (UITableView *)collection.collectionView;
+    UITableView *targetTableView = (UITableView *)collection;
     NSMutableArray *targetDataset = targetTableView == self.leftTableView ? self.leftData : self.rightData;
     
     [targetDataset exchangeObjectAtIndex:to.row withObjectAtIndex:from.row];

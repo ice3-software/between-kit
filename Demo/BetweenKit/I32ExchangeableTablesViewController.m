@@ -104,34 +104,34 @@ static NSString* DequeueReusableCell = @"DequeueReusableCell";
 #pragma mark - I3DragDataSource
 
 
--(BOOL) canItemBeDraggedAt:(NSIndexPath *)at inCollection:(id<I3Collection>)collection{
+-(BOOL) canItemBeDraggedAt:(NSIndexPath *)at inCollection:(UIView<I3Collection> *)collection{
     return YES;
 }
 
 
--(BOOL) canItemAt:(NSIndexPath *)from fromCollection:(id<I3Collection>)fromCollection beExchangedWithItemAt:(NSIndexPath *)to inCollection:(id<I3Collection>)toCollection{
+-(BOOL) canItemAt:(NSIndexPath *)from fromCollection:(UIView<I3Collection> *)fromCollection beExchangedWithItemAt:(NSIndexPath *)to inCollection:(UIView<I3Collection> *)toCollection{
     return YES;
 }
 
 
--(BOOL) canItemAt:(NSIndexPath *)from fromCollection:(id<I3Collection>)fromCollection beAppendedToCollection:(id<I3Collection>)toCollection atPoint:(CGPoint)to{
+-(BOOL) canItemAt:(NSIndexPath *)from fromCollection:(UIView<I3Collection> *)fromCollection beAppendedToCollection:(UIView<I3Collection> *)toCollection atPoint:(CGPoint)to{
     return YES;
 }
 
 
--(void) appendItemAt:(NSIndexPath *)from fromCollection:(id<I3Collection>)fromCollection toPoint:(CGPoint)to onCollection:(id<I3Collection>)onCollection{
+-(void) appendItemAt:(NSIndexPath *)from fromCollection:(UIView<I3Collection> *)fromCollection toPoint:(CGPoint)to onCollection:(UIView<I3Collection> *)onCollection{
     
-    UITableView *fromTable = (UITableView *)fromCollection.collectionView;
-    UITableView *toTable = (UITableView *)onCollection.collectionView;
+    UITableView *fromTable = (UITableView *)fromCollection;
+    UITableView *toTable = (UITableView *)onCollection;
     
     [self dropRowFromTable:fromTable atIndexPath:from toTable:toTable toIndexPath:[NSIndexPath indexPathForRow:[self tableView:toTable numberOfRowsInSection:0] inSection:0]];
 
 }
 
 
--(void) exchangeItemAt:(NSIndexPath *)from inCollection:(id<I3Collection>)fromCollection withItemAt:(NSIndexPath *)to inCollection:(id<I3Collection>)toCollection{
+-(void) exchangeItemAt:(NSIndexPath *)from inCollection:(UIView<I3Collection> *)fromCollection withItemAt:(NSIndexPath *)to inCollection:(UIView<I3Collection> *)toCollection{
     
-    [self dropRowFromTable:(UITableView *)fromCollection.collectionView atIndexPath:from toTable:(UITableView *)toCollection.collectionView toIndexPath:to];
+    [self dropRowFromTable:(UITableView *)fromCollection atIndexPath:from toTable:(UITableView *)toCollection toIndexPath:to];
 }
 
 
