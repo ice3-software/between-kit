@@ -258,23 +258,67 @@ static NSString* DequeueReusableCell = @"DequeueReusableCell";
     [self logUpdatedData];
 }
 
-/*
 
 -(void) appendItemAt:(NSIndexPath *)from fromCollection:(id<I3Collection>)fromCollection toPoint:(CGPoint)to onCollection:(id<I3Collection>)onCollection{
     
-    UITableView *fromTable = (UITableView *)fromCollection.collectionView;
-    UITableView *toTable = (UITableView *)onCollection.collectionView;
+    NSMutableArray *fromData = [self dataForCollectionView:fromCollection.collectionView];
+    NSMutableArray *toData = [self dataForCollectionView:onCollection.collectionView];
+    NSUInteger toIndex = [toData count];
     
-    [self dropRowFromTable:fromTable atIndexPath:from toTable:toTable toIndexPath:[NSIndexPath indexPathForRow:[self tableView:toTable numberOfRowsInSection:0] inSection:0]];
+    I3SimpleData *exchangingDatum = [fromData objectAtIndex:from.row];
+
+    [fromData removeObjectAtIndex:from.row];
+    [toData insertObject:exchangingDatum atIndex:toIndex];
+    
+    
+    if([fromCollection.collectionView isKindOfClass:[UITableView class]]){
+        [(UITableView *)fromCollection.collectionView deleteRowsAtIndexPaths:@[from] withRowAnimation:UITableViewRowAnimationFade];
+    }
+    else{
+        [(UICollectionView *)fromCollection.collectionView deleteItemsAtIndexPaths:@[from]];
+    }
+    
+    
+    if([onCollection.collectionView isKindOfClass:[UITableView class]]){
+        [(UITableView *)onCollection.collectionView insertRowsAtIndexPaths:@[[NSIndexPath indexPathForRow:toIndex inSection:0]] withRowAnimation:UITableViewRowAnimationFade];
+    }
+    else{
+        [(UICollectionView *)onCollection.collectionView insertItemsAtIndexPaths:@[[NSIndexPath indexPathForItem:toIndex inSection:0]]];
+    }
+    
+    [self logUpdatedData];
 }
 
 
 -(void) exchangeItemAt:(NSIndexPath *)from inCollection:(id<I3Collection>)fromCollection withItemAt:(NSIndexPath *)to inCollection:(id<I3Collection>)toCollection{
     
-    [self dropRowFromTable:(UITableView *)fromCollection.collectionView atIndexPath:from toTable:(UITableView *)toCollection.collectionView toIndexPath:to];
-}
+    NSMutableArray *fromData = [self dataForCollectionView:fromCollection.collectionView];
+    NSMutableArray *toData = [self dataForCollectionView:toCollection.collectionView];
+    
+    I3SimpleData *exchangingDatum = [fromData objectAtIndex:from.row];
+    
+    [fromData removeObjectAtIndex:from.row];
+    [toData insertObject:exchangingDatum atIndex:to.row];
+    
+    
+    if([fromCollection.collectionView isKindOfClass:[UITableView class]]){
+        [(UITableView *)fromCollection.collectionView deleteRowsAtIndexPaths:@[from] withRowAnimation:UITableViewRowAnimationFade];
+    }
+    else{
+        [(UICollectionView *)fromCollection.collectionView deleteItemsAtIndexPaths:@[from]];
+    }
+    
+    
+    if([toCollection.collectionView isKindOfClass:[UITableView class]]){
+        [(UITableView *)toCollection.collectionView insertRowsAtIndexPaths:@[to] withRowAnimation:UITableViewRowAnimationFade];
+    }
+    else{
+        [(UICollectionView *)toCollection.collectionView insertItemsAtIndexPaths:@[to]];
+    }
+    
+    [self logUpdatedData];
 
-*/
+}
 
 
 @end

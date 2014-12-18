@@ -89,7 +89,9 @@
         
         [draggingView removeFromSuperview];
         sourceView.alpha = 1;
-        
+    
+        DND_LOG(@"Finished async reset");
+
     }];
 
     _draggingView = nil;
@@ -131,12 +133,13 @@
         [exchangeView removeFromSuperview];
         [draggingView removeFromSuperview];
         
+        DND_LOG(@"Finished async rearrange");
+
     }];
 
     _draggingView = nil;
     
-    /// @note When would be need to re-show the item?
-    /// @note Can we hide both the dragging and the exchange items while the animation plays out ?
+    DND_LOG(@"Finished sync rearrange");
     
 }
 
@@ -183,6 +186,8 @@
     _draggingView = nil;
     
     coordinator.currentDraggingItem.alpha = 1;
+
+    DND_LOG(@"Finished rendering drop");
 
 }
 
