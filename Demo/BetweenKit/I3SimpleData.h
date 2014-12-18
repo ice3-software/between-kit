@@ -10,7 +10,7 @@
 
 @interface I3SimpleData : NSObject
 
-@property (nonatomic, strong) UIColor *colour;
+@property (nonatomic, copy) UIColor *colour;
 
 @property (nonatomic, copy) NSString *title;
 

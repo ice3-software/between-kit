@@ -47,7 +47,7 @@ static NSString* DequeueReusableCell = @"DequeueReusableCell";
                                                      ]];
     
     self.rightData = [NSMutableArray arrayWithArray:@[
-                                                     [[I3SimpleData alloc] initWithColor:[UIColor greenColor] withTitle:@"Right Item 1" withSubtitle:@"I'm a bit edgey. Don't think you can just throw me around" withCanDelete:YES withCanMove:YES],
+                                                     [[I3SimpleData alloc] initWithColor:[UIColor greenColor] withTitle:@"Right Item 1" withSubtitle:@"I'm a bit edgey. Don't think you can just throw me around" withCanDelete:NO withCanMove:YES],
                                                      [[I3SimpleData alloc] initWithColor:nil withTitle:@"Right Item 2" withSubtitle:@"I'm just normal, you can do anything with me" withCanDelete:YES withCanMove:YES],
                                                      [[I3SimpleData alloc] initWithColor:[UIColor redColor] withTitle:@"Right Item 3" withSubtitle:@"Seriously, don't touch me." withCanDelete:NO withCanMove:NO],
                                                      [[I3SimpleData alloc] initWithColor:nil withTitle:@"Right Item 4" withSubtitle:@"Yup, I'm normal too" withCanDelete:YES withCanMove:YES],
@@ -60,6 +60,11 @@ static NSString* DequeueReusableCell = @"DequeueReusableCell";
     [self.rightTableView registerClass:[I3SubtitleCell class] forCellReuseIdentifier:DequeueReusableCell];
     
     self.dragCoordinator = [I3GestureCoordinator basicGestureCoordinatorFromViewController:self withCollections:@[self.leftTableView, self.rightTableView]];
+    
+    /** Customize the rendering style a bit, because its Christmas */
+    
+    I3BasicRenderDelegate *renderDelegate = (I3BasicRenderDelegate *)self.dragCoordinator.renderDelegate;
+    renderDelegate.draggingItemOpacity = 0.3;
     
 }
 
@@ -110,9 +115,7 @@ static NSString* DequeueReusableCell = @"DequeueReusableCell";
 
 -(BOOL) isPointInDeletionArea:(CGPoint) point fromView:(UIView *)view{
 
-    view = view ?: self.deleteArea;
     CGPoint localPoint = [self.deleteArea convertPoint:point fromView:view];
-    
     return [self.deleteArea pointInside:localPoint withEvent:nil];
 }
 
@@ -142,6 +145,8 @@ static NSString* DequeueReusableCell = @"DequeueReusableCell";
     [fromTable deleteRowsAtIndexPaths:@[[NSIndexPath indexPathForRow:fromIndex.row inSection:0]] withRowAnimation:UITableViewRowAnimationFade];
     [toTable insertRowsAtIndexPaths:@[[NSIndexPath indexPathForRow:toIndex.row inSection:0]] withRowAnimation:UITableViewRowAnimationFade];
     
+    [self logUpdatedData];
+
 }
 
 
@@ -230,14 +235,12 @@ static NSString* DequeueReusableCell = @"DequeueReusableCell";
     UITableView *toTable = (UITableView *)onCollection.collectionView;
     
     [self dropRowFromTable:fromTable atIndexPath:from toTable:toTable toIndexPath:[NSIndexPath indexPathForRow:[self tableView:toTable numberOfRowsInSection:0] inSection:0]];
-    [self logUpdatedData];
 }
 
 
 -(void) exchangeItemAt:(NSIndexPath *)from inCollection:(id<I3Collection>)fromCollection withItemAt:(NSIndexPath *)to inCollection:(id<I3Collection>)toCollection{
     
     [self dropRowFromTable:(UITableView *)fromCollection.collectionView atIndexPath:from toTable:(UITableView *)toCollection.collectionView toIndexPath:to];
-    [self logUpdatedData];
 }
 
 

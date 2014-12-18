@@ -16,11 +16,11 @@
     
     if(self){
     
-        _colour = colour ?: [UIColor blueColor];
-        _title = title ?: @"Item";
-        _subtitle = subtitle ?: @"This is an item";
-        _canDelete = canDelete;
-        _canMove = canMove;
+        self.colour = colour ?: [UIColor blueColor];
+        self.title = title ?: @"Item";
+        self.subtitle = subtitle ?: @"This is an item";
+        self.canDelete = canDelete;
+        self.canMove = canMove;
         
     }
 
