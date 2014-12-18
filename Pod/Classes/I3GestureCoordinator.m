@@ -20,7 +20,7 @@
  appropriately.
  
  */
-@property (nonatomic, weak, readwrite) id<I3Collection> currentDraggingCollection;
+@property (nonatomic, weak, readwrite) UIView<I3Collection> *currentDraggingCollection;
 
 
 /**
@@ -28,7 +28,7 @@
  Sets the current dragging collection from its origin.
  
  */
--(void) setCurrentDraggingCollection:(id<I3Collection>) collection atPoint:(CGPoint) at;
+-(void) setCurrentDraggingCollection:(UIView<I3Collection> *)collection atPoint:(CGPoint) at;
 
 
 /**
@@ -63,7 +63,7 @@
  Called when a drag has stopped on a origin within a collection.
  
  */
--(void) handleDragStoppedInCollection:(id<I3Collection>) to atPoint:(CGPoint) at;
+-(void) handleDragStoppedInCollection:(UIView<I3Collection> *)to atPoint:(CGPoint) at;
 
 
 @end
@@ -148,12 +148,11 @@
 
 -(void) handleDragStarted{
     
-    for (id<I3Collection> collection in self.arena.collections){
+    for (UIView<I3Collection> *collection in self.arena.collections){
         
-        UIView* collectionView = collection.collectionView;
-        CGPoint pointInCollection = [self.gestureRecognizer locationInView:collectionView];
+        CGPoint pointInCollection = [self.gestureRecognizer locationInView:collection];
         
-        if([collectionView pointInside:pointInCollection withEvent:nil]){
+        if([collection pointInside:pointInCollection withEvent:nil]){
             
             NSIndexPath *index = [collection indexPathForItemAtPoint:pointInCollection];
             
@@ -166,7 +165,7 @@
                [self.dragDataSource canItemBeDraggedAt:index inCollection:collection]
             ){
                 
-                DND_LOG(@"We can drag item %d in collection", [self.arena.collections indexOfObject:collection]);
+                DND_LOG(@"We can drag item %lu in collection", (unsigned long)[self.arena.collections indexOfObject:collection]);
 
                 [self setCurrentDraggingCollection:collection atPoint:pointInCollection];
                 [self.renderDelegate renderDragStart:self];
@@ -210,16 +209,15 @@
     }
     else{
 
-        id<I3Collection> dstCollection;
+        UIView<I3Collection> *dstCollection;
         
-        for(id<I3Collection> collection in self.arena.collections){
+        for(UIView<I3Collection> *collection in self.arena.collections){
             
-            UIView* collectionView = collection.collectionView;
-            CGPoint pointInCollection = [self.gestureRecognizer locationInView:collectionView];
+            CGPoint pointInCollection = [self.gestureRecognizer locationInView:collection];
             
-            DND_LOG(@"Testing whether %@ is in %@", NSStringFromCGPoint(pointInCollection), collectionView);
+            DND_LOG(@"Testing whether %@ is in %@", NSStringFromCGPoint(pointInCollection), collection);
             
-            if([collectionView pointInside:pointInCollection withEvent:nil]){
+            if([collection pointInside:pointInCollection withEvent:nil]){
                 
                 DND_LOG(@"Found a target collection to drop on!");
                 
@@ -243,7 +241,7 @@
 }
 
 
--(void) handleDragStoppedInCollection:(id<I3Collection>) to atPoint:(CGPoint) at{
+-(void) handleDragStoppedInCollection:(UIView<I3Collection> *)to atPoint:(CGPoint) at{
     
     BOOL isRearrange = to == self.currentDraggingCollection;
     
@@ -345,13 +343,13 @@
 }
 
 
--(void) setCurrentDraggingCollection:(id<I3Collection>) currentDraggingCollection{
+-(void) setCurrentDraggingCollection:(UIView<I3Collection> *)currentDraggingCollection{
     
     [self setCurrentDraggingCollection:currentDraggingCollection atPoint:CGPointZero];
 }
 
 
--(void) setCurrentDraggingCollection:(id<I3Collection>) collection atPoint:(CGPoint) at{
+-(void) setCurrentDraggingCollection:(UIView<I3Collection> *)collection atPoint:(CGPoint) at{
 
     _currentDraggingCollection = collection;
     _currentDragOrigin = at;

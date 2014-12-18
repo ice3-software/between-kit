@@ -42,7 +42,7 @@
  @return BOOL
  
  */
--(BOOL) canItemBeDraggedAt:(NSIndexPath *)at inCollection:(id<I3Collection>) collection;
+-(BOOL) canItemBeDraggedAt:(NSIndexPath *)at inCollection:(UIView<I3Collection> *)collection;
 
 
 @optional
@@ -59,7 +59,7 @@
  @param toCollection    The collection we're providing data for.
  
  */
--(void) exchangeItemAt:(NSIndexPath *)from inCollection:(id<I3Collection>) fromCollection withItemAt:(NSIndexPath *)to inCollection:(id<I3Collection>) toCollection;
+-(void) exchangeItemAt:(NSIndexPath *)from inCollection:(UIView<I3Collection> *)fromCollection withItemAt:(NSIndexPath *)to inCollection:(UIView<I3Collection> *)toCollection;
 
 
 /**
@@ -76,7 +76,7 @@
  @param onCollection    The collection that we're appending onto.
  
  */
--(void) appendItemAt:(NSIndexPath *)from fromCollection:(id<I3Collection>) fromCollection toPoint:(CGPoint) to onCollection:(id<I3Collection>) onCollection;
+-(void) appendItemAt:(NSIndexPath *)from fromCollection:(UIView<I3Collection> *)fromCollection toPoint:(CGPoint) to onCollection:(UIView<I3Collection> *)onCollection;
 
 
 /**
@@ -89,7 +89,7 @@
  @param collection      The collection to which the drag/drops relate.
  
  */
--(void) rearrangeItemAt:(NSIndexPath *)from withItemAt:(NSIndexPath *)to inCollection:(id<I3Collection>) collection;
+-(void) rearrangeItemAt:(NSIndexPath *)from withItemAt:(NSIndexPath *)to inCollection:(UIView<I3Collection> *)collection;
 
 
 /**
@@ -101,7 +101,7 @@
  @param collection      The from which we're deleting the item.
  
  */
--(void) deleteItemAt:(NSIndexPath *)at inCollection:(id<I3Collection>) collection;
+-(void) deleteItemAt:(NSIndexPath *)at inCollection:(UIView<I3Collection> *)collection;
 
 
 /**
@@ -118,7 +118,7 @@
  @return BOOL
  
  */
--(BOOL) canItemAt:(NSIndexPath *)from fromCollection:(id<I3Collection>) fromCollection beExchangedWithItemAt:(NSIndexPath *)to inCollection:(id<I3Collection>) toCollection;
+-(BOOL) canItemAt:(NSIndexPath *)from fromCollection:(UIView<I3Collection> *)fromCollection beExchangedWithItemAt:(NSIndexPath *)to inCollection:(UIView<I3Collection> *)toCollection;
 
 
 /**
@@ -143,7 +143,7 @@
  @return BOOL
 
  */
--(BOOL) canItemAt:(NSIndexPath *)from fromCollection:(id<I3Collection>) fromCollection beAppendedToCollection:(id<I3Collection>) toCollection atPoint:(CGPoint) to;
+-(BOOL) canItemAt:(NSIndexPath *)from fromCollection:(UIView<I3Collection> *)fromCollection beAppendedToCollection:(UIView<I3Collection> *)toCollection atPoint:(CGPoint) to;
 
 /**
  
@@ -157,7 +157,7 @@
  @return BOOL
  
  */
--(BOOL) canItemFrom:(NSIndexPath *)from beRearrangedWithItemAt:(NSIndexPath *)to inCollection:(id<I3Collection>) collection;
+-(BOOL) canItemFrom:(NSIndexPath *)from beRearrangedWithItemAt:(NSIndexPath *)to inCollection:(UIView<I3Collection> *)collection;
 
 
 /**
@@ -172,7 +172,7 @@
  @return BOOL
  
  */
--(BOOL) canItemAt:(NSIndexPath *)from beDeletedFromCollection:(id<I3Collection>) collection atPoint:(CGPoint) to;
+-(BOOL) canItemAt:(NSIndexPath *)from beDeletedFromCollection:(UIView<I3Collection> *)collection atPoint:(CGPoint) to;
 
 
 @end

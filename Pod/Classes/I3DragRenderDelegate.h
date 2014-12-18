@@ -70,7 +70,7 @@
  @param coordinator     The gesture coordinator
  
  */
--(void) renderExchangeToCollection:(id<I3Collection>) dstCollection atPoint:(CGPoint) at fromCoordinator:(I3GestureCoordinator *)coordinator;
+-(void) renderExchangeToCollection:(UIView<I3Collection> *)dstCollection atPoint:(CGPoint) at fromCoordinator:(I3GestureCoordinator *)coordinator;
 
 
 /**
@@ -85,7 +85,7 @@
  @param coordinator     The gesture coordinator
 
  */
--(void) renderAppendToCollection:(id<I3Collection>) dstCollection atPoint:(CGPoint) at fromCoordinator:(I3GestureCoordinator *)coordinator;
+-(void) renderAppendToCollection:(UIView<I3Collection> *)dstCollection atPoint:(CGPoint) at fromCoordinator:(I3GestureCoordinator *)coordinator;
 
 
 /**

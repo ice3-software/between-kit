@@ -19,7 +19,7 @@
  appendation and exchange.
  
  */
--(void) renderDropOnCollection:(id<I3Collection>) dstCollection atPoint:(CGPoint) at fromCoordinator:(I3GestureCoordinator *)coordinator;
+-(void) renderDropOnCollection:(UIView<I3Collection> *)dstCollection atPoint:(CGPoint) at fromCoordinator:(I3GestureCoordinator *)coordinator;
 
 
 @end
@@ -49,11 +49,11 @@
 
 -(void) renderDragStart:(I3GestureCoordinator *)coordinator{
     
-    id<I3Collection> draggingCollection = coordinator.currentDraggingCollection;
+    UIView<I3Collection> *draggingCollection = coordinator.currentDraggingCollection;
     UIView *sourceView = coordinator.currentDraggingItem;
     
     _draggingView = [[I3CloneView alloc] initWithSourceView:sourceView];
-    _draggingView.frame = [coordinator.arena.superview convertRect:sourceView.frame fromView:draggingCollection.collectionView];
+    _draggingView.frame = [coordinator.arena.superview convertRect:sourceView.frame fromView:draggingCollection];
     [_draggingView cloneSourceView];
 
     [coordinator.arena.superview addSubview:_draggingView];
@@ -75,10 +75,10 @@
 
 -(void) renderResetFromPoint:(CGPoint) at fromCoordinator:(I3GestureCoordinator *)coordinator{
     
-    id<I3Collection> draggingCollection = coordinator.currentDraggingCollection;
+    UIView<I3Collection> *draggingCollection = coordinator.currentDraggingCollection;
     UIView *sourceView = coordinator.currentDraggingItem;
 
-    CGRect dragOriginFrame = [coordinator.arena.superview convertRect:sourceView.frame fromView:draggingCollection.collectionView];
+    CGRect dragOriginFrame = [coordinator.arena.superview convertRect:sourceView.frame fromView:draggingCollection];
     I3CloneView *draggingView = _draggingView;
     
     [UIView animateWithDuration:0.15 animations:^{
@@ -101,24 +101,22 @@
 
 -(void) renderRearrangeOnPoint:(CGPoint) at fromCoordinator:(I3GestureCoordinator *)coordinator{
     
-    id<I3Collection> draggingCollection = coordinator.currentDraggingCollection;
+    UIView<I3Collection> *draggingCollection = coordinator.currentDraggingCollection;
     NSIndexPath *atIndex = [draggingCollection indexPathForItemAtPoint:at];
     
-    UIView *collectionView = draggingCollection.collectionView;
     UIView *superview = coordinator.arena.superview;
-    
     UIView *dstSourceView = [draggingCollection itemAtIndexPath:atIndex];
     UIView *sourceView = coordinator.currentDraggingItem;
     
     I3CloneView *exchangeView = [[I3CloneView alloc] initWithSourceView:dstSourceView];
-    exchangeView.frame = [superview convertRect:dstSourceView.frame fromView:collectionView];
+    exchangeView.frame = [superview convertRect:dstSourceView.frame fromView:draggingCollection];
     [superview addSubview:exchangeView];
     [exchangeView cloneSourceView];
     
     I3CloneView *draggingView = _draggingView;
     [superview bringSubviewToFront:draggingView];
 
-    CGRect dragOriginFrame = [superview convertRect:sourceView.frame fromView:collectionView];
+    CGRect dragOriginFrame = [superview convertRect:sourceView.frame fromView:draggingCollection];
     CGPoint draggingViewTargetCenter = CGPointMake(CGRectGetMidX(exchangeView.frame), CGRectGetMidY(exchangeView.frame));
     CGPoint exchangeViewTargetCenter = CGPointMake(CGRectGetMidX(dragOriginFrame), CGRectGetMidY(dragOriginFrame));
     
@@ -167,12 +165,12 @@
 }
 
 
--(void) renderExchangeToCollection:(id<I3Collection>) dstCollection atPoint:(CGPoint) at fromCoordinator:(I3GestureCoordinator *)coordinator{
+-(void) renderExchangeToCollection:(UIView<I3Collection> *)dstCollection atPoint:(CGPoint) at fromCoordinator:(I3GestureCoordinator *)coordinator{
     [self renderDropOnCollection:dstCollection atPoint:at fromCoordinator:coordinator];
 }
 
 
--(void) renderAppendToCollection:(id<I3Collection>)dstCollection atPoint:(CGPoint)at fromCoordinator:(I3GestureCoordinator *)coordinator{
+-(void) renderAppendToCollection:(UIView<I3Collection> *)dstCollection atPoint:(CGPoint)at fromCoordinator:(I3GestureCoordinator *)coordinator{
     [self renderDropOnCollection:dstCollection atPoint:at fromCoordinator:coordinator];
 }
 
@@ -180,7 +178,7 @@
 #pragma mark - Private methods
 
 
--(void) renderDropOnCollection:(id<I3Collection>) dstCollection atPoint:(CGPoint) at fromCoordinator:(I3GestureCoordinator *)coordinator{
+-(void) renderDropOnCollection:(UIView<I3Collection> *)dstCollection atPoint:(CGPoint) at fromCoordinator:(I3GestureCoordinator *)coordinator{
     
     [_draggingView removeFromSuperview];
     _draggingView = nil;

@@ -14,13 +14,6 @@ SpecBegin(UITableViewI3Collection)
 
     describe(@"required methods", ^{
         
-        it(@"should return a UITableView (itself) for the collectionView", ^{
-            
-            UITableView *tableView = [[UITableView alloc] initWithFrame:CGRectMake(0, 0, 10, 10)];
-            expect([tableView collectionView]).to.equal(tableView);
-            
-        });
-        
         it(@"should return one of its NSIndexPath s for a given point", ^{
             
             UITableView *tableView = OCMPartialMock([[UITableView alloc] initWithFrame:CGRectMake(0, 0, 50, 50)]);

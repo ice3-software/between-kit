@@ -64,7 +64,7 @@
  The I3Collection that is currently being dragged (or nil)
  
  */
-@property (nonatomic, weak, readonly) id<I3Collection> currentDraggingCollection;
+@property (nonatomic, weak, readonly) UIView<I3Collection> *currentDraggingCollection;
 
 
 /**

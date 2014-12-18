@@ -14,13 +14,6 @@ SpecBegin(UICollectionViewI3Collection)
 
     describe(@"I3Collection interface", ^{
         
-        it(@"should return a UICollectionView (itself) for the collectionView", ^{
-            
-            UICollectionView *collectionView = [[UICollectionView alloc] initWithFrame:CGRectMake(0, 0, 100, 100) collectionViewLayout:[[UICollectionViewFlowLayout alloc] init]];
-            expect([collectionView collectionView]).to.equal(collectionView);
-            
-        });
-                
         it(@"should return a UICollectionViewCell for a given index", ^{
             
             UICollectionView *collectionView = OCMPartialMock([[UICollectionView alloc] initWithFrame:CGRectMake(0, 0, 50, 50) collectionViewLayout:[[UICollectionViewFlowLayout alloc] init]]);
