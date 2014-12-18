@@ -18,8 +18,8 @@
         
         _indexPathViewMap = [[NSMutableDictionary alloc] init];
         _pointIndexPathMap = [[NSMutableDictionary alloc] init];
+        _pointsInside = [[NSMutableArray alloc] init];
 
-        OCMPartialMock(self);
     }
     
     return self;
@@ -54,8 +54,12 @@
     return [_indexPathViewMap objectForKey:index];
 }
 
+-(BOOL) pointInside:(CGPoint) point withEvent:(UIEvent *)event{
+    return [_pointsInside containsObject:[self keyFromPoint:point]];
+}
+
 -(void) mockPoint:(CGPoint) point isInside:(BOOL) isInside{
-    OCMStub([self pointInside:point withEvent:nil]).andReturn(YES);
+    [_pointsInside addObject:[self keyFromPoint:point]];
 }
 
 -(NSIndexPath *)mockItemAtPoint:(CGPoint) point{

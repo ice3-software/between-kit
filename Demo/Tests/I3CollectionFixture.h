@@ -20,6 +20,7 @@
     
     NSMutableDictionary *_pointIndexPathMap;
     NSMutableDictionary *_indexPathViewMap;
+    NSMutableArray *_pointsInside;
     
 }
 

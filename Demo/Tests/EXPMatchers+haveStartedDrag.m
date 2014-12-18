@@ -8,7 +8,7 @@
 
 #import "EXPMatchers+haveStartedDrag.h"
 
-EXPMatcherImplementationBegin(haveStartedDrag, (id<I3Collection> collection, CGPoint origin)){
+EXPMatcherImplementationBegin(haveStartedDrag, (UIView<I3Collection> *collection, CGPoint origin)){
     
     
     BOOL actualIsNil = (actual == nil);

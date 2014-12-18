@@ -10,6 +10,6 @@
 #import <BetweenKit/I3GestureCoordinator.h>
 #import "Expecta.h"
 
-EXPMatcherInterface(haveStartedDrag, (id<I3Collection> collection, CGPoint origin));
+EXPMatcherInterface(haveStartedDrag, (UIView<I3Collection> *collection, CGPoint origin));
 
 #define haveEmptyDrag() haveStartedDrag(nil, CGPointZero)
