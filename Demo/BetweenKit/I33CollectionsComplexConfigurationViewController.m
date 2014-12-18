@@ -57,7 +57,12 @@ static NSString* DequeueReusableCell = @"DequeueReusableCell";
     [self.bCollection registerNib:[UINib nibWithNibName:I3SubtitleCollectionViewCellIdentifier bundle:nil] forCellWithReuseIdentifier:I3SubtitleCollectionViewCellIdentifier];
 
     self.dragCoordinator = [I3GestureCoordinator basicGestureCoordinatorFromViewController:self withCollections:@[self.tlTable, self.trCollection, self.bCollection] withRecognizer:[[UILongPressGestureRecognizer alloc] init]];
+ 
+    /** Its objective-Christmas */
     
+    I3BasicRenderDelegate *renderDelegate = (I3BasicRenderDelegate *)self.dragCoordinator.renderDelegate;
+    renderDelegate.draggingItemOpacity = 0.3;
+
 }
 
 
@@ -147,6 +152,24 @@ static NSString* DequeueReusableCell = @"DequeueReusableCell";
 }
 
 
+-(void) dropItemAt:(NSIndexPath *)fromIndex fromCollection:(UIView<I3Collection> *)fromCollection to:(NSIndexPath *)toIndex onCollection:(UIView<I3Collection> *)toCollection{
+
+    NSMutableArray *fromData = [self dataForCollectionView:fromCollection];
+    NSMutableArray *toData = [self dataForCollectionView:toCollection];
+    
+    I3SimpleData *exchangingDatum = [fromData objectAtIndex:fromIndex.row];
+    
+    [fromData removeObjectAtIndex:fromIndex.row];
+    [toData insertObject:exchangingDatum atIndex:toIndex.row];
+    
+    [fromCollection deleteItemsAtIndexPaths:@[fromIndex]];
+    [toCollection insertItemsAtIndexPaths:@[toIndex]];
+    
+    [self logUpdatedData];
+    
+}
+
+
 #pragma mark - I3DragDataSource
 
 
@@ -227,37 +250,17 @@ static NSString* DequeueReusableCell = @"DequeueReusableCell";
 
 -(void) appendItemAt:(NSIndexPath *)from fromCollection:(UIView<I3Collection> *)fromCollection toPoint:(CGPoint)to onCollection:(UIView<I3Collection> *)onCollection{
     
-    NSMutableArray *fromData = [self dataForCollectionView:fromCollection];
-    NSMutableArray *toData = [self dataForCollectionView:onCollection];
-    
-    NSUInteger toIndex = [toData count];
+    NSInteger toIndex = [[self dataForCollectionView:onCollection] count];
     NSIndexPath *toIndexPath = [onCollection isKindOfClass:[UITableView class]] ? [NSIndexPath indexPathForRow:toIndex inSection:0] : [NSIndexPath indexPathForItem:toIndex inSection:0];
     
-    I3SimpleData *exchangingDatum = [fromData objectAtIndex:from.row];
-
-    [fromData removeObjectAtIndex:from.row];
-    [toData insertObject:exchangingDatum atIndex:toIndex];
-    
-    [fromCollection deleteItemsAtIndexPaths:@[from]];
-    [onCollection insertItemsAtIndexPaths:@[toIndexPath]];
-
+    [self dropItemAt:from fromCollection:fromCollection to:toIndexPath onCollection:onCollection];
     [self logUpdatedData];
 }
 
 
 -(void) exchangeItemAt:(NSIndexPath *)from inCollection:(UIView<I3Collection> *)fromCollection withItemAt:(NSIndexPath *)to inCollection:(UIView<I3Collection> *)toCollection{
     
-    NSMutableArray *fromData = [self dataForCollectionView:fromCollection];
-    NSMutableArray *toData = [self dataForCollectionView:toCollection];
-    
-    I3SimpleData *exchangingDatum = [fromData objectAtIndex:from.row];
-    
-    [fromData removeObjectAtIndex:from.row];
-    [toData insertObject:exchangingDatum atIndex:to.row];
-    
-    [fromCollection deleteItemsAtIndexPaths:@[from]];
-    [toCollection insertItemsAtIndexPaths:@[to]];
-    
+    [self dropItemAt:from fromCollection:fromCollection to:to onCollection:toCollection];
     [self logUpdatedData];
 
 }
