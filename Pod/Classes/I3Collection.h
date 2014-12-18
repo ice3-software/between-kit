@@ -23,27 +23,12 @@
  type of the collectionView in their data source methods. For example, our UITableView category 
  implements these methods to avoid forcing users to call `isKindOfClass` and cast between different
  view types in their data source.
- 
- @todo How do we enforce the constraint the items's are subviews of the collection view?
- 1.* didn't enforce this but I feel we should.
 
  */
 @protocol I3Collection <NSObject>
 
 
 @required
-
-
-/**
- 
- Returns the containing UIView that has is the superview of the 'items'. This can be
- used to access the bounds of the collection for coordination as well as the for
- rendering.
- 
- @todo Get rid of this as per #42
- 
- */
-@property (nonatomic, strong, readonly) UIView *collectionView;
 
 
 /**
