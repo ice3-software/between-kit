@@ -59,7 +59,9 @@
 }
 
 -(void) mockPoint:(CGPoint) point isInside:(BOOL) isInside{
-    [_pointsInside addObject:[self keyFromPoint:point]];
+    if(isInside){
+        [_pointsInside addObject:[self keyFromPoint:point]];
+    }
 }
 
 -(NSIndexPath *)mockItemAtPoint:(CGPoint) point{
