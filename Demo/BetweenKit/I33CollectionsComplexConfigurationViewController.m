@@ -147,27 +147,6 @@ static NSString* DequeueReusableCell = @"DequeueReusableCell";
 }
 
 
-/*
--(void) dropRowFromTable:(UITableView *)fromTable atIndexPath:(NSIndexPath *)fromIndex toTable:(UITableView *)toTable toIndexPath:(NSIndexPath *)toIndex{
- 
-    BOOL isFromLeftTable = fromTable == self.leftTableView;
-    
-    NSNumber *exchangingData = isFromLeftTable ? [self.leftData objectAtIndex:fromIndex.row] : [self.rightData objectAtIndex:fromIndex.row];
-    NSMutableArray *fromDataset = isFromLeftTable ? self.leftData : self.rightData;
-    NSMutableArray *toDataset = isFromLeftTable ? self.rightData : self.leftData;
-    
- 
-    [fromDataset removeObjectAtIndex:fromIndex.row];
-    [toDataset insertObject:exchangingData atIndex:toIndex.row];
-    
-    [fromTable deleteRowsAtIndexPaths:@[[NSIndexPath indexPathForRow:fromIndex.row inSection:0]] withRowAnimation:UITableViewRowAnimationFade];
-    [toTable insertRowsAtIndexPaths:@[[NSIndexPath indexPathForRow:toIndex.row inSection:0]] withRowAnimation:UITableViewRowAnimationFade];
-    
-    [self logUpdatedData];
-    
-}*/
-
-
 #pragma mark - I3DragDataSource
 
 
