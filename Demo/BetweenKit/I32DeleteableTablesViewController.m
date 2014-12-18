@@ -58,11 +58,6 @@ static NSString* DequeueReusableCell = @"DequeueReusableCell";
 #pragma mark - UITableViewDataSource, UITableViewDelegate
 
 
--(CGFloat) tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
-    return 50.0f;
-}
-
-
 -(NSInteger) tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger) section{
     return [(tableView == self.leftTableView ? self.leftData : self.rightData) count];
 }

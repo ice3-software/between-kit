@@ -8,7 +8,7 @@
 
 #import <Foundation/Foundation.h>
 
-@interface I3SimpleData : NSObject
+@interface I3SimpleData : NSObject <NSCopying>
 
 @property (nonatomic, copy) UIColor *colour;
 

@@ -12,6 +12,9 @@
 		4633303F1A194BC800EBE25D /* I3CollectionFixture.m in Sources */ = {isa = PBXBuildFile; fileRef = 4633303E1A194BC800EBE25D /* I3CollectionFixture.m */; };
 		463330411A1A205B00EBE25D /* UITableView+I3CollectionTest.m in Sources */ = {isa = PBXBuildFile; fileRef = 463330401A1A205B00EBE25D /* UITableView+I3CollectionTest.m */; };
 		463330461A1A299100EBE25D /* UICollectionView+I3CollectionTest.m in Sources */ = {isa = PBXBuildFile; fileRef = 463330451A1A299100EBE25D /* UICollectionView+I3CollectionTest.m */; };
+		4659C8371A4319170076C645 /* I33CollectionsComplexConfigurationViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4659C8361A4319170076C645 /* I33CollectionsComplexConfigurationViewController.m */; };
+		4659C83A1A431EAA0076C645 /* I3SubtitleCollectionViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 4659C8391A431EAA0076C645 /* I3SubtitleCollectionViewCell.m */; };
+		4659C83D1A4320A00076C645 /* I3SubtitleCollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 4659C83C1A4320A00076C645 /* I3SubtitleCollectionViewCell.xib */; };
 		466BA24B1A3C9CCB006CD452 /* I3GestureCoordinatorTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 466BA2491A3C9CCB006CD452 /* I3GestureCoordinatorTests.m */; };
 		466BA24F1A3F5DA5006CD452 /* I3CoordinatorCreationMethods.m in Sources */ = {isa = PBXBuildFile; fileRef = 466BA24E1A3F5DA5006CD452 /* I3CoordinatorCreationMethods.m */; };
 		466BA2521A406A16006CD452 /* I3GestureCoordinatorDragStartTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 466BA2511A406A16006CD452 /* I3GestureCoordinatorDragStartTests.m */; };
@@ -64,6 +67,11 @@
 		4633303E1A194BC800EBE25D /* I3CollectionFixture.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = I3CollectionFixture.m; sourceTree = "<group>"; };
 		463330401A1A205B00EBE25D /* UITableView+I3CollectionTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UITableView+I3CollectionTest.m"; sourceTree = "<group>"; };
 		463330451A1A299100EBE25D /* UICollectionView+I3CollectionTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UICollectionView+I3CollectionTest.m"; sourceTree = "<group>"; };
+		4659C8351A4319170076C645 /* I33CollectionsComplexConfigurationViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = I33CollectionsComplexConfigurationViewController.h; sourceTree = "<group>"; };
+		4659C8361A4319170076C645 /* I33CollectionsComplexConfigurationViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = I33CollectionsComplexConfigurationViewController.m; sourceTree = "<group>"; };
+		4659C8381A431EAA0076C645 /* I3SubtitleCollectionViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = I3SubtitleCollectionViewCell.h; sourceTree = "<group>"; };
+		4659C8391A431EAA0076C645 /* I3SubtitleCollectionViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = I3SubtitleCollectionViewCell.m; sourceTree = "<group>"; };
+		4659C83C1A4320A00076C645 /* I3SubtitleCollectionViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = I3SubtitleCollectionViewCell.xib; sourceTree = "<group>"; };
 		466BA2491A3C9CCB006CD452 /* I3GestureCoordinatorTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = I3GestureCoordinatorTests.m; sourceTree = "<group>"; };
 		466BA24D1A3F5DA5006CD452 /* I3CoordinatorCreationMethods.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = I3CoordinatorCreationMethods.h; sourceTree = "<group>"; };
 		466BA24E1A3F5DA5006CD452 /* I3CoordinatorCreationMethods.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = I3CoordinatorCreationMethods.m; sourceTree = "<group>"; };
@@ -151,6 +159,14 @@
 			name = "2 Tables - Rearrangeable";
 			sourceTree = "<group>";
 		};
+		4659C83B1A43208F0076C645 /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				4659C83C1A4320A00076C645 /* I3SubtitleCollectionViewCell.xib */,
+			);
+			name = Views;
+			sourceTree = "<group>";
+		};
 		466BA2501A40687B006CD452 /* Creation Methods */ = {
 			isa = PBXGroup;
 			children = (
@@ -176,6 +192,8 @@
 				466BA2671A4231B2006CD452 /* I3SimpleData.m */,
 				466BA26A1A423921006CD452 /* I3SubtitleCell.h */,
 				466BA26B1A423921006CD452 /* I3SubtitleCell.m */,
+				4659C8381A431EAA0076C645 /* I3SubtitleCollectionViewCell.h */,
+				4659C8391A431EAA0076C645 /* I3SubtitleCollectionViewCell.m */,
 			);
 			name = Fixtures;
 			sourceTree = "<group>";
@@ -210,6 +228,8 @@
 		467B35101A1F5A520000A77C /* 3 Collections - Complex Configuration */ = {
 			isa = PBXGroup;
 			children = (
+				4659C8351A4319170076C645 /* I33CollectionsComplexConfigurationViewController.h */,
+				4659C8361A4319170076C645 /* I33CollectionsComplexConfigurationViewController.m */,
 			);
 			name = "3 Collections - Complex Configuration";
 			sourceTree = "<group>";
@@ -315,6 +335,7 @@
 		4694A4B31A1A3DCE00E0AB9B /* Use Cases */ = {
 			isa = PBXGroup;
 			children = (
+				4659C83B1A43208F0076C645 /* Views */,
 				466BA2691A4231B6006CD452 /* Fixtures */,
 				467B351E1A1F5DCF0000A77C /* Complex Cells and Custom Render Delegate */,
 				467B351D1A1F5C540000A77C /* Custom Gesture Recognition */,
@@ -547,6 +568,7 @@
 				6003F5A4195388D20070C39A /* Main_iPad.storyboard in Resources */,
 				6003F5A9195388D20070C39A /* Images.xcassets in Resources */,
 				6003F5A1195388D20070C39A /* Main_iPhone.storyboard in Resources */,
+				4659C83D1A4320A00076C645 /* I3SubtitleCollectionViewCell.xib in Resources */,
 				6003F598195388D20070C39A /* InfoPlist.strings in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -635,8 +657,10 @@
 				466BA26C1A423921006CD452 /* I3SubtitleCell.m in Sources */,
 				6003F59A195388D20070C39A /* main.m in Sources */,
 				466BA2651A4230C6006CD452 /* I32TablesAllPropertiesViewController.m in Sources */,
+				4659C83A1A431EAA0076C645 /* I3SubtitleCollectionViewCell.m in Sources */,
 				4681C91B1A214D5B00504DF6 /* I32DeleteableTablesViewController.m in Sources */,
 				467B35291A1F93050000A77C /* I32ExchangeableTablesViewController.m in Sources */,
+				4659C8371A4319170076C645 /* I33CollectionsComplexConfigurationViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

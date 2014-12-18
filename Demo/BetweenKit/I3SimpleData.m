@@ -10,6 +10,7 @@
 
 @implementation I3SimpleData
 
+
 -(id) initWithColor:(UIColor *)colour withTitle:(NSString *)title withSubtitle:(NSString *)subtitle withCanDelete:(BOOL) canDelete withCanMove:(BOOL) canMove{
 
     self = [super init];
@@ -27,5 +28,13 @@
     return self;
     
 }
+
+
+-(id) copyWithZone:(NSZone *) zone{
+    
+    return [[[self class] alloc] initWithColor:self.colour withTitle:self.title withSubtitle:self.subtitle withCanDelete:self.canDelete withCanMove:self.canMove];
+    
+}
+
 
 @end
