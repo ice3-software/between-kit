@@ -17,7 +17,11 @@ static NSString* DequeueReusableCell = @"DequeueReusableCell";
 
 @interface I3MasterViewController ()
 
-@property (nonatomic, strong) I3GestureCoordinator *dragCoordinator;
+@property (nonatomic, strong) I3GestureCoordinator *coordinator;
+
+@property (nonatomic, strong) I3DragArena *arena;
+
+@property (nonatomic, strong) UILongPressGestureRecognizer *gestureRecongizer;
 
 @end
 
@@ -25,8 +29,8 @@ static NSString* DequeueReusableCell = @"DequeueReusableCell";
 @implementation I3MasterViewController
 
 
--(void)viewDidLoad{
-    
+-(void) viewDidLoad{
+
     [super viewDidLoad];
     
     self.data = [NSMutableArray arrayWithArray:@[
@@ -46,14 +50,39 @@ static NSString* DequeueReusableCell = @"DequeueReusableCell";
     
     UIWindow *applicationWindow = [[UIApplication sharedApplication] keyWindow];
     
-    I3DragArena *arena = [[I3DragArena alloc] initWithSuperview:applicationWindow containingCollections:@[self.tableView, self.detailController.collectionView]];
-    I3GestureCoordinator *coordinator = [[I3GestureCoordinator alloc] initWithDragArena:arena withGestureRecognizer:[[UILongPressGestureRecognizer alloc] init]];
-    
-    coordinator.renderDelegate = [[I3BasicRenderDelegate alloc] init];
-    coordinator.dragDataSource = self;
-    
-    self.dragCoordinator = coordinator;
+    self.gestureRecongizer = [[UILongPressGestureRecognizer alloc] init];
+    self.arena = [[I3DragArena alloc] initWithSuperview:applicationWindow containingCollections:@[self.tableView, self.detailController.collectionView]];
 
+}
+
+
+-(void)viewDidAppear:(BOOL) animated{
+    
+    [super viewDidAppear:animated];
+    
+    /// Initialise our coordinator - note that this coordinator will only be listening for the
+    /// durination that the master controller is visible on the screen. This has the effect that
+    /// when the master controller is hidden, no drag / dropping will occur between the controllers.
+    /// This, asside from demonstrating an interesting use case, is also required. As we are in a
+    /// tab group and we are listening to the application's main window, if this coordinator were
+    /// to persist, it would detect long-press gestures whilst we are on other tab controllers, which
+    /// has the undesired effect of adding cloned views to the main application window whilst in
+    /// completed different interfaces
+    
+    self.coordinator = [[I3GestureCoordinator alloc] initWithDragArena:self.arena withGestureRecognizer:self.gestureRecongizer];
+    
+    self.coordinator.renderDelegate = [[I3BasicRenderDelegate alloc] init];
+    self.coordinator.dragDataSource = self;
+    
+}
+
+
+-(void) viewDidDisappear:(BOOL) animated{
+
+    /// Nil out the coordinator to deallocate it and stop our listening whilst the master view is
+    /// hidden.
+    
+    self.coordinator = nil;
 }
 
 
