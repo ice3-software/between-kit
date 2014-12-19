@@ -178,18 +178,15 @@
             }
 
             break;
-            /// @todo I want to be able to handle transparency here. I3DragDataSource should
-            /// implement some BOOL method for whether we're transparent in a particular
-            /// place
         }
     }
-    
 }
 
 
 -(void) handleDragStopped{
 
     if(!self.currentDraggingCollection){
+        
         DND_LOG(@"Invalid drag stopped.");
         return;
     }
@@ -214,7 +211,6 @@
         for(UIView<I3Collection> *collection in self.arena.collections){
             
             CGPoint pointInCollection = [self.gestureRecognizer locationInView:collection];
-            
             DND_LOG(@"Testing whether %@ is in %@", NSStringFromCGPoint(pointInCollection), collection);
             
             if([collection pointInside:pointInCollection withEvent:nil]){
@@ -224,20 +220,17 @@
                 [self handleDragStoppedInCollection:collection atPoint:pointInCollection];
                 dstCollection = collection;
                 break;
-                /// @todo see the todo in handleDragStarted
-                
             }
         }
 
         if(!dstCollection){
+            
             DND_LOG(@"Didn't find a target collection to drop on. Snapping back.");
             [self.renderDelegate renderResetFromPoint:locationInSuperview fromCoordinator:self];
         }
-
     }
 
-    self.currentDraggingCollection = nil;
-    
+    self.currentDraggingCollection = nil;    
 }
 
 
@@ -264,10 +257,12 @@
         DND_LOG(@"Is %@ equal to %@?", self.currentDraggingItem, destinationItemView);
         
         if([self.currentDraggingItem isEqual:destinationItemView]){
+            
             DND_LOG(@"Rearranging the same views. Snapping back.");
             [self.renderDelegate renderResetFromPoint:at fromCoordinator:self];
         }
         else{
+            
             DND_LOG(@"Rearranging items in a collection.");
             [self.renderDelegate renderRearrangeOnPoint:at fromCoordinator:self];
             [self.dragDataSource rearrangeItemAt:fromIndex withItemAt:toIndex inCollection:self.currentDraggingCollection];
@@ -284,12 +279,15 @@
         if([self.dragDataSource canItemAt:fromIndex fromCollection:self.currentDraggingCollection beDroppedTo:toIndex onCollection:to]){
         
             DND_LOG(@"We can drop on this one ! Dropping..");
-            /// @todo Render delegate..
+            [self.renderDelegate renderDropOnCollection:to atPoint:at fromCoordinator:self];
             [self.dragDataSource dropItemAt:fromIndex inCollection:self.currentDraggingCollection toItemAt:toIndex inCollection:to];
+            
         }
         else{
+            
             DND_LOG(@"We can't drop on this specific item, snapping back.");
             [self.renderDelegate renderResetFromPoint:at fromCoordinator:self];
+            
         }
         
     }
@@ -301,12 +299,15 @@
     ){
     
         DND_LOG(@"Looks like we can drop on a point in the collection (non necessarily on a specific item). Dropping... ");
-        /// @todo Render delegate..
+        [self.renderDelegate renderDropOnCollection:to atPoint:at fromCoordinator:self];
         [self.dragDataSource dropItemAt:fromIndex fromCollection:self.currentDraggingCollection toPoint:at onCollection:to];
+        
     }
     else{
+        
         DND_LOG(@"Nope. Can't do anything here - this may be for any number of reasons (see documentation). Snapping back.");
         [self.renderDelegate renderResetFromPoint:at fromCoordinator:self];
+        
     }
     
 }

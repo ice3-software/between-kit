@@ -62,30 +62,14 @@
 
 /**
  
- Render an exchange of an item between the original dragging collection and the item at
- the given point in the dstCollection.
- 
- @param dstCollection   The destination collection
- @param at              The point at which we're dropping
- @param coordinator     The gesture coordinator
- 
- */
--(void) renderExchangeToCollection:(UIView<I3Collection> *)dstCollection atPoint:(CGPoint) at fromCoordinator:(I3GestureCoordinator *)coordinator;
-
-
-/**
- 
- Renders an appendation of an item from the original dragging collection to the dst collection.
- 
- @note in many cases, it may that this and `renderExchangeToCollection:atPoint:fromCoordinator:`
- implement similar or identical methods of rendering a 'drop onto a collection'.
+ Renders a drop of an item from the original dragging collection to the dst collection.
  
  @param dstCollection   The destination collection
  @param at              The point at which we're dropping
  @param coordinator     The gesture coordinator
 
  */
--(void) renderAppendToCollection:(UIView<I3Collection> *)dstCollection atPoint:(CGPoint) at fromCoordinator:(I3GestureCoordinator *)coordinator;
+-(void) renderDropOnCollection:(UIView<I3Collection> *)dstCollection atPoint:(CGPoint) at fromCoordinator:(I3GestureCoordinator *)coordinator;
 
 
 /**
