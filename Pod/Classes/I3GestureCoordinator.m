@@ -273,14 +273,14 @@
         destinationItemView &&
         !isRearrange &&
         [self.dragDataSource respondsToSelector:@selector(canItemAt:fromCollection:beDroppedTo:onCollection:)] &&
-        [self.dragDataSource respondsToSelector:@selector(dropItemAt:inCollection:toItemAt:inCollection:)]
+        [self.dragDataSource respondsToSelector:@selector(dropItemAt:fromCollection:toItemAt:onCollection:)]
     ){
         
         if([self.dragDataSource canItemAt:fromIndex fromCollection:self.currentDraggingCollection beDroppedTo:toIndex onCollection:to]){
         
             DND_LOG(@"We can drop on this one ! Dropping..");
             [self.renderDelegate renderDropOnCollection:to atPoint:at fromCoordinator:self];
-            [self.dragDataSource dropItemAt:fromIndex inCollection:self.currentDraggingCollection toItemAt:toIndex inCollection:to];
+            [self.dragDataSource dropItemAt:fromIndex fromCollection:self.currentDraggingCollection toItemAt:toIndex onCollection:to];
             
         }
         else{

@@ -61,7 +61,7 @@
  @param toCollection    The collection that we're drop onto.
  
  */
--(void) dropItemAt:(NSIndexPath *)from inCollection:(UIView<I3Collection> *)fromCollection toItemAt:(NSIndexPath *)to inCollection:(UIView<I3Collection> *)toCollection;
+-(void) dropItemAt:(NSIndexPath *)from fromCollection:(UIView<I3Collection> *)fromCollection toItemAt:(NSIndexPath *)to onCollection:(UIView<I3Collection> *)toCollection;
 
 
 /**
