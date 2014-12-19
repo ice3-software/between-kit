@@ -60,7 +60,7 @@ static NSString* DequeueReusableCell = @"DequeueReusableCell";
     
     
     I3DragArena *arena = [[I3DragArena alloc] initWithSuperview:self.view containingCollections:@[self.leftTable, self.rightCollection]];
-    self.dragCoordinator = [[I3GestureCoordinator alloc] initWithDragArena:arena withGestureRecognizer:nil];
+    self.dragCoordinator = [[I3GestureCoordinator alloc] initWithDragArena:arena withGestureRecognizer:[[UILongPressGestureRecognizer alloc] init]];
     
     self.dragCoordinator.renderDelegate = [[I3FunkRenderDelegate alloc] initWithPotentialDstViews:@[self.leftTable, self.rightCollection, self.deleteArea] andDeleteArea:self.deleteArea];
     self.dragCoordinator.dragDataSource = self;

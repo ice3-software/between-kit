@@ -235,8 +235,7 @@
     
     CGPoint globalPoint = [coordinator.gestureRecognizer locationInView:coordinator.arena.superview];
     
-    self.draggingView.center = globalPoint;
-    
+    [super renderDraggingFromCoordinator:coordinator];
     [self invalidatedHightlighteDstAt:globalPoint inCoordinator:coordinator];
     [self invalidateShakingAtPoint:globalPoint inCoordinator:coordinator];
     
