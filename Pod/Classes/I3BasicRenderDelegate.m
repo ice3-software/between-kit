@@ -13,17 +13,7 @@
 @interface I3BasicRenderDelegate ()
 
 
-/**
- 
- Private method that renders a drop from one collection onto another. This is called on both
- appendation and exchange.
- 
- */
--(void) renderDropOnCollection:(UIView<I3Collection> *)dstCollection atPoint:(CGPoint) at fromCoordinator:(I3GestureCoordinator *)coordinator;
-
-
 @end
-
 
 
 /// @todo Remove all the code duplication here; lots of methods calculate rects and points
@@ -165,28 +155,16 @@
 }
 
 
--(void) renderExchangeToCollection:(UIView<I3Collection> *)dstCollection atPoint:(CGPoint) at fromCoordinator:(I3GestureCoordinator *)coordinator{
-    [self renderDropOnCollection:dstCollection atPoint:at fromCoordinator:coordinator];
-}
-
-
--(void) renderAppendToCollection:(UIView<I3Collection> *)dstCollection atPoint:(CGPoint)at fromCoordinator:(I3GestureCoordinator *)coordinator{
-    [self renderDropOnCollection:dstCollection atPoint:at fromCoordinator:coordinator];
-}
-
-
-#pragma mark - Private methods
-
-
 -(void) renderDropOnCollection:(UIView<I3Collection> *)dstCollection atPoint:(CGPoint) at fromCoordinator:(I3GestureCoordinator *)coordinator{
     
     [_draggingView removeFromSuperview];
     _draggingView = nil;
     
     coordinator.currentDraggingItem.alpha = 1;
-
+    
     DND_LOG(@"Finished rendering drop");
-
+    
 }
+
 
 @end

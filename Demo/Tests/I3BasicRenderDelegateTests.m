@@ -208,26 +208,21 @@ SpecBegin(I3BasicRenderDelegate)
         });
         
     });
+
     
-    
-    /// @note This shared behaviour requires that a block is passed in to trigger the actual render
-    /// method to be called.
-    
-    sharedExamples(@"drop on collection", ^(NSDictionary *data){
-    
-        __block void (^performDropRender)(UIView<I3Collection> *collection, CGPoint point, I3GestureCoordinator *coordinator) = data[@"performDrop"];
+    describe(@"drop", ^{
         
         beforeEach(^{
-
+            
             [renderDelegate renderDragStart:coordinator];
             
         });
         
         it(@"should release reference to dragging view and remove it from superview on exchange between collections", ^{
             
-            id dstCollection = OCMProtocolMock(@protocol(I3Collection));
+            id dstCollection = [[I3CollectionFixture alloc] init];
             
-            performDropRender(dstCollection, CGPointMake(0, 0), coordinator);
+            [renderDelegate renderDropOnCollection:dstCollection atPoint:CGPointMake(0, 0) fromCoordinator:coordinator];
             
             expect([[coordinator.arena.superview subviews] containsObject:renderDelegate.draggingView]).to.beFalsy();
             expect(renderDelegate.draggingView).to.beNil();
@@ -236,12 +231,12 @@ SpecBegin(I3BasicRenderDelegate)
         
         it(@"should re-show the hidden item in the collection", ^{
             
-            id dstCollection = OCMProtocolMock(@protocol(I3Collection));
+            id dstCollection = [[I3CollectionFixture alloc] init];
             UIView *draggingItem = coordinator.currentDraggingItem;
             
             draggingItem.alpha = 0.3;
             
-            performDropRender(dstCollection, CGPointMake(0, 0), coordinator);
+            [renderDelegate renderDropOnCollection:dstCollection atPoint:CGPointMake(0, 0) fromCoordinator:coordinator];
             
             expect(draggingItem.alpha).to.equal(1);
             
@@ -249,23 +244,7 @@ SpecBegin(I3BasicRenderDelegate)
         
     });
 
-    
-    describe(@"exchange", ^{
-        
-        itShouldBehaveLike(@"drop on collection", @{@"performDrop": ^(UIView<I3Collection> *collection, CGPoint point, I3GestureCoordinator *coordinator){
-            [renderDelegate renderExchangeToCollection:collection atPoint:point fromCoordinator:coordinator];
-        }});
-        
-    });
-    
-    describe(@"append", ^{
-        
-        itShouldBehaveLike(@"drop on collection", @{@"performDrop": ^(UIView<I3Collection> *collection, CGPoint point, I3GestureCoordinator *coordinator){
-            [renderDelegate renderAppendToCollection:collection atPoint:point fromCoordinator:coordinator];
-        }});
-        
-    });
-    
+
     describe(@"rearrange", ^{
     
         it(@"should animate an rearrange between the dragging view and the destination item", ^{

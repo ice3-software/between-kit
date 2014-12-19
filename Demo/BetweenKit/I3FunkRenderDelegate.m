@@ -261,20 +261,11 @@
 }
 
 
--(void) renderAppendToCollection:(UIView<I3Collection> *)dstCollection atPoint:(CGPoint)at fromCoordinator:(I3GestureCoordinator *)coordinator{
+-(void) renderDropOnCollection:(UIView<I3Collection> *)dstCollection atPoint:(CGPoint)at fromCoordinator:(I3GestureCoordinator *)coordinator{
     
-    [super renderAppendToCollection:dstCollection atPoint:at fromCoordinator:coordinator];
-    [self highlightAll];
-
-}
-
-
--(void) renderExchangeToCollection:(UIView<I3Collection> *)dstCollection atPoint:(CGPoint)at fromCoordinator:(I3GestureCoordinator *)coordinator{
-
-    [super renderExchangeToCollection:dstCollection atPoint:at fromCoordinator:coordinator];
+    [super renderDropOnCollection:dstCollection atPoint:at fromCoordinator:coordinator];
     [self highlightAll];
 }
-
 
 -(void) renderRearrangeOnPoint:(CGPoint)at fromCoordinator:(I3GestureCoordinator *)coordinator{
 

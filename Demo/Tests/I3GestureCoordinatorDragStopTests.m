@@ -336,7 +336,7 @@ SpecBegin(I3GestureCoordinatorDragStop)
         
     });
 
-
+/*
     describe(@"successful exchange", ^{
 
         
@@ -613,7 +613,7 @@ SpecBegin(I3GestureCoordinatorDragStop)
         });
         
     });
-
+*/
 
     describe(@"generic drops", ^{
         
@@ -652,7 +652,7 @@ SpecBegin(I3GestureCoordinatorDragStop)
             OCMVerify([coordinator.renderDelegate renderResetFromPoint:dropOrigin fromCoordinator:coordinator]);
 
         });
-        
+        /*
         it(@"should handle drop for the top-most intersecting collection and none underneith", ^{
         
             id topCollection = [[I3CollectionFixture alloc] initInArena:coordinator.arena];
@@ -670,7 +670,7 @@ SpecBegin(I3GestureCoordinatorDragStop)
             [coordinator handlePan:coordinator.gestureRecognizer];
             
             OCMVerify([dragDataSource exchangeItemAt:draggingIndex inCollection:draggingCollection withItemAt:topIndex inCollection:topCollection]);
-        });
+        });*/
         
     });
 
