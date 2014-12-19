@@ -25,23 +25,15 @@
     [(UICollectionViewFlowLayout *)self.collectionViewLayout setSectionInset:UIEdgeInsetsMake(30, 0, 30, 0)];
     [self.collectionView registerNib:[UINib nibWithNibName:I3SubtitleCollectionViewCellIdentifier bundle:nil] forCellWithReuseIdentifier:I3SubtitleCollectionViewCellIdentifier];
     
-    self.firstSectionData = [NSMutableArray arrayWithArray:@[
-                                                             @"1st section - 1",
-                                                             @"1st section - 2",
-                                                             @"1st section - 3",
-                                                             @"1st section - 4",
-                                                             @"1st section - 5",
-                                                             @"1st section - 6",
-                                                             ]];
+    self.data = [NSMutableArray arrayWithArray:@[
+                                                 @"Detail - 1",
+                                                 @"Detail - 2",
+                                                 @"Detail - 3",
+                                                 @"Detail - 4",
+                                                 @"Detail - 5",
+                                                 @"Detail - 6",
+                                                 ]];
     
-    self.secondSectionData = [NSMutableArray arrayWithArray:@[
-                                                             @"2nd section - 1",
-                                                             @"2nd section - 2",
-                                                             @"2nd section - 3",
-                                                             @"2nd section - 4",
-                                                             @"2nd section - 5",
-                                                             @"2nd section - 6",
-                                                             ]];
 }
      
 
@@ -55,12 +47,12 @@
 
 
 -(NSInteger) numberOfSectionsInCollectionView:(UICollectionView *)collectionView{
-    return 2;
+    return 1;
 }
 
 
 -(NSInteger) collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section{
-    return section ? self.secondSectionData.count : self.firstSectionData.count;
+    return self.data.count;
 }
 
 
@@ -68,7 +60,7 @@
     
     I3SubtitleCollectionViewCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:I3SubtitleCollectionViewCellIdentifier forIndexPath:indexPath];
     
-    cell.title.text = indexPath.section ? self.secondSectionData[indexPath.row] : self.firstSectionData[indexPath.row];
+    cell.title.text = self.data[indexPath.row];
     cell.backgroundColor = [UIColor whiteColor];
     
     return cell;

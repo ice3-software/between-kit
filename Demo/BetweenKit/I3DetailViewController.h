@@ -10,8 +10,6 @@
 
 @interface I3DetailViewController : UICollectionViewController
 
-@property (nonatomic, strong) NSMutableArray *firstSectionData;
-
-@property (nonatomic, strong) NSMutableArray *secondSectionData;
+@property (nonatomic, strong) NSMutableArray *data;
 
 @end

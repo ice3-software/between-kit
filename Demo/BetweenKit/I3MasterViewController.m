@@ -132,21 +132,10 @@ static NSString* DequeueReusableCell = @"DequeueReusableCell";
 
     BOOL isFromMaster = (UITableView *)fromCollection == self.tableView;
     
-    NSMutableArray *fromData;
-    NSMutableArray *toData;
-    NSIndexPath *toIndex;
+    NSMutableArray *fromData = isFromMaster ? self.data : self.detailController.data;
+    NSMutableArray *toData = isFromMaster ? self.detailController.data : self.data;
     
-    if(isFromMaster){
-        fromData = self.data;
-        toIndex = [NSIndexPath indexPathForItem:self.detailController.secondSectionData.count inSection:1];
-        toData = self.detailController.secondSectionData;
-    }
-    else{
-        fromData = !from.section ? self.detailController.firstSectionData : self.detailController.secondSectionData;
-        toIndex = [NSIndexPath indexPathForItem:self.data.count inSection:0];
-        toData = self.data;
-    }
-    
+    NSIndexPath *toIndex = [NSIndexPath indexPathForItem:toData.count inSection:0];
     NSString *fromDatum = fromData[from.row];
 
     [fromData removeObject:fromDatum];
