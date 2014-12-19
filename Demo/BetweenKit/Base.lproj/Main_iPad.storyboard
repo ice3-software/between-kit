@@ -117,6 +117,7 @@
                         <segue destination="zp4-LF-o4B" kind="relationship" relationship="viewControllers" id="D6j-Za-ZGx"/>
                         <segue destination="e1b-Ws-E0P" kind="relationship" relationship="viewControllers" id="zyG-Iv-rSH"/>
                         <segue destination="NOa-xD-Llk" kind="relationship" relationship="viewControllers" id="Oia-ss-rCE"/>
+                        <segue destination="46A-RG-rbx" kind="relationship" relationship="viewControllers" id="6QP-jE-CRG"/>
                     </connections>
                 </tabBarController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="SRy-7x-fkG" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -243,7 +244,7 @@
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="VyT-zX-Jbk" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-3085" y="-3249"/>
+            <point key="canvasLocation" x="-2365" y="-4825"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="FaK-mH-Urg">
@@ -259,7 +260,7 @@
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="FJp-aj-NE8" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-5001" y="-3237"/>
+            <point key="canvasLocation" x="-4281" y="-4813"/>
         </scene>
         <!--Detail View Controller-->
         <scene sceneID="DzB-6Y-mqd">
@@ -296,7 +297,7 @@
                 </collectionViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="be8-Qg-epu" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-4125" y="-3237"/>
+            <point key="canvasLocation" x="-3405" y="-4813"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="L0g-fL-q5m">
@@ -312,7 +313,7 @@
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="uUJ-at-k3z" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-3505" y="-3249"/>
+            <point key="canvasLocation" x="-2785" y="-4825"/>
         </scene>
         <!--Item-->
         <scene sceneID="RAR-Ym-Jg2">
@@ -326,7 +327,7 @@
                 </splitViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Yk3-8B-3Eg" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-3505" y="-4489"/>
+            <point key="canvasLocation" x="-2785" y="-6065"/>
         </scene>
         <!--Item 1-->
         <scene sceneID="P0t-KK-qDt">
@@ -423,6 +424,77 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="4Ts-Jy-fbt" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="-1229" y="-4932"/>
+        </scene>
+        <!--Item 1-->
+        <scene sceneID="KS2-id-tVy">
+            <objects>
+                <viewController id="46A-RG-rbx" customClass="I3CustomerRenderDelegateViewController" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="ltI-qe-SzJ"/>
+                        <viewControllerLayoutGuide type="bottom" id="Ghz-x7-QMo"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="ei1-TH-fvI">
+                        <rect key="frame" x="0.0" y="0.0" width="768" height="1024"/>
+                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                        <subviews>
+                            <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="9uG-uQ-ZeH">
+                                <rect key="frame" x="0.0" y="795" width="768" height="229"/>
+                                <subviews>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Delete" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="XD7-Kw-9K7">
+                                        <rect key="frame" x="360" y="104" width="49" height="21"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                        <color key="textColor" red="1" green="0.99997437" blue="0.99999129769999995" alpha="1" colorSpace="calibratedRGB"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                </subviews>
+                                <color key="backgroundColor" red="0.98986607790000003" green="0.47669693829999998" blue="0.50016826390000002" alpha="1" colorSpace="calibratedRGB"/>
+                            </view>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" translatesAutoresizingMaskIntoConstraints="NO" id="hBO-Y1-63r">
+                                <rect key="frame" x="0.0" y="0.0" width="377" height="787"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <connections>
+                                    <outlet property="dataSource" destination="46A-RG-rbx" id="Kle-Zf-Z1D"/>
+                                    <outlet property="delegate" destination="46A-RG-rbx" id="fnb-Pf-GGu"/>
+                                </connections>
+                            </tableView>
+                            <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="Joi-yX-LkF">
+                                <rect key="frame" x="385" y="0.0" width="384" height="787"/>
+                                <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="10" minimumInteritemSpacing="10" id="WwG-on-XCs">
+                                    <size key="itemSize" width="120" height="120"/>
+                                    <size key="headerReferenceSize" width="0.0" height="0.0"/>
+                                    <size key="footerReferenceSize" width="0.0" height="0.0"/>
+                                    <inset key="sectionInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
+                                </collectionViewFlowLayout>
+                                <cells>
+                                    <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" id="R9S-nh-XUa">
+                                        <rect key="frame" x="0.0" y="0.0" width="50" height="50"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
+                                            <rect key="frame" x="0.0" y="0.0" width="120" height="120"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                        </view>
+                                    </collectionViewCell>
+                                </cells>
+                                <connections>
+                                    <outlet property="dataSource" destination="46A-RG-rbx" id="qqO-br-Stl"/>
+                                    <outlet property="delegate" destination="46A-RG-rbx" id="bvq-a2-1zc"/>
+                                </connections>
+                            </collectionView>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+                    </view>
+                    <tabBarItem key="tabBarItem" title="Item 1" id="TYa-iD-6Tf"/>
+                    <connections>
+                        <outlet property="deleteArea" destination="9uG-uQ-ZeH" id="85x-rt-68G"/>
+                        <outlet property="leftTable" destination="hBO-Y1-63r" id="kic-Ui-W4n"/>
+                        <outlet property="rightCollection" destination="Joi-yX-LkF" id="8hP-5p-Xd1"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="IUb-xv-wzE" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-1593" y="-1778"/>
         </scene>
     </scenes>
     <simulatedMetricsContainer key="defaultSimulatedMetrics">
