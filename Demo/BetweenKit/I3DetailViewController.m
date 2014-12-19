@@ -33,9 +33,12 @@
                                                  @"Detail - 5",
                                                  @"Detail - 6",
                                                  ]];
-    
+
+    self.navigationItem.leftBarButtonItem = self.splitViewController.displayModeButtonItem;
+    self.navigationItem.leftItemsSupplementBackButton = YES;
+
 }
-     
+
 
 -(void) didReceiveMemoryWarning{
     

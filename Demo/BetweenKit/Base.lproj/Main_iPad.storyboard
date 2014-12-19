@@ -245,6 +245,22 @@
             </objects>
             <point key="canvasLocation" x="-3085" y="-3249"/>
         </scene>
+        <!--Navigation Controller-->
+        <scene sceneID="FaK-mH-Urg">
+            <objects>
+                <navigationController id="A0w-U6-PD9" sceneMemberID="viewController">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="Oo6-RS-ghT">
+                        <rect key="frame" x="0.0" y="0.0" width="768" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <connections>
+                        <segue destination="7q1-YU-TI2" kind="relationship" relationship="rootViewController" id="kTZ-t6-B6L"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="FJp-aj-NE8" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-5001" y="-3237"/>
+        </scene>
         <!--Detail View Controller-->
         <scene sceneID="DzB-6Y-mqd">
             <objects>
@@ -276,10 +292,11 @@
                             <outlet property="delegate" destination="7q1-YU-TI2" id="eXx-eX-Vla"/>
                         </connections>
                     </collectionView>
+                    <navigationItem key="navigationItem" id="WCm-dm-bVI"/>
                 </collectionViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="be8-Qg-epu" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-4125" y="-3249"/>
+            <point key="canvasLocation" x="-4125" y="-3237"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="L0g-fL-q5m">
@@ -304,7 +321,7 @@
                     <tabBarItem key="tabBarItem" title="Item" id="6Kg-q5-Q03"/>
                     <connections>
                         <segue destination="cPf-04-nLE" kind="relationship" relationship="masterViewController" id="zhS-Qa-Ihs"/>
-                        <segue destination="7q1-YU-TI2" kind="relationship" relationship="detailViewController" id="uCw-ms-Vim"/>
+                        <segue destination="A0w-U6-PD9" kind="relationship" relationship="detailViewController" id="XgS-cs-xog"/>
                     </connections>
                 </splitViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Yk3-8B-3Eg" userLabel="First Responder" sceneMemberID="firstResponder"/>

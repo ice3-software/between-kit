@@ -41,7 +41,10 @@ static NSString* DequeueReusableCell = @"DequeueReusableCell";
                                                  @"Master - 5",
                                                  ]];
     
-    self.detailController = [self.splitViewController.viewControllers lastObject];
+    self.detailController = (I3DetailViewController *)[[self.splitViewController.viewControllers lastObject] topViewController];
+    
+    self.navigationItem.leftBarButtonItem = self.splitViewController.displayModeButtonItem;
+    self.navigationItem.leftItemsSupplementBackButton = YES;
 
     /// So here we need to construct our own drag arena and gesture coordinator with dependencies
     /// that span accross multiple controllers. We grab the main application window, create our
