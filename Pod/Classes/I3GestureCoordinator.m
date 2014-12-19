@@ -247,11 +247,9 @@
     
     DND_LOG(@"Finding index path for item...");
     
-    NSIndexPath *atIndex = [to indexPathForItemAtPoint:at];
-
-    DND_LOG(@"Finding item view from index path...");
-
-    UIView *destinationItemView = [to itemAtIndexPath:atIndex];
+    NSIndexPath *fromIndex = self.currentDraggingIndexPath;
+    NSIndexPath *toIndex = [to indexPathForItemAtPoint:at];
+    UIView *destinationItemView = [to itemAtIndexPath:toIndex];
 
     DND_LOG(@"Determining what to do with this drop.");
     
@@ -260,7 +258,7 @@
        isRearrange &&
        [self.dragDataSource respondsToSelector:@selector(canItemFrom:beRearrangedWithItemAt:inCollection:)] &&
        [self.dragDataSource respondsToSelector:@selector(rearrangeItemAt:withItemAt:inCollection:)] &&
-       [self.dragDataSource canItemFrom:self.currentDraggingIndexPath beRearrangedWithItemAt:atIndex inCollection:self.currentDraggingCollection]
+       [self.dragDataSource canItemFrom:fromIndex beRearrangedWithItemAt:toIndex inCollection:self.currentDraggingCollection]
     ){
         
         DND_LOG(@"Is %@ equal to %@?", self.currentDraggingItem, destinationItemView);
@@ -272,34 +270,39 @@
         else{
             DND_LOG(@"Rearranging items in a collection.");
             [self.renderDelegate renderRearrangeOnPoint:at fromCoordinator:self];
-            [self.dragDataSource rearrangeItemAt:self.currentDraggingIndexPath withItemAt:atIndex inCollection:self.currentDraggingCollection];
+            [self.dragDataSource rearrangeItemAt:fromIndex withItemAt:toIndex inCollection:self.currentDraggingCollection];
         }
 
     }
     else if(
         destinationItemView &&
         !isRearrange &&
-        [self.dragDataSource respondsToSelector:@selector(canItemAt:fromCollection:beExchangedWithItemAt:inCollection:)] &&
-        [self.dragDataSource respondsToSelector:@selector(exchangeItemAt:inCollection:withItemAt:inCollection:)] &&
-        [self.dragDataSource canItemAt:self.currentDraggingIndexPath fromCollection:self.currentDraggingCollection beExchangedWithItemAt:atIndex inCollection:to]
+        [self.dragDataSource respondsToSelector:@selector(canItemAt:fromCollection:beDroppedTo:onCollection:)] &&
+        [self.dragDataSource respondsToSelector:@selector(dropItemAt:inCollection:toItemAt:inCollection:)]
     ){
-    
-        DND_LOG(@"Exchanging items between collections.");
-        [self.dragDataSource exchangeItemAt:self.currentDraggingIndexPath inCollection:self.currentDraggingCollection withItemAt:atIndex inCollection:to];
-        [self.renderDelegate renderExchangeToCollection:to atPoint:at fromCoordinator:self];
-
+        
+        if([self.dragDataSource canItemAt:fromIndex fromCollection:self.currentDraggingCollection beDroppedTo:toIndex onCollection:to]){
+        
+            DND_LOG(@"We can drop on this one ! Dropping..");
+            /// @todo Render delegate..
+            [self.dragDataSource dropItemAt:fromIndex inCollection:self.currentDraggingCollection toItemAt:toIndex inCollection:to];
+        }
+        else{
+            DND_LOG(@"We can't drop on this specific item, snapping back.");
+            [self.renderDelegate renderResetFromPoint:at fromCoordinator:self];
+        }
+        
     }
     else if(
         !isRearrange &&
-        [self.dragDataSource respondsToSelector:@selector(canItemAt:fromCollection:beAppendedToCollection:atPoint:)] &&
-        [self.dragDataSource respondsToSelector:@selector(appendItemAt:fromCollection:toPoint:onCollection:)] &&
-        [self.dragDataSource canItemAt:self.currentDraggingIndexPath fromCollection:self.currentDraggingCollection beAppendedToCollection:to atPoint:at]
+        [self.dragDataSource respondsToSelector:@selector(canItemAt:fromCollection:beDroppedAtPoint:onCollection:)] &&
+        [self.dragDataSource respondsToSelector:@selector(dropItemAt:fromCollection:toPoint:onCollection:)] &&
+        [self.dragDataSource canItemAt:fromIndex fromCollection:self.currentDraggingCollection beDroppedAtPoint:at onCollection:to]
     ){
-        
-        DND_LOG(@"Appending item onto collection from another collection.");
-        [self.dragDataSource appendItemAt:self.currentDraggingIndexPath fromCollection:self.currentDraggingCollection toPoint:at onCollection:to];
-        [self.renderDelegate renderAppendToCollection:to atPoint:at fromCoordinator:self];
-        
+    
+        DND_LOG(@"Looks like we can drop on a point in the collection (non necessarily on a specific item). Dropping... ");
+        /// @todo Render delegate..
+        [self.dragDataSource dropItemAt:fromIndex fromCollection:self.currentDraggingCollection toPoint:at onCollection:to];
     }
     else{
         DND_LOG(@"Nope. Can't do anything here - this may be for any number of reasons (see documentation). Snapping back.");
