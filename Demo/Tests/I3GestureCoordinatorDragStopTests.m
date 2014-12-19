@@ -350,152 +350,11 @@ SpecBegin(I3GestureCoordinatorDragStop)
             
         });
         
-        
     });
-
-/*
-
-
-    describe(@"successful append", ^{
-    
-        
-        __block I3GestureCoordinator *coordinator;
-        __block id dstCollection;
-        __block id dragDataSource;
-        
-        CGPoint dropOrigin = CGPointMake(50, 50);
-
-        
-        beforeEach(^{
-            
-            dragDataSource = OCMProtocolMock(@protocol(I3DragDataSource));
-            coordinator = I3GestureCoordinatorSetupDraggingMock(dragDataSource);
-            dstCollection = [[I3CollectionFixture alloc] initInArena:coordinator.arena];
-            
-            OCMStub([coordinator.gestureRecognizer locationInView:[OCMArg any]]).andReturn(dropOrigin);
-            OCMStub([coordinator.gestureRecognizer state]).andReturn(UIGestureRecognizerStateFailed);
-            
-            OCMStub([dragDataSource canItemAt:[OCMArg any] fromCollection:[OCMArg any] beAppendedToCollection:[OCMArg any] atPoint:dropOrigin]).andReturn(YES);
-            
-        });
-        
-        afterEach(^{
-            coordinator = nil;
-            dragDataSource = nil;
-            dstCollection = nil;
-        });
-        
-        
-        it(@"should append onto collection if we're drag/dropping between collections, there is no drag item and the data source allows", ^{
-            
-            [dstCollection mockPoint:dropOrigin isInside:YES];
-
-            NSIndexPath *draggingIndex = coordinator.currentDraggingIndexPath;
-            id draggingCollection = coordinator.currentDraggingCollection;
-            
-            [coordinator handlePan:coordinator.gestureRecognizer];
-            
-            OCMVerify([dragDataSource appendItemAt:draggingIndex fromCollection:draggingCollection toPoint:dropOrigin onCollection:dstCollection]);
-            
-        });
-        
-        it(@"should append onto collection if we're dropping onto an item that is not exchangeable and the data source allows", ^{
-        
-            NSIndexPath *dstIndex = [dstCollection mockItemAtPoint:dropOrigin];
-            NSIndexPath *draggingIndex = coordinator.currentDraggingIndexPath;
-            id draggingCollection = coordinator.currentDraggingCollection;
-            
-            OCMStub([dragDataSource canItemAt:draggingIndex fromCollection:draggingCollection beExchangedWithItemAt:dstIndex inCollection:dstCollection]).andReturn(NO);
-            
-            [coordinator handlePan:coordinator.gestureRecognizer];
-            
-            OCMVerify([dragDataSource appendItemAt:draggingIndex fromCollection:draggingCollection toPoint:dropOrigin onCollection:dstCollection]);
-
-        });
-        
-        it(@"should render appendation", ^{
-        
-            [dstCollection mockPoint:dropOrigin isInside:YES];
-
-            [coordinator handlePan:coordinator.gestureRecognizer];
-        
-            OCMVerify([coordinator.renderDelegate renderAppendToCollection:dstCollection atPoint:dropOrigin fromCoordinator:coordinator]);
-        });
-    
-    });
-
-
-    describe(@"unsuccessful append", ^{
-    
-        
-        __block I3GestureCoordinator *coordinator;
-        __block id dstCollection;
-
-        CGPoint dropOrigin = CGPointMake(50, 50);
-
-        
-        beforeEach(^{
-            
-            coordinator = I3GestureCoordinatorSetupDraggingMock(nil);
-            
-            dstCollection = [[I3CollectionFixture alloc] initInArena:coordinator.arena];
-            [dstCollection mockPoint:dropOrigin isInside:YES];
-            
-            OCMStub([coordinator.gestureRecognizer locationInView:[OCMArg any]]).andReturn(dropOrigin);
-            OCMStub([coordinator.gestureRecognizer state]).andReturn(UIGestureRecognizerStateFailed);
-            
-        });
-        
-        afterEach(^{
-            coordinator = nil;
-            dstCollection = nil;
-        });
-        
-
-        it(@"should not append onto collection if the data source does not allow", ^{
-        
-            id dragDataSource = OCMProtocolMock(@protocol(I3DragDataSource));
-            coordinator.dragDataSource = dragDataSource;
-            
-            OCMStub([dragDataSource canItemAt:coordinator.currentDraggingIndexPath fromCollection:coordinator.currentDraggingCollection beAppendedToCollection:dstCollection atPoint:dropOrigin]).andReturn(NO);
-            
-            [[dragDataSource reject] appendItemAt:[OCMArg any] fromCollection:[OCMArg any] toPoint:dropOrigin onCollection:[OCMArg any]];
-            
-            [coordinator handlePan:coordinator.gestureRecognizer];
-            
-        });
-        
-        it(@"should not append onto collection if the data source does not implement append selector", ^{
-        
-            id dragDataSource = OCMPartialMock([I3DragDataSourceJustCanAppend alloc]);
-            coordinator.dragDataSource = dragDataSource;
-            
-            OCMStub([dragDataSource canItemAt:coordinator.currentDraggingIndexPath fromCollection:coordinator.currentDraggingCollection beAppendedToCollection:dstCollection atPoint:dropOrigin]).andReturn(YES);
-            
-            [[dragDataSource reject] appendItemAt:[OCMArg any] fromCollection:[OCMArg any] toPoint:dropOrigin onCollection:[OCMArg any]];
-            
-            [coordinator handlePan:coordinator.gestureRecognizer];
-            
-        });
-        
-        it(@"should not append onto collection if the data source does not implement can append selector", ^{
-            
-            id dragDataSource = OCMPartialMock([I3DragDataSourceJustAppend alloc]);
-            coordinator.dragDataSource = dragDataSource;
-            
-            OCMStub([dragDataSource canItemAt:coordinator.currentDraggingIndexPath fromCollection:coordinator.currentDraggingCollection beAppendedToCollection:dstCollection atPoint:dropOrigin]).andReturn(YES);
-            
-            [[dragDataSource reject] appendItemAt:[OCMArg any] fromCollection:[OCMArg any] toPoint:dropOrigin onCollection:[OCMArg any]];
-            
-            [coordinator handlePan:coordinator.gestureRecognizer];
-            
-        });
-        
-    });
-*/
 
 
     describe(@"successful drop on index", ^{
+        
         
         __block I3GestureCoordinator *coordinator;
         __block NSIndexPath *dstIndex;
@@ -549,6 +408,7 @@ SpecBegin(I3GestureCoordinatorDragStop)
 
     describe(@"unsuccessful drop on index", ^{
         
+        
         __block I3GestureCoordinator *coordinator;
         __block id dstCollection;
         
@@ -574,7 +434,7 @@ SpecBegin(I3GestureCoordinatorDragStop)
 
         it(@"should not drop on index if data source does not implement drop selector", ^{
             
-            id dragDataSource = OCMPartialMock([[I3DragDataSourceJustCanExchange alloc] init]);
+            id dragDataSource = OCMPartialMock([[I3DragDataSourceJustCanDropOnIndex alloc] init]);
             coordinator.dragDataSource = dragDataSource;
             
             [dstCollection mockItemAtPoint:dropOrigin];
@@ -589,7 +449,7 @@ SpecBegin(I3GestureCoordinatorDragStop)
         
         it(@"should not drop on index if data source does not implement can drop selector", ^{
             
-            id dragDataSource = OCMPartialMock([[I3DragDataSourceJustExchange alloc] init]);
+            id dragDataSource = OCMPartialMock([[I3DragDataSourceJustDropOnIndex alloc] init]);
             coordinator.dragDataSource = dragDataSource;
             
             [dstCollection mockItemAtPoint:dropOrigin];
@@ -639,8 +499,9 @@ SpecBegin(I3GestureCoordinatorDragStop)
             id dragDataSource = OCMProtocolMock(@protocol(I3DragDataSource));
             coordinator.dragDataSource = dragDataSource;
             
-            [dstCollection mockIndexPathAtPoint:dropOrigin];
+            [dstCollection mockItemAtPoint:dropOrigin];
             
+            OCMStub([dragDataSource canItemAt:[OCMArg any] fromCollection:[OCMArg any] beDroppedAtPoint:dropOrigin onCollection:[OCMArg any]]).andReturn(YES);
             OCMStub([dragDataSource canItemAt:[OCMArg any] fromCollection:[OCMArg any] beDroppedTo:[OCMArg any] onCollection:[OCMArg any]]).andReturn(NO);
             
             [[dragDataSource reject] dropItemAt:[OCMArg any] fromCollection:[OCMArg any] toPoint:dropOrigin onCollection:[OCMArg any]];
@@ -654,8 +515,9 @@ SpecBegin(I3GestureCoordinatorDragStop)
             id dragDataSource = OCMProtocolMock(@protocol(I3DragDataSource));
             coordinator.dragDataSource = dragDataSource;
             
-            [dstCollection mockIndexPathAtPoint:dropOrigin];
+            [dstCollection mockItemAtPoint:dropOrigin];
             
+            OCMStub([dragDataSource canItemAt:[OCMArg any] fromCollection:[OCMArg any] beDroppedAtPoint:dropOrigin onCollection:[OCMArg any]]).andReturn(YES);
             OCMStub([dragDataSource canItemAt:[OCMArg any] fromCollection:[OCMArg any] beDroppedTo:[OCMArg any] onCollection:[OCMArg any]]).andReturn(NO);
             
             [coordinator handlePan:coordinator.gestureRecognizer];
@@ -667,9 +529,126 @@ SpecBegin(I3GestureCoordinatorDragStop)
     });
 
 
-    describe(@"unsuccessful drop on point", ^{
-
+    describe(@"successful drop on point", ^{
         
+        
+        __block I3GestureCoordinator *coordinator;
+        __block id dstCollection;
+        __block id dragDataSource;
+        
+        CGPoint dropOrigin = CGPointMake(50, 50);
+        
+        
+        beforeEach(^{
+            
+            dragDataSource = OCMProtocolMock(@protocol(I3DragDataSource));
+            coordinator = I3GestureCoordinatorSetupDraggingMock(dragDataSource);
+            dstCollection = [[I3CollectionFixture alloc] initInArena:coordinator.arena];
+            
+            OCMStub([coordinator.gestureRecognizer locationInView:[OCMArg any]]).andReturn(dropOrigin);
+            OCMStub([coordinator.gestureRecognizer state]).andReturn(UIGestureRecognizerStateFailed);
+            
+            OCMStub([dragDataSource canItemAt:[OCMArg any] fromCollection:[OCMArg any] beDroppedAtPoint:dropOrigin onCollection:[OCMArg any]]).andReturn(YES);
+            
+        });
+        
+        afterEach(^{
+            coordinator = nil;
+            dragDataSource = nil;
+            dstCollection = nil;
+        });
+        
+        
+        it(@"should drop on point if there is no drag item and the data source allows", ^{
+            
+            [dstCollection mockPoint:dropOrigin isInside:YES];
+            
+            NSIndexPath *draggingIndex = coordinator.currentDraggingIndexPath;
+            id draggingCollection = coordinator.currentDraggingCollection;
+            
+            [coordinator handlePan:coordinator.gestureRecognizer];
+            
+            OCMVerify([dragDataSource dropItemAt:draggingIndex fromCollection:draggingCollection toPoint:dropOrigin onCollection:dstCollection]);
+            
+        });
+        
+        it(@"should render drop", ^{
+            
+            [dstCollection mockPoint:dropOrigin isInside:YES];
+            
+            [coordinator handlePan:coordinator.gestureRecognizer];
+            
+            OCMVerify([coordinator.renderDelegate renderDropOnCollection:dstCollection atPoint:dropOrigin fromCoordinator:coordinator]);
+        });
+        
+    });
+
+
+    describe(@"unsuccessful drop on point", ^{
+        
+        
+        __block I3GestureCoordinator *coordinator;
+        __block id dstCollection;
+        
+        CGPoint dropOrigin = CGPointMake(50, 50);
+        
+        
+        beforeEach(^{
+            
+            coordinator = I3GestureCoordinatorSetupDraggingMock(nil);
+            
+            dstCollection = [[I3CollectionFixture alloc] initInArena:coordinator.arena];
+            [dstCollection mockPoint:dropOrigin isInside:YES];
+            
+            OCMStub([coordinator.gestureRecognizer locationInView:[OCMArg any]]).andReturn(dropOrigin);
+            OCMStub([coordinator.gestureRecognizer state]).andReturn(UIGestureRecognizerStateFailed);
+            
+        });
+        
+        afterEach(^{
+            coordinator = nil;
+            dstCollection = nil;
+        });
+        
+        
+        it(@"should not drop on point in collection if the data source does not allow", ^{
+            
+            id dragDataSource = OCMProtocolMock(@protocol(I3DragDataSource));
+            coordinator.dragDataSource = dragDataSource;
+            
+            OCMStub([dragDataSource canItemAt:coordinator.currentDraggingIndexPath fromCollection:coordinator.currentDraggingCollection beDroppedAtPoint:dropOrigin onCollection:dstCollection]).andReturn(NO);
+            
+            [[dragDataSource reject] dropItemAt:[OCMArg any] fromCollection:[OCMArg any] toPoint:dropOrigin onCollection:[OCMArg any]];
+            
+            [coordinator handlePan:coordinator.gestureRecognizer];
+            
+        });
+        
+        it(@"should not drop on point in collection if the data source does not implement drop selector", ^{
+            
+            id dragDataSource = OCMPartialMock([I3DragDataSourceJustCanDropOnPoint alloc]);
+            coordinator.dragDataSource = dragDataSource;
+            
+            OCMStub([dragDataSource canItemAt:coordinator.currentDraggingIndexPath fromCollection:coordinator.currentDraggingCollection beDroppedAtPoint:dropOrigin onCollection:dstCollection]).andReturn(YES);
+            
+            [[dragDataSource reject] dropItemAt:[OCMArg any] fromCollection:[OCMArg any] toPoint:dropOrigin onCollection:[OCMArg any]];
+            
+            [coordinator handlePan:coordinator.gestureRecognizer];
+            
+        });
+        
+        it(@"should not drop on point in collection if the data source does not implement can drop selector", ^{
+            
+            id dragDataSource = OCMPartialMock([I3DragDataSourceJustDropOnPoint alloc]);
+            coordinator.dragDataSource = dragDataSource;
+            
+            OCMStub([dragDataSource canItemAt:coordinator.currentDraggingIndexPath fromCollection:coordinator.currentDraggingCollection beDroppedAtPoint:dropOrigin onCollection:dstCollection]).andReturn(YES);
+            
+            [[dragDataSource reject] dropItemAt:[OCMArg any] fromCollection:[OCMArg any] toPoint:dropOrigin onCollection:[OCMArg any]];
+            
+            [coordinator handlePan:coordinator.gestureRecognizer];
+            
+        });
 
     });
 
@@ -711,7 +690,7 @@ SpecBegin(I3GestureCoordinatorDragStop)
             OCMVerify([coordinator.renderDelegate renderResetFromPoint:dropOrigin fromCoordinator:coordinator]);
 
         });
-        /*
+
         it(@"should handle drop for the top-most intersecting collection and none underneith", ^{
         
             id topCollection = [[I3CollectionFixture alloc] initInArena:coordinator.arena];
@@ -722,21 +701,20 @@ SpecBegin(I3GestureCoordinatorDragStop)
             NSIndexPath *topIndex = [topCollection mockItemAtPoint:dropOrigin];
             NSIndexPath *draggingIndex = coordinator.currentDraggingIndexPath;
             
-            OCMStub([dragDataSource canItemAt:[OCMArg any] fromCollection:[OCMArg any] beExchangedWithItemAt:[OCMArg any] inCollection:[OCMArg any]]).andReturn(YES);
-                    
-            [[dragDataSource reject] exchangeItemAt:coordinator.currentDraggingIndexPath inCollection:coordinator.currentDraggingCollection withItemAt:bottomIndex inCollection:bottomCollection];
+            OCMStub([dragDataSource canItemAt:[OCMArg any] fromCollection:[OCMArg any] beDroppedTo:[OCMArg any] onCollection:[OCMArg any]]).andReturn(YES);
+            
+            [[dragDataSource reject] dropItemAt:draggingIndex fromCollection:draggingCollection toItemAt:bottomIndex onCollection:bottomCollection];
             
             [coordinator handlePan:coordinator.gestureRecognizer];
             
-            OCMVerify([dragDataSource exchangeItemAt:draggingIndex inCollection:draggingCollection withItemAt:topIndex inCollection:topCollection]);
-        });*/
+            OCMVerify([dragDataSource dropItemAt:draggingIndex fromCollection:draggingCollection toItemAt:topIndex onCollection:topCollection]);
+        });
         
     });
 
 
     describe(@"stopping an invalid drag", ^{
 
-        
         __block I3GestureCoordinator *coordinator;
         
         CGPoint dropOrigin = CGPointMake(50, 50);
@@ -760,5 +738,6 @@ SpecBegin(I3GestureCoordinatorDragStop)
         });
         
     });
+
 
 SpecEnd
