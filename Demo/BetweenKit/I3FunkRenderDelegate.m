@@ -18,8 +18,6 @@
 
 @property (nonatomic) BOOL isHighlighted;
 
-@property (nonatomic) BOOL isShaking;
-
 -(void) setIsHighlighted:(BOOL)isHighlighted;
 
 @end
