@@ -18,8 +18,9 @@
  are draggable.
  
  Deals in `NSIndexPath`s only where there is a guarentee that we are referencing a specific
- data item. Deals in `CGPoint` when there is no such guarentee. @todo Provide example of
- what we mean...
+ data item. Deals in `CGPoint` when there is no such guarentee. 
+ 
+ @todo Provide example of what we mean...
  
  @see UITableViewDataSource
  @see UICollectionViewDataSource
@@ -37,6 +38,7 @@
  as NO if this is not implemented.
  
  @name Coordination
+ @todo We want to know what point we're starting the drag from.
  @param at          The index at which the item is being dragged from.
  @param collection  The collection we're providing data for.
  @return BOOL
@@ -55,28 +57,25 @@
  @name Coordination
  @param from            The index that the item is from.
  @param to              The index to which the foreign item is being dragged.
- @param fromCollection  The foreign collection.
- @param toCollection    The collection we're providing data for.
+ @param fromCollection  The collection that we're dragging from.
+ @param toCollection    The collection that we're drop onto.
  
  */
--(void) exchangeItemAt:(NSIndexPath *)from inCollection:(UIView<I3Collection> *)fromCollection withItemAt:(NSIndexPath *)to inCollection:(UIView<I3Collection> *)toCollection;
+-(void) dropItemAt:(NSIndexPath *)from inCollection:(UIView<I3Collection> *)fromCollection toItemAt:(NSIndexPath *)to inCollection:(UIView<I3Collection> *)toCollection;
 
 
 /**
  
- Called to update the data source on the appendation of an item from one collection onto 
- another.
+ Called to update the data source on the drop of an item from one collection to another.
  
- @see `canItemAtPoint:fromCollection:beAppendedToCollection:toCollection:` for notes on semantics
  @name Coordination
  @param from            The index in fromCollection from which the drag originates.
- @param to              The point in onCollection on which we drop - not an index path because we may
-                        not be dragging onto a specific item's data point.
+ @param to              The point in onCollection on which we drop
  @param fromCollection  The collection that we're dragging from.
- @param onCollection    The collection that we're appending onto.
+ @param toCollection    The collection that we're drop onto.
  
  */
--(void) appendItemAt:(NSIndexPath *)from fromCollection:(UIView<I3Collection> *)fromCollection toPoint:(CGPoint) to onCollection:(UIView<I3Collection> *)onCollection;
+-(void) dropItemAt:(NSIndexPath *)from fromCollection:(UIView<I3Collection> *)fromCollection toPoint:(CGPoint) to onCollection:(UIView<I3Collection> *)toCollection;
 
 
 /**
@@ -106,44 +105,35 @@
 
 /**
  
- Returns YES or NO based on whether an item originating at a given point from one collection 
- can be exchanged with an item in another collection at another given point. Assumed as NO if 
- this is not implemented.
+ Returns YES or NO based on whether an item at a given index from one collection can be
+ dropped onto a given index on another collection.
  
  @name Coordination
  @param from            The index from the original collection that the item is from
- @param to              The index in the target collection that we're dropping on.
+ @param to              The index path on the target collection that we're dropping on
  @param fromCollection  The original collection that we're dragging from.
- @param toCollection    The target collection that we're dropping on.
+ @param toCollection      The target collection that we're dragging to.
  @return BOOL
  
  */
--(BOOL) canItemAt:(NSIndexPath *)from fromCollection:(UIView<I3Collection> *)fromCollection beExchangedWithItemAt:(NSIndexPath *)to inCollection:(UIView<I3Collection> *)toCollection;
+-(BOOL) canItemAt:(NSIndexPath *)from fromCollection:(UIView<I3Collection> *)fromCollection beDroppedTo:(NSIndexPath *)to onCollection:(UIView<I3Collection> *)toCollection;
 
 
 /**
  
- Returns YES or NO based on whether an item at a given point from one collection can be
- appended onto the end of another collection at another given point. Assumed as NO if this
- is not implemented.
-
- @note Semantically, 'append' here refers to the drag data source' implementation of
- `appendItemAtPoint:fromCollection:toPoint:onCollection:`. Its important to note that
- its up to the user how they want to realise appendation. E.g. the may want to implement
- 'appending' by adding the new data at the end of a list, at the beginning of a list,
- whereever they like really. As far as the framework's concerned, its all appendation.
+ Returns YES or NO based on whether an item at a given index from one collection can be
+ dropped onto a given index on another collection.
  
  @name Coordination
  @param from            The index from the original collection that the item is from
- @param to              The point in the target collection that we're dropping on. Again,
-                        this is not a index as there is no guarentee that the drag stops on
-                        a particular item in the collection.
+ @param to              The index path on the target collection that we're dropping on
  @param fromCollection  The original collection that we're dragging from.
  @param toCollection      The target collection that we're dragging to.
  @return BOOL
-
+ 
  */
--(BOOL) canItemAt:(NSIndexPath *)from fromCollection:(UIView<I3Collection> *)fromCollection beAppendedToCollection:(UIView<I3Collection> *)toCollection atPoint:(CGPoint) to;
+-(BOOL) canItemAt:(NSIndexPath *)from fromCollection:(UIView<I3Collection> *)fromCollection beDroppedAtPoint:(CGPoint) at onCollection:(UIView<I3Collection> *)toCollection;
+
 
 /**
  
