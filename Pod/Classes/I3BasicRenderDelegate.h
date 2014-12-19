@@ -54,7 +54,7 @@
  The cloned view that is current being rendered according to the drag position.
  
  */
-@property (nonatomic, strong, readonly) I3CloneView *draggingView;
+@property (nonatomic, strong) I3CloneView *draggingView;
 
 
 @end

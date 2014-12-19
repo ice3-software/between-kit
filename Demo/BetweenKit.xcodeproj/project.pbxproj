@@ -34,6 +34,7 @@
 		46BB1F2B1A4378EB006EC5A0 /* I3MasterViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 46BB1F2A1A4378EB006EC5A0 /* I3MasterViewController.m */; };
 		46BB1F2E1A4379D1006EC5A0 /* I3DetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 46BB1F2D1A4379D1006EC5A0 /* I3DetailViewController.m */; };
 		46BB1F311A43C72A006EC5A0 /* I3CustomerRenderDelegateViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 46BB1F301A43C72A006EC5A0 /* I3CustomerRenderDelegateViewController.m */; };
+		46BB1F341A444F56006EC5A0 /* I3FunkRenderDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 46BB1F331A444F56006EC5A0 /* I3FunkRenderDelegate.m */; };
 		6003F58E195388D20070C39A /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6003F58D195388D20070C39A /* Foundation.framework */; };
 		6003F590195388D20070C39A /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6003F58F195388D20070C39A /* CoreGraphics.framework */; };
 		6003F592195388D20070C39A /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6003F591195388D20070C39A /* UIKit.framework */; };
@@ -105,6 +106,8 @@
 		46BB1F2D1A4379D1006EC5A0 /* I3DetailViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = I3DetailViewController.m; sourceTree = "<group>"; };
 		46BB1F2F1A43C72A006EC5A0 /* I3CustomerRenderDelegateViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = I3CustomerRenderDelegateViewController.h; sourceTree = "<group>"; };
 		46BB1F301A43C72A006EC5A0 /* I3CustomerRenderDelegateViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = I3CustomerRenderDelegateViewController.m; sourceTree = "<group>"; };
+		46BB1F321A444F56006EC5A0 /* I3FunkRenderDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = I3FunkRenderDelegate.h; sourceTree = "<group>"; };
+		46BB1F331A444F56006EC5A0 /* I3FunkRenderDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = I3FunkRenderDelegate.m; sourceTree = "<group>"; };
 		542B21470EB3452C810F4621 /* BetweenKit.podspec */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; name = BetweenKit.podspec; path = ../BetweenKit.podspec; sourceTree = "<group>"; };
 		6003F58A195388D20070C39A /* BetweenKit.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = BetweenKit.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		6003F58D195388D20070C39A /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
@@ -329,6 +332,8 @@
 			children = (
 				46BB1F2F1A43C72A006EC5A0 /* I3CustomerRenderDelegateViewController.h */,
 				46BB1F301A43C72A006EC5A0 /* I3CustomerRenderDelegateViewController.m */,
+				46BB1F321A444F56006EC5A0 /* I3FunkRenderDelegate.h */,
+				46BB1F331A444F56006EC5A0 /* I3FunkRenderDelegate.m */,
 			);
 			name = "Custom Render Delegates";
 			sourceTree = "<group>";
@@ -670,6 +675,7 @@
 				6003F59E195388D20070C39A /* I3AppDelegate.m in Sources */,
 				6003F5A7195388D20070C39A /* I32RearrangeableTablesViewController.m in Sources */,
 				466BA26C1A423921006CD452 /* I3SubtitleCell.m in Sources */,
+				46BB1F341A444F56006EC5A0 /* I3FunkRenderDelegate.m in Sources */,
 				6003F59A195388D20070C39A /* main.m in Sources */,
 				46BB1F2E1A4379D1006EC5A0 /* I3DetailViewController.m in Sources */,
 				466BA2651A4230C6006CD452 /* I32TablesAllPropertiesViewController.m in Sources */,

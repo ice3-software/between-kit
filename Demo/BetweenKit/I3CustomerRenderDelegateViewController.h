@@ -12,7 +12,7 @@
 #import <BetweenKit/UITableView+I3Collection.h>
 #import <BetweenKit/UICollectionView+I3Collection.h>
 
-@interface I3CustomerRenderDelegateViewController : UIViewController <UITableViewDataSource, UITableViewDataSource, UICollectionViewDataSource, UICollectionViewDelegate, I3DragDataSource, I3DragRenderDelegate>
+@interface I3CustomerRenderDelegateViewController : UIViewController <UITableViewDataSource, UITableViewDataSource, UICollectionViewDataSource, UICollectionViewDelegate, I3DragDataSource>
 
 @property (nonatomic, weak) IBOutlet UITableView *leftTable;
 
