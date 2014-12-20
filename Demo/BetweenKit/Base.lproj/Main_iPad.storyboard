@@ -120,6 +120,7 @@
                         <segue destination="NOa-xD-Llk" kind="relationship" relationship="viewControllers" id="Oia-ss-rCE"/>
                         <segue destination="46A-RG-rbx" kind="relationship" relationship="viewControllers" id="6QP-jE-CRG"/>
                         <segue destination="9gX-aL-Riu" kind="relationship" relationship="viewControllers" id="KJA-7c-TXh"/>
+                        <segue destination="q6W-MI-FxG" kind="relationship" relationship="viewControllers" id="icv-Uj-dBh"/>
                     </connections>
                 </tabBarController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="SRy-7x-fkG" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -571,6 +572,57 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="M12-MM-bsE" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="-3217" y="-3034"/>
+        </scene>
+        <!--Item 1-->
+        <scene sceneID="9gY-HR-8J9">
+            <objects>
+                <viewController id="q6W-MI-FxG" customClass="I31Table1CollectionEditableMoveableViewController" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="sWd-F1-fyS"/>
+                        <viewControllerLayoutGuide type="bottom" id="6BC-sN-VLD"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="xna-80-kSq">
+                        <rect key="frame" x="0.0" y="0.0" width="768" height="1024"/>
+                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                        <subviews>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" translatesAutoresizingMaskIntoConstraints="NO" id="9MO-sl-Bwy">
+                                <rect key="frame" x="0.0" y="0.0" width="377" height="975"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <connections>
+                                    <outlet property="dataSource" destination="q6W-MI-FxG" id="URg-Lq-j51"/>
+                                    <outlet property="delegate" destination="q6W-MI-FxG" id="zSK-eR-qc4"/>
+                                </connections>
+                            </tableView>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" translatesAutoresizingMaskIntoConstraints="NO" id="khP-rq-eiY">
+                                <rect key="frame" x="391" y="0.0" width="377" height="975"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <connections>
+                                    <outlet property="dataSource" destination="q6W-MI-FxG" id="5n7-7V-biW"/>
+                                    <outlet property="delegate" destination="q6W-MI-FxG" id="47Q-9h-4je"/>
+                                </connections>
+                            </tableView>
+                            <toolbar opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="W5b-9s-eWV">
+                                <rect key="frame" x="0.0" y="930" width="768" height="44"/>
+                                <items>
+                                    <barButtonItem title="Edit" id="xRE-rJ-Mko">
+                                        <connections>
+                                            <action selector="toggleEditMode:" destination="q6W-MI-FxG" id="QLb-Wb-Sot"/>
+                                        </connections>
+                                    </barButtonItem>
+                                </items>
+                            </toolbar>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+                    </view>
+                    <tabBarItem key="tabBarItem" title="Item 1" id="bZr-P9-xhn"/>
+                    <connections>
+                        <outlet property="leftTable" destination="9MO-sl-Bwy" id="ghu-Om-LM6"/>
+                        <outlet property="rightTable" destination="khP-rq-eiY" id="5F5-af-FPA"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="Frf-2T-Avk" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="607" y="-1306"/>
         </scene>
     </scenes>
     <simulatedMetricsContainer key="defaultSimulatedMetrics">

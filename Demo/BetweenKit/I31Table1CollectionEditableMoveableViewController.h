@@ -1,5 +1,5 @@
 //
-//  I31Table1CollectionSiftRearrangeViewController.h
+//  I31Table1CollectionEditableMoveableViewController.h
 //  BetweenKit
 //
 //  Created by Stephen Fortune on 20/12/2014.
@@ -12,10 +12,12 @@
 #import <BetweenKit/I3DragDataSource.h>
 
 
-@interface I31Table1CollectionSiftRearrangeViewController : UIViewController<UITableViewDataSource, UITableViewDelegate, UICollectionViewDataSource, UICollectionViewDataSource, I3DragDataSource>
+@interface I31Table1CollectionEditableMoveableViewController : UIViewController<UITableViewDataSource, UITableViewDelegate, I3DragDataSource>
 
 @property (nonatomic, weak) IBOutlet UITableView *leftTable;
 
-@property (nonatomic, weak) IBOutlet UICollectionView *rightCollection;
+@property (nonatomic, weak) IBOutlet UITableView *rightTable;
+
+-(IBAction) toggleEditMode:(id) sender;
 
 @end
