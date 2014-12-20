@@ -14,10 +14,8 @@
  This is a 'cloned' view. It takes a source view and renders the source into itself 
  in order to make a clone of the source view.
  
- @see http://stackoverflow.com/a/10367029
- @note Why isn't this functionallity in the basic drag renderer? I may want to use this
- implementation elsewhere and I like it being encapsulated in its own class. I might even
- require BetweenKit in a third party application just to use this class as a utility.
+ At the moment, this is used primarily by the basic render delegate to construct its 
+ 'ghost' dragging view.
  
  */
 @interface I3CloneView : UIView
@@ -58,5 +56,6 @@
  
  */
 -(id) initWithSourceView:(UIView *)sourceView;
+
 
 @end

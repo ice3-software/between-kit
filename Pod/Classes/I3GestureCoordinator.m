@@ -27,6 +27,9 @@
  
  Sets the current dragging collection from its origin.
  
+ @param collection      Collection to set as currently dragging
+ @param at              Point at which to set the current drag's origin
+ 
  */
 -(void) setCurrentDraggingCollection:(UIView<I3Collection> *)collection atPoint:(CGPoint) at;
 
@@ -62,8 +65,19 @@
  
  Called when a drag has stopped on a origin within a collection.
  
+ @param to      The collection within which the drag has stopped
+ @param at      The local point within the collection that the drag has stopped
+ 
  */
 -(void) handleDragStoppedInCollection:(UIView<I3Collection> *)to atPoint:(CGPoint) at;
+
+
+/**
+ 
+ Implemented to detach the recognizer from the superview and its target.
+ 
+ */
+-(void) dealloc;
 
 
 @end
@@ -313,12 +327,6 @@
     [self.renderDelegate renderDraggingFromCoordinator:self];
     
 }
-
-
-#pragma mark - Helper methods
-
-
-/// ...
 
 
 #pragma mark - Accessor methods

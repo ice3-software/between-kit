@@ -15,10 +15,8 @@
  (e.g. `UITableViewCell`s or `UICollectionViewCells`) can be dragged around freely
  and exchanged between different 'collections' (i.e. views implementing `I3Collection`).
  
- @todo How do we enforce the constraint draggable collections must be subviews of the given
- superview? 1.* didn't enforce this but I feel we should.
- 
- @see I3Collection
+ Note that collections registered with the arena must be subviews of the superview (directly
+ or indirectly).
  
  */
 @interface I3DragArena : NSObject
@@ -44,6 +42,8 @@
  
  Users can even mutate this set dynamically if, for example, they wanted to reorder the z-index
  of a collection.
+ 
+ @see I3Collection
  
  */
 @property (nonatomic, strong) NSMutableOrderedSet *collections;

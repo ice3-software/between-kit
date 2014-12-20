@@ -14,28 +14,19 @@
 
 /**
  
- The gesture coordinator! This listens to a UIPanGestureRegonizer and calculates the state
- of dragging from the I3Collection instances in the I3DragArena.
+ The gesture coordinator! The business object responsible for calculating and maintaining the
+ state of drag and dropping. It also interacts with various delegate objects to update things
+ such as the user interface and data sources.
  
- @note We are using OCMock in the Demo project to test. This can't reliably mock `respondsToSelector` 
- for mock protocols, therefore we need to implement fixture implementations of the I3DragDataSource
- class so that we can cover how the coordinator handles different implementations. The convention
- we follow is to check that `can*` method exists _before_ the actual data modification method,
- e.g.
+ It requires most of its external dependencies to conform to various protocols, in order promote 
+ loose coupling and extensibillity. Namely `I3DragDataSource`, `I3DragRenderDelegate` and 
+ `I3Collection`.
  
- ```Objective-C
+ All of its dependencies are inject-able using either constructor injection or property injection.
+ _None_ of the class' dependencies are static, global or implicit which further promotes loose 
+ coupling and testabillity.
  
- [dragDataSource respondsToSelector:@selector(canItemFromPoint:beRearrangedWithItemAtPoint:inCollection:)] &&
- [dragDataSource respondsToSelector:@selector(rearrangeItemAtPoint:withItemAtPoint:inCollection:)] &&
- [dragDataSource canItemFromPoint:_currentDragOrigin beRearrangedWithItemAtPoint:at inCollection:_currentDraggingCollection]
- 
- ```
- 
- Be aware of this convention as it dictates how we implement the fixtures.
- 
- @todo Please may want to use this coordinator with gesture recognizers other than the 
- UIPanGestureRecognizer. For example, to trigger a drag on long click we require this class to coordinate
- a UILongPressGestureRecongizer. We need to make this more generic.
+ To setup a basic drag / dropping environment, we offer some class factory methods.
  
  */
 @interface I3GestureCoordinator : NSObject
@@ -101,22 +92,23 @@
 
 /**
  
- The render delegate. 
+ The render delegate.
  
- @note One of the language features of objective-c is that calling a method on nil objects 
- doesn't cause crash. Therefore we have not bothered to unit test the scenarios whereby there
- has been no render delegate injected into the coordinator yet a render event occurs, because we
- know exactly what will happen.
- 
- @note This is a strong reference to the delegate object because in most cases, we don't want
+ This is a strong reference to the delegate object because in most cases, we don't want
  to be responsible for retaining a reference to it. A common example ...
  
-    coordinator.renderDelegate = [[I3BasicRenderDelegate alloc] init];
+ ```Objective-C
  
- which, if we didn't retain the renderer here, wouldn't work out. Another note is that at present,
- I can't seem any reason why a render delegate should ever retain a strong reference to a coordinator.
- The coordinator is passed by parameter to the render methods - there shouldn't really be a massive
- risk of retain cycles.
+ coordinator.renderDelegate = [[I3BasicRenderDelegate alloc] init];
+ 
+ ```
+ 
+ If we didn't retain the renderer here it wouldn't work out. The result is that if the object
+ designated as the render delegate ever retains a strong reference to its coordinator (directly 
+ or indirectly), then a retain cycle will occur. Users should take you to design customer 
+ delegates to nil out any cycical dependencies.
+ 
+ @see I3DragRenderDelegate
  
  */
 @property (nonatomic, strong) id<I3DragRenderDelegate> renderDelegate;
@@ -127,13 +119,9 @@
  The data source
  
  The delegate object that provides data about draggabillity of the collections and their
- items. It has the responsibillity of providing dynamic draggabillity config.
+ items as well as updating the data when different drag / drop event occur.
  
- @note For the same reason that we haven't covered the absence of `renderDelegate`, we're not
- covering the absense of the `dragDataSource` with unit tests because delegate calls will just
- return NO. Therefore all draggabillity configuration (can I drag this? can I drop this here?
- can I delete this?) will just be assumed to be NO if there is no data source. Its a language
- feature and does not require tests.
+ @see I3DragDataSource
  
  */
 @property (nonatomic, weak) id<I3DragDataSource> dragDataSource;
@@ -144,7 +132,8 @@
  Ctor.
  
  @param arena               The area within which we are dragging
- @param gestureRecognizer   The gesture recognizer that we're listening to. Can be nil.
+ @param gestureRecognizer   The gesture recognizer that we're listening to. Can be nil, in which
+                            case a UIPanGestureRecognizer will be created by default.
  @return id
  
  */
@@ -153,20 +142,11 @@
 
 /**
  
- Dtor. Implemented to detach the coordinator from the gesture recongizer.
+ Entry point for pan gestures that are coordinated to the I3Collections. This is public for 
+ testing purposes; ordinarily this should not be called directly and is instead attached as
+ a target to the `gestureRecognizer` injected into the coordinator.
  
- */
--(void) dealloc;
-
-
-/**
- 
- Entry point for pan gestures that are coordinated to the I3Collections.
- 
- @note This method is in the public interface mainly for unit testing purposes. Previously
- I tried indirectly triggering this selector by calling the UIGestureRecognizer's `touchesBegan:withEvent:`
- selector but it was too dependent on `UITouch` and `UIEvent`, which I could not mock affectively
- without knowing the inner workings of the UIGestureRecognizer.
+ @param gestureRecognizer   The gesture recongizer that calls this selector as a target.
  
  */
 -(void) handlePan:(UIGestureRecognizer*) gestureRecognizer;
@@ -179,9 +159,9 @@
  up with a basic drag render, a new coordinator, and an area spanning the controller's main
  view.
  
- @param viewController      UIViewController*
- @param collection          NSArray*
- @param recognizer          UIGestureRecognizer*
+ @param viewController      This controller's main view is used as the arena's superview
+ @param collection          An array of UIView<I3Collection> objects
+ @param recognizer          The recognizer to listen to.
  
  */
 +(instancetype) basicGestureCoordinatorFromViewController:(UIViewController *)viewController withCollections:(NSArray *)collections withRecognizer:(UIGestureRecognizer *)recognizer;
@@ -192,8 +172,8 @@
  Equivillent of calling `basicGestureCoordinatorFromViewController:withCollections:withRecognizer:`
  with a nil recognizer.
  
- @param viewController      UIViewController*
- @param collection          NSArray*
+ @param viewController      This controller's main view is used as the arena's superview
+ @param collection          An array of UIView<I3Collection> objects
  
  */
 +(instancetype) basicGestureCoordinatorFromViewController:(UIViewController *)viewController withCollections:(NSArray *)collections;

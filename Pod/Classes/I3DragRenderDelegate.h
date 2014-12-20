@@ -16,23 +16,23 @@
 /**
  
  This is a protocol for a class that is delegated out the responsibillity by the coordinator 
- of rendering various drag / drop events. For now, I have decided that the coordinator-renderer
- relationship is one-to-one (i.e. there will only be one class rendering the events emitted by
- the coordinator).
+ of rendering various drag / drop events. 
  
  All methods defined in this protocol are required because all rendering events must actually
  be rendered.
  
- @see I3GestureCoordinator
+ The framework provies a basic implementation of the render delegate (`I3BasicRenderDelegate`).
+ If users want to implement their own rendering styles and UI updates, they can either extend
+ the basic render delegate or even implement their own by conforming to this protocol.
  
- @note The idea is that the framework will provide a 'default' render delegate that implements
- this protocol, but users can also define their own by extending the default delegate or even 
- implementing their own from scratch if they wish to fully customize how the drag dropping is 
- rendered.
+ Note that render delegates should take care in retaining / releasing references to their parent
+ coordinators.
  
- @note The coordinator will never 'rely' on the render delegate. That is, the results of a render
- method called on the delegate will never actually affect the state of the coordinator's routines.
- Therefore it will be 'safe' for there not to be a render delegate injected into the coordinator.
+ Note that the rendering methods of classes that conform to this protocol should never be
+ called directly, except in unit tests. The preconditions of each method will heavily depend on 
+ the coordinator's state - leave it up to the coordinator to call them at the correct intervals.
+ 
+ @see I3BasicRenderDelegate
  
  */
 @protocol I3DragRenderDelegate <NSObject>

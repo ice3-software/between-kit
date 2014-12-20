@@ -20,8 +20,7 @@
  implementations of this for both UITableView and UICollectionView, but allows users the flexibillity
  to even implement their own collection view by conforming to this protocol.
  
- 
- @note Optional methods should be implemented for convenience, to avoid users having to check the
+ Optional methods should be implemented for convenience, to avoid users having to check the
  type of the collectionView in their data source methods. For example, our UITableView category 
  implements these methods to avoid forcing users to call `isKindOfClass` and cast between different
  view types in their data source:
@@ -45,6 +44,10 @@
  [toCollection insertItemsAtIndexPaths:indeces];
 
  ```
+ 
+ For the avoidance of any doubt, this protocol is only intended to be conformed to by `UIViews` 
+ (or subclasses thereof).
+ 
  
  @see UITableView+I3CollectionView
  @see UICollectionView+I3CollectionView
