@@ -12,14 +12,12 @@
 /**
  
  Represents the domain for an 'area' (e.g. a `UIViewController`) within which 'items'
- (e.g. `UITableViewCell` s or `UICollectionViewCells`) can be dragged around freely
- and exchanged between different 'containers' (e.g. `UITableView`s or `UICollectionView`s).
+ (e.g. `UITableViewCell`s or `UICollectionViewCells`) can be dragged around freely
+ and exchanged between different 'collections' (i.e. views implementing `I3Collection`).
  
- @note The ultimate goal here is to provide enough abstraction over the type and structure
-       of the 'collection' class that we are not bound to a 'collection' _just_ representing
-       a `UITableView` or `UICollectionView`.
  @todo How do we enforce the constraint draggable collections must be subviews of the given
-       superview? 1.* didn't enforce this but I feel we should.
+ superview? 1.* didn't enforce this but I feel we should.
+ 
  @see I3Collection
  
  */
@@ -29,7 +27,7 @@
 /**
  
  The 'arena', i.e. the main superview within which drag/dropping will occure. This will
- be used in listening for pan gestures and calculating relative bound rects.
+ be used in listening for gestures and calculating relative bound rects.
  
  */
 @property (nonatomic, strong, readonly) UIView *superview;
@@ -40,9 +38,12 @@
  A mutable ordered set of `I3Collection` instances that drag/dropping will occur
  between.
  
- @note The order of the draggables in this set will determine their 'priority', i.e. 
-       if n collections are overlapping, the one highest in the set will recieve drag
-       / drop events and the lowers incepting collections will be ignored.
+ The order of the draggables in this set will determine their 'priority', i.e. if n collections 
+ are overlapping, the one highest in the set will recieve drag / drop events and the lowers 
+ incepting collections will be ignored.
+ 
+ Users can even mutate this set dynamically if, for example, they wanted to reorder the z-index
+ of a collection.
  
  */
 @property (nonatomic, strong) NSMutableOrderedSet *collections;

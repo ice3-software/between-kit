@@ -324,6 +324,12 @@
 #pragma mark - Accessor methods
 
 
+-(CGPoint) currentDragLocation{
+    
+    return [self.gestureRecognizer locationInView:self.arena.superview];
+}
+
+
 -(UIView *)currentDraggingItem{
     
     return [self.currentDraggingCollection itemAtIndexPath:self.currentDraggingIndexPath];

@@ -258,4 +258,19 @@ SpecBegin(I3GestureCoordinatorDragStart)
     });
 
 
+    describe(@"current drag location", ^{
+
+        it(@"should return the current drag location in the superver", ^{
+            
+            I3GestureCoordinator *coordinator = I3GestureCoordinatorSetupMock(nil);
+            CGPoint location = CGPointMake(10, 10);
+            
+            OCMStub([coordinator.gestureRecognizer locationInView:[OCMArg any]]).andReturn(location);
+            
+            expect(coordinator.currentDragLocation).to.equal(location);
+            
+        });
+        
+    });
+
 SpecEnd

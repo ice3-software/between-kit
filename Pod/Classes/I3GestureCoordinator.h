@@ -23,7 +23,7 @@
  we follow is to check that `can*` method exists _before_ the actual data modification method,
  e.g.
  
- ```objective-c
+ ```Objective-C
  
  [dragDataSource respondsToSelector:@selector(canItemFromPoint:beRearrangedWithItemAtPoint:inCollection:)] &&
  [dragDataSource respondsToSelector:@selector(rearrangeItemAtPoint:withItemAtPoint:inCollection:)] &&
@@ -89,6 +89,14 @@
  
  */
 @property (nonatomic, strong, readonly) UIView *currentDraggingItem;
+
+
+/**
+ 
+ Dynamic property that resolves to the current dragging location in the superview.
+ 
+ */
+@property (nonatomic, assign, readonly) CGPoint currentDragLocation;
 
 
 /**
