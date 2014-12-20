@@ -576,7 +576,7 @@
         <!--Item 1-->
         <scene sceneID="9gY-HR-8J9">
             <objects>
-                <viewController id="q6W-MI-FxG" customClass="I31Table1CollectionEditableMoveableViewController" sceneMemberID="viewController">
+                <viewController id="q6W-MI-FxG" customClass="I32TablesEditableMoveableViewController" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="sWd-F1-fyS"/>
                         <viewControllerLayoutGuide type="bottom" id="6BC-sN-VLD"/>

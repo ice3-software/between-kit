@@ -6,14 +6,14 @@
 //  Copyright (c) 2014 stephen fortune. All rights reserved.
 //
 
-#import "I31Table1CollectionEditableMoveableViewController.h"
+#import "I32TablesEditableMoveableViewController.h"
 #import <BetweenKit/I3GestureCoordinator.h>
 
 
 static NSString* DequeueReusableCell = @"DequeueReusableCell";
 
 
-@interface I31Table1CollectionEditableMoveableViewController ()
+@interface I32TablesEditableMoveableViewController ()
 
 @property (nonatomic, strong) I3GestureCoordinator *dragCoordinator;
 
@@ -24,7 +24,7 @@ static NSString* DequeueReusableCell = @"DequeueReusableCell";
 @end
 
 
-@implementation I31Table1CollectionEditableMoveableViewController
+@implementation I32TablesEditableMoveableViewController
 
 
 -(void) viewDidLoad{
@@ -159,8 +159,8 @@ static NSString* DequeueReusableCell = @"DequeueReusableCell";
 
 -(IBAction) toggleEditMode:(id) sender{
     
-    self.leftTable.editing = !self.leftTable.editing;
-    self.rightTable.editing = !self.rightTable.editing;
+    [self.leftTable setEditing:!self.leftTable.editing animated:YES];
+    [self.rightTable setEditing:!self.rightTable.editing animated:YES];
 }
 
 
