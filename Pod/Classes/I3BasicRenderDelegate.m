@@ -16,9 +16,6 @@
 @end
 
 
-/// @todo Remove all the code duplication here; lots of methods calculate rects and points
-///       from common objects in the same way.
-
 @implementation I3BasicRenderDelegate
 
 
@@ -58,7 +55,7 @@
 -(void) renderDraggingFromCoordinator:(I3GestureCoordinator *)coordinator{
     
     [UIView animateWithDuration:0.05 animations:^{
-        self.draggingView.center = [coordinator.gestureRecognizer locationInView:coordinator.arena.superview];
+        self.draggingView.center = coordinator.currentDragLocation;
     }];
 }
 
