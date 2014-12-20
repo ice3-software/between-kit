@@ -38,6 +38,9 @@
 		46BDB0D61A45E3D40078EDF3 /* I31Table1CollectionSiftRearrangeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 46BDB0D51A45E3D40078EDF3 /* I31Table1CollectionSiftRearrangeViewController.m */; };
 		46BDB0D91A45E46E0078EDF3 /* I3SiftRearrangeRenderDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 46BDB0D81A45E46E0078EDF3 /* I3SiftRearrangeRenderDelegate.m */; };
 		46BDB0DC1A45EE6F0078EDF3 /* I32TablesEditableMoveableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 46BDB0DB1A45EE6F0078EDF3 /* I32TablesEditableMoveableViewController.m */; };
+		46BDB0DF1A460CFA0078EDF3 /* I32RearrangeableCollectionViewsController.m in Sources */ = {isa = PBXBuildFile; fileRef = 46BDB0DE1A460CFA0078EDF3 /* I32RearrangeableCollectionViewsController.m */; };
+		46BDB0E11A460ED60078EDF3 /* I3MoveableCollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 46BDB0E01A460ED60078EDF3 /* I3MoveableCollectionViewCell.xib */; };
+		46BDB0E41A460F0F0078EDF3 /* I3MoveableCollectionViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 46BDB0E31A460F0F0078EDF3 /* I3MoveableCollectionViewCell.m */; };
 		6003F58E195388D20070C39A /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6003F58D195388D20070C39A /* Foundation.framework */; };
 		6003F590195388D20070C39A /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6003F58F195388D20070C39A /* CoreGraphics.framework */; };
 		6003F592195388D20070C39A /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6003F591195388D20070C39A /* UIKit.framework */; };
@@ -117,6 +120,11 @@
 		46BDB0D81A45E46E0078EDF3 /* I3SiftRearrangeRenderDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = I3SiftRearrangeRenderDelegate.m; sourceTree = "<group>"; };
 		46BDB0DA1A45EE6F0078EDF3 /* I32TablesEditableMoveableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = I32TablesEditableMoveableViewController.h; sourceTree = "<group>"; };
 		46BDB0DB1A45EE6F0078EDF3 /* I32TablesEditableMoveableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = I32TablesEditableMoveableViewController.m; sourceTree = "<group>"; };
+		46BDB0DD1A460CFA0078EDF3 /* I32RearrangeableCollectionViewsController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = I32RearrangeableCollectionViewsController.h; sourceTree = "<group>"; };
+		46BDB0DE1A460CFA0078EDF3 /* I32RearrangeableCollectionViewsController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = I32RearrangeableCollectionViewsController.m; sourceTree = "<group>"; };
+		46BDB0E01A460ED60078EDF3 /* I3MoveableCollectionViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = I3MoveableCollectionViewCell.xib; sourceTree = "<group>"; };
+		46BDB0E21A460F0F0078EDF3 /* I3MoveableCollectionViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = I3MoveableCollectionViewCell.h; sourceTree = "<group>"; };
+		46BDB0E31A460F0F0078EDF3 /* I3MoveableCollectionViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = I3MoveableCollectionViewCell.m; sourceTree = "<group>"; };
 		542B21470EB3452C810F4621 /* BetweenKit.podspec */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; name = BetweenKit.podspec; path = ../BetweenKit.podspec; sourceTree = "<group>"; };
 		6003F58A195388D20070C39A /* BetweenKit.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = BetweenKit.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		6003F58D195388D20070C39A /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
@@ -195,6 +203,7 @@
 			isa = PBXGroup;
 			children = (
 				4659C83C1A4320A00076C645 /* I3SubtitleCollectionViewCell.xib */,
+				46BDB0E01A460ED60078EDF3 /* I3MoveableCollectionViewCell.xib */,
 			);
 			name = Views;
 			sourceTree = "<group>";
@@ -226,6 +235,8 @@
 				466BA26B1A423921006CD452 /* I3SubtitleTableViewCell.m */,
 				4659C8381A431EAA0076C645 /* I3SubtitleCollectionViewCell.h */,
 				4659C8391A431EAA0076C645 /* I3SubtitleCollectionViewCell.m */,
+				46BDB0E21A460F0F0078EDF3 /* I3MoveableCollectionViewCell.h */,
+				46BDB0E31A460F0F0078EDF3 /* I3MoveableCollectionViewCell.m */,
 			);
 			name = Fixtures;
 			sourceTree = "<group>";
@@ -297,6 +308,8 @@
 		467B35151A1F5AD90000A77C /* 2 Collection Views - Rearrangeable */ = {
 			isa = PBXGroup;
 			children = (
+				46BDB0DD1A460CFA0078EDF3 /* I32RearrangeableCollectionViewsController.h */,
+				46BDB0DE1A460CFA0078EDF3 /* I32RearrangeableCollectionViewsController.m */,
 			);
 			name = "2 Collection Views - Rearrangeable";
 			sourceTree = "<group>";
@@ -607,6 +620,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				46BDB0E11A460ED60078EDF3 /* I3MoveableCollectionViewCell.xib in Resources */,
 				467AFC8619C5E20D00FFD1F4 /* LICENSE.md in Resources */,
 				6003F5A4195388D20070C39A /* Main_iPad.storyboard in Resources */,
 				6003F5A9195388D20070C39A /* Images.xcassets in Resources */,
@@ -699,11 +713,13 @@
 				6003F5A7195388D20070C39A /* I32RearrangeableTablesViewController.m in Sources */,
 				466BA26C1A423921006CD452 /* I3SubtitleTableViewCell.m in Sources */,
 				46BB1F341A444F56006EC5A0 /* I3FunkRenderDelegate.m in Sources */,
+				46BDB0DF1A460CFA0078EDF3 /* I32RearrangeableCollectionViewsController.m in Sources */,
 				6003F59A195388D20070C39A /* main.m in Sources */,
 				46BB1F2E1A4379D1006EC5A0 /* I3DetailViewController.m in Sources */,
 				466BA2651A4230C6006CD452 /* I32TablesAllPropertiesViewController.m in Sources */,
 				46BDB0DC1A45EE6F0078EDF3 /* I32TablesEditableMoveableViewController.m in Sources */,
 				4659C83A1A431EAA0076C645 /* I3SubtitleCollectionViewCell.m in Sources */,
+				46BDB0E41A460F0F0078EDF3 /* I3MoveableCollectionViewCell.m in Sources */,
 				4681C91B1A214D5B00504DF6 /* I32DeleteableTablesViewController.m in Sources */,
 				467B35291A1F93050000A77C /* I32DropableTablesViewController.m in Sources */,
 				46BDB0D61A45E3D40078EDF3 /* I31Table1CollectionSiftRearrangeViewController.m in Sources */,

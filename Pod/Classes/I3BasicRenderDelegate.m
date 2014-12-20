@@ -98,10 +98,11 @@
     I3CloneView *exchangeView = [[I3CloneView alloc] initWithSourceView:dstSourceView];
     exchangeView.frame = [superview convertRect:dstSourceView.frame fromView:draggingCollection];
     [superview addSubview:exchangeView];
-    [exchangeView cloneSourceView];
     
     I3CloneView *draggingView = _draggingView;
+
     [superview bringSubviewToFront:draggingView];
+    [exchangeView cloneSourceView];
 
     CGRect dragOriginFrame = [superview convertRect:sourceView.frame fromView:draggingCollection];
     CGPoint draggingViewTargetCenter = CGPointMake(CGRectGetMidX(exchangeView.frame), CGRectGetMidY(exchangeView.frame));
