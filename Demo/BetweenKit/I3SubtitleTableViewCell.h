@@ -1,5 +1,5 @@
 //
-//  I3SubtitleCell.h
+//  I3SubtitleTableViewCell.h
 //  BetweenKit
 //
 //  Created by Stephen Fortune on 17/12/2014.
@@ -8,6 +8,6 @@
 
 #import <UIKit/UIKit.h>
 
-@interface I3SubtitleCell : UITableViewCell
+@interface I3SubtitleTableViewCell : UITableViewCell
 
 @end

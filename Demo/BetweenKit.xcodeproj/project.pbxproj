@@ -23,7 +23,7 @@
 		466BA25F1A41DB93006CD452 /* I3GestureCoordinatorDraggingTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 466BA25E1A41DB93006CD452 /* I3GestureCoordinatorDraggingTests.m */; };
 		466BA2651A4230C6006CD452 /* I32TablesAllPropertiesViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 466BA2641A4230C6006CD452 /* I32TablesAllPropertiesViewController.m */; };
 		466BA2681A4231B2006CD452 /* I3SimpleData.m in Sources */ = {isa = PBXBuildFile; fileRef = 466BA2671A4231B2006CD452 /* I3SimpleData.m */; };
-		466BA26C1A423921006CD452 /* I3SubtitleCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 466BA26B1A423921006CD452 /* I3SubtitleCell.m */; };
+		466BA26C1A423921006CD452 /* I3SubtitleTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 466BA26B1A423921006CD452 /* I3SubtitleTableViewCell.m */; };
 		467AFC8619C5E20D00FFD1F4 /* LICENSE.md in Resources */ = {isa = PBXBuildFile; fileRef = 467AFC8519C5E20D00FFD1F4 /* LICENSE.md */; };
 		467B35261A1F7AA70000A77C /* I3DataSourceControllerFixture.m in Sources */ = {isa = PBXBuildFile; fileRef = 467B35251A1F7AA70000A77C /* I3DataSourceControllerFixture.m */; };
 		467B35291A1F93050000A77C /* I32DropableTablesViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 467B35281A1F93050000A77C /* I32DropableTablesViewController.m */; };
@@ -88,8 +88,8 @@
 		466BA2641A4230C6006CD452 /* I32TablesAllPropertiesViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = I32TablesAllPropertiesViewController.m; sourceTree = "<group>"; };
 		466BA2661A4231B2006CD452 /* I3SimpleData.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = I3SimpleData.h; sourceTree = "<group>"; };
 		466BA2671A4231B2006CD452 /* I3SimpleData.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = I3SimpleData.m; sourceTree = "<group>"; };
-		466BA26A1A423921006CD452 /* I3SubtitleCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = I3SubtitleCell.h; sourceTree = "<group>"; };
-		466BA26B1A423921006CD452 /* I3SubtitleCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = I3SubtitleCell.m; sourceTree = "<group>"; };
+		466BA26A1A423921006CD452 /* I3SubtitleTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = I3SubtitleTableViewCell.h; sourceTree = "<group>"; };
+		466BA26B1A423921006CD452 /* I3SubtitleTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = I3SubtitleTableViewCell.m; sourceTree = "<group>"; };
 		467AFC8519C5E20D00FFD1F4 /* LICENSE.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = LICENSE.md; path = ../LICENSE.md; sourceTree = "<group>"; };
 		467B35241A1F7AA70000A77C /* I3DataSourceControllerFixture.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = I3DataSourceControllerFixture.h; sourceTree = "<group>"; };
 		467B35251A1F7AA70000A77C /* I3DataSourceControllerFixture.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = I3DataSourceControllerFixture.m; sourceTree = "<group>"; };
@@ -202,8 +202,8 @@
 			children = (
 				466BA2661A4231B2006CD452 /* I3SimpleData.h */,
 				466BA2671A4231B2006CD452 /* I3SimpleData.m */,
-				466BA26A1A423921006CD452 /* I3SubtitleCell.h */,
-				466BA26B1A423921006CD452 /* I3SubtitleCell.m */,
+				466BA26A1A423921006CD452 /* I3SubtitleTableViewCell.h */,
+				466BA26B1A423921006CD452 /* I3SubtitleTableViewCell.m */,
 				4659C8381A431EAA0076C645 /* I3SubtitleCollectionViewCell.h */,
 				4659C8391A431EAA0076C645 /* I3SubtitleCollectionViewCell.m */,
 			);
@@ -674,7 +674,7 @@
 				466BA2681A4231B2006CD452 /* I3SimpleData.m in Sources */,
 				6003F59E195388D20070C39A /* I3AppDelegate.m in Sources */,
 				6003F5A7195388D20070C39A /* I32RearrangeableTablesViewController.m in Sources */,
-				466BA26C1A423921006CD452 /* I3SubtitleCell.m in Sources */,
+				466BA26C1A423921006CD452 /* I3SubtitleTableViewCell.m in Sources */,
 				46BB1F341A444F56006EC5A0 /* I3FunkRenderDelegate.m in Sources */,
 				6003F59A195388D20070C39A /* main.m in Sources */,
 				46BB1F2E1A4379D1006EC5A0 /* I3DetailViewController.m in Sources */,

@@ -8,7 +8,7 @@
 
 #import "I33CollectionsComplexConfigurationViewController.h"
 #import "I3SimpleData.h"
-#import "I3SubtitleCell.h"
+#import "I3SubtitleTableViewCell.h"
 #import "I3SubtitleCollectionViewCell.h"
 #import <BetweenKit/I3GestureCoordinator.h>
 #import <BetweenKit/I3BasicRenderDelegate.h>
@@ -52,7 +52,7 @@ static NSString* DequeueReusableCell = @"DequeueReusableCell";
     self.trData = [[NSMutableArray alloc] initWithArray:data copyItems:YES];
     self.bData = [[NSMutableArray alloc] initWithArray:data copyItems:YES];
     
-    [self.tlTable registerClass:[I3SubtitleCell class] forCellReuseIdentifier:DequeueReusableCell];
+    [self.tlTable registerClass:[I3SubtitleTableViewCell class] forCellReuseIdentifier:DequeueReusableCell];
     [self.trCollection registerNib:[UINib nibWithNibName:I3SubtitleCollectionViewCellIdentifier bundle:nil] forCellWithReuseIdentifier:I3SubtitleCollectionViewCellIdentifier];
     [self.bCollection registerNib:[UINib nibWithNibName:I3SubtitleCollectionViewCellIdentifier bundle:nil] forCellWithReuseIdentifier:I3SubtitleCollectionViewCellIdentifier];
 

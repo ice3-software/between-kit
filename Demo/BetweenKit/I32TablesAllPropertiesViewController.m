@@ -8,7 +8,7 @@
 
 #import "I32TablesAllPropertiesViewController.h"
 #import "I3SimpleData.h"
-#import "I3SubtitleCell.h"
+#import "I3SubtitleTableViewCell.h"
 #import <BetweenKit/I3GestureCoordinator.h>
 #import <BetweenKit/I3BasicRenderDelegate.h>
 
@@ -56,8 +56,8 @@ static NSString* DequeueReusableCell = @"DequeueReusableCell";
                                                      [[I3SimpleData alloc] initWithColor:[UIColor redColor] withTitle:@"Right Item 7" withSubtitle:@"Back OFF." withCanDelete:NO withCanMove:NO],
                                                      ]];
 
-    [self.leftTableView registerClass:[I3SubtitleCell class] forCellReuseIdentifier:DequeueReusableCell];
-    [self.rightTableView registerClass:[I3SubtitleCell class] forCellReuseIdentifier:DequeueReusableCell];
+    [self.leftTableView registerClass:[I3SubtitleTableViewCell class] forCellReuseIdentifier:DequeueReusableCell];
+    [self.rightTableView registerClass:[I3SubtitleTableViewCell class] forCellReuseIdentifier:DequeueReusableCell];
     
     self.dragCoordinator = [I3GestureCoordinator basicGestureCoordinatorFromViewController:self withCollections:@[self.leftTableView, self.rightTableView]];
     
