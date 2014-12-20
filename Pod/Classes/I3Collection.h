@@ -16,14 +16,39 @@
  contain draggable child items.
  
  This interface exposes methods for accessing properties of the collection and its child
- items. It is used to abstract away the details of the collection, e.g. a custom UICollectionView
- could implement this protocol, as could a UITableView, or even a custom UIView.
+ items. It is used to abstract away the details of the collection. The framework provides category
+ implementations of this for both UITableView and UICollectionView, but allows users the flexibillity
+ to even implement their own collection view by conforming to this protocol.
  
- @note Optional methods should be implemented for convenience, to avoid users having to check the 
+ 
+ @note Optional methods should be implemented for convenience, to avoid users having to check the
  type of the collectionView in their data source methods. For example, our UITableView category 
  implements these methods to avoid forcing users to call `isKindOfClass` and cast between different
- view types in their data source.
+ view types in their data source:
+ 
+ 
+ ``` Objective-C
+ 
+ if([toCollection isKindOfClass:[UITableView class]]){
+    [(UITableView *)toCollection insertRowsAtIndexPaths:indeces withRowAnimation:UITableViewRowAnimationFade];
+ }
+ else{
+    [(UICollectionView *)toCollection insertItemsAtIndexPaths:indeces];
+ }
+ 
+ ```
+ 
+ can instead be written as...
+ 
+ ```Objective-C
+ 
+ [toCollection insertItemsAtIndexPaths:indeces];
 
+ ```
+ 
+ @see UITableView+I3CollectionView
+ @see UICollectionView+I3CollectionView
+ 
  */
 @protocol I3Collection <NSObject>
 
@@ -33,11 +58,11 @@
 
 /**
  
- Should be implemented to map a given point to an NSIndexPath. Should return nil if an
- item does not exist at the given index path.
+ Should be implemented to map a given point to an NSIndexPath. May return nil if an
+ item does not exist at the given index path, but is not required.
  
- @param     at      CGPoint
- @return    NSIndexPath
+ @param at      The point at which we want to retrieve an index path for
+ @return NSIndexPath
  
  */
 -(NSIndexPath *)indexPathForItemAtPoint:(CGPoint) at;
@@ -60,8 +85,8 @@
  @note this method should _never_ return a view for a nil index path. The coordinator will 
  throw if it does
  
- @param     index   NSIndexPath
- @return    UIView
+ @param index   The index path at which we want ot retrieve a view for
+ @return UIView
  
  */
 -(UIView *)itemAtIndexPath:(NSIndexPath *)index;
@@ -77,7 +102,7 @@
  @see `UICollectionView deleteItemAtIndexPaths:`
  @see #42
  
- @param indeces     NSArray *   Array of index paths to delete items at
+ @param indeces Array of index paths to delete items at
  
  */
 -(void) deleteItemsAtIndexPaths:(NSArray *)indeces;
@@ -89,7 +114,7 @@
  
  @see `UICollectionView reloadItemsAtIndexPaths:`
  @see #42
- @param indeces     NSArray *   Array of index paths to reload items at
+ @param indeces Array of index paths to reload items at
  
  */
 -(void) reloadItemsAtIndexPaths:(NSArray *)indeces;
@@ -102,7 +127,7 @@
  @see `UICollectionView insertItemsAtIndexPaths:`
  @see #42
 
- @param indeces     NSArray *   Array of index paths to insert items at
+ @param indeces Array of index paths to insert items at
  
  */
 -(void) insertItemsAtIndexPaths:(NSArray *)indeces;
