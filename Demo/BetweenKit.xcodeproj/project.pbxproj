@@ -35,6 +35,8 @@
 		46BB1F2E1A4379D1006EC5A0 /* I3DetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 46BB1F2D1A4379D1006EC5A0 /* I3DetailViewController.m */; };
 		46BB1F311A43C72A006EC5A0 /* I3CustomerRenderDelegateViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 46BB1F301A43C72A006EC5A0 /* I3CustomerRenderDelegateViewController.m */; };
 		46BB1F341A444F56006EC5A0 /* I3FunkRenderDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 46BB1F331A444F56006EC5A0 /* I3FunkRenderDelegate.m */; };
+		46BDB0D61A45E3D40078EDF3 /* I31Table1CollectionSiftRearrangeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 46BDB0D51A45E3D40078EDF3 /* I31Table1CollectionSiftRearrangeViewController.m */; };
+		46BDB0D91A45E46E0078EDF3 /* I3SiftRearrangeRenderDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 46BDB0D81A45E46E0078EDF3 /* I3SiftRearrangeRenderDelegate.m */; };
 		6003F58E195388D20070C39A /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6003F58D195388D20070C39A /* Foundation.framework */; };
 		6003F590195388D20070C39A /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6003F58F195388D20070C39A /* CoreGraphics.framework */; };
 		6003F592195388D20070C39A /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6003F591195388D20070C39A /* UIKit.framework */; };
@@ -108,6 +110,10 @@
 		46BB1F301A43C72A006EC5A0 /* I3CustomerRenderDelegateViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = I3CustomerRenderDelegateViewController.m; sourceTree = "<group>"; };
 		46BB1F321A444F56006EC5A0 /* I3FunkRenderDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = I3FunkRenderDelegate.h; sourceTree = "<group>"; };
 		46BB1F331A444F56006EC5A0 /* I3FunkRenderDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = I3FunkRenderDelegate.m; sourceTree = "<group>"; };
+		46BDB0D41A45E3D40078EDF3 /* I31Table1CollectionSiftRearrangeViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = I31Table1CollectionSiftRearrangeViewController.h; sourceTree = "<group>"; };
+		46BDB0D51A45E3D40078EDF3 /* I31Table1CollectionSiftRearrangeViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = I31Table1CollectionSiftRearrangeViewController.m; sourceTree = "<group>"; };
+		46BDB0D71A45E46E0078EDF3 /* I3SiftRearrangeRenderDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = I3SiftRearrangeRenderDelegate.h; sourceTree = "<group>"; };
+		46BDB0D81A45E46E0078EDF3 /* I3SiftRearrangeRenderDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = I3SiftRearrangeRenderDelegate.m; sourceTree = "<group>"; };
 		542B21470EB3452C810F4621 /* BetweenKit.podspec */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; name = BetweenKit.podspec; path = ../BetweenKit.podspec; sourceTree = "<group>"; };
 		6003F58A195388D20070C39A /* BetweenKit.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = BetweenKit.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		6003F58D195388D20070C39A /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
@@ -162,6 +168,17 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		46141B511A45DE7000C0B72E /* 1 Table 1 Collection View - Sift Rearrange */ = {
+			isa = PBXGroup;
+			children = (
+				46BDB0D41A45E3D40078EDF3 /* I31Table1CollectionSiftRearrangeViewController.h */,
+				46BDB0D51A45E3D40078EDF3 /* I31Table1CollectionSiftRearrangeViewController.m */,
+				46BDB0D71A45E46E0078EDF3 /* I3SiftRearrangeRenderDelegate.h */,
+				46BDB0D81A45E46E0078EDF3 /* I3SiftRearrangeRenderDelegate.m */,
+			);
+			name = "1 Table 1 Collection View - Sift Rearrange";
+			sourceTree = "<group>";
+		};
 		4632574219E5DE3A00E1C633 /* 2 Tables - Rearrangeable */ = {
 			isa = PBXGroup;
 			children = (
@@ -267,11 +284,11 @@
 			name = "2 Collection Views - Complex Configuration";
 			sourceTree = "<group>";
 		};
-		467B35141A1F5ACC0000A77C /* 2 Collection Views - Exchangeable */ = {
+		467B35141A1F5ACC0000A77C /* 2 Collection Views - Droppable */ = {
 			isa = PBXGroup;
 			children = (
 			);
-			name = "2 Collection Views - Exchangeable";
+			name = "2 Collection Views - Droppable";
 			sourceTree = "<group>";
 		};
 		467B35151A1F5AD90000A77C /* 2 Collection Views - Rearrangeable */ = {
@@ -365,9 +382,10 @@
 				467B35191A1F5B580000A77C /* Networking */,
 				467B35181A1F5B210000A77C /* Fluid UI */,
 				467B35171A1F5B170000A77C /* Paint Me */,
+				46141B511A45DE7000C0B72E /* 1 Table 1 Collection View - Sift Rearrange */,
 				467B35161A1F5AE50000A77C /* 1 Table 1 Collection View - Editable / Moveable */,
 				467B35151A1F5AD90000A77C /* 2 Collection Views - Rearrangeable */,
-				467B35141A1F5ACC0000A77C /* 2 Collection Views - Exchangeable */,
+				467B35141A1F5ACC0000A77C /* 2 Collection Views - Droppable */,
 				467B35131A1F5AC10000A77C /* 2 Collection Views - Complex Configuration */,
 				467B35121A1F5A950000A77C /* 2 Collection VIews - All Draggable Properties */,
 				467B35111A1F5A770000A77C /* 3 Collections - Dynamic Data Source */,
@@ -682,8 +700,10 @@
 				4659C83A1A431EAA0076C645 /* I3SubtitleCollectionViewCell.m in Sources */,
 				4681C91B1A214D5B00504DF6 /* I32DeleteableTablesViewController.m in Sources */,
 				467B35291A1F93050000A77C /* I32DropableTablesViewController.m in Sources */,
+				46BDB0D61A45E3D40078EDF3 /* I31Table1CollectionSiftRearrangeViewController.m in Sources */,
 				46BB1F2B1A4378EB006EC5A0 /* I3MasterViewController.m in Sources */,
 				46BB1F311A43C72A006EC5A0 /* I3CustomerRenderDelegateViewController.m in Sources */,
+				46BDB0D91A45E46E0078EDF3 /* I3SiftRearrangeRenderDelegate.m in Sources */,
 				4659C8371A4319170076C645 /* I33CollectionsComplexConfigurationViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
