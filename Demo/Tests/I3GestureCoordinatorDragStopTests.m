@@ -460,7 +460,7 @@ SpecBegin(I3GestureCoordinatorDragStop)
             
         });
         
-        it(@"should not drop on index if data source specifies that cell is not exchangeable", ^{
+        it(@"should not drop on index if data source specifies that cell is not droppable", ^{
             
             id dragDataSource = OCMProtocolMock(@protocol(I3DragDataSource));
             coordinator.dragDataSource = dragDataSource;

@@ -121,30 +121,6 @@ static NSString* DequeueReusableCell = @"DequeueReusableCell";
 }
 
 
--(void) dropRowFromTable:(UITableView *)fromTable atIndexPath:(NSIndexPath *)fromIndex toTable:(UITableView *)toTable toIndexPath:(NSIndexPath *)toIndex{
-    
-    /** Determine the `from` and `to` datasets */
-    
-    BOOL isFromLeftTable = fromTable == self.leftTableView;
-    
-    NSNumber *exchangingData = isFromLeftTable ? [self.leftData objectAtIndex:fromIndex.row] : [self.rightData objectAtIndex:fromIndex.row];
-    NSMutableArray *fromDataset = isFromLeftTable ? self.leftData : self.rightData;
-    NSMutableArray *toDataset = isFromLeftTable ? self.rightData : self.leftData;
-    
-    
-    /** Update the data source and the individual table view rows */
-    
-    [fromDataset removeObjectAtIndex:fromIndex.row];
-    [toDataset insertObject:exchangingData atIndex:toIndex.row];
-    
-    [fromTable deleteRowsAtIndexPaths:@[[NSIndexPath indexPathForRow:fromIndex.row inSection:0]] withRowAnimation:UITableViewRowAnimationFade];
-    [toTable insertRowsAtIndexPaths:@[[NSIndexPath indexPathForRow:toIndex.row inSection:0]] withRowAnimation:UITableViewRowAnimationFade];
-    
-    [self logUpdatedData];
-
-}
-
-
 #pragma mark - I3DragDataSource
 
 
@@ -169,17 +145,7 @@ static NSString* DequeueReusableCell = @"DequeueReusableCell";
 }
 
 
--(BOOL) canItemAt:(NSIndexPath *)from fromCollection:(UIView<I3Collection> *)fromCollection beAppendedToCollection:(UIView<I3Collection> *)toCollection atPoint:(CGPoint)to{
-
-    BOOL isLeftCollection = fromCollection == self.leftTableView;
-    
-    I3SimpleData *fromDatum = isLeftCollection ? [self.leftData objectAtIndex:from.row] : [self.rightData objectAtIndex:from.row];
-    
-    return fromDatum.canMove && ![self isPointInDeletionArea:to fromView:toCollection];
-}
-
-
--(BOOL) canItemAt:(NSIndexPath *)from fromCollection:(UIView<I3Collection> *)fromCollection beExchangedWithItemAt:(NSIndexPath *)to inCollection:(UIView<I3Collection> *)toCollection{
+-(BOOL) canItemAt:(NSIndexPath *)from fromCollection:(UIView<I3Collection> *)fromCollection beDroppedTo:(NSIndexPath *)to onCollection:(UIView<I3Collection> *)toCollection{
 
     BOOL isFromLeftCollection = fromCollection == self.leftTableView;
     
@@ -187,6 +153,16 @@ static NSString* DequeueReusableCell = @"DequeueReusableCell";
     I3SimpleData *toDatum = isFromLeftCollection ? [self.rightData objectAtIndex:to.row] : [self.leftData objectAtIndex:to.row];
     
     return fromDatum.canMove && toDatum.canMove;
+}
+
+
+-(BOOL) canItemAt:(NSIndexPath *)from fromCollection:(UIView<I3Collection> *)fromCollection beDroppedAtPoint:(CGPoint)at onCollection:(UIView<I3Collection> *)toCollection{
+
+    BOOL isLeftCollection = fromCollection == self.leftTableView;
+    
+    I3SimpleData *fromDatum = isLeftCollection ? [self.leftData objectAtIndex:from.row] : [self.rightData objectAtIndex:from.row];
+    
+    return fromDatum.canMove && ![self isPointInDeletionArea:at fromView:toCollection];
 }
 
 
@@ -224,18 +200,41 @@ static NSString* DequeueReusableCell = @"DequeueReusableCell";
 }
 
 
--(void) appendItemAt:(NSIndexPath *)from fromCollection:(UIView<I3Collection> *)fromCollection toPoint:(CGPoint)to onCollection:(UIView<I3Collection> *)onCollection{
-    
+-(void) dropItemAt:(NSIndexPath *)fromIndex fromCollection:(UIView<I3Collection> *)fromCollection toItemAt:(NSIndexPath *)toIndex onCollection:(UIView<I3Collection> *)toCollection{
+
     UITableView *fromTable = (UITableView *)fromCollection;
-    UITableView *toTable = (UITableView *)onCollection;
+    UITableView *toTable = (UITableView *)toCollection;
     
-    [self dropRowFromTable:fromTable atIndexPath:from toTable:toTable toIndexPath:[NSIndexPath indexPathForRow:[self tableView:toTable numberOfRowsInSection:0] inSection:0]];
+    /** Determine the `from` and `to` datasets */
+    
+    BOOL isFromLeftTable = fromTable == self.leftTableView;
+    
+    NSNumber *exchangingData = isFromLeftTable ? [self.leftData objectAtIndex:fromIndex.row] : [self.rightData objectAtIndex:fromIndex.row];
+    NSMutableArray *fromDataset = isFromLeftTable ? self.leftData : self.rightData;
+    NSMutableArray *toDataset = isFromLeftTable ? self.rightData : self.leftData;
+    
+    
+    /** Update the data source and the individual table view rows */
+    
+    [fromDataset removeObjectAtIndex:fromIndex.row];
+    [toDataset insertObject:exchangingData atIndex:toIndex.row];
+    
+    [fromTable deleteRowsAtIndexPaths:@[[NSIndexPath indexPathForRow:fromIndex.row inSection:0]] withRowAnimation:UITableViewRowAnimationFade];
+    [toTable insertRowsAtIndexPaths:@[[NSIndexPath indexPathForRow:toIndex.row inSection:0]] withRowAnimation:UITableViewRowAnimationFade];
+    
+    [self logUpdatedData];
+    
 }
 
 
--(void) exchangeItemAt:(NSIndexPath *)from inCollection:(UIView<I3Collection> *)fromCollection withItemAt:(NSIndexPath *)to inCollection:(UIView<I3Collection> *)toCollection{
+-(void) dropItemAt:(NSIndexPath *)from fromCollection:(UIView<I3Collection> *)fromCollection toPoint:(CGPoint)to onCollection:(UIView<I3Collection> *)toCollection{
+
+    BOOL isFromLeftTable = fromCollection == self.leftTableView;
     
-    [self dropRowFromTable:(UITableView *)fromCollection atIndexPath:from toTable:(UITableView *)toCollection toIndexPath:to];
+    NSArray *toData = isFromLeftTable ? self.rightData : self.leftData;
+    NSIndexPath *toIndex = [NSIndexPath indexPathForItem:toData.count inSection:0];
+    
+    [self dropItemAt:from fromCollection:fromCollection toItemAt:toIndex onCollection:toCollection];
 }
 
 

@@ -143,24 +143,6 @@ static NSString* DequeueReusableCell = @"DequeueReusableCell";
 }
 
 
--(void) dropItemAt:(NSIndexPath *)fromIndex fromCollection:(UIView<I3Collection> *)fromCollection to:(NSIndexPath *)toIndex onCollection:(UIView<I3Collection> *)toCollection{
-    
-    NSMutableArray *fromData = [self dataForCollectionView:fromCollection];
-    NSMutableArray *toData = [self dataForCollectionView:toCollection];
-    
-    UIColor *exchangingDatum = [fromData objectAtIndex:fromIndex.row];
-    
-    [fromData removeObjectAtIndex:fromIndex.row];
-    [toData insertObject:exchangingDatum atIndex:toIndex.row];
-    
-    [fromCollection deleteItemsAtIndexPaths:@[fromIndex]];
-    [toCollection insertItemsAtIndexPaths:@[toIndex]];
-    
-    [self logUpdatedData];
-    
-}
-
-
 #pragma mark - I3DragDataSource
 
 
@@ -169,7 +151,7 @@ static NSString* DequeueReusableCell = @"DequeueReusableCell";
 }
 
 
--(BOOL) canItemAt:(NSIndexPath *)from fromCollection:(UIView<I3Collection> *)fromCollection beAppendedToCollection:(UIView<I3Collection> *)toCollection atPoint:(CGPoint)to{
+-(BOOL) canItemAt:(NSIndexPath *)from fromCollection:(UIView<I3Collection> *)fromCollection beDroppedAtPoint:(CGPoint)at onCollection:(UIView<I3Collection> *)toCollection{
     return YES;
 }
 
@@ -190,12 +172,22 @@ static NSString* DequeueReusableCell = @"DequeueReusableCell";
 }
 
 
--(void) appendItemAt:(NSIndexPath *)from fromCollection:(UIView<I3Collection> *)fromCollection toPoint:(CGPoint)to onCollection:(UIView<I3Collection> *)onCollection{
+-(void) dropItemAt:(NSIndexPath *)from fromCollection:(UIView<I3Collection> *)fromCollection toPoint:(CGPoint)to onCollection:(UIView<I3Collection> *)toCollection{
+
+    NSInteger toIndex = [[self dataForCollectionView:toCollection] count];
+    NSIndexPath *toIndexPath = [toCollection isKindOfClass:[UITableView class]] ? [NSIndexPath indexPathForRow:toIndex inSection:0] : [NSIndexPath indexPathForItem:toIndex inSection:0];
+
+    NSMutableArray *fromData = [self dataForCollectionView:fromCollection];
+    NSMutableArray *toData = [self dataForCollectionView:toCollection];
     
-    NSInteger toIndex = [[self dataForCollectionView:onCollection] count];
-    NSIndexPath *toIndexPath = [onCollection isKindOfClass:[UITableView class]] ? [NSIndexPath indexPathForRow:toIndex inSection:0] : [NSIndexPath indexPathForItem:toIndex inSection:0];
+    UIColor *exchangingDatum = [fromData objectAtIndex:from.row];
     
-    [self dropItemAt:from fromCollection:fromCollection to:toIndexPath onCollection:onCollection];
+    [fromData removeObjectAtIndex:from.row];
+    [toData insertObject:exchangingDatum atIndex:toIndexPath.row];
+    
+    [fromCollection deleteItemsAtIndexPaths:@[from]];
+    [toCollection insertItemsAtIndexPaths:@[toIndexPath]];
+    
     [self logUpdatedData];
 }
 

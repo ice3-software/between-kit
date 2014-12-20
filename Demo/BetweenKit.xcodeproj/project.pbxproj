@@ -26,7 +26,7 @@
 		466BA26C1A423921006CD452 /* I3SubtitleCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 466BA26B1A423921006CD452 /* I3SubtitleCell.m */; };
 		467AFC8619C5E20D00FFD1F4 /* LICENSE.md in Resources */ = {isa = PBXBuildFile; fileRef = 467AFC8519C5E20D00FFD1F4 /* LICENSE.md */; };
 		467B35261A1F7AA70000A77C /* I3DataSourceControllerFixture.m in Sources */ = {isa = PBXBuildFile; fileRef = 467B35251A1F7AA70000A77C /* I3DataSourceControllerFixture.m */; };
-		467B35291A1F93050000A77C /* I32ExchangeableTablesViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 467B35281A1F93050000A77C /* I32ExchangeableTablesViewController.m */; };
+		467B35291A1F93050000A77C /* I32DropableTablesViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 467B35281A1F93050000A77C /* I32DropableTablesViewController.m */; };
 		4681C91B1A214D5B00504DF6 /* I32DeleteableTablesViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4681C91A1A214D5B00504DF6 /* I32DeleteableTablesViewController.m */; };
 		46866CFB19D42E1E00C45CCD /* I3DragArenaTest.m in Sources */ = {isa = PBXBuildFile; fileRef = 46866CFA19D42E1E00C45CCD /* I3DragArenaTest.m */; };
 		46A1877B19CF46A20061B355 /* I3BasicRenderDelegateTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 46A1877A19CF46A20061B355 /* I3BasicRenderDelegateTests.m */; };
@@ -93,8 +93,8 @@
 		467AFC8519C5E20D00FFD1F4 /* LICENSE.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = LICENSE.md; path = ../LICENSE.md; sourceTree = "<group>"; };
 		467B35241A1F7AA70000A77C /* I3DataSourceControllerFixture.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = I3DataSourceControllerFixture.h; sourceTree = "<group>"; };
 		467B35251A1F7AA70000A77C /* I3DataSourceControllerFixture.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = I3DataSourceControllerFixture.m; sourceTree = "<group>"; };
-		467B35271A1F93050000A77C /* I32ExchangeableTablesViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = I32ExchangeableTablesViewController.h; sourceTree = "<group>"; };
-		467B35281A1F93050000A77C /* I32ExchangeableTablesViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = I32ExchangeableTablesViewController.m; sourceTree = "<group>"; };
+		467B35271A1F93050000A77C /* I32DropableTablesViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = I32DropableTablesViewController.h; sourceTree = "<group>"; };
+		467B35281A1F93050000A77C /* I32DropableTablesViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = I32DropableTablesViewController.m; sourceTree = "<group>"; };
 		4681C9191A214D5B00504DF6 /* I32DeleteableTablesViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = I32DeleteableTablesViewController.h; sourceTree = "<group>"; };
 		4681C91A1A214D5B00504DF6 /* I32DeleteableTablesViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = I32DeleteableTablesViewController.m; sourceTree = "<group>"; };
 		46866CFA19D42E1E00C45CCD /* I3DragArenaTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = I3DragArenaTest.m; sourceTree = "<group>"; };
@@ -210,13 +210,13 @@
 			name = Fixtures;
 			sourceTree = "<group>";
 		};
-		467B350D1A1F5A1E0000A77C /* 2 Tables - Exchangeable */ = {
+		467B350D1A1F5A1E0000A77C /* 2 Tables - Drop */ = {
 			isa = PBXGroup;
 			children = (
-				467B35271A1F93050000A77C /* I32ExchangeableTablesViewController.h */,
-				467B35281A1F93050000A77C /* I32ExchangeableTablesViewController.m */,
+				467B35271A1F93050000A77C /* I32DropableTablesViewController.h */,
+				467B35281A1F93050000A77C /* I32DropableTablesViewController.m */,
 			);
-			name = "2 Tables - Exchangeable";
+			name = "2 Tables - Drop";
 			sourceTree = "<group>";
 		};
 		467B350E1A1F5A340000A77C /* 2 Tables - Deleteable */ = {
@@ -228,13 +228,13 @@
 			name = "2 Tables - Deleteable";
 			sourceTree = "<group>";
 		};
-		467B350F1A1F5A410000A77C /* 2 Tables - All Draggable Properties */ = {
+		467B350F1A1F5A410000A77C /* 2 Tables - All Properties */ = {
 			isa = PBXGroup;
 			children = (
 				466BA2631A4230C6006CD452 /* I32TablesAllPropertiesViewController.h */,
 				466BA2641A4230C6006CD452 /* I32TablesAllPropertiesViewController.m */,
 			);
-			name = "2 Tables - All Draggable Properties";
+			name = "2 Tables - All Properties";
 			sourceTree = "<group>";
 		};
 		467B35101A1F5A520000A77C /* 3 Collections - Complex Configuration */ = {
@@ -372,9 +372,9 @@
 				467B35121A1F5A950000A77C /* 2 Collection VIews - All Draggable Properties */,
 				467B35111A1F5A770000A77C /* 3 Collections - Dynamic Data Source */,
 				467B35101A1F5A520000A77C /* 3 Collections - Complex Configuration */,
-				467B350F1A1F5A410000A77C /* 2 Tables - All Draggable Properties */,
+				467B350F1A1F5A410000A77C /* 2 Tables - All Properties */,
 				467B350E1A1F5A340000A77C /* 2 Tables - Deleteable */,
-				467B350D1A1F5A1E0000A77C /* 2 Tables - Exchangeable */,
+				467B350D1A1F5A1E0000A77C /* 2 Tables - Drop */,
 				4632574219E5DE3A00E1C633 /* 2 Tables - Rearrangeable */,
 			);
 			name = "Use Cases";
@@ -681,7 +681,7 @@
 				466BA2651A4230C6006CD452 /* I32TablesAllPropertiesViewController.m in Sources */,
 				4659C83A1A431EAA0076C645 /* I3SubtitleCollectionViewCell.m in Sources */,
 				4681C91B1A214D5B00504DF6 /* I32DeleteableTablesViewController.m in Sources */,
-				467B35291A1F93050000A77C /* I32ExchangeableTablesViewController.m in Sources */,
+				467B35291A1F93050000A77C /* I32DropableTablesViewController.m in Sources */,
 				46BB1F2B1A4378EB006EC5A0 /* I3MasterViewController.m in Sources */,
 				46BB1F311A43C72A006EC5A0 /* I3CustomerRenderDelegateViewController.m in Sources */,
 				4659C8371A4319170076C645 /* I33CollectionsComplexConfigurationViewController.m in Sources */,

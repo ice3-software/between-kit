@@ -126,12 +126,12 @@ static NSString* DequeueReusableCell = @"DequeueReusableCell";
 }
 
 
--(BOOL) canItemAt:(NSIndexPath *)from fromCollection:(UIView<I3Collection> *)fromCollection beAppendedToCollection:(UIView<I3Collection> *)toCollection atPoint:(CGPoint)to{
+-(BOOL) canItemAt:(NSIndexPath *)from fromCollection:(UIView<I3Collection> *)fromCollection beDroppedAtPoint:(CGPoint)at onCollection:(UIView<I3Collection> *)toCollection{
     return YES;
 }
 
 
--(void) appendItemAt:(NSIndexPath *)from fromCollection:(UIView<I3Collection> *)fromCollection toPoint:(CGPoint)to onCollection:(UIView<I3Collection> *)onCollection{
+-(void) dropItemAt:(NSIndexPath *)from fromCollection:(UIView<I3Collection> *)fromCollection toPoint:(CGPoint)to onCollection:(UIView<I3Collection> *)toCollection{
 
     BOOL isFromMaster = (UITableView *)fromCollection == self.tableView;
     
@@ -140,12 +140,12 @@ static NSString* DequeueReusableCell = @"DequeueReusableCell";
     
     NSIndexPath *toIndex = [NSIndexPath indexPathForItem:toData.count inSection:0];
     NSString *fromDatum = fromData[from.row];
-
+    
     [fromData removeObject:fromDatum];
     [toData insertObject:fromDatum atIndex:toIndex.row];
     
     [fromCollection deleteItemsAtIndexPaths:@[from]];
-    [onCollection insertItemsAtIndexPaths:@[toIndex]];
+    [toCollection insertItemsAtIndexPaths:@[toIndex]];
 
 }
 

@@ -152,24 +152,6 @@ static NSString* DequeueReusableCell = @"DequeueReusableCell";
 }
 
 
--(void) dropItemAt:(NSIndexPath *)fromIndex fromCollection:(UIView<I3Collection> *)fromCollection to:(NSIndexPath *)toIndex onCollection:(UIView<I3Collection> *)toCollection{
-
-    NSMutableArray *fromData = [self dataForCollectionView:fromCollection];
-    NSMutableArray *toData = [self dataForCollectionView:toCollection];
-    
-    I3SimpleData *exchangingDatum = [fromData objectAtIndex:fromIndex.row];
-    
-    [fromData removeObjectAtIndex:fromIndex.row];
-    [toData insertObject:exchangingDatum atIndex:toIndex.row];
-    
-    [fromCollection deleteItemsAtIndexPaths:@[fromIndex]];
-    [toCollection insertItemsAtIndexPaths:@[toIndex]];
-    
-    [self logUpdatedData];
-    
-}
-
-
 #pragma mark - I3DragDataSource
 
 
@@ -194,18 +176,8 @@ static NSString* DequeueReusableCell = @"DequeueReusableCell";
 }
 
 
--(BOOL) canItemAt:(NSIndexPath *)from fromCollection:(UIView<I3Collection> *)fromCollection beAppendedToCollection:(UIView<I3Collection> *)toCollection atPoint:(CGPoint)to{
-    
-    NSArray *fromData = [self dataForCollectionView:fromCollection];
-    
-    I3SimpleData *fromDatum = [fromData objectAtIndex:from.row];
+-(BOOL) canItemAt:(NSIndexPath *)from fromCollection:(UIView<I3Collection> *)fromCollection beDroppedTo:(NSIndexPath *)to onCollection:(UIView<I3Collection> *)toCollection{
 
-    return fromDatum.canMove && ![self isPointInDeletionArea:to fromView:toCollection];
-}
-
-
--(BOOL) canItemAt:(NSIndexPath *)from fromCollection:(UIView<I3Collection> *)fromCollection beExchangedWithItemAt:(NSIndexPath *)to inCollection:(UIView<I3Collection> *)toCollection{
-    
     NSArray *fromData = [self dataForCollectionView:fromCollection];
     NSArray *toData = [self dataForCollectionView:toCollection];
     
@@ -213,6 +185,16 @@ static NSString* DequeueReusableCell = @"DequeueReusableCell";
     I3SimpleData *toDatum = [toData objectAtIndex:to.row];
     
     return fromDatum.canMove && toDatum.canMove;
+}
+
+
+-(BOOL) canItemAt:(NSIndexPath *)from fromCollection:(UIView<I3Collection> *)fromCollection beDroppedAtPoint:(CGPoint)at onCollection:(UIView<I3Collection> *)toCollection{
+
+    NSArray *fromData = [self dataForCollectionView:fromCollection];
+    
+    I3SimpleData *fromDatum = [fromData objectAtIndex:from.row];
+    
+    return fromDatum.canMove && ![self isPointInDeletionArea:at fromView:toCollection];
 }
 
 
@@ -248,21 +230,29 @@ static NSString* DequeueReusableCell = @"DequeueReusableCell";
 }
 
 
--(void) appendItemAt:(NSIndexPath *)from fromCollection:(UIView<I3Collection> *)fromCollection toPoint:(CGPoint)to onCollection:(UIView<I3Collection> *)onCollection{
+-(void) dropItemAt:(NSIndexPath *)fromIndex fromCollection:(UIView<I3Collection> *)fromCollection toItemAt:(NSIndexPath *)toIndex onCollection:(UIView<I3Collection> *)toCollection{
+
+    NSMutableArray *fromData = [self dataForCollectionView:fromCollection];
+    NSMutableArray *toData = [self dataForCollectionView:toCollection];
     
-    NSInteger toIndex = [[self dataForCollectionView:onCollection] count];
-    NSIndexPath *toIndexPath = [onCollection isKindOfClass:[UITableView class]] ? [NSIndexPath indexPathForRow:toIndex inSection:0] : [NSIndexPath indexPathForItem:toIndex inSection:0];
+    I3SimpleData *exchangingDatum = [fromData objectAtIndex:fromIndex.row];
     
-    [self dropItemAt:from fromCollection:fromCollection to:toIndexPath onCollection:onCollection];
+    [fromData removeObjectAtIndex:fromIndex.row];
+    [toData insertObject:exchangingDatum atIndex:toIndex.row];
+    
+    [fromCollection deleteItemsAtIndexPaths:@[fromIndex]];
+    [toCollection insertItemsAtIndexPaths:@[toIndex]];
+    
     [self logUpdatedData];
 }
 
 
--(void) exchangeItemAt:(NSIndexPath *)from inCollection:(UIView<I3Collection> *)fromCollection withItemAt:(NSIndexPath *)to inCollection:(UIView<I3Collection> *)toCollection{
+-(void) dropItemAt:(NSIndexPath *)from fromCollection:(UIView<I3Collection> *)fromCollection toPoint:(CGPoint)to onCollection:(UIView<I3Collection> *)toCollection{
     
-    [self dropItemAt:from fromCollection:fromCollection to:to onCollection:toCollection];
-    [self logUpdatedData];
+    NSInteger toIndex = [[self dataForCollectionView:toCollection] count];
+    NSIndexPath *toIndexPath = [toCollection isKindOfClass:[UITableView class]] ? [NSIndexPath indexPathForRow:toIndex inSection:0] : [NSIndexPath indexPathForItem:toIndex inSection:0];
 
+    [self dropItemAt:from fromCollection:fromCollection toItemAt:toIndexPath onCollection:toCollection];
 }
 
 

@@ -130,7 +130,8 @@ SpecBegin(I3BasicRenderDelegate)
         });
 
     });
-    
+
+
     describe(@"dragging", ^{
     
         it(@"should animate the current dragging view to the gesture location", ^{
@@ -161,7 +162,8 @@ SpecBegin(I3BasicRenderDelegate)
         });
     
     });
-    
+
+
     describe(@"reset from point", ^{
 
         it(@"should release strong reference to the dragging view, whilst animating it back to the origin in an async animation", ^{
@@ -218,7 +220,7 @@ SpecBegin(I3BasicRenderDelegate)
             
         });
         
-        it(@"should release reference to dragging view and remove it from superview on exchange between collections", ^{
+        it(@"should release reference to dragging view and remove it from superview on drop on collection", ^{
             
             id dstCollection = [[I3CollectionFixture alloc] init];
             
@@ -327,6 +329,7 @@ SpecBegin(I3BasicRenderDelegate)
         });
         
     });
+
 
     describe(@"delete", ^{
         

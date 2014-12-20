@@ -1,5 +1,5 @@
 //
-//  I32ExchangeableTablesViewController.h
+//  I32DropableTablesViewController.h
 //  BetweenKit
 //
 //  Created by Stephen Fortune on 21/11/2014.
@@ -10,7 +10,7 @@
 #import <BetweenKit/UITableView+I3Collection.h>
 #import <BetweenKit/I3DragDataSource.h>
 
-@interface I32ExchangeableTablesViewController : UIViewController<UITableViewDataSource, UITableViewDelegate, I3DragDataSource>
+@interface I32DropableTablesViewController : UIViewController<UITableViewDataSource, UITableViewDelegate, I3DragDataSource>
 
 @property (nonatomic, weak) IBOutlet UITableView *leftTableView;
 

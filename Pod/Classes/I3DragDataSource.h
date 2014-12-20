@@ -52,7 +52,7 @@
 
 /**
  
- Called to update the data source on an exchange of items between 2 collections.
+ Called to update the data source on drop of an item from one container onto another.
  
  @name Coordination
  @param from            The index that the item is from.
@@ -66,7 +66,7 @@
 
 /**
  
- Called to update the data source on the drop of an item from one collection to another.
+ Called to update the data source on the drop of an item from one collection onto another.
  
  @name Coordination
  @param from            The index in fromCollection from which the drag originates.

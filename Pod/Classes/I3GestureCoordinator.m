@@ -251,22 +251,13 @@
        isRearrange &&
        [self.dragDataSource respondsToSelector:@selector(canItemFrom:beRearrangedWithItemAt:inCollection:)] &&
        [self.dragDataSource respondsToSelector:@selector(rearrangeItemAt:withItemAt:inCollection:)] &&
-       [self.dragDataSource canItemFrom:fromIndex beRearrangedWithItemAt:toIndex inCollection:self.currentDraggingCollection]
+       [self.dragDataSource canItemFrom:fromIndex beRearrangedWithItemAt:toIndex inCollection:self.currentDraggingCollection] &&
+       ![self.currentDraggingItem isEqual:destinationItemView]
     ){
         
-        DND_LOG(@"Is %@ equal to %@?", self.currentDraggingItem, destinationItemView);
-        
-        if([self.currentDraggingItem isEqual:destinationItemView]){
-            
-            DND_LOG(@"Rearranging the same views. Snapping back.");
-            [self.renderDelegate renderResetFromPoint:at fromCoordinator:self];
-        }
-        else{
-            
-            DND_LOG(@"Rearranging items in a collection.");
-            [self.renderDelegate renderRearrangeOnPoint:at fromCoordinator:self];
-            [self.dragDataSource rearrangeItemAt:fromIndex withItemAt:toIndex inCollection:self.currentDraggingCollection];
-        }
+        DND_LOG(@"Rearranging items in a collection.");
+        [self.renderDelegate renderRearrangeOnPoint:at fromCoordinator:self];
+        [self.dragDataSource rearrangeItemAt:fromIndex withItemAt:toIndex inCollection:self.currentDraggingCollection];
 
     }
     else if(
@@ -287,9 +278,7 @@
             
             DND_LOG(@"We can't drop on this specific item, snapping back.");
             [self.renderDelegate renderResetFromPoint:at fromCoordinator:self];
-            
         }
-        
     }
     else if(
         !isRearrange &&
