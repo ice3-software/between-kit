@@ -47,4 +47,6 @@ typedef NS_ENUM(NSInteger, I3GistState) {
 
 -(id) initWithGithubId:(NSString *)githubId andDescription:(NSString *)description;
 
+-(BOOL) isEqualToGist:(I3Gist *)gist;
+
 @end
