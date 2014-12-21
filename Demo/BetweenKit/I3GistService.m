@@ -14,7 +14,7 @@
 #define BAD_GIST_DATA @{@"id": @"___", @"description": @"I will fail"}
 #define BAD_GIST_UPPER_BOUND 12
 #define BAD_GIST_LOWER_BOUND 5
-#define FAKE_NETWORK_LATECY_SEC 2
+#define FAKE_NETWORK_LATENCY_SEC 2
 
 
 @interface I3GistService ()
@@ -107,7 +107,7 @@
         
         /// @note Itentionally fake network latency so that we can test how the UI responds
 
-        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(FAKE_NETWORK_LATECY_SEC*NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(FAKE_NETWORK_LATENCY_SEC*NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
             complete(gist);
         });
 
@@ -115,7 +115,7 @@
                 
         /// @note Itentionally fake network latency so that we can test how the UI responds
         
-        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(FAKE_NETWORK_LATECY_SEC*NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(FAKE_NETWORK_LATENCY_SEC*NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
             fail();
         });
 
