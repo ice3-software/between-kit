@@ -14,6 +14,9 @@
 #import <BetweenKit/I3BasicRenderDelegate.h>
 
 
+NSString *const kInsertedGistIdentifier = @"kInsertedGistIdentifier";
+
+
 @interface I3NetworkingDropViewController ()
 
 @property (nonatomic, strong) NSArray *availableGists;
@@ -95,7 +98,7 @@
         
         CGFloat labelAlpha;
         
-        if(gist.state == I3GistStateDownloading){
+        if(gist.state == I3GistStateDownloading || gist.state == I3GistStateFailed){
             [cell.downloadingIndicator startAnimating];
             labelAlpha = 0.1;
         }
@@ -140,7 +143,6 @@
     [self.gistService findGistsWithCompleteBlock:^(NSArray *gists) {
         
         self.availableGists = gists;
-        NSLog(@"Our empty gists: %@, with a count of %d", self.availableGists, self.availableGists.count);
         [self.availableGistCollection reloadData];
         
     } withFailBlock:^{
@@ -149,6 +151,20 @@
         [alert show];
         
     }];
+
+}
+
+
+-(void) deleteCellForGist:(I3Gist *)gist{
+
+    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(3*NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+        
+        NSIndexPath *indexAfterHighlight = [self indexPathForUserGist:gist];
+        
+        [self.userGists removeObjectAtIndex:indexAfterHighlight.item];
+        [self.userGistCollection deleteItemsAtIndexPaths:@[indexAfterHighlight]];
+        
+    });
 
 }
 
@@ -169,10 +185,12 @@
 -(void) dropItemAt:(NSIndexPath *)from fromCollection:(UIView<I3Collection> *)fromCollection toPoint:(CGPoint)to onCollection:(UIView<I3Collection> *)toCollection{
 
     NSIndexPath *toIndex = [NSIndexPath indexPathForItem:self.userGists.count inSection:0];
-    
     I3Gist *emptyGist = self.availableGists[from.row];
     I3Gist *userGist = [emptyGist copy];
     
+    [self.userGists addObject:userGist];
+    [self.userGistCollection insertItemsAtIndexPaths:@[toIndex]];
+
     [self.gistService downloadFullGist:userGist withCompleteBlock:^{
         
         NSIndexPath *indexOnDownload = [self indexPathForUserGist:userGist];
@@ -181,24 +199,12 @@
     } withFailBlock:^{
 
         NSIndexPath *indexOnFail = [self indexPathForUserGist:userGist];
-        I3GistCollectionViewCell *cell = (I3GistCollectionViewCell *)[self.userGistCollection itemAtIndexPath:indexOnFail];
-        
-        [cell highlightAsFailed:^{
-            
-            dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.5*NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-
-                NSIndexPath *indexAfterHighlight = [self indexPathForUserGist:userGist];
-                [self.userGists removeObject:userGist];
-                [self.userGistCollection deleteItemsAtIndexPaths:@[indexAfterHighlight]];
-                
-            });
-            
-        }];
+        [self.userGistCollection reloadItemsAtIndexPaths:@[indexOnFail]];
+        [self deleteCellForGist:userGist];
         
     }];
 
-    [self.userGists addObject:userGist];
-    [self.userGistCollection insertItemsAtIndexPaths:@[toIndex]];
+    [self.userGistCollection reloadItemsAtIndexPaths:@[toIndex]];
     [self.userGistCollection scrollToItemAtIndexPath:toIndex atScrollPosition:UICollectionViewScrollPositionRight animated:YES];
 
 }

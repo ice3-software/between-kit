@@ -52,27 +52,5 @@
 }
 
 
--(BOOL) isEqual:(id) object{
-    
-    if(object == self){
-        return YES;
-    }
-    if(![object isKindOfClass:[I3Gist class]]){
-        return NO;
-    }
-    return [self isEqualToGist:object];
-}
-
-
--(BOOL) isEqualToGist:(I3Gist *)gist{
-    return self.githubId == gist.githubId;
-}
-
-
--(NSUInteger) hash{
-    return [self.githubId hash];
-}
-
-
 @end
 

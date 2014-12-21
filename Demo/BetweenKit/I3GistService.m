@@ -14,6 +14,7 @@
 #define BAD_GIST_DATA @{@"id": @"___", @"description": @"I will fail"}
 #define BAD_GIST_UPPER_BOUND 12
 #define BAD_GIST_LOWER_BOUND 5
+#define FAKE_NETWORK_LATECY_SEC 2
 
 
 @interface I3GistService ()
@@ -78,6 +79,7 @@
         
         NSLog(@"Failed.. %@", error);
         fail();
+
     }];
 }
 
@@ -95,14 +97,26 @@
         emptyGist.ownerUrl = gistDictionary[@"owner"][@"url"];
         emptyGist.commentsCount = gistDictionary[@"comments"];
         emptyGist.createdAt = [formatter dateFromString:gistDictionary[@"created_at"]];
-        emptyGist.state = I3GistStateDownloaded;
         
-        complete();
+        /// @note Itentionally fake network latency so that we can test how the UI responds
+
+        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(FAKE_NETWORK_LATECY_SEC*NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+
+            emptyGist.state = I3GistStateDownloaded;
+            complete();
+        
+        });
 
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
         
-        emptyGist.state = I3GistStateFailed;
-        fail();
+        /// @note Itentionally fake network latency so that we can test how the UI responds
+        
+        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(FAKE_NETWORK_LATECY_SEC*NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+            
+            emptyGist.state = I3GistStateFailed;
+            fail();
+        
+        });
 
     }];
     
