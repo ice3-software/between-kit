@@ -1,6 +1,6 @@
 //
 //  AppDelegate.h
-//  Rearrangeable Table View (Exchange)
+//  1. Rearrangeable Table View (Exchange)
 //
 //  Created by Stephen Fortune on 21/12/2014.
 //  Copyright (c) 2014 IceCube Software Ltd. All rights reserved.

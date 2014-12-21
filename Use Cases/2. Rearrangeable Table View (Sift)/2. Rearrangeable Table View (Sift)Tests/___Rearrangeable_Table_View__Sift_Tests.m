@@ -1,6 +1,6 @@
 //
-//  Rearrangeable_Table_View__Exchange_Tests.m
-//  Rearrangeable Table View (Exchange)Tests
+//  ___Rearrangeable_Table_View__Sift_Tests.m
+//  2. Rearrangeable Table View (Sift)Tests
 //
 //  Created by Stephen Fortune on 21/12/2014.
 //  Copyright (c) 2014 IceCube Software Ltd. All rights reserved.
@@ -9,11 +9,11 @@
 #import <UIKit/UIKit.h>
 #import <XCTest/XCTest.h>
 
-@interface Rearrangeable_Table_View__Exchange_Tests : XCTestCase
+@interface ___Rearrangeable_Table_View__Sift_Tests : XCTestCase
 
 @end
 
-@implementation Rearrangeable_Table_View__Exchange_Tests
+@implementation ___Rearrangeable_Table_View__Sift_Tests
 
 - (void)setUp {
     [super setUp];

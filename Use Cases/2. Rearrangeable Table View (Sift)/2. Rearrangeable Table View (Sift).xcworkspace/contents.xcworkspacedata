@@ -2,7 +2,7 @@
 <Workspace
    version = "1.0">
    <FileRef
-      location = "group:Rearrangeable Table View (Exchange).xcodeproj">
+      location = "group:2. Rearrangeable Table View (Sift).xcodeproj">
    </FileRef>
    <FileRef
       location = "group:Pods/Pods.xcodeproj">

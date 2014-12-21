@@ -1,0 +1,8 @@
+target '2. Rearrangeable Table View (Sift)' do
+  pod "BetweenKit", :path => "../../"
+end
+
+target '2. Rearrangeable Table View (Sift)Tests' do
+
+end
+

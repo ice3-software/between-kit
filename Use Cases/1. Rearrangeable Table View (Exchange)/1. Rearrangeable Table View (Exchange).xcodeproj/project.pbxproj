@@ -1,0 +1,498 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 46;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		46E9D6341A476A6A00232A0B /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 46E9D6331A476A6A00232A0B /* main.m */; };
+		46E9D6371A476A6A00232A0B /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 46E9D6361A476A6A00232A0B /* AppDelegate.m */; };
+		46E9D63A1A476A6B00232A0B /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 46E9D6391A476A6B00232A0B /* ViewController.m */; };
+		46E9D63D1A476A6B00232A0B /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 46E9D63B1A476A6B00232A0B /* Main.storyboard */; };
+		46E9D63F1A476A6B00232A0B /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 46E9D63E1A476A6B00232A0B /* Images.xcassets */; };
+		46E9D6421A476A6B00232A0B /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = 46E9D6401A476A6B00232A0B /* LaunchScreen.xib */; };
+		46E9D64E1A476A6B00232A0B /* ___Rearrangeable_Table_View__Exchange_Tests.m in Sources */ = {isa = PBXBuildFile; fileRef = 46E9D64D1A476A6B00232A0B /* ___Rearrangeable_Table_View__Exchange_Tests.m */; };
+		46E9D6591A476AEE00232A0B /* TableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 46E9D6581A476AEE00232A0B /* TableViewController.m */; };
+		5167D507293388CCD59E9B90 /* libPods-1. Rearrangeable Table View (Exchange).a in Frameworks */ = {isa = PBXBuildFile; fileRef = 9BF498C3691DEA95638DB5DC /* libPods-1. Rearrangeable Table View (Exchange).a */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		46E9D6481A476A6B00232A0B /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 46E9D6261A476A6A00232A0B /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 46E9D62D1A476A6A00232A0B;
+			remoteInfo = "1. Rearrangeable Table View (Exchange)";
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXFileReference section */
+		46E9D62E1A476A6A00232A0B /* 1. Rearrangeable Table View (Exchange).app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "1. Rearrangeable Table View (Exchange).app"; sourceTree = BUILT_PRODUCTS_DIR; };
+		46E9D6321A476A6A00232A0B /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		46E9D6331A476A6A00232A0B /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
+		46E9D6351A476A6A00232A0B /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
+		46E9D6361A476A6A00232A0B /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
+		46E9D6381A476A6A00232A0B /* ViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ViewController.h; sourceTree = "<group>"; };
+		46E9D6391A476A6B00232A0B /* ViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ViewController.m; sourceTree = "<group>"; };
+		46E9D63C1A476A6B00232A0B /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
+		46E9D63E1A476A6B00232A0B /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
+		46E9D6411A476A6B00232A0B /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/LaunchScreen.xib; sourceTree = "<group>"; };
+		46E9D6471A476A6B00232A0B /* 1. Rearrangeable Table View (Exchange)Tests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "1. Rearrangeable Table View (Exchange)Tests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
+		46E9D64C1A476A6B00232A0B /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		46E9D64D1A476A6B00232A0B /* ___Rearrangeable_Table_View__Exchange_Tests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "___Rearrangeable_Table_View__Exchange_Tests.m"; sourceTree = "<group>"; };
+		46E9D6571A476AEE00232A0B /* TableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TableViewController.h; sourceTree = "<group>"; };
+		46E9D6581A476AEE00232A0B /* TableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TableViewController.m; sourceTree = "<group>"; };
+		9BF498C3691DEA95638DB5DC /* libPods-1. Rearrangeable Table View (Exchange).a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-1. Rearrangeable Table View (Exchange).a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		CCEBE74A226DC78FBC82AF28 /* Pods-1. Rearrangeable Table View (Exchange).debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-1. Rearrangeable Table View (Exchange).debug.xcconfig"; path = "Pods/Target Support Files/Pods-1. Rearrangeable Table View (Exchange)/Pods-1. Rearrangeable Table View (Exchange).debug.xcconfig"; sourceTree = "<group>"; };
+		FBA7C7FC87F146724FDF91D7 /* Pods-1. Rearrangeable Table View (Exchange).release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-1. Rearrangeable Table View (Exchange).release.xcconfig"; path = "Pods/Target Support Files/Pods-1. Rearrangeable Table View (Exchange)/Pods-1. Rearrangeable Table View (Exchange).release.xcconfig"; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		46E9D62B1A476A6A00232A0B /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				5167D507293388CCD59E9B90 /* libPods-1. Rearrangeable Table View (Exchange).a in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		46E9D6441A476A6B00232A0B /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		3CF2947465AF06D4E0874B7A /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				CCEBE74A226DC78FBC82AF28 /* Pods-1. Rearrangeable Table View (Exchange).debug.xcconfig */,
+				FBA7C7FC87F146724FDF91D7 /* Pods-1. Rearrangeable Table View (Exchange).release.xcconfig */,
+			);
+			name = Pods;
+			sourceTree = "<group>";
+		};
+		46E9D6251A476A6A00232A0B = {
+			isa = PBXGroup;
+			children = (
+				46E9D6301A476A6A00232A0B /* 1. Rearrangeable Table View (Exchange) */,
+				46E9D64A1A476A6B00232A0B /* 1. Rearrangeable Table View (Exchange)Tests */,
+				46E9D62F1A476A6A00232A0B /* Products */,
+				3CF2947465AF06D4E0874B7A /* Pods */,
+				EA08704C80B51DE03A31A439 /* Frameworks */,
+			);
+			sourceTree = "<group>";
+		};
+		46E9D62F1A476A6A00232A0B /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				46E9D62E1A476A6A00232A0B /* 1. Rearrangeable Table View (Exchange).app */,
+				46E9D6471A476A6B00232A0B /* 1. Rearrangeable Table View (Exchange)Tests.xctest */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		46E9D6301A476A6A00232A0B /* 1. Rearrangeable Table View (Exchange) */ = {
+			isa = PBXGroup;
+			children = (
+				46E9D6571A476AEE00232A0B /* TableViewController.h */,
+				46E9D6581A476AEE00232A0B /* TableViewController.m */,
+				46E9D6351A476A6A00232A0B /* AppDelegate.h */,
+				46E9D6361A476A6A00232A0B /* AppDelegate.m */,
+				46E9D6381A476A6A00232A0B /* ViewController.h */,
+				46E9D6391A476A6B00232A0B /* ViewController.m */,
+				46E9D63B1A476A6B00232A0B /* Main.storyboard */,
+				46E9D63E1A476A6B00232A0B /* Images.xcassets */,
+				46E9D6401A476A6B00232A0B /* LaunchScreen.xib */,
+				46E9D6311A476A6A00232A0B /* Supporting Files */,
+			);
+			path = "1. Rearrangeable Table View (Exchange)";
+			sourceTree = "<group>";
+		};
+		46E9D6311A476A6A00232A0B /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				46E9D6321A476A6A00232A0B /* Info.plist */,
+				46E9D6331A476A6A00232A0B /* main.m */,
+			);
+			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		46E9D64A1A476A6B00232A0B /* 1. Rearrangeable Table View (Exchange)Tests */ = {
+			isa = PBXGroup;
+			children = (
+				46E9D64D1A476A6B00232A0B /* ___Rearrangeable_Table_View__Exchange_Tests.m */,
+				46E9D64B1A476A6B00232A0B /* Supporting Files */,
+			);
+			path = "1. Rearrangeable Table View (Exchange)Tests";
+			sourceTree = "<group>";
+		};
+		46E9D64B1A476A6B00232A0B /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				46E9D64C1A476A6B00232A0B /* Info.plist */,
+			);
+			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		EA08704C80B51DE03A31A439 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				9BF498C3691DEA95638DB5DC /* libPods-1. Rearrangeable Table View (Exchange).a */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		46E9D62D1A476A6A00232A0B /* 1. Rearrangeable Table View (Exchange) */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 46E9D6511A476A6B00232A0B /* Build configuration list for PBXNativeTarget "1. Rearrangeable Table View (Exchange)" */;
+			buildPhases = (
+				EC14937FDA3F86B602AEE9E6 /* Check Pods Manifest.lock */,
+				46E9D62A1A476A6A00232A0B /* Sources */,
+				46E9D62B1A476A6A00232A0B /* Frameworks */,
+				46E9D62C1A476A6A00232A0B /* Resources */,
+				1B7A9D099851CE36B4D559F6 /* Copy Pods Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = "1. Rearrangeable Table View (Exchange)";
+			productName = "1. Rearrangeable Table View (Exchange)";
+			productReference = 46E9D62E1A476A6A00232A0B /* 1. Rearrangeable Table View (Exchange).app */;
+			productType = "com.apple.product-type.application";
+		};
+		46E9D6461A476A6B00232A0B /* 1. Rearrangeable Table View (Exchange)Tests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 46E9D6541A476A6B00232A0B /* Build configuration list for PBXNativeTarget "1. Rearrangeable Table View (Exchange)Tests" */;
+			buildPhases = (
+				46E9D6431A476A6B00232A0B /* Sources */,
+				46E9D6441A476A6B00232A0B /* Frameworks */,
+				46E9D6451A476A6B00232A0B /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				46E9D6491A476A6B00232A0B /* PBXTargetDependency */,
+			);
+			name = "1. Rearrangeable Table View (Exchange)Tests";
+			productName = "1. Rearrangeable Table View (Exchange)Tests";
+			productReference = 46E9D6471A476A6B00232A0B /* 1. Rearrangeable Table View (Exchange)Tests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		46E9D6261A476A6A00232A0B /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				LastUpgradeCheck = 0610;
+				ORGANIZATIONNAME = "IceCube Software Ltd.";
+				TargetAttributes = {
+					46E9D62D1A476A6A00232A0B = {
+						CreatedOnToolsVersion = 6.1.1;
+					};
+					46E9D6461A476A6B00232A0B = {
+						CreatedOnToolsVersion = 6.1.1;
+						TestTargetID = 46E9D62D1A476A6A00232A0B;
+					};
+				};
+			};
+			buildConfigurationList = 46E9D6291A476A6A00232A0B /* Build configuration list for PBXProject "1. Rearrangeable Table View (Exchange)" */;
+			compatibilityVersion = "Xcode 3.2";
+			developmentRegion = English;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+				Base,
+			);
+			mainGroup = 46E9D6251A476A6A00232A0B;
+			productRefGroup = 46E9D62F1A476A6A00232A0B /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				46E9D62D1A476A6A00232A0B /* 1. Rearrangeable Table View (Exchange) */,
+				46E9D6461A476A6B00232A0B /* 1. Rearrangeable Table View (Exchange)Tests */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		46E9D62C1A476A6A00232A0B /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				46E9D63D1A476A6B00232A0B /* Main.storyboard in Resources */,
+				46E9D6421A476A6B00232A0B /* LaunchScreen.xib in Resources */,
+				46E9D63F1A476A6B00232A0B /* Images.xcassets in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		46E9D6451A476A6B00232A0B /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		1B7A9D099851CE36B4D559F6 /* Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Copy Pods Resources";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-1. Rearrangeable Table View (Exchange)/Pods-1. Rearrangeable Table View (Exchange)-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		EC14937FDA3F86B602AEE9E6 /* Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Check Pods Manifest.lock";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [[ $? != 0 ]] ; then\n    cat << EOM\nerror: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\nEOM\n    exit 1\nfi\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		46E9D62A1A476A6A00232A0B /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				46E9D63A1A476A6B00232A0B /* ViewController.m in Sources */,
+				46E9D6371A476A6A00232A0B /* AppDelegate.m in Sources */,
+				46E9D6341A476A6A00232A0B /* main.m in Sources */,
+				46E9D6591A476AEE00232A0B /* TableViewController.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		46E9D6431A476A6B00232A0B /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				46E9D64E1A476A6B00232A0B /* ___Rearrangeable_Table_View__Exchange_Tests.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		46E9D6491A476A6B00232A0B /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 46E9D62D1A476A6A00232A0B /* 1. Rearrangeable Table View (Exchange) */;
+			targetProxy = 46E9D6481A476A6B00232A0B /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
+/* Begin PBXVariantGroup section */
+		46E9D63B1A476A6B00232A0B /* Main.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				46E9D63C1A476A6B00232A0B /* Base */,
+			);
+			name = Main.storyboard;
+			sourceTree = "<group>";
+		};
+		46E9D6401A476A6B00232A0B /* LaunchScreen.xib */ = {
+			isa = PBXVariantGroup;
+			children = (
+				46E9D6411A476A6B00232A0B /* Base */,
+			);
+			name = LaunchScreen.xib;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
+
+/* Begin XCBuildConfiguration section */
+		46E9D64F1A476A6B00232A0B /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.1;
+				MTL_ENABLE_DEBUG_INFO = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = iphoneos;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		46E9D6501A476A6B00232A0B /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = YES;
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.1;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				SDKROOT = iphoneos;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		46E9D6521A476A6B00232A0B /* Debug */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = CCEBE74A226DC78FBC82AF28 /* Pods-1. Rearrangeable Table View (Exchange).debug.xcconfig */;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				INFOPLIST_FILE = "1. Rearrangeable Table View (Exchange)/Info.plist";
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Debug;
+		};
+		46E9D6531A476A6B00232A0B /* Release */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = FBA7C7FC87F146724FDF91D7 /* Pods-1. Rearrangeable Table View (Exchange).release.xcconfig */;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				INFOPLIST_FILE = "1. Rearrangeable Table View (Exchange)/Info.plist";
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Release;
+		};
+		46E9D6551A476A6B00232A0B /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(SDKROOT)/Developer/Library/Frameworks",
+					"$(inherited)",
+				);
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				INFOPLIST_FILE = "1. Rearrangeable Table View (Exchange)Tests/Info.plist";
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/1. Rearrangeable Table View (Exchange).app/1. Rearrangeable Table View (Exchange)";
+			};
+			name = Debug;
+		};
+		46E9D6561A476A6B00232A0B /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(SDKROOT)/Developer/Library/Frameworks",
+					"$(inherited)",
+				);
+				INFOPLIST_FILE = "1. Rearrangeable Table View (Exchange)Tests/Info.plist";
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/1. Rearrangeable Table View (Exchange).app/1. Rearrangeable Table View (Exchange)";
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		46E9D6291A476A6A00232A0B /* Build configuration list for PBXProject "1. Rearrangeable Table View (Exchange)" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				46E9D64F1A476A6B00232A0B /* Debug */,
+				46E9D6501A476A6B00232A0B /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		46E9D6511A476A6B00232A0B /* Build configuration list for PBXNativeTarget "1. Rearrangeable Table View (Exchange)" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				46E9D6521A476A6B00232A0B /* Debug */,
+				46E9D6531A476A6B00232A0B /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		46E9D6541A476A6B00232A0B /* Build configuration list for PBXNativeTarget "1. Rearrangeable Table View (Exchange)Tests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				46E9D6551A476A6B00232A0B /* Debug */,
+				46E9D6561A476A6B00232A0B /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = 46E9D6261A476A6A00232A0B /* Project object */;
+}
