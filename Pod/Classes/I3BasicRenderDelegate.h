@@ -56,7 +56,7 @@
  rearrange will just be rendered as an ordinary drop.
  
  */
-@property (nonatomic) BOOL rearrangeIsExchange
+@property (nonatomic) BOOL rearrangeIsExchange;
 
 
 @end

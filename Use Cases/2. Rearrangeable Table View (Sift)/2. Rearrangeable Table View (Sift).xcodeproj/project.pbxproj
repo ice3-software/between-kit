@@ -8,7 +8,6 @@
 
 /* Begin PBXBuildFile section */
 		2D42B91D6AC0959DCC0F3EC1 /* libPods-2. Rearrangeable Table View (Sift).a in Frameworks */ = {isa = PBXBuildFile; fileRef = C924470A999EE8F12125FD77 /* libPods-2. Rearrangeable Table View (Sift).a */; };
-		4625B8C21A4788100026F506 /* I3SiftRearrangeRenderDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 4625B8C11A4788100026F506 /* I3SiftRearrangeRenderDelegate.m */; };
 		46E9D5ED1A4767D200232A0B /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 46E9D5EC1A4767D200232A0B /* main.m */; };
 		46E9D5F01A4767D200232A0B /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 46E9D5EF1A4767D200232A0B /* AppDelegate.m */; };
 		46E9D5F61A4767D200232A0B /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 46E9D5F41A4767D200232A0B /* Main.storyboard */; };
@@ -30,8 +29,6 @@
 
 /* Begin PBXFileReference section */
 		0782439D4F0272D3232D072C /* Pods-2. Rearrangeable Table View (Sift).release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-2. Rearrangeable Table View (Sift).release.xcconfig"; path = "Pods/Target Support Files/Pods-2. Rearrangeable Table View (Sift)/Pods-2. Rearrangeable Table View (Sift).release.xcconfig"; sourceTree = "<group>"; };
-		4625B8C01A4788100026F506 /* I3SiftRearrangeRenderDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = I3SiftRearrangeRenderDelegate.h; path = ../../Utilities/Classes/I3SiftRearrangeRenderDelegate.h; sourceTree = "<group>"; };
-		4625B8C11A4788100026F506 /* I3SiftRearrangeRenderDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = I3SiftRearrangeRenderDelegate.m; path = ../../Utilities/Classes/I3SiftRearrangeRenderDelegate.m; sourceTree = "<group>"; };
 		46E9D5E71A4767D200232A0B /* 2. Rearrangeable Table View (Sift).app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "2. Rearrangeable Table View (Sift).app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		46E9D5EB1A4767D200232A0B /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		46E9D5EC1A4767D200232A0B /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
@@ -93,8 +90,6 @@
 			children = (
 				46E9D6101A47689A00232A0B /* TableViewController.h */,
 				46E9D6111A47689A00232A0B /* TableViewController.m */,
-				4625B8C01A4788100026F506 /* I3SiftRearrangeRenderDelegate.h */,
-				4625B8C11A4788100026F506 /* I3SiftRearrangeRenderDelegate.m */,
 				46E9D5EE1A4767D200232A0B /* AppDelegate.h */,
 				46E9D5EF1A4767D200232A0B /* AppDelegate.m */,
 				46E9D5F41A4767D200232A0B /* Main.storyboard */,
@@ -285,7 +280,6 @@
 			files = (
 				46E9D5F01A4767D200232A0B /* AppDelegate.m in Sources */,
 				46E9D6121A47689A00232A0B /* TableViewController.m in Sources */,
-				4625B8C21A4788100026F506 /* I3SiftRearrangeRenderDelegate.m in Sources */,
 				46E9D5ED1A4767D200232A0B /* main.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
