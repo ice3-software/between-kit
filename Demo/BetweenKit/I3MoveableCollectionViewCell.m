@@ -12,12 +12,4 @@ NSString *const I3MoveableCollectionViewCellIdentifier = @"I3MoveableCollectionV
 
 @implementation I3MoveableCollectionViewCell
 
--(IBAction) glowMoveAccessory:(id) sender{
-    self.moveAccessory.backgroundColor = [UIColor lightGrayColor];
-}
-
--(IBAction) darkenMoveAccessory:(id) sender{
-    self.moveAccessory.backgroundColor = [UIColor darkGrayColor];
-}
-
 @end

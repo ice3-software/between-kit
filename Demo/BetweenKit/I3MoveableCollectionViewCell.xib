@@ -14,30 +14,20 @@
                 <rect key="frame" x="0.0" y="0.0" width="145" height="145"/>
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
-                    <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ebe-r1-OCx">
-                        <rect key="frame" x="0.0" y="0.0" width="50" height="50"/>
-                        <color key="backgroundColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
-                        <state key="normal" title="Move">
-                            <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                            <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
-                        </state>
-                        <connections>
-                            <action selector="darkenMoveAccessory:" destination="U9P-2O-mw3" eventType="touchCancel" id="Dy6-gu-d34"/>
-                            <action selector="darkenMoveAccessory:" destination="U9P-2O-mw3" eventType="touchDragExit" id="JLg-ZA-q3C"/>
-                            <action selector="darkenMoveAccessory:" destination="U9P-2O-mw3" eventType="touchDragOutside" id="UXF-Ju-UIm"/>
-                            <action selector="darkenMoveAccessory:" destination="U9P-2O-mw3" eventType="touchUpInside" id="cpL-QV-mWD"/>
-                            <action selector="darkenMoveAccessory:" destination="U9P-2O-mw3" eventType="touchUpOutside" id="tto-WF-3gS"/>
-                            <action selector="glowMoveAccessory:" destination="U9P-2O-mw3" eventType="touchDown" id="6p4-CE-VVZ"/>
-                        </connections>
-                    </button>
+                    <imageView userInteractionEnabled="NO" alpha="0.59999999999999998" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="icon_move_arrow.png" translatesAutoresizingMaskIntoConstraints="NO" id="bYe-nV-Xw7">
+                        <rect key="frame" x="11" y="11" width="26" height="26"/>
+                    </imageView>
                 </subviews>
                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
             </view>
             <size key="customSize" width="144" height="144"/>
             <connections>
-                <outlet property="moveAccessory" destination="ebe-r1-OCx" id="fjf-kL-pxS"/>
+                <outlet property="moveAccessory" destination="bYe-nV-Xw7" id="TW7-yJ-nPj"/>
             </connections>
             <point key="canvasLocation" x="59.5" y="-67.5"/>
         </collectionViewCell>
     </objects>
+    <resources>
+        <image name="icon_move_arrow.png" width="25" height="25"/>
+    </resources>
 </document>

@@ -48,6 +48,9 @@
 		46BDB0F31A463BD00078EDF3 /* I3GistCollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 46BDB0F21A463BD00078EDF3 /* I3GistCollectionViewCell.xib */; };
 		46BDB0F61A46557D0078EDF3 /* I3AvailableGistCollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 46BDB0F51A46557D0078EDF3 /* I3AvailableGistCollectionViewCell.xib */; };
 		46BDB0F91A4655920078EDF3 /* I3AvailableGistCollectionViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 46BDB0F81A4655920078EDF3 /* I3AvailableGistCollectionViewCell.m */; };
+		46BDB0FC1A47303D0078EDF3 /* I32DroppableCollectionViewsController.m in Sources */ = {isa = PBXBuildFile; fileRef = 46BDB0FB1A47303D0078EDF3 /* I32DroppableCollectionViewsController.m */; };
+		46BDB1001A47321A0078EDF3 /* icon_move_arrow@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 46BDB0FF1A47321A0078EDF3 /* icon_move_arrow@2x.png */; };
+		46BDB1021A47326D0078EDF3 /* icon_move_arrow.png in Resources */ = {isa = PBXBuildFile; fileRef = 46BDB1011A47326D0078EDF3 /* icon_move_arrow.png */; };
 		6003F58E195388D20070C39A /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6003F58D195388D20070C39A /* Foundation.framework */; };
 		6003F590195388D20070C39A /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6003F58F195388D20070C39A /* CoreGraphics.framework */; };
 		6003F592195388D20070C39A /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6003F591195388D20070C39A /* UIKit.framework */; };
@@ -145,6 +148,10 @@
 		46BDB0F51A46557D0078EDF3 /* I3AvailableGistCollectionViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = I3AvailableGistCollectionViewCell.xib; sourceTree = "<group>"; };
 		46BDB0F71A4655920078EDF3 /* I3AvailableGistCollectionViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = I3AvailableGistCollectionViewCell.h; sourceTree = "<group>"; };
 		46BDB0F81A4655920078EDF3 /* I3AvailableGistCollectionViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = I3AvailableGistCollectionViewCell.m; sourceTree = "<group>"; };
+		46BDB0FA1A47303D0078EDF3 /* I32DroppableCollectionViewsController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = I32DroppableCollectionViewsController.h; sourceTree = "<group>"; };
+		46BDB0FB1A47303D0078EDF3 /* I32DroppableCollectionViewsController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = I32DroppableCollectionViewsController.m; sourceTree = "<group>"; };
+		46BDB0FF1A47321A0078EDF3 /* icon_move_arrow@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "icon_move_arrow@2x.png"; sourceTree = "<group>"; };
+		46BDB1011A47326D0078EDF3 /* icon_move_arrow.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = icon_move_arrow.png; sourceTree = "<group>"; };
 		542B21470EB3452C810F4621 /* BetweenKit.podspec */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; name = BetweenKit.podspec; path = ../BetweenKit.podspec; sourceTree = "<group>"; };
 		6003F58A195388D20070C39A /* BetweenKit.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = BetweenKit.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		6003F58D195388D20070C39A /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
@@ -297,30 +304,32 @@
 			name = "3 Collections - Complex Configuration";
 			sourceTree = "<group>";
 		};
-		467B35111A1F5A770000A77C /* 3 Collections - Dynamic Data Source */ = {
+		467B35111A1F5A770000A77C /* 3 Collections - Rows, Items and Sections */ = {
 			isa = PBXGroup;
 			children = (
 			);
-			name = "3 Collections - Dynamic Data Source";
+			name = "3 Collections - Rows, Items and Sections";
 			sourceTree = "<group>";
 		};
-		467B35121A1F5A950000A77C /* 2 Collection VIews - All Draggable Properties */ = {
+		467B35121A1F5A950000A77C /* 2 Collection VIews - All Properties */ = {
 			isa = PBXGroup;
 			children = (
 			);
-			name = "2 Collection VIews - All Draggable Properties";
+			name = "2 Collection VIews - All Properties";
 			sourceTree = "<group>";
 		};
-		467B35131A1F5AC10000A77C /* 2 Collection Views - Complex Configuration */ = {
+		467B35131A1F5AC10000A77C /* 2 Collection Views - Deleteable */ = {
 			isa = PBXGroup;
 			children = (
 			);
-			name = "2 Collection Views - Complex Configuration";
+			name = "2 Collection Views - Deleteable";
 			sourceTree = "<group>";
 		};
 		467B35141A1F5ACC0000A77C /* 2 Collection Views - Droppable */ = {
 			isa = PBXGroup;
 			children = (
+				46BDB0FA1A47303D0078EDF3 /* I32DroppableCollectionViewsController.h */,
+				46BDB0FB1A47303D0078EDF3 /* I32DroppableCollectionViewsController.m */,
 			);
 			name = "2 Collection Views - Droppable";
 			sourceTree = "<group>";
@@ -401,6 +410,7 @@
 		4694A4B31A1A3DCE00E0AB9B /* Use Cases */ = {
 			isa = PBXGroup;
 			children = (
+				46BDB0FE1A4731F40078EDF3 /* Images */,
 				4659C83B1A43208F0076C645 /* Views */,
 				466BA2691A4231B6006CD452 /* Fixtures */,
 				467B351C1A1F5C410000A77C /* Custom Render Delegates */,
@@ -412,10 +422,10 @@
 				467B35161A1F5AE50000A77C /* 1 Table 1 Collection View - Editable / Moveable */,
 				467B35151A1F5AD90000A77C /* 2 Collection Views - Rearrangeable */,
 				467B35141A1F5ACC0000A77C /* 2 Collection Views - Droppable */,
-				467B35131A1F5AC10000A77C /* 2 Collection Views - Complex Configuration */,
-				467B35121A1F5A950000A77C /* 2 Collection VIews - All Draggable Properties */,
-				467B35111A1F5A770000A77C /* 3 Collections - Dynamic Data Source */,
+				467B35131A1F5AC10000A77C /* 2 Collection Views - Deleteable */,
+				467B35121A1F5A950000A77C /* 2 Collection VIews - All Properties */,
 				467B35101A1F5A520000A77C /* 3 Collections - Complex Configuration */,
+				467B35111A1F5A770000A77C /* 3 Collections - Rows, Items and Sections */,
 				467B350F1A1F5A410000A77C /* 2 Tables - All Properties */,
 				467B350E1A1F5A340000A77C /* 2 Tables - Deleteable */,
 				467B350D1A1F5A1E0000A77C /* 2 Tables - Drop */,
@@ -444,6 +454,15 @@
 				46BDB0F51A46557D0078EDF3 /* I3AvailableGistCollectionViewCell.xib */,
 			);
 			name = Views;
+			sourceTree = "<group>";
+		};
+		46BDB0FE1A4731F40078EDF3 /* Images */ = {
+			isa = PBXGroup;
+			children = (
+				46BDB0FF1A47321A0078EDF3 /* icon_move_arrow@2x.png */,
+				46BDB1011A47326D0078EDF3 /* icon_move_arrow.png */,
+			);
+			name = Images;
 			sourceTree = "<group>";
 		};
 		6003F581195388D10070C39A = {
@@ -641,6 +660,8 @@
 				467AFC8619C5E20D00FFD1F4 /* LICENSE.md in Resources */,
 				6003F5A4195388D20070C39A /* Main_iPad.storyboard in Resources */,
 				6003F5A9195388D20070C39A /* Images.xcassets in Resources */,
+				46BDB1021A47326D0078EDF3 /* icon_move_arrow.png in Resources */,
+				46BDB1001A47321A0078EDF3 /* icon_move_arrow@2x.png in Resources */,
 				6003F5A1195388D20070C39A /* Main_iPhone.storyboard in Resources */,
 				46BDB0F61A46557D0078EDF3 /* I3AvailableGistCollectionViewCell.xib in Resources */,
 				4659C83D1A4320A00076C645 /* I3SubtitleCollectionViewCell.xib in Resources */,
@@ -751,6 +772,7 @@
 				46BB1F311A43C72A006EC5A0 /* I3CustomerRenderDelegateViewController.m in Sources */,
 				46BDB0D91A45E46E0078EDF3 /* I3SiftRearrangeRenderDelegate.m in Sources */,
 				4659C8371A4319170076C645 /* I33CollectionsComplexConfigurationViewController.m in Sources */,
+				46BDB0FC1A47303D0078EDF3 /* I32DroppableCollectionViewsController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -14,8 +14,4 @@ extern NSString *const I3MoveableCollectionViewCellIdentifier;
 
 @property (nonatomic, weak) IBOutlet UIView *moveAccessory;
 
--(IBAction) lightenMoveAccessory:(id) sender;
-
--(IBAction) darkenMoveAccessory:(id) sender;
-
 @end
