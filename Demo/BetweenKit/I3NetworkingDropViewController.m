@@ -39,8 +39,6 @@ NSString *const kInsertedGistIdentifier = @"kInsertedGistIdentifier";
     [self.availableGistCollection registerNib:[UINib nibWithNibName:I3AvailableGistCollectionViewCellIdentifier bundle:nil] forCellWithReuseIdentifier:I3AvailableGistCollectionViewCellIdentifier];
     [self.userGistCollection registerNib:[UINib nibWithNibName:I3GistCollectionViewCellIdentifier bundle:nil] forCellWithReuseIdentifier:I3GistCollectionViewCellIdentifier];
     
-    self.userGists = [[NSMutableArray alloc] init];
-    
     self.dragCoordinator = [I3GestureCoordinator basicGestureCoordinatorFromViewController:self withCollections:@[self.availableGistCollection, self.userGistCollection] withRecognizer:[[UILongPressGestureRecognizer alloc] init]];
     ((I3BasicRenderDelegate *)self.dragCoordinator.renderDelegate).draggingItemOpacity = 0.4;
     
@@ -51,7 +49,8 @@ NSString *const kInsertedGistIdentifier = @"kInsertedGistIdentifier";
 
     [super viewDidAppear:animated];
     [self initialiseAvailableGists];
-
+    
+    self.userGists = [[NSMutableArray alloc] init];
 }
 
 
@@ -78,9 +77,9 @@ NSString *const kInsertedGistIdentifier = @"kInsertedGistIdentifier";
     
         I3AvailableGistCollectionViewCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:I3AvailableGistCollectionViewCellIdentifier forIndexPath:indexPath];
         
-        I3Gist *gist = [data objectAtIndex:indexPath.item];
+        NSDictionary *gist = [data objectAtIndex:indexPath.item];
 
-        cell.descriptionLabel.text = [self politeString:gist.gistDescription];
+        cell.descriptionLabel.text = [self politeString:gist[@"gistDescription"]];
         
         return cell;
 
@@ -88,25 +87,42 @@ NSString *const kInsertedGistIdentifier = @"kInsertedGistIdentifier";
     else{
         
         I3GistCollectionViewCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:I3GistCollectionViewCellIdentifier forIndexPath:indexPath];
-        I3Gist *gist = [data objectAtIndex:indexPath.item];
         
-        cell.descriptionLabel.text = [self politeString:gist.gistDescription];
-        cell.createdAtLabel.text = [self politeString:gist.formattedCreatedAt];
-        cell.ownerUrlLabel.text = [self politeString:gist.ownerUrl];
-        cell.commentsCountLabel.text = [self politeString:[gist.commentsCount stringValue]];
-        cell.backgroundColor = gist.state == I3GistStateFailed ? [UIColor redColor] : [UIColor lightGrayColor];
-        
+        id datum = [data objectAtIndex:indexPath.item];
         CGFloat labelAlpha;
-        
-        if(gist.state == I3GistStateDownloading || gist.state == I3GistStateFailed){
-            [cell.downloadingIndicator startAnimating];
-            labelAlpha = 0.1;
-        }
-        else{
+
+        if([datum isKindOfClass:[I3Gist class]]){
+
+            I3Gist *gist = datum;
+            
+            cell.descriptionLabel.text = [self politeString:gist.gistDescription];
+            cell.createdAtLabel.text = [self politeString:gist.formattedCreatedAt];
+            cell.ownerUrlLabel.text = [self politeString:gist.ownerUrl];
+            cell.commentsCountLabel.text = [self politeString:[gist.commentsCount stringValue]];
+            cell.backgroundColor = [UIColor lightGrayColor];
+
             [cell.downloadingIndicator stopAnimating];
+
             labelAlpha = 1;
         }
+        else{
 
+            NSDictionary *metaGist = datum;
+            BOOL hasFailed = [[metaGist objectForKey:@"failed"] boolValue];
+            
+            cell.descriptionLabel.text = [self politeString:metaGist[@"gistDescription"]];
+            cell.backgroundColor = hasFailed ? [UIColor redColor] : [UIColor lightGrayColor];
+            
+            if(hasFailed){
+                [cell.downloadingIndicator stopAnimating];
+            }
+            else{
+                [cell.downloadingIndicator startAnimating];
+            }
+            
+            labelAlpha = 0.1;
+        }
+        
         cell.descriptionLabel.alpha = labelAlpha;
         cell.createdAtLabel.alpha = labelAlpha;
         cell.ownerUrlLabel.alpha = labelAlpha;
@@ -122,11 +138,11 @@ NSString *const kInsertedGistIdentifier = @"kInsertedGistIdentifier";
 
 
 -(NSString *)politeString:(NSString *)string{
-    return !string || [string isEqualToString:@""] ? @"Unknown" : string;
+    return !string || [string isKindOfClass:[NSNull class]] || [string isEqualToString:@""] ? @"Unknown" : string;
 }
 
 
--(NSIndexPath *)indexPathForUserGist:(I3Gist *)gist{
+-(NSIndexPath *)indexPathForUserGist:(id) gist{
     return [NSIndexPath indexPathForItem:[self.userGists indexOfObject:gist] inSection:0];
 }
 
@@ -155,8 +171,10 @@ NSString *const kInsertedGistIdentifier = @"kInsertedGistIdentifier";
 }
 
 
--(void) deleteCellForGist:(I3Gist *)gist{
+-(void) deleteCellForGist:(NSMutableDictionary *)gist{
 
+    [gist setObject:[NSNumber numberWithBool:YES] forKey:@"failed"];
+    
     dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(3*NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
         
         NSIndexPath *indexAfterHighlight = [self indexPathForUserGist:gist];
@@ -185,22 +203,24 @@ NSString *const kInsertedGistIdentifier = @"kInsertedGistIdentifier";
 -(void) dropItemAt:(NSIndexPath *)from fromCollection:(UIView<I3Collection> *)fromCollection toPoint:(CGPoint)to onCollection:(UIView<I3Collection> *)toCollection{
 
     NSIndexPath *toIndex = [NSIndexPath indexPathForItem:self.userGists.count inSection:0];
-    I3Gist *emptyGist = self.availableGists[from.row];
-    I3Gist *userGist = [emptyGist copy];
+    NSMutableDictionary *metaGist = [self.availableGists[from.row] mutableCopy];
     
-    [self.userGists addObject:userGist];
+    [self.userGists addObject:metaGist];
     [self.userGistCollection insertItemsAtIndexPaths:@[toIndex]];
 
-    [self.gistService downloadFullGist:userGist withCompleteBlock:^{
-        
-        NSIndexPath *indexOnDownload = [self indexPathForUserGist:userGist];
-        [self.userGistCollection reloadItemsAtIndexPaths:@[indexOnDownload]];
-        
-    } withFailBlock:^{
+    [self.gistService findGistByGithubId:metaGist[@"githubId"] withCompleteBlock:^(I3Gist *gist) {
 
-        NSIndexPath *indexOnFail = [self indexPathForUserGist:userGist];
+        NSIndexPath *indexOnDownload = [self indexPathForUserGist:metaGist];
+
+        [self.userGists replaceObjectAtIndex:indexOnDownload.item withObject:gist];
+        [self.userGistCollection reloadItemsAtIndexPaths:@[indexOnDownload]];
+
+    } withFailBlock:^{
+        
+        NSIndexPath *indexOnFail = [self indexPathForUserGist:metaGist];
+        
         [self.userGistCollection reloadItemsAtIndexPaths:@[indexOnFail]];
-        [self deleteCellForGist:userGist];
+        [self deleteCellForGist:metaGist];
         
     }];
 

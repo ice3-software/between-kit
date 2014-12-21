@@ -68,7 +68,7 @@
         NSMutableArray *emptyGists = [[NSMutableArray alloc] init];
         
         for(NSDictionary *gistJson in gists){
-            I3Gist *gist = [[I3Gist alloc] initWithGithubId:gistJson[@"id"] andDescription:gistJson[@"description"]];
+            NSMutableDictionary *gist = [NSMutableDictionary dictionaryWithDictionary:@{@"githubId": gistJson[@"id"], @"gistDescription": gistJson[@"description"]}];
             [emptyGists addObject:gist];
         }
         
@@ -83,39 +83,37 @@
     }];
 }
 
--(void) downloadFullGist:(I3Gist *)emptyGist withCompleteBlock:(void(^)()) complete withFailBlock:(void(^)()) fail{
+-(void) findGistByGithubId:(NSString *)githubId withCompleteBlock:(void(^)(I3Gist *)) complete withFailBlock:(void(^)()) fail{
 
-    emptyGist.state = I3GistStateDownloading;
     
-    [self.requestManager GET:GISTS_URL_FOR_GIST_WITH_ID(emptyGist.githubId) parameters:nil success:^(AFHTTPRequestOperation *operation, id responseObject) {
+    [self.requestManager GET:GISTS_URL_FOR_GIST_WITH_ID(githubId) parameters:nil success:^(AFHTTPRequestOperation *operation, id responseObject) {
         
         NSDictionary *gistDictionary = responseObject;
         NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
 
         [formatter setDateFormat:@"yyyy-MM-dd'T'HH:mm:ssZ"];
         
-        emptyGist.ownerUrl = gistDictionary[@"owner"][@"url"];
-        emptyGist.commentsCount = gistDictionary[@"comments"];
-        emptyGist.createdAt = [formatter dateFromString:gistDictionary[@"created_at"]];
+        I3Gist *gist = [[I3Gist alloc] initWithGithubId:githubId];
+        
+        gist.gistDescription = gistDictionary[@"description"];
+        gist.ownerUrl = gistDictionary[@"owner"][@"url"];
+        gist.commentsCount = gistDictionary[@"comments"];
+        gist.createdAt = [formatter dateFromString:gistDictionary[@"created_at"]];
         
         /// @note Itentionally fake network latency so that we can test how the UI responds
 
         dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(FAKE_NETWORK_LATECY_SEC*NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-
-            emptyGist.state = I3GistStateDownloaded;
-            complete();
-        
+            complete(gist);
         });
 
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
         
+        NSLog(@"Failed request: %@", error);
+        
         /// @note Itentionally fake network latency so that we can test how the UI responds
         
         dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(FAKE_NETWORK_LATECY_SEC*NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-            
-            emptyGist.state = I3GistStateFailed;
             fail();
-        
         });
 
     }];

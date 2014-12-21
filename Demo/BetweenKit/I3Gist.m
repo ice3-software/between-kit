@@ -8,18 +8,17 @@
 
 #import "I3Gist.h"
 
+
 @implementation I3Gist
 
 @dynamic formattedCreatedAt;
 
--(id) initWithGithubId:(NSString *)githubId andDescription:(NSString *)description{
-    
+-(id) initWithGithubId:(NSString *)githubId{
+
     self = [super init];
     
     if(self){
         _githubId = githubId;
-        _gistDescription = [description isKindOfClass:[NSNull class]] ? nil : description;
-        _state = I3GistStateEmpty;
     }
     
     return self;
@@ -27,9 +26,8 @@
 
 -(id) copyWithZone:(NSZone *)zone{
     
-    I3Gist *copy = [[[self class] alloc] initWithGithubId:_githubId andDescription:_gistDescription];
+    I3Gist *copy = [[[self class] alloc] initWithGithubId:_githubId];
     
-    copy.state = _state;
     copy.ownerUrl = _ownerUrl;
     copy.commentsCount = _commentsCount;
     copy.createdAt = _createdAt;
@@ -42,15 +40,12 @@
     NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
     [formatter setDateFormat:@"hh:mm:ss, dd/MM/yyyy"];
 
-    NSLog(@"Formatting %@, into %@", _createdAt, [formatter stringFromDate:_createdAt]);
-    
     return [formatter stringFromDate:_createdAt];
 }
 
 -(NSString *)description{
     return [NSString stringWithFormat:@"%@, %@, %@, %@", self.gistDescription, self.formattedCreatedAt, [self.commentsCount stringValue], self.ownerUrl];
 }
-
 
 @end
 

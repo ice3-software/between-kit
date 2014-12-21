@@ -13,6 +13,6 @@
 
 -(void) findGistsWithCompleteBlock:(void(^)(NSArray *gists)) complete withFailBlock:(void(^)()) fail;
 
--(void) downloadFullGist:(I3Gist *)emptyGist withCompleteBlock:(void(^)()) complete withFailBlock:(void(^)()) fail;
+-(void) findGistByGithubId:(NSString *)githubId withCompleteBlock:(void(^)(I3Gist *)) complete withFailBlock:(void(^)()) fail;
 
 @end
