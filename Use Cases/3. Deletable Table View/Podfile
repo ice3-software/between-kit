@@ -1,0 +1,8 @@
+target '3. Deletable Table View' do
+  pod "BetweenKit", :path => "../../"
+end
+
+target '3. Deletable Table ViewTests' do
+
+end
+

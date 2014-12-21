@@ -1,6 +1,6 @@
 //
 //  TableViewController.m
-//  2. Rearrangeable Table View (Sift)
+//  3. Deletable Table View
 //
 //  Created by Stephen Fortune on 21/12/2014.
 //  Copyright (c) 2014 IceCube Software Ltd. All rights reserved.
@@ -17,6 +17,8 @@ static NSString* DequeueReusableCell = @"DequeueReusableCell";
 
 @property (nonatomic, strong) I3GestureCoordinator *dragCoordinator;
 
+@property (nonatomic, strong) UILongPressGestureRecognizer *recognizer;
+
 @property (nonatomic, strong) NSMutableArray *data;
 
 @end
@@ -30,7 +32,8 @@ static NSString* DequeueReusableCell = @"DequeueReusableCell";
     [super viewDidLoad];
     
     self.data = [NSMutableArray arrayWithArray:@[@1, @2, @3, @4, @5, @6, @7, @8]];
-    self.dragCoordinator = [I3GestureCoordinator basicGestureCoordinatorFromViewController:self withCollections:@[self.tableView] withRecognizer:[[UILongPressGestureRecognizer alloc] init]];
+    self.recognizer = [[UILongPressGestureRecognizer alloc] initWithTarget:self action:@selector(handleLongPress:)];
+    self.dragCoordinator = [I3GestureCoordinator basicGestureCoordinatorFromViewController:self withCollections:@[self.tableView] withRecognizer:self.recognizer];
     [self.tableView registerClass:[UITableViewCell class] forCellReuseIdentifier:DequeueReusableCell];
 
 }
@@ -38,6 +41,25 @@ static NSString* DequeueReusableCell = @"DequeueReusableCell";
 
 -(void) didReceiveMemoryWarning{
     [super didReceiveMemoryWarning];
+}
+
+
+#pragma mark - Long press recognition
+
+
+-(void) handleLongPress:(UIGestureRecognizer *)recongizer{
+    
+    if(self.recognizer.state == UIGestureRecognizerStateBegan){
+        [UIView animateWithDuration:0.2 animations:^{
+            self.deleteArea.alpha = 1;
+        }];
+    }
+    else if(self.recognizer.state != UIGestureRecognizerStateChanged){
+        [UIView animateWithDuration:0.2 animations:^{
+            self.deleteArea.alpha = 0.2;
+        }];
+    }
+    
 }
 
 
@@ -66,22 +88,17 @@ static NSString* DequeueReusableCell = @"DequeueReusableCell";
 }
 
 
--(BOOL) canItemFrom:(NSIndexPath *)from beRearrangedWithItemAt:(NSIndexPath *)to inCollection:(UIView<I3Collection> *)collection{
-    return YES;
+-(BOOL) canItemAt:(NSIndexPath *)from beDeletedFromCollection:(UIView<I3Collection> *)collection atPoint:(CGPoint)to{
+    
+    CGPoint localPoint = [self.deleteArea convertPoint:to fromView:self.view];
+    return [self.deleteArea pointInside:localPoint withEvent:nil];
 }
 
 
--(void) rearrangeItemAt:(NSIndexPath *)from withItemAt:(NSIndexPath *)to inCollection:(UIView<I3Collection> *)collection{
-
-    NSNumber *data = self.data[from.row];
-    [self.data removeObject:data];
-    [self.data insertObject:data atIndex:to.row];
+-(void) deleteItemAt:(NSIndexPath *)at inCollection:(UIView<I3Collection> *)collection{
     
-    [self.tableView beginUpdates];
-    [self.tableView deleteItemsAtIndexPaths:@[from]];
-    [self.tableView insertRowsAtIndexPaths:@[to] withRowAnimation:UITableViewRowAnimationNone];
-    [self.tableView endUpdates];
-
+    [self.data removeObjectAtIndex:at.row];
+    [self.tableView deleteRowsAtIndexPaths:@[at] withRowAnimation:UITableViewRowAnimationFade];
 }
 
 

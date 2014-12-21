@@ -1,6 +1,6 @@
 //
 //  TableViewController.h
-//  2. Rearrangeable Table View (Sift)
+//  3. Deletable Table View
 //
 //  Created by Stephen Fortune on 21/12/2014.
 //  Copyright (c) 2014 IceCube Software Ltd. All rights reserved.
@@ -10,6 +10,10 @@
 #import <BetweenKit/UITableView+I3Collection.h>
 #import <BetweenKit/I3DragDataSource.h>
 
-@interface TableViewController : UITableViewController<I3DragDataSource>
+@interface TableViewController : UIViewController<UITableViewDataSource, UITableViewDelegate, I3DragDataSource>
+
+@property (nonatomic, weak) IBOutlet UITableView *tableView;
+
+@property (nonatomic, weak) IBOutlet UIView *deleteArea;
 
 @end
