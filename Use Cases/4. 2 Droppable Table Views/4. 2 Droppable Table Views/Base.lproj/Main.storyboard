@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="6254" systemVersion="14A389" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="BYZ-38-t0r">
+    <dependencies>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="6247"/>
+        <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
+    </dependencies>
+    <scenes>
+        <!--Table View Controller-->
+        <scene sceneID="tne-QT-ifu">
+            <objects>
+                <viewController id="BYZ-38-t0r" customClass="TableViewController" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="y3c-jy-aDJ"/>
+                        <viewControllerLayoutGuide type="bottom" id="wfy-db-euE"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="8bC-Xf-vdC">
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" translatesAutoresizingMaskIntoConstraints="NO" id="C26-0o-U5q">
+                                <rect key="frame" x="0.0" y="0.0" width="307" height="600"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <connections>
+                                    <outlet property="dataSource" destination="BYZ-38-t0r" id="jdi-4H-oD3"/>
+                                    <outlet property="delegate" destination="BYZ-38-t0r" id="3rg-Um-0Ky"/>
+                                </connections>
+                            </tableView>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" translatesAutoresizingMaskIntoConstraints="NO" id="DiY-1T-7tu">
+                                <rect key="frame" x="315" y="0.0" width="285" height="600"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <connections>
+                                    <outlet property="dataSource" destination="BYZ-38-t0r" id="t5s-fg-6a8"/>
+                                    <outlet property="delegate" destination="BYZ-38-t0r" id="q7i-1H-3HI"/>
+                                </connections>
+                            </tableView>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="wfy-db-euE" firstAttribute="top" secondItem="DiY-1T-7tu" secondAttribute="bottom" id="3Fd-f7-D4M"/>
+                            <constraint firstAttribute="trailingMargin" secondItem="DiY-1T-7tu" secondAttribute="trailing" constant="-16" id="9RW-3l-MaT"/>
+                            <constraint firstItem="C26-0o-U5q" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leadingMargin" constant="-16" id="AoF-ec-Ng3"/>
+                            <constraint firstItem="DiY-1T-7tu" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leadingMargin" constant="299" id="EEb-l8-6zW"/>
+                            <constraint firstItem="DiY-1T-7tu" firstAttribute="leading" secondItem="C26-0o-U5q" secondAttribute="trailing" constant="8" id="i9x-kD-6WW"/>
+                            <constraint firstItem="wfy-db-euE" firstAttribute="top" secondItem="C26-0o-U5q" secondAttribute="bottom" id="rAl-CW-YYX"/>
+                            <constraint firstItem="C26-0o-U5q" firstAttribute="top" secondItem="y3c-jy-aDJ" secondAttribute="bottom" constant="-20" id="xXV-3v-CLb"/>
+                            <constraint firstItem="DiY-1T-7tu" firstAttribute="top" secondItem="y3c-jy-aDJ" secondAttribute="bottom" constant="-20" id="ztU-gh-1Xi"/>
+                        </constraints>
+                    </view>
+                    <connections>
+                        <outlet property="leftTable" destination="C26-0o-U5q" id="UoU-TB-ajz"/>
+                        <outlet property="rightTable" destination="DiY-1T-7tu" id="S9b-wd-pJz"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
+            </objects>
+        </scene>
+    </scenes>
+</document>

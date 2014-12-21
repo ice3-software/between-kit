@@ -1,0 +1,8 @@
+target '4. 2 Droppable Table Views' do
+  pod "BetweenKit", :path => "../../"
+end
+
+target '4. 2 Droppable Table ViewsTests' do
+
+end
+
