@@ -13,7 +13,7 @@
 
 @interface I3NetworkingDropViewController : UIViewController<UICollectionViewDataSource, UICollectionViewDelegate, I3DragDataSource>
 
-@property (nonatomic, weak) IBOutlet UICollectionView *emptyGistCollection;
+@property (nonatomic, weak) IBOutlet UICollectionView *availableGistCollection;
 
 @property (nonatomic, weak) IBOutlet UICollectionView *userGistCollection;
 

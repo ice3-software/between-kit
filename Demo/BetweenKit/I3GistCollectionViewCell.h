@@ -22,10 +22,6 @@ extern NSString *const I3GistCollectionViewCellIdentifier;
 
 @property (nonatomic, weak) IBOutlet UIActivityIndicatorView *downloadingIndicator;
 
-@property (nonatomic) BOOL isEmptyGist;
-
--(void) startDownloadingIndicator;
-
 -(void) highlightAsFailed:(void(^)()) animationComplete;
 
 @end

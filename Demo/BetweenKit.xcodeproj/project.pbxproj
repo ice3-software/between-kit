@@ -46,6 +46,8 @@
 		46BDB0ED1A46270F0078EDF3 /* I3GistService.m in Sources */ = {isa = PBXBuildFile; fileRef = 46BDB0EC1A46270F0078EDF3 /* I3GistService.m */; };
 		46BDB0F11A463A0B0078EDF3 /* I3GistCollectionViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 46BDB0F01A463A0B0078EDF3 /* I3GistCollectionViewCell.m */; };
 		46BDB0F31A463BD00078EDF3 /* I3GistCollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 46BDB0F21A463BD00078EDF3 /* I3GistCollectionViewCell.xib */; };
+		46BDB0F61A46557D0078EDF3 /* I3AvailableGistCollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 46BDB0F51A46557D0078EDF3 /* I3AvailableGistCollectionViewCell.xib */; };
+		46BDB0F91A4655920078EDF3 /* I3AvailableGistCollectionViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 46BDB0F81A4655920078EDF3 /* I3AvailableGistCollectionViewCell.m */; };
 		6003F58E195388D20070C39A /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6003F58D195388D20070C39A /* Foundation.framework */; };
 		6003F590195388D20070C39A /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6003F58F195388D20070C39A /* CoreGraphics.framework */; };
 		6003F592195388D20070C39A /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6003F591195388D20070C39A /* UIKit.framework */; };
@@ -140,6 +142,9 @@
 		46BDB0EF1A463A0B0078EDF3 /* I3GistCollectionViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = I3GistCollectionViewCell.h; sourceTree = "<group>"; };
 		46BDB0F01A463A0B0078EDF3 /* I3GistCollectionViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = I3GistCollectionViewCell.m; sourceTree = "<group>"; };
 		46BDB0F21A463BD00078EDF3 /* I3GistCollectionViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = I3GistCollectionViewCell.xib; sourceTree = "<group>"; };
+		46BDB0F51A46557D0078EDF3 /* I3AvailableGistCollectionViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = I3AvailableGistCollectionViewCell.xib; sourceTree = "<group>"; };
+		46BDB0F71A4655920078EDF3 /* I3AvailableGistCollectionViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = I3AvailableGistCollectionViewCell.h; sourceTree = "<group>"; };
+		46BDB0F81A4655920078EDF3 /* I3AvailableGistCollectionViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = I3AvailableGistCollectionViewCell.m; sourceTree = "<group>"; };
 		542B21470EB3452C810F4621 /* BetweenKit.podspec */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; name = BetweenKit.podspec; path = ../BetweenKit.podspec; sourceTree = "<group>"; };
 		6003F58A195388D20070C39A /* BetweenKit.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = BetweenKit.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		6003F58D195388D20070C39A /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
@@ -365,6 +370,8 @@
 				46BDB0EE1A462A160078EDF3 /* I3GistRouting.h */,
 				46BDB0EF1A463A0B0078EDF3 /* I3GistCollectionViewCell.h */,
 				46BDB0F01A463A0B0078EDF3 /* I3GistCollectionViewCell.m */,
+				46BDB0F71A4655920078EDF3 /* I3AvailableGistCollectionViewCell.h */,
+				46BDB0F81A4655920078EDF3 /* I3AvailableGistCollectionViewCell.m */,
 			);
 			name = Networking;
 			sourceTree = "<group>";
@@ -434,6 +441,7 @@
 			isa = PBXGroup;
 			children = (
 				46BDB0F21A463BD00078EDF3 /* I3GistCollectionViewCell.xib */,
+				46BDB0F51A46557D0078EDF3 /* I3AvailableGistCollectionViewCell.xib */,
 			);
 			name = Views;
 			sourceTree = "<group>";
@@ -634,6 +642,7 @@
 				6003F5A4195388D20070C39A /* Main_iPad.storyboard in Resources */,
 				6003F5A9195388D20070C39A /* Images.xcassets in Resources */,
 				6003F5A1195388D20070C39A /* Main_iPhone.storyboard in Resources */,
+				46BDB0F61A46557D0078EDF3 /* I3AvailableGistCollectionViewCell.xib in Resources */,
 				4659C83D1A4320A00076C645 /* I3SubtitleCollectionViewCell.xib in Resources */,
 				6003F598195388D20070C39A /* InfoPlist.strings in Resources */,
 				46BDB0F31A463BD00078EDF3 /* I3GistCollectionViewCell.xib in Resources */,
@@ -719,6 +728,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				466BA2681A4231B2006CD452 /* I3SimpleData.m in Sources */,
+				46BDB0F91A4655920078EDF3 /* I3AvailableGistCollectionViewCell.m in Sources */,
 				6003F59E195388D20070C39A /* I3AppDelegate.m in Sources */,
 				46BDB0E71A4622FD0078EDF3 /* I3NetworkingDropViewController.m in Sources */,
 				6003F5A7195388D20070C39A /* I32RearrangeableTablesViewController.m in Sources */,

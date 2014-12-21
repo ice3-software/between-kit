@@ -25,6 +25,7 @@ typedef NS_ENUM(NSInteger, I3GistState) {
     I3GistStateEmpty,
     I3GistStateDownloading,
     I3GistStateDownloaded,
+    I3GistStateFailed,
 };
 
 

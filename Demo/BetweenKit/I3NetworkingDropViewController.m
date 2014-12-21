@@ -9,12 +9,14 @@
 #import "I3NetworkingDropViewController.h"
 #import "I3GistService.h"
 #import "I3GistCollectionViewCell.h"
+#import "I3AvailableGistCollectionViewCell.h"
 #import <BetweenKit/I3GestureCoordinator.h>
+#import <BetweenKit/I3BasicRenderDelegate.h>
 
 
 @interface I3NetworkingDropViewController ()
 
-@property (nonatomic, strong) NSArray *emptyGists;
+@property (nonatomic, strong) NSArray *availableGists;
 
 @property (nonatomic, strong) NSMutableArray *userGists;
 
@@ -31,15 +33,22 @@
 
     [super viewDidLoad];
     
-    [self.emptyGistCollection registerNib:[UINib nibWithNibName:I3GistCollectionViewCellIdentifier bundle:nil] forCellWithReuseIdentifier:I3GistCollectionViewCellIdentifier];
+    [self.availableGistCollection registerNib:[UINib nibWithNibName:I3AvailableGistCollectionViewCellIdentifier bundle:nil] forCellWithReuseIdentifier:I3AvailableGistCollectionViewCellIdentifier];
     [self.userGistCollection registerNib:[UINib nibWithNibName:I3GistCollectionViewCellIdentifier bundle:nil] forCellWithReuseIdentifier:I3GistCollectionViewCellIdentifier];
     
     self.userGists = [[NSMutableArray alloc] init];
     
-    self.dragCoordinator = [I3GestureCoordinator basicGestureCoordinatorFromViewController:self withCollections:@[self.emptyGistCollection, self.userGistCollection] withRecognizer:[[UILongPressGestureRecognizer alloc] init]];
+    self.dragCoordinator = [I3GestureCoordinator basicGestureCoordinatorFromViewController:self withCollections:@[self.availableGistCollection, self.userGistCollection] withRecognizer:[[UILongPressGestureRecognizer alloc] init]];
+    ((I3BasicRenderDelegate *)self.dragCoordinator.renderDelegate).draggingItemOpacity = 0.4;
     
-    [self initialiseEmptyGists];
-    
+}
+
+
+-(void) viewDidAppear:(BOOL)animated{
+
+    [super viewDidAppear:animated];
+    [self initialiseAvailableGists];
+
 }
 
 
@@ -60,28 +69,58 @@
 
 -(UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath{
     
-    I3GistCollectionViewCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:I3GistCollectionViewCellIdentifier forIndexPath:indexPath];
+    NSArray *data = [self dataForCollection:collectionView];
+
+    if(collectionView == self.availableGistCollection){
     
-    NSArray *gistData = [self dataForCollection:collectionView];
-    I3Gist *gist = [gistData objectAtIndex:indexPath.item];
-    
-    NSLog(@"Cell for gist: %@", gist);
-    
-    cell.descriptionLabel.text = gist.gistDescription ?: @"";
-    cell.createdAtLabel.text = gist.formattedCreatedAt ?: @"";
-    cell.ownerUrlLabel.text = gist.ownerUrl ?: @"";
-    cell.commentsCountLabel.text = [gist.commentsCount stringValue] ?: @"";
-    cell.isEmptyGist = gist.state == I3GistStateEmpty;
-    
-    if(gist.state == I3GistStateDownloading){
-        [cell startDownloadingIndicator];
+        I3AvailableGistCollectionViewCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:I3AvailableGistCollectionViewCellIdentifier forIndexPath:indexPath];
+        
+        I3Gist *gist = [data objectAtIndex:indexPath.item];
+
+        cell.descriptionLabel.text = [self politeString:gist.gistDescription];
+        
+        return cell;
+
     }
-    
-    return cell;
+    else{
+        
+        I3GistCollectionViewCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:I3GistCollectionViewCellIdentifier forIndexPath:indexPath];
+        I3Gist *gist = [data objectAtIndex:indexPath.item];
+        
+        cell.descriptionLabel.text = [self politeString:gist.gistDescription];
+        cell.createdAtLabel.text = [self politeString:gist.formattedCreatedAt];
+        cell.ownerUrlLabel.text = [self politeString:gist.ownerUrl];
+        cell.commentsCountLabel.text = [self politeString:[gist.commentsCount stringValue]];
+        cell.backgroundColor = [UIColor lightGrayColor];
+        
+        CGFloat labelAlpha;
+        
+        if(gist.state == I3GistStateDownloading){
+            [cell.downloadingIndicator startAnimating];
+            labelAlpha = 0.1;
+        }
+        else{
+            [cell.downloadingIndicator stopAnimating];
+            labelAlpha = 1;
+        }
+
+        cell.descriptionLabel.alpha = labelAlpha;
+        cell.createdAtLabel.alpha = labelAlpha;
+        cell.ownerUrlLabel.alpha = labelAlpha;
+        cell.commentsCountLabel.alpha = labelAlpha;
+
+        return cell;
+
+    }
 }
 
 
 #pragma mark - Helpers
+
+
+-(NSString *)politeString:(NSString *)string{
+    return !string || [string isEqualToString:@""] ? @"Unknown" : string;
+}
 
 
 -(NSIndexPath *)indexPathForUserGist:(I3Gist *)gist{
@@ -90,19 +129,19 @@
 
 
 -(NSArray *)dataForCollection:(UICollectionView *)collection{
-    return collection == self.userGistCollection ? self.userGists : self.emptyGists;
+    return collection == self.userGistCollection ? self.userGists : self.availableGists;
 }
 
 
--(void) initialiseEmptyGists{
+-(void) initialiseAvailableGists{
 
     self.gistService = [[I3GistService alloc] init];
     
     [self.gistService findGistsWithCompleteBlock:^(NSArray *gists) {
         
-        self.emptyGists = gists;
-        NSLog(@"Our empty gists: %@, with a count of %d", self.emptyGists, self.emptyGists.count);
-        [self.emptyGistCollection reloadData];
+        self.availableGists = gists;
+        NSLog(@"Our empty gists: %@, with a count of %d", self.availableGists, self.availableGists.count);
+        [self.availableGistCollection reloadData];
         
     } withFailBlock:^{
         
@@ -118,7 +157,7 @@
 
 
 -(BOOL) canItemBeDraggedAt:(NSIndexPath *)at inCollection:(UIView<I3Collection> *)collection{
-    return collection == self.emptyGistCollection;
+    return collection == self.availableGistCollection;
 }
 
 
@@ -131,7 +170,7 @@
 
     NSIndexPath *toIndex = [NSIndexPath indexPathForItem:self.userGists.count inSection:0];
     
-    I3Gist *emptyGist = self.emptyGists[from.row];
+    I3Gist *emptyGist = self.availableGists[from.row];
     I3Gist *userGist = [emptyGist copy];
     
     [self.userGists addObject:userGist];
@@ -158,6 +197,7 @@
     }];
 
     [self.userGistCollection insertItemsAtIndexPaths:@[toIndex]];
+    [self.userGistCollection scrollToItemAtIndexPath:toIndex atScrollPosition:UICollectionViewScrollPositionRight animated:YES];
 
 }
 

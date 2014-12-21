@@ -11,6 +11,11 @@
 #import <AFNetworking/AFHTTPRequestOperationManager.h>
 
 
+#define BAD_GIST_DATA @{@"id": @"___", @"description": @"I will fail"}
+#define BAD_GIST_UPPER_BOUND 12
+#define BAD_GIST_LOWER_BOUND 5
+
+
 @interface I3GistService ()
 
 /// @note We should really be injecting this. Instead we're using a shared, static
@@ -33,19 +38,32 @@
     return self;
 }
 
--(void) findGistsWithCompleteBlock:(void(^)(NSArray *gists)) complete withFailBlock:(void(^)()) fail{
+-(NSArray *) polutedGistArray:(NSArray *)gists{
 
-    NSLog(@"Finding gists... %@", GISTS_URL_FOR_GISTS());
+    NSInteger badGistFrequency = arc4random() % BAD_GIST_UPPER_BOUND + BAD_GIST_LOWER_BOUND;
+    NSMutableArray *polutedGists = [[NSMutableArray alloc] init];
+    
+    for(NSInteger i = 0; i < gists.count; ++i){
+        if(!(i % badGistFrequency)){
+            [polutedGists addObject:BAD_GIST_DATA];
+        }
+        [polutedGists addObject:gists[i]];
+    }
+
+    return polutedGists;
+}
+
+-(void) findGistsWithCompleteBlock:(void(^)(NSArray *gists)) complete withFailBlock:(void(^)()) fail{
     
     [self.requestManager GET:GISTS_URL_FOR_GISTS() parameters:nil success:^(AFHTTPRequestOperation *operation, id responseObject) {
-        
-        NSLog(@"Found gists: %@", responseObject);
         
         /// @note So here we map the array of Gist JSON objects to an array of 'empty' gists
         /// We've intentionally thrown away the body of the Gist data so that we can illustrate
         /// making another request later and retrieving the rest of it..
+        /// We also intentionally polute the array with erroneous data so that we can test
+        /// how to UI reacts to failing requests.
         
-        NSArray *gists = responseObject;
+        NSArray *gists = [self polutedGistArray:responseObject];
         NSMutableArray *emptyGists = [[NSMutableArray alloc] init];
         
         for(NSDictionary *gistJson in gists){
@@ -55,18 +73,15 @@
         
         NSArray *immutableCopy = [NSArray arrayWithArray:emptyGists];
         complete(immutableCopy);
-        
-        NSLog(@"Complete: %@", immutableCopy);
 
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+        
+        NSLog(@"Failed.. %@", error);
         fail();
-        NSLog(@"Failed finding gists!");
     }];
 }
 
 -(void) downloadFullGist:(I3Gist *)emptyGist withCompleteBlock:(void(^)()) complete withFailBlock:(void(^)()) fail{
-
-    NSLog(@"Finding gists... %@", GISTS_URL_FOR_GIST_WITH_ID(emptyGist.githubId));
 
     emptyGist.state = I3GistStateDownloading;
     

@@ -782,7 +782,7 @@
                     </view>
                     <tabBarItem key="tabBarItem" title="Item 1" id="4NP-BC-Env"/>
                     <connections>
-                        <outlet property="emptyGistCollection" destination="5dL-8y-l8C" id="tBj-He-dz9"/>
+                        <outlet property="availableGistCollection" destination="5dL-8y-l8C" id="zyX-xX-9ff"/>
                         <outlet property="userGistCollection" destination="Dur-cM-DhF" id="qef-Wc-nqa"/>
                     </connections>
                 </viewController>
