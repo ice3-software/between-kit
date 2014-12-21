@@ -27,6 +27,7 @@
     
         _draggingItemOpacity = 0.01;
         _draggingViewOpacity = 1;
+        _rearrangeIsExchange = YES;
         
     }
 
@@ -88,44 +89,53 @@
 
 -(void) renderRearrangeOnPoint:(CGPoint) at fromCoordinator:(I3GestureCoordinator *)coordinator{
     
-    UIView<I3Collection> *draggingCollection = coordinator.currentDraggingCollection;
-    NSIndexPath *atIndex = [draggingCollection indexPathForItemAtPoint:at];
-    
-    UIView *superview = coordinator.arena.superview;
-    UIView *dstSourceView = [draggingCollection itemAtIndexPath:atIndex];
-    UIView *sourceView = coordinator.currentDraggingItem;
-    
-    I3CloneView *exchangeView = [[I3CloneView alloc] initWithSourceView:dstSourceView];
-    exchangeView.frame = [superview convertRect:dstSourceView.frame fromView:draggingCollection];
-    [superview addSubview:exchangeView];
-    
-    I3CloneView *draggingView = _draggingView;
-
-    [superview bringSubviewToFront:draggingView];
-    [exchangeView cloneSourceView];
-
-    CGRect dragOriginFrame = [superview convertRect:sourceView.frame fromView:draggingCollection];
-    CGPoint draggingViewTargetCenter = CGPointMake(CGRectGetMidX(exchangeView.frame), CGRectGetMidY(exchangeView.frame));
-    CGPoint exchangeViewTargetCenter = CGPointMake(CGRectGetMidX(dragOriginFrame), CGRectGetMidY(dragOriginFrame));
-    
-    
-    [UIView animateWithDuration:0.15 animations:^{
+    if(self.rearrangeIsExchange){
         
-        draggingView.center = draggingViewTargetCenter;
-        exchangeView.center = exchangeViewTargetCenter;
+        UIView<I3Collection> *draggingCollection = coordinator.currentDraggingCollection;
+        NSIndexPath *atIndex = [draggingCollection indexPathForItemAtPoint:at];
         
-    } completion:^(BOOL finished) {
+        UIView *superview = coordinator.arena.superview;
+        UIView *dstSourceView = [draggingCollection itemAtIndexPath:atIndex];
+        UIView *sourceView = coordinator.currentDraggingItem;
         
-        [exchangeView removeFromSuperview];
-        [draggingView removeFromSuperview];
+        I3CloneView *exchangeView = [[I3CloneView alloc] initWithSourceView:dstSourceView];
+        exchangeView.frame = [superview convertRect:dstSourceView.frame fromView:draggingCollection];
+        [superview addSubview:exchangeView];
         
-        DND_LOG(@"Finished async rearrange");
-
-    }];
-
-    _draggingView = nil;
+        I3CloneView *draggingView = _draggingView;
+        
+        [superview bringSubviewToFront:draggingView];
+        [exchangeView cloneSourceView];
+        
+        CGRect dragOriginFrame = [superview convertRect:sourceView.frame fromView:draggingCollection];
+        CGPoint draggingViewTargetCenter = CGPointMake(CGRectGetMidX(exchangeView.frame), CGRectGetMidY(exchangeView.frame));
+        CGPoint exchangeViewTargetCenter = CGPointMake(CGRectGetMidX(dragOriginFrame), CGRectGetMidY(dragOriginFrame));
+        
+        
+        [UIView animateWithDuration:0.15 animations:^{
+            
+            draggingView.center = draggingViewTargetCenter;
+            exchangeView.center = exchangeViewTargetCenter;
+            
+        } completion:^(BOOL finished) {
+            
+            [exchangeView removeFromSuperview];
+            [draggingView removeFromSuperview];
+            
+            DND_LOG(@"Finished async rearrange");
+            
+        }];
+        
+        _draggingView = nil;
+        
+        DND_LOG(@"Finished sync rearrange");
+        
+    }
+    else{
     
-    DND_LOG(@"Finished sync rearrange");
+        [_draggingView removeFromSuperview];
+        _draggingView = nil;
+    }
     
 }
 

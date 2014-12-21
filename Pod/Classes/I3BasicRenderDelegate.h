@@ -50,4 +50,13 @@
 @property (nonatomic, strong) I3CloneView *draggingView;
 
 
+/**
+ 
+ Defaults to YES. If this is YES a rearrange will be rendered as an exchange. If it is NO, a
+ rearrange will just be rendered as an ordinary drop.
+ 
+ */
+@property (nonatomic) BOOL rearrangeIsExchange
+
+
 @end
