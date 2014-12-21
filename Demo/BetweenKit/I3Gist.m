@@ -49,3 +49,18 @@
 
 @end
 
+
+@implementation I3GistDescriptor
+
+-(id) copyWithZone:(NSZone *)zone{
+    
+    I3GistDescriptor *copy = [[[self class] alloc] init];
+    
+    copy.githubId = _githubId;
+    copy.gistDescription = _gistDescription;
+    copy.hasFailed = _hasFailed;
+    
+    return copy;
+}
+
+@end

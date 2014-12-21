@@ -9,9 +9,31 @@
 #import <Foundation/Foundation.h>
 
 
-@interface I3Gist : NSObject <NSCopying>
+/**
+ 
+ Simple class that contains metadata about a gist. Used as a placeholder containing data to
+ render on the screen in the meantime, the actual githubId of the Gist so that 
+ we can make a subsequent request later on to retrieve the full Gist, and a boolean
+ flag indicating the state of an associated full Gist download.
+ 
+ */
+@interface I3GistDescriptor : NSObject<NSCopying>
 
 @property (nonatomic) BOOL hasFailed;
+
+@property (nonatomic, copy) NSString *githubId;
+
+@property (nonatomic, copy) NSString *gistDescription;
+
+@end
+
+
+/**
+ 
+ The full Gist. Must be retrieved with a githubId.
+ 
+ */
+@interface I3Gist : NSObject <NSCopying>
 
 @property (nonatomic, copy) NSString *githubId;
 

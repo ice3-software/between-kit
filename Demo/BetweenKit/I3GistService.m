@@ -68,8 +68,13 @@
         NSMutableArray *emptyGists = [[NSMutableArray alloc] init];
         
         for(NSDictionary *gistJson in gists){
-            NSMutableDictionary *gist = [NSMutableDictionary dictionaryWithDictionary:@{@"githubId": gistJson[@"id"], @"gistDescription": gistJson[@"description"]}];
-            [emptyGists addObject:gist];
+            
+            I3GistDescriptor *gistDescriptor = [[I3GistDescriptor alloc] init];
+            
+            gistDescriptor.githubId = gistJson[@"id"];
+            gistDescriptor.gistDescription = gistJson[@"description"];
+            
+            [emptyGists addObject:gistDescriptor];
         }
         
         NSArray *immutableCopy = [NSArray arrayWithArray:emptyGists];
@@ -107,9 +112,7 @@
         });
 
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-        
-        NSLog(@"Failed request: %@", error);
-        
+                
         /// @note Itentionally fake network latency so that we can test how the UI responds
         
         dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(FAKE_NETWORK_LATECY_SEC*NSEC_PER_SEC)), dispatch_get_main_queue(), ^{

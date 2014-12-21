@@ -14,9 +14,6 @@
 #import <BetweenKit/I3BasicRenderDelegate.h>
 
 
-NSString *const kInsertedGistIdentifier = @"kInsertedGistIdentifier";
-
-
 @interface I3NetworkingDropViewController ()
 
 @property (nonatomic, strong) NSArray *availableGists;
@@ -28,6 +25,7 @@ NSString *const kInsertedGistIdentifier = @"kInsertedGistIdentifier";
 @property (nonatomic, strong) I3GestureCoordinator *dragCoordinator;
 
 @end
+
 
 @implementation I3NetworkingDropViewController
 
@@ -79,9 +77,9 @@ NSString *const kInsertedGistIdentifier = @"kInsertedGistIdentifier";
     
         I3AvailableGistCollectionViewCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:I3AvailableGistCollectionViewCellIdentifier forIndexPath:indexPath];
         
-        NSDictionary *gist = [data objectAtIndex:indexPath.item];
+        I3GistDescriptor *gist = [data objectAtIndex:indexPath.item];
 
-        cell.descriptionLabel.text = [self politeString:gist[@"gistDescription"]];
+        cell.descriptionLabel.text = [self politeString:gist.gistDescription];
         
         return cell;
 
@@ -109,13 +107,12 @@ NSString *const kInsertedGistIdentifier = @"kInsertedGistIdentifier";
         }
         else{
 
-            NSDictionary *metaGist = datum;
-            BOOL hasFailed = [[metaGist objectForKey:@"failed"] boolValue];
+            I3GistDescriptor *metaGist = datum;
             
-            cell.descriptionLabel.text = [self politeString:metaGist[@"gistDescription"]];
-            cell.backgroundColor = hasFailed ? [UIColor redColor] : [UIColor lightGrayColor];
+            cell.descriptionLabel.text = [self politeString:metaGist.gistDescription];
+            cell.backgroundColor = metaGist.hasFailed ? [UIColor redColor] : [UIColor lightGrayColor];
             
-            if(hasFailed){
+            if(metaGist.hasFailed){
                 [cell.downloadingIndicator stopAnimating];
             }
             else{
@@ -171,9 +168,7 @@ NSString *const kInsertedGistIdentifier = @"kInsertedGistIdentifier";
 }
 
 
--(void) deleteCellForGist:(NSMutableDictionary *)gist{
-
-    [gist setObject:[NSNumber numberWithBool:YES] forKey:@"failed"];
+-(void) deleteCellForGist:(I3GistDescriptor *)gist{
     
     dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(3*NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
         
@@ -203,12 +198,12 @@ NSString *const kInsertedGistIdentifier = @"kInsertedGistIdentifier";
 -(void) dropItemAt:(NSIndexPath *)from fromCollection:(UIView<I3Collection> *)fromCollection toPoint:(CGPoint)to onCollection:(UIView<I3Collection> *)toCollection{
 
     NSIndexPath *toIndex = [NSIndexPath indexPathForItem:self.userGists.count inSection:0];
-    NSMutableDictionary *metaGist = [self.availableGists[from.row] mutableCopy];
+    I3GistDescriptor *metaGist = [self.availableGists[from.row] copy];
     
     [self.userGists addObject:metaGist];
     [self.userGistCollection insertItemsAtIndexPaths:@[toIndex]];
 
-    [self.gistService findGistByGithubId:metaGist[@"githubId"] withCompleteBlock:^(I3Gist *gist) {
+    [self.gistService findGistByGithubId:metaGist.githubId withCompleteBlock:^(I3Gist *gist) {
 
         NSIndexPath *indexOnDownload = [self indexPathForUserGist:metaGist];
 
@@ -217,9 +212,9 @@ NSString *const kInsertedGistIdentifier = @"kInsertedGistIdentifier";
 
     } withFailBlock:^{
         
-        NSIndexPath *indexOnFail = [self indexPathForUserGist:metaGist];
+        metaGist.hasFailed = YES;
         
-        [self.userGistCollection reloadItemsAtIndexPaths:@[indexOnFail]];
+        [self.userGistCollection reloadItemsAtIndexPaths:@[[self indexPathForUserGist:metaGist]]];
         [self deleteCellForGist:metaGist];
         
     }];
