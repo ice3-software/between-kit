@@ -35,7 +35,9 @@ NSString *const kInsertedGistIdentifier = @"kInsertedGistIdentifier";
 -(void) viewDidLoad{
 
     [super viewDidLoad];
-    
+
+    self.gistService = [[I3GistService alloc] init];
+
     [self.availableGistCollection registerNib:[UINib nibWithNibName:I3AvailableGistCollectionViewCellIdentifier bundle:nil] forCellWithReuseIdentifier:I3AvailableGistCollectionViewCellIdentifier];
     [self.userGistCollection registerNib:[UINib nibWithNibName:I3GistCollectionViewCellIdentifier bundle:nil] forCellWithReuseIdentifier:I3GistCollectionViewCellIdentifier];
     
@@ -153,8 +155,6 @@ NSString *const kInsertedGistIdentifier = @"kInsertedGistIdentifier";
 
 
 -(void) initialiseAvailableGists{
-
-    self.gistService = [[I3GistService alloc] init];
     
     [self.gistService findGistsWithCompleteBlock:^(NSArray *gists) {
         
