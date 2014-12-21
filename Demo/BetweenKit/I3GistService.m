@@ -101,7 +101,7 @@
 
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
         
-        emptyGist.state = I3GistStateEmpty;
+        emptyGist.state = I3GistStateFailed;
         fail();
 
     }];

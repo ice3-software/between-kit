@@ -91,7 +91,7 @@
         cell.createdAtLabel.text = [self politeString:gist.formattedCreatedAt];
         cell.ownerUrlLabel.text = [self politeString:gist.ownerUrl];
         cell.commentsCountLabel.text = [self politeString:[gist.commentsCount stringValue]];
-        cell.backgroundColor = [UIColor lightGrayColor];
+        cell.backgroundColor = gist.state == I3GistStateFailed ? [UIColor redColor] : [UIColor lightGrayColor];
         
         CGFloat labelAlpha;
         
@@ -173,8 +173,6 @@
     I3Gist *emptyGist = self.availableGists[from.row];
     I3Gist *userGist = [emptyGist copy];
     
-    [self.userGists addObject:userGist];
-    
     [self.gistService downloadFullGist:userGist withCompleteBlock:^{
         
         NSIndexPath *indexOnDownload = [self indexPathForUserGist:userGist];
@@ -186,16 +184,20 @@
         I3GistCollectionViewCell *cell = (I3GistCollectionViewCell *)[self.userGistCollection itemAtIndexPath:indexOnFail];
         
         [cell highlightAsFailed:^{
+            
+            dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.5*NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
 
-            NSIndexPath *indexAfterHighlighted = [self indexPathForUserGist:userGist];
-
-            [self.userGists removeObject:userGist];
-            [self.userGistCollection deleteItemsAtIndexPaths:@[indexAfterHighlighted]];
+                NSIndexPath *indexAfterHighlight = [self indexPathForUserGist:userGist];
+                [self.userGists removeObject:userGist];
+                [self.userGistCollection deleteItemsAtIndexPaths:@[indexAfterHighlight]];
+                
+            });
             
         }];
         
     }];
 
+    [self.userGists addObject:userGist];
     [self.userGistCollection insertItemsAtIndexPaths:@[toIndex]];
     [self.userGistCollection scrollToItemAtIndexPath:toIndex atScrollPosition:UICollectionViewScrollPositionRight animated:YES];
 

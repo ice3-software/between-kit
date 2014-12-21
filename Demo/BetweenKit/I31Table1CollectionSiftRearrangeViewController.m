@@ -162,10 +162,14 @@ static NSString* DequeueReusableCell = @"DequeueReusableCell";
         UICollectionView *collectionView = (UICollectionView *)collection;
         
         [data removeObject:colour];
-        [collectionView deleteItemsAtIndexPaths:@[from]];
-        
         [data insertObject:colour atIndex:to.row];
-        [collectionView insertItemsAtIndexPaths:@[to]];
+
+        [collectionView performBatchUpdates:^{
+            
+            [collectionView deleteItemsAtIndexPaths:@[from]];
+            [collectionView insertItemsAtIndexPaths:@[to]];
+            
+        } completion:nil];
         
     }
 
