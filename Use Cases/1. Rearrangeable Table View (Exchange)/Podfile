@@ -1,0 +1,8 @@
+target 'Rearrangeable Table View (Exchange)' do
+  pod "BetweenKit", :path => "../../"
+end
+
+target 'Rearrangeable Table View (Exchange)Tests' do
+
+end
+
