@@ -1,0 +1,8 @@
+target '5. 2 Table Views All Properties' do
+  pod "BetweenKit", :path => "../../"
+end
+
+target '5. 2 Table Views All PropertiesTests' do
+
+end
+

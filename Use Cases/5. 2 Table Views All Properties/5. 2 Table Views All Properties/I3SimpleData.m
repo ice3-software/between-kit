@@ -17,7 +17,7 @@
     
     if(self){
     
-        self.colour = colour ?: [UIColor blueColor];
+        self.colour = colour ?: LIGHT_BLUE_COLOUR;
         self.title = title ?: @"Item";
         self.subtitle = subtitle ?: @"This is an item";
         self.canDelete = canDelete;

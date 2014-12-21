@@ -1,0 +1,496 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 46;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		466D4FC71A4783BD00256C2C /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 466D4FC61A4783BD00256C2C /* main.m */; };
+		466D4FCA1A4783BD00256C2C /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 466D4FC91A4783BD00256C2C /* AppDelegate.m */; };
+		466D4FD21A4783BD00256C2C /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 466D4FD11A4783BD00256C2C /* Images.xcassets */; };
+		466D4FD51A4783BD00256C2C /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = 466D4FD31A4783BD00256C2C /* LaunchScreen.xib */; };
+		466D4FE11A4783BD00256C2C /* ___2_Table_Views_All_PropertiesTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 466D4FE01A4783BD00256C2C /* ___2_Table_Views_All_PropertiesTests.m */; };
+		466D4FEC1A47846500256C2C /* TableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 466D4FEB1A47846500256C2C /* TableViewController.m */; };
+		466D4FEE1A47849C00256C2C /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 466D4FED1A47849C00256C2C /* Main.storyboard */; };
+		466D4FF31A4784D900256C2C /* I3SimpleData.m in Sources */ = {isa = PBXBuildFile; fileRef = 466D4FF01A4784D900256C2C /* I3SimpleData.m */; };
+		466D4FF41A4784D900256C2C /* I3SubtitleTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 466D4FF21A4784D900256C2C /* I3SubtitleTableViewCell.m */; };
+		B25EA47F94A612110C53DB56 /* libPods-5. 2 Table Views All Properties.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 92492FFB47CA1D021CF171B9 /* libPods-5. 2 Table Views All Properties.a */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		466D4FDB1A4783BD00256C2C /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 466D4FB91A4783BD00256C2C /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 466D4FC01A4783BD00256C2C;
+			remoteInfo = "5. 2 Table Views All Properties";
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXFileReference section */
+		31C95DEF29FA7C7B1FDB860B /* Pods-5. 2 Table Views All Properties.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-5. 2 Table Views All Properties.release.xcconfig"; path = "Pods/Target Support Files/Pods-5. 2 Table Views All Properties/Pods-5. 2 Table Views All Properties.release.xcconfig"; sourceTree = "<group>"; };
+		466D4FC11A4783BD00256C2C /* 5. 2 Table Views All Properties.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "5. 2 Table Views All Properties.app"; sourceTree = BUILT_PRODUCTS_DIR; };
+		466D4FC51A4783BD00256C2C /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		466D4FC61A4783BD00256C2C /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
+		466D4FC81A4783BD00256C2C /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
+		466D4FC91A4783BD00256C2C /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
+		466D4FD11A4783BD00256C2C /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
+		466D4FD41A4783BD00256C2C /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/LaunchScreen.xib; sourceTree = "<group>"; };
+		466D4FDA1A4783BD00256C2C /* 5. 2 Table Views All PropertiesTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "5. 2 Table Views All PropertiesTests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
+		466D4FDF1A4783BD00256C2C /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		466D4FE01A4783BD00256C2C /* ___2_Table_Views_All_PropertiesTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "___2_Table_Views_All_PropertiesTests.m"; sourceTree = "<group>"; };
+		466D4FEA1A47846500256C2C /* TableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TableViewController.h; sourceTree = "<group>"; };
+		466D4FEB1A47846500256C2C /* TableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TableViewController.m; sourceTree = "<group>"; };
+		466D4FED1A47849C00256C2C /* Main.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Main.storyboard; sourceTree = "<group>"; };
+		466D4FEF1A4784D900256C2C /* I3SimpleData.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = I3SimpleData.h; sourceTree = "<group>"; };
+		466D4FF01A4784D900256C2C /* I3SimpleData.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = I3SimpleData.m; sourceTree = "<group>"; };
+		466D4FF11A4784D900256C2C /* I3SubtitleTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = I3SubtitleTableViewCell.h; sourceTree = "<group>"; };
+		466D4FF21A4784D900256C2C /* I3SubtitleTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = I3SubtitleTableViewCell.m; sourceTree = "<group>"; };
+		6189F11D7EF12C0676132509 /* Pods-5. 2 Table Views All Properties.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-5. 2 Table Views All Properties.debug.xcconfig"; path = "Pods/Target Support Files/Pods-5. 2 Table Views All Properties/Pods-5. 2 Table Views All Properties.debug.xcconfig"; sourceTree = "<group>"; };
+		92492FFB47CA1D021CF171B9 /* libPods-5. 2 Table Views All Properties.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-5. 2 Table Views All Properties.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		466D4FBE1A4783BD00256C2C /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				B25EA47F94A612110C53DB56 /* libPods-5. 2 Table Views All Properties.a in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		466D4FD71A4783BD00256C2C /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		3AD73FA8B2327FDD327150BE /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				6189F11D7EF12C0676132509 /* Pods-5. 2 Table Views All Properties.debug.xcconfig */,
+				31C95DEF29FA7C7B1FDB860B /* Pods-5. 2 Table Views All Properties.release.xcconfig */,
+			);
+			name = Pods;
+			sourceTree = "<group>";
+		};
+		466D4FB81A4783BD00256C2C = {
+			isa = PBXGroup;
+			children = (
+				466D4FC31A4783BD00256C2C /* 5. 2 Table Views All Properties */,
+				466D4FDD1A4783BD00256C2C /* 5. 2 Table Views All PropertiesTests */,
+				466D4FC21A4783BD00256C2C /* Products */,
+				3AD73FA8B2327FDD327150BE /* Pods */,
+				E828791502E611FAC6E416D9 /* Frameworks */,
+			);
+			sourceTree = "<group>";
+		};
+		466D4FC21A4783BD00256C2C /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				466D4FC11A4783BD00256C2C /* 5. 2 Table Views All Properties.app */,
+				466D4FDA1A4783BD00256C2C /* 5. 2 Table Views All PropertiesTests.xctest */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		466D4FC31A4783BD00256C2C /* 5. 2 Table Views All Properties */ = {
+			isa = PBXGroup;
+			children = (
+				466D4FEF1A4784D900256C2C /* I3SimpleData.h */,
+				466D4FF01A4784D900256C2C /* I3SimpleData.m */,
+				466D4FF11A4784D900256C2C /* I3SubtitleTableViewCell.h */,
+				466D4FF21A4784D900256C2C /* I3SubtitleTableViewCell.m */,
+				466D4FEA1A47846500256C2C /* TableViewController.h */,
+				466D4FEB1A47846500256C2C /* TableViewController.m */,
+				466D4FC81A4783BD00256C2C /* AppDelegate.h */,
+				466D4FC91A4783BD00256C2C /* AppDelegate.m */,
+				466D4FED1A47849C00256C2C /* Main.storyboard */,
+				466D4FD11A4783BD00256C2C /* Images.xcassets */,
+				466D4FD31A4783BD00256C2C /* LaunchScreen.xib */,
+				466D4FC41A4783BD00256C2C /* Supporting Files */,
+			);
+			path = "5. 2 Table Views All Properties";
+			sourceTree = "<group>";
+		};
+		466D4FC41A4783BD00256C2C /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				466D4FC51A4783BD00256C2C /* Info.plist */,
+				466D4FC61A4783BD00256C2C /* main.m */,
+			);
+			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		466D4FDD1A4783BD00256C2C /* 5. 2 Table Views All PropertiesTests */ = {
+			isa = PBXGroup;
+			children = (
+				466D4FE01A4783BD00256C2C /* ___2_Table_Views_All_PropertiesTests.m */,
+				466D4FDE1A4783BD00256C2C /* Supporting Files */,
+			);
+			path = "5. 2 Table Views All PropertiesTests";
+			sourceTree = "<group>";
+		};
+		466D4FDE1A4783BD00256C2C /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				466D4FDF1A4783BD00256C2C /* Info.plist */,
+			);
+			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		E828791502E611FAC6E416D9 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				92492FFB47CA1D021CF171B9 /* libPods-5. 2 Table Views All Properties.a */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		466D4FC01A4783BD00256C2C /* 5. 2 Table Views All Properties */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 466D4FE41A4783BD00256C2C /* Build configuration list for PBXNativeTarget "5. 2 Table Views All Properties" */;
+			buildPhases = (
+				86391D09C121F1247CD7302D /* Check Pods Manifest.lock */,
+				466D4FBD1A4783BD00256C2C /* Sources */,
+				466D4FBE1A4783BD00256C2C /* Frameworks */,
+				466D4FBF1A4783BD00256C2C /* Resources */,
+				DCF1B156CA746D8855A6EA0D /* Copy Pods Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = "5. 2 Table Views All Properties";
+			productName = "5. 2 Table Views All Properties";
+			productReference = 466D4FC11A4783BD00256C2C /* 5. 2 Table Views All Properties.app */;
+			productType = "com.apple.product-type.application";
+		};
+		466D4FD91A4783BD00256C2C /* 5. 2 Table Views All PropertiesTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 466D4FE71A4783BD00256C2C /* Build configuration list for PBXNativeTarget "5. 2 Table Views All PropertiesTests" */;
+			buildPhases = (
+				466D4FD61A4783BD00256C2C /* Sources */,
+				466D4FD71A4783BD00256C2C /* Frameworks */,
+				466D4FD81A4783BD00256C2C /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				466D4FDC1A4783BD00256C2C /* PBXTargetDependency */,
+			);
+			name = "5. 2 Table Views All PropertiesTests";
+			productName = "5. 2 Table Views All PropertiesTests";
+			productReference = 466D4FDA1A4783BD00256C2C /* 5. 2 Table Views All PropertiesTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		466D4FB91A4783BD00256C2C /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				LastUpgradeCheck = 0610;
+				ORGANIZATIONNAME = "IceCube Software Ltd.";
+				TargetAttributes = {
+					466D4FC01A4783BD00256C2C = {
+						CreatedOnToolsVersion = 6.1.1;
+					};
+					466D4FD91A4783BD00256C2C = {
+						CreatedOnToolsVersion = 6.1.1;
+						TestTargetID = 466D4FC01A4783BD00256C2C;
+					};
+				};
+			};
+			buildConfigurationList = 466D4FBC1A4783BD00256C2C /* Build configuration list for PBXProject "5. 2 Table Views All Properties" */;
+			compatibilityVersion = "Xcode 3.2";
+			developmentRegion = English;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+				Base,
+			);
+			mainGroup = 466D4FB81A4783BD00256C2C;
+			productRefGroup = 466D4FC21A4783BD00256C2C /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				466D4FC01A4783BD00256C2C /* 5. 2 Table Views All Properties */,
+				466D4FD91A4783BD00256C2C /* 5. 2 Table Views All PropertiesTests */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		466D4FBF1A4783BD00256C2C /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				466D4FD51A4783BD00256C2C /* LaunchScreen.xib in Resources */,
+				466D4FD21A4783BD00256C2C /* Images.xcassets in Resources */,
+				466D4FEE1A47849C00256C2C /* Main.storyboard in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		466D4FD81A4783BD00256C2C /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		86391D09C121F1247CD7302D /* Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Check Pods Manifest.lock";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [[ $? != 0 ]] ; then\n    cat << EOM\nerror: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\nEOM\n    exit 1\nfi\n";
+			showEnvVarsInLog = 0;
+		};
+		DCF1B156CA746D8855A6EA0D /* Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Copy Pods Resources";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-5. 2 Table Views All Properties/Pods-5. 2 Table Views All Properties-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		466D4FBD1A4783BD00256C2C /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				466D4FF41A4784D900256C2C /* I3SubtitleTableViewCell.m in Sources */,
+				466D4FCA1A4783BD00256C2C /* AppDelegate.m in Sources */,
+				466D4FF31A4784D900256C2C /* I3SimpleData.m in Sources */,
+				466D4FEC1A47846500256C2C /* TableViewController.m in Sources */,
+				466D4FC71A4783BD00256C2C /* main.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		466D4FD61A4783BD00256C2C /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				466D4FE11A4783BD00256C2C /* ___2_Table_Views_All_PropertiesTests.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		466D4FDC1A4783BD00256C2C /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 466D4FC01A4783BD00256C2C /* 5. 2 Table Views All Properties */;
+			targetProxy = 466D4FDB1A4783BD00256C2C /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
+/* Begin PBXVariantGroup section */
+		466D4FD31A4783BD00256C2C /* LaunchScreen.xib */ = {
+			isa = PBXVariantGroup;
+			children = (
+				466D4FD41A4783BD00256C2C /* Base */,
+			);
+			name = LaunchScreen.xib;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
+
+/* Begin XCBuildConfiguration section */
+		466D4FE21A4783BD00256C2C /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.1;
+				MTL_ENABLE_DEBUG_INFO = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = iphoneos;
+				TARGETED_DEVICE_FAMILY = 2;
+			};
+			name = Debug;
+		};
+		466D4FE31A4783BD00256C2C /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = YES;
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.1;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				SDKROOT = iphoneos;
+				TARGETED_DEVICE_FAMILY = 2;
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		466D4FE51A4783BD00256C2C /* Debug */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 6189F11D7EF12C0676132509 /* Pods-5. 2 Table Views All Properties.debug.xcconfig */;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				INFOPLIST_FILE = "5. 2 Table Views All Properties/Info.plist";
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Debug;
+		};
+		466D4FE61A4783BD00256C2C /* Release */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 31C95DEF29FA7C7B1FDB860B /* Pods-5. 2 Table Views All Properties.release.xcconfig */;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				INFOPLIST_FILE = "5. 2 Table Views All Properties/Info.plist";
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Release;
+		};
+		466D4FE81A4783BD00256C2C /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(SDKROOT)/Developer/Library/Frameworks",
+					"$(inherited)",
+				);
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				INFOPLIST_FILE = "5. 2 Table Views All PropertiesTests/Info.plist";
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/5. 2 Table Views All Properties.app/5. 2 Table Views All Properties";
+			};
+			name = Debug;
+		};
+		466D4FE91A4783BD00256C2C /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(SDKROOT)/Developer/Library/Frameworks",
+					"$(inherited)",
+				);
+				INFOPLIST_FILE = "5. 2 Table Views All PropertiesTests/Info.plist";
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/5. 2 Table Views All Properties.app/5. 2 Table Views All Properties";
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		466D4FBC1A4783BD00256C2C /* Build configuration list for PBXProject "5. 2 Table Views All Properties" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				466D4FE21A4783BD00256C2C /* Debug */,
+				466D4FE31A4783BD00256C2C /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		466D4FE41A4783BD00256C2C /* Build configuration list for PBXNativeTarget "5. 2 Table Views All Properties" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				466D4FE51A4783BD00256C2C /* Debug */,
+				466D4FE61A4783BD00256C2C /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		466D4FE71A4783BD00256C2C /* Build configuration list for PBXNativeTarget "5. 2 Table Views All PropertiesTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				466D4FE81A4783BD00256C2C /* Debug */,
+				466D4FE91A4783BD00256C2C /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = 466D4FB91A4783BD00256C2C /* Project object */;
+}

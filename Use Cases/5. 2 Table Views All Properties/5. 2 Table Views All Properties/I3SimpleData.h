@@ -7,6 +7,11 @@
 //
 
 #import <Foundation/Foundation.h>
+#import <UIKit/UIKit.h>
+
+#define LIGHT_GREEN_COLOUR [UIColor colorWithRed:0.4 green:0.9 blue:0.6 alpha:1]
+#define LIGHT_BLUE_COLOUR [UIColor colorWithRed:0.4 green:0.7 blue:0.9 alpha:1]
+#define LIGHT_RED_COLOUR [UIColor colorWithRed:0.9 green:0.4 blue:0.4 alpha:1]
 
 @interface I3SimpleData : NSObject <NSCopying>
 
