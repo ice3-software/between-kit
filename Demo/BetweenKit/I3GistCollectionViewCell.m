@@ -12,20 +12,4 @@ NSString *const I3GistCollectionViewCellIdentifier = @"I3GistCollectionViewCell"
 
 @implementation I3GistCollectionViewCell
 
--(void) highlightAsFailed:(void(^)()) animationComplete{
-
-    [self.downloadingIndicator stopAnimating];
-    
-    [UIView animateWithDuration:0.75 animations:^{
-        self.backgroundColor = [UIColor redColor];
-    } completion:^(BOOL finished){
-        [UIView animateWithDuration:3 animations:^{
-            self.alpha = 0.2;
-        } completion:^(BOOL finished) {
-            animationComplete();
-        }];
-    }];
-    
-}
-
 @end
