@@ -6,7 +6,8 @@
 //  Copyright (c) 2014 stephen fortune. All rights reserved.
 //
 
-#import "I3BasicRenderDelegate.h"
+#import <BetweenKit/I3BasicRenderDelegate.h>
+#import <UIKit/UIKit.h>
 
 @interface I3SiftRearrangeRenderDelegate : I3BasicRenderDelegate
 

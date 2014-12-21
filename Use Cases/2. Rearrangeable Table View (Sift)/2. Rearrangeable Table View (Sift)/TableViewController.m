@@ -7,6 +7,7 @@
 //
 
 #import "TableViewController.h"
+#import "I3SiftRearrangeRenderDelegate.h"
 #import <BetweenKit/I3GestureCoordinator.h>
 
 
@@ -30,7 +31,14 @@ static NSString* DequeueReusableCell = @"DequeueReusableCell";
     [super viewDidLoad];
     
     self.data = [NSMutableArray arrayWithArray:@[@1, @2, @3, @4, @5, @6, @7, @8]];
-    self.dragCoordinator = [I3GestureCoordinator basicGestureCoordinatorFromViewController:self withCollections:@[self.tableView] withRecognizer:[[UILongPressGestureRecognizer alloc] init]];
+
+    I3DragArena *arena = [[I3DragArena alloc] initWithSuperview:self.view containingCollections:@[self.tableView]];
+    
+    self.dragCoordinator = [[I3GestureCoordinator alloc] initWithDragArena:arena withGestureRecognizer:nil];
+    self.dragCoordinator.renderDelegate = [[I3SiftRearrangeRenderDelegate alloc] init];
+    self.dragCoordinator.dragDataSource = self;
+
+    
     [self.tableView registerClass:[UITableViewCell class] forCellReuseIdentifier:DequeueReusableCell];
 
 }

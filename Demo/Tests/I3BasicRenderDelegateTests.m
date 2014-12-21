@@ -327,6 +327,20 @@ SpecBegin(I3BasicRenderDelegate)
             [uiViewMock stopMocking];
 
         });
+
+        it(@"should just destroy dragging view if rearrangeIsExchange is NO", ^{
+        
+            CGPoint rearrangePoint = CGPointMake(50, 50);
+            
+            renderDelegate.rearrangeIsExchange = NO;
+            
+            [renderDelegate renderDragStart:coordinator];
+            [renderDelegate renderRearrangeOnPoint:rearrangePoint fromCoordinator:coordinator];
+            
+            expect([[coordinator.arena.superview subviews] containsObject:renderDelegate.draggingView]).to.beFalsy();
+            expect(renderDelegate.draggingView).to.beNil();
+
+        });
         
     });
 
