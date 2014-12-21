@@ -1,0 +1,8 @@
+target '6. Rearrangeable Collection View (Exchange)' do
+  pod "BetweenKit", :path => "../../"
+end
+
+target '6. Rearrangeable Collection View (Exchange)Tests' do
+
+end
+
