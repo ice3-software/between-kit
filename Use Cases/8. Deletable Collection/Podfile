@@ -1,0 +1,8 @@
+target '8. Deletable Collection' do
+  pod "BetweenKit", :path => "../../"
+end
+
+target '8. Deletable CollectionTests' do
+
+end
+

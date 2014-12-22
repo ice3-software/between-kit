@@ -1,4 +1,4 @@
-#Use Case 7: _Rearrangeable Collection View (Sift)_
+#Use Case 6: _Deletable Collection_
 
 - Demonstrates 1 `UICollectionView`
 - Uses `UILongPressGestureRecongizer` to detect and coordinate drags
