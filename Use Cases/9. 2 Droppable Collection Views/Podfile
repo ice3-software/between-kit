@@ -1,0 +1,8 @@
+target '9. 2 Droppable Collection Views' do
+  pod "BetweenKit", :path => "../../"
+end
+
+target '9. 2 Droppable Collection Views' do
+
+end
+
