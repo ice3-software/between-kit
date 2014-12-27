@@ -1,0 +1,8 @@
+target '13. Moveable Editable Tables' do
+  pod "BetweenKit", :path => "../../"
+end
+
+target '13. Moveable Editable TablesTests' do
+
+end
+

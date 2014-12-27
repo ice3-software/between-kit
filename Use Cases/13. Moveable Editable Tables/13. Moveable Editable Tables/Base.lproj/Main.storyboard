@@ -1,25 +1,75 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="6211" systemVersion="14A298i" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="BYZ-38-t0r">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="6254" systemVersion="14A389" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="th8-54-Omy">
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="6204"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="6247"/>
+        <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
     </dependencies>
     <scenes>
-        <!--View Controller-->
-        <scene sceneID="tne-QT-ifu">
+        <!--Table View Controller-->
+        <scene sceneID="EU5-wv-JuE">
             <objects>
-                <viewController id="BYZ-38-t0r" customClass="ViewController" customModuleProvider="" sceneMemberID="viewController">
+                <viewController id="th8-54-Omy" customClass="TableViewController" sceneMemberID="viewController">
                     <layoutGuides>
-                        <viewControllerLayoutGuide type="top" id="y3c-jy-aDJ"/>
-                        <viewControllerLayoutGuide type="bottom" id="wfy-db-euE"/>
+                        <viewControllerLayoutGuide type="top" id="pSD-xh-otH"/>
+                        <viewControllerLayoutGuide type="bottom" id="GTc-HQ-JFQ"/>
                     </layoutGuides>
-                    <view key="view" contentMode="scaleToFill" id="8bC-Xf-vdC">
+                    <view key="view" contentMode="scaleToFill" id="rGw-QX-pQs">
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" translatesAutoresizingMaskIntoConstraints="NO" id="DjJ-98-vCL">
+                                <rect key="frame" x="0.0" y="0.0" width="296" height="600"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <connections>
+                                    <outlet property="dataSource" destination="th8-54-Omy" id="A0d-Xo-Tdj"/>
+                                    <outlet property="delegate" destination="th8-54-Omy" id="Irz-pT-f4R"/>
+                                </connections>
+                            </tableView>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" translatesAutoresizingMaskIntoConstraints="NO" id="O4r-Ui-AKb">
+                                <rect key="frame" x="304" y="0.0" width="296" height="600"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <connections>
+                                    <outlet property="dataSource" destination="th8-54-Omy" id="8M0-Ac-NGs"/>
+                                    <outlet property="delegate" destination="th8-54-Omy" id="OGg-WN-hfX"/>
+                                </connections>
+                            </tableView>
+                            <toolbar opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="QM6-B4-Rj9">
+                                <rect key="frame" x="0.0" y="556" width="600" height="44"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="44" id="c0J-Lr-7le"/>
+                                </constraints>
+                                <items>
+                                    <barButtonItem title="Edit" id="3Br-8N-678">
+                                        <connections>
+                                            <action selector="toggleEditMode:" destination="th8-54-Omy" id="iUL-ED-R4P"/>
+                                        </connections>
+                                    </barButtonItem>
+                                </items>
+                            </toolbar>
+                        </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstAttribute="trailingMargin" secondItem="QM6-B4-Rj9" secondAttribute="trailing" constant="-16" id="1iz-mZ-bTe"/>
+                            <constraint firstItem="DjJ-98-vCL" firstAttribute="width" secondItem="O4r-Ui-AKb" secondAttribute="width" id="4XG-Eh-hWJ"/>
+                            <constraint firstItem="O4r-Ui-AKb" firstAttribute="leading" secondItem="DjJ-98-vCL" secondAttribute="trailing" constant="8" id="Lsw-B6-i2l"/>
+                            <constraint firstItem="GTc-HQ-JFQ" firstAttribute="top" secondItem="O4r-Ui-AKb" secondAttribute="bottom" id="OXg-Ha-GTb"/>
+                            <constraint firstItem="O4r-Ui-AKb" firstAttribute="top" secondItem="pSD-xh-otH" secondAttribute="bottom" constant="-20" id="XA0-K3-C5E"/>
+                            <constraint firstItem="DjJ-98-vCL" firstAttribute="top" secondItem="pSD-xh-otH" secondAttribute="bottom" constant="-20" id="d8N-Rf-mm0"/>
+                            <constraint firstItem="QM6-B4-Rj9" firstAttribute="leading" secondItem="rGw-QX-pQs" secondAttribute="leadingMargin" constant="-16" id="fIp-sT-tjh"/>
+                            <constraint firstItem="GTc-HQ-JFQ" firstAttribute="top" secondItem="QM6-B4-Rj9" secondAttribute="bottom" id="ork-ag-ff1"/>
+                            <constraint firstAttribute="trailingMargin" secondItem="O4r-Ui-AKb" secondAttribute="trailing" constant="-16" id="v7Z-HU-kIP"/>
+                            <constraint firstItem="GTc-HQ-JFQ" firstAttribute="top" secondItem="DjJ-98-vCL" secondAttribute="bottom" id="vV6-v3-HT1"/>
+                            <constraint firstItem="DjJ-98-vCL" firstAttribute="leading" secondItem="rGw-QX-pQs" secondAttribute="leadingMargin" constant="-16" id="yio-ld-oCU"/>
+                        </constraints>
                     </view>
+                    <connections>
+                        <outlet property="leftTable" destination="DjJ-98-vCL" id="jNU-6e-bp5"/>
+                        <outlet property="rightTable" destination="O4r-Ui-AKb" id="hSV-Kq-ClM"/>
+                    </connections>
                 </viewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="uFl-51-faX" sceneMemberID="firstResponder"/>
             </objects>
+            <point key="canvasLocation" x="69" y="-93"/>
         </scene>
     </scenes>
 </document>
