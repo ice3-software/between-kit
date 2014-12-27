@@ -1,6 +1,6 @@
 //
 //  CollectionViewController.h
-//  9. 2 Droppable Collection Views
+//  12. Collections With Sections
 //
 //  Created by Stephen Fortune on 22/12/2014.
 //  Copyright (c) 2014 IceCube Software Ltd. All rights reserved.

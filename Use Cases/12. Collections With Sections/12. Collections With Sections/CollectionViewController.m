@@ -1,6 +1,6 @@
 //
 //  CollectionViewController.m
-//  9. 2 Droppable Collection Views
+//  12. Collections With Sections
 //
 //  Created by Stephen Fortune on 22/12/2014.
 //  Copyright (c) 2014 IceCube Software Ltd. All rights reserved.
@@ -15,9 +15,9 @@ static NSString* DequeueReusableCell = @"DequeueReusableCell";
 
 @interface CollectionViewController ()
 
-@property (nonatomic, strong) NSMutableArray *leftData;
+@property (nonatomic, strong) NSArray *leftData;
 
-@property (nonatomic, strong) NSMutableArray *rightData;
+@property (nonatomic, strong) NSArray *rightData;
 
 @property (nonatomic, strong) I3GestureCoordinator *dragCoordinator;
 
@@ -32,9 +32,9 @@ static NSString* DequeueReusableCell = @"DequeueReusableCell";
     [super viewDidLoad];
     
     NSArray *data = @[[UIColor redColor], [UIColor greenColor], [UIColor blueColor], [UIColor yellowColor], [UIColor orangeColor], [UIColor purpleColor]];
-
-    self.leftData = [NSMutableArray arrayWithArray:data];
-    self.rightData = [NSMutableArray arrayWithArray:data];
+    
+    self.leftData = @[[[NSMutableArray alloc] initWithArray:data copyItems:YES], [[NSMutableArray alloc] initWithArray:data copyItems:YES], [[NSMutableArray alloc] initWithArray:data copyItems:YES]];
+    self.rightData = @[[[NSMutableArray alloc] initWithArray:data copyItems:YES], [[NSMutableArray alloc] initWithArray:data copyItems:YES], [[NSMutableArray alloc] initWithArray:data copyItems:YES]];
     
     self.dragCoordinator = [I3GestureCoordinator basicGestureCoordinatorFromViewController:self withCollections:@[self.leftCollection, self.rightCollection]];
     
@@ -52,16 +52,30 @@ static NSString* DequeueReusableCell = @"DequeueReusableCell";
 #pragma mark - Helpers
 
 
--(NSMutableArray *)dataForCollection:(UIView *)collection{
+-(NSArray *)sectionDataForCollection:(UIView *)collection{
     return collection == self.leftCollection ? self.leftData : self.rightData;
+}
+
+
+-(NSMutableArray *)dataForCollection:(UIView *)collection atIndexPath:(NSIndexPath *)index{
+    
+    NSArray *sectionData = [self sectionDataForCollection:collection];
+    return [sectionData objectAtIndex:index.section];
 }
 
 
 #pragma mark - UICollectionViewDelegate, UICollectionViewDataSource
 
 
+-(NSInteger) numberOfSectionsInCollectionView:(UICollectionView *)collectionView{
+    return [self sectionDataForCollection:collectionView].count;
+}
+
+
 -(NSInteger) collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section{
-    return [self dataForCollection:collectionView].count;
+    
+    NSArray *sectionData = [self sectionDataForCollection:collectionView];
+    return ((NSArray *)sectionData[section]).count;
 }
 
 
@@ -69,7 +83,7 @@ static NSString* DequeueReusableCell = @"DequeueReusableCell";
     
     UICollectionViewCell* cell = [collectionView dequeueReusableCellWithReuseIdentifier:DequeueReusableCell forIndexPath:indexPath];
     
-    cell.backgroundColor = [[self dataForCollection:collectionView] objectAtIndex:indexPath.item];
+    cell.backgroundColor = [self dataForCollection:collectionView atIndexPath:indexPath][indexPath.item];
     
     return cell;
 }
@@ -95,12 +109,12 @@ static NSString* DequeueReusableCell = @"DequeueReusableCell";
 
 -(void) dropItemAt:(NSIndexPath *)from fromCollection:(UIView<I3Collection> *)fromCollection toItemAt:(NSIndexPath *)to onCollection:(UIView<I3Collection> *)toCollection{
     
-    NSMutableArray *fromDataset = [self dataForCollection:fromCollection];
-    NSMutableArray *toDataset = [self dataForCollection:toCollection];
-    NSString *exchangingData = fromDataset[from.row];
+    NSMutableArray *fromDataset = [self dataForCollection:fromCollection atIndexPath:from];
+    NSMutableArray *toDataset = [self dataForCollection:toCollection atIndexPath:to];
+    UIColor *exchangingData = fromDataset[from.item];
     
-    [fromDataset removeObjectAtIndex:from.row];
-    [toDataset insertObject:exchangingData atIndex:to.row];
+    [fromDataset removeObjectAtIndex:from.item];
+    [toDataset insertObject:exchangingData atIndex:to.item];
     
     [fromCollection deleteItemsAtIndexPaths:@[from]];
     [toCollection insertItemsAtIndexPaths:@[to]];
@@ -110,7 +124,11 @@ static NSString* DequeueReusableCell = @"DequeueReusableCell";
 
 -(void) dropItemAt:(NSIndexPath *)from fromCollection:(UIView<I3Collection> *)fromCollection toPoint:(CGPoint)to onCollection:(UIView<I3Collection> *)toCollection{
     
-    NSIndexPath *toIndex = [NSIndexPath indexPathForItem:[self dataForCollection:toCollection].count inSection:0];
+    NSArray *sectionData = [self sectionDataForCollection:toCollection];
+    NSInteger sectionIndex = sectionData.count - 1;
+    NSArray *data = sectionData[sectionIndex];
+    
+    NSIndexPath *toIndex = [NSIndexPath indexPathForItem:data.count inSection:sectionIndex];
     
     [self dropItemAt:from fromCollection:fromCollection toItemAt:toIndex onCollection:toCollection];
 }
