@@ -1,0 +1,9 @@
+target '20. Split View Controller' do
+  pod "BetweenKit", :path => "../../"
+  pod "AFNetworking"
+end
+
+target '20. Split View ControllerTests' do
+
+end
+
