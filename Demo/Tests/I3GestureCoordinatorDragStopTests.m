@@ -22,6 +22,7 @@ SpecBegin(I3GestureCoordinatorDragStop)
         
         CGPoint dropOrigin = CGPointMake(50, 50);
         
+        
         beforeEach(^{
             
             coordinator = I3GestureCoordinatorSetupDraggingMock(nil);
@@ -715,6 +716,7 @@ SpecBegin(I3GestureCoordinatorDragStop)
 
     describe(@"stopping an invalid drag", ^{
 
+        
         __block I3GestureCoordinator *coordinator;
         
         CGPoint dropOrigin = CGPointMake(50, 50);

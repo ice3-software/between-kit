@@ -12,47 +12,17 @@
 		4633303F1A194BC800EBE25D /* I3CollectionFixture.m in Sources */ = {isa = PBXBuildFile; fileRef = 4633303E1A194BC800EBE25D /* I3CollectionFixture.m */; };
 		463330411A1A205B00EBE25D /* UITableView+I3CollectionTest.m in Sources */ = {isa = PBXBuildFile; fileRef = 463330401A1A205B00EBE25D /* UITableView+I3CollectionTest.m */; };
 		463330461A1A299100EBE25D /* UICollectionView+I3CollectionTest.m in Sources */ = {isa = PBXBuildFile; fileRef = 463330451A1A299100EBE25D /* UICollectionView+I3CollectionTest.m */; };
-		4659C8371A4319170076C645 /* I33CollectionsComplexConfigurationViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4659C8361A4319170076C645 /* I33CollectionsComplexConfigurationViewController.m */; };
-		4659C83A1A431EAA0076C645 /* I3SubtitleCollectionViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 4659C8391A431EAA0076C645 /* I3SubtitleCollectionViewCell.m */; };
-		4659C83D1A4320A00076C645 /* I3SubtitleCollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 4659C83C1A4320A00076C645 /* I3SubtitleCollectionViewCell.xib */; };
 		466BA24B1A3C9CCB006CD452 /* I3GestureCoordinatorTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 466BA2491A3C9CCB006CD452 /* I3GestureCoordinatorTests.m */; };
 		466BA24F1A3F5DA5006CD452 /* I3CoordinatorCreationMethods.m in Sources */ = {isa = PBXBuildFile; fileRef = 466BA24E1A3F5DA5006CD452 /* I3CoordinatorCreationMethods.m */; };
 		466BA2521A406A16006CD452 /* I3GestureCoordinatorDragStartTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 466BA2511A406A16006CD452 /* I3GestureCoordinatorDragStartTests.m */; };
 		466BA25B1A4077AA006CD452 /* EXPMatchers+haveStartedDrag.m in Sources */ = {isa = PBXBuildFile; fileRef = 466BA25A1A4077AA006CD452 /* EXPMatchers+haveStartedDrag.m */; };
 		466BA25D1A4099D5006CD452 /* I3GestureCoordinatorDragStopTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 466BA25C1A4099D5006CD452 /* I3GestureCoordinatorDragStopTests.m */; };
 		466BA25F1A41DB93006CD452 /* I3GestureCoordinatorDraggingTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 466BA25E1A41DB93006CD452 /* I3GestureCoordinatorDraggingTests.m */; };
-		466BA2651A4230C6006CD452 /* I32TablesAllPropertiesViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 466BA2641A4230C6006CD452 /* I32TablesAllPropertiesViewController.m */; };
-		466BA2681A4231B2006CD452 /* I3SimpleData.m in Sources */ = {isa = PBXBuildFile; fileRef = 466BA2671A4231B2006CD452 /* I3SimpleData.m */; };
-		466BA26C1A423921006CD452 /* I3SubtitleTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 466BA26B1A423921006CD452 /* I3SubtitleTableViewCell.m */; };
 		467AFC8619C5E20D00FFD1F4 /* LICENSE.md in Resources */ = {isa = PBXBuildFile; fileRef = 467AFC8519C5E20D00FFD1F4 /* LICENSE.md */; };
 		467B35261A1F7AA70000A77C /* I3DataSourceControllerFixture.m in Sources */ = {isa = PBXBuildFile; fileRef = 467B35251A1F7AA70000A77C /* I3DataSourceControllerFixture.m */; };
-		467B35291A1F93050000A77C /* I32DropableTablesViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 467B35281A1F93050000A77C /* I32DropableTablesViewController.m */; };
-		4681C91B1A214D5B00504DF6 /* I32DeleteableTablesViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4681C91A1A214D5B00504DF6 /* I32DeleteableTablesViewController.m */; };
 		46866CFB19D42E1E00C45CCD /* I3DragArenaTest.m in Sources */ = {isa = PBXBuildFile; fileRef = 46866CFA19D42E1E00C45CCD /* I3DragArenaTest.m */; };
 		46A1877B19CF46A20061B355 /* I3BasicRenderDelegateTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 46A1877A19CF46A20061B355 /* I3BasicRenderDelegateTests.m */; };
 		46A1878019CF5DC20061B355 /* I3CloneViewTest.m in Sources */ = {isa = PBXBuildFile; fileRef = 46A1877F19CF5DC20061B355 /* I3CloneViewTest.m */; };
-		46BB1F2B1A4378EB006EC5A0 /* I3MasterViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 46BB1F2A1A4378EB006EC5A0 /* I3MasterViewController.m */; };
-		46BB1F2E1A4379D1006EC5A0 /* I3DetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 46BB1F2D1A4379D1006EC5A0 /* I3DetailViewController.m */; };
-		46BB1F311A43C72A006EC5A0 /* I3CustomerRenderDelegateViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 46BB1F301A43C72A006EC5A0 /* I3CustomerRenderDelegateViewController.m */; };
-		46BB1F341A444F56006EC5A0 /* I3FunkRenderDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 46BB1F331A444F56006EC5A0 /* I3FunkRenderDelegate.m */; };
-		46BDB0D61A45E3D40078EDF3 /* I31Table1CollectionSiftRearrangeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 46BDB0D51A45E3D40078EDF3 /* I31Table1CollectionSiftRearrangeViewController.m */; };
-		46BDB0D91A45E46E0078EDF3 /* I3SiftRearrangeRenderDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 46BDB0D81A45E46E0078EDF3 /* I3SiftRearrangeRenderDelegate.m */; };
-		46BDB0DC1A45EE6F0078EDF3 /* I32TablesEditableMoveableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 46BDB0DB1A45EE6F0078EDF3 /* I32TablesEditableMoveableViewController.m */; };
-		46BDB0DF1A460CFA0078EDF3 /* I32RearrangeableCollectionViewsController.m in Sources */ = {isa = PBXBuildFile; fileRef = 46BDB0DE1A460CFA0078EDF3 /* I32RearrangeableCollectionViewsController.m */; };
-		46BDB0E11A460ED60078EDF3 /* I3MoveableCollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 46BDB0E01A460ED60078EDF3 /* I3MoveableCollectionViewCell.xib */; };
-		46BDB0E41A460F0F0078EDF3 /* I3MoveableCollectionViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 46BDB0E31A460F0F0078EDF3 /* I3MoveableCollectionViewCell.m */; };
-		46BDB0E71A4622FD0078EDF3 /* I3NetworkingDropViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 46BDB0E61A4622FD0078EDF3 /* I3NetworkingDropViewController.m */; };
-		46BDB0EA1A4625E80078EDF3 /* I3Gist.m in Sources */ = {isa = PBXBuildFile; fileRef = 46BDB0E91A4625E80078EDF3 /* I3Gist.m */; };
-		46BDB0ED1A46270F0078EDF3 /* I3GistService.m in Sources */ = {isa = PBXBuildFile; fileRef = 46BDB0EC1A46270F0078EDF3 /* I3GistService.m */; };
-		46BDB0F11A463A0B0078EDF3 /* I3GistCollectionViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 46BDB0F01A463A0B0078EDF3 /* I3GistCollectionViewCell.m */; };
-		46BDB0F31A463BD00078EDF3 /* I3GistCollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 46BDB0F21A463BD00078EDF3 /* I3GistCollectionViewCell.xib */; };
-		46BDB0F61A46557D0078EDF3 /* I3AvailableGistCollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 46BDB0F51A46557D0078EDF3 /* I3AvailableGistCollectionViewCell.xib */; };
-		46BDB0F91A4655920078EDF3 /* I3AvailableGistCollectionViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 46BDB0F81A4655920078EDF3 /* I3AvailableGistCollectionViewCell.m */; };
-		46BDB0FC1A47303D0078EDF3 /* I32DroppableCollectionViewsController.m in Sources */ = {isa = PBXBuildFile; fileRef = 46BDB0FB1A47303D0078EDF3 /* I32DroppableCollectionViewsController.m */; };
-		46BDB1001A47321A0078EDF3 /* icon_move_arrow@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 46BDB0FF1A47321A0078EDF3 /* icon_move_arrow@2x.png */; };
-		46BDB1021A47326D0078EDF3 /* icon_move_arrow.png in Resources */ = {isa = PBXBuildFile; fileRef = 46BDB1011A47326D0078EDF3 /* icon_move_arrow.png */; };
-		46BDB1051A473E520078EDF3 /* I32DeleteableCollectionViewsController.m in Sources */ = {isa = PBXBuildFile; fileRef = 46BDB1041A473E520078EDF3 /* I32DeleteableCollectionViewsController.m */; };
-		46BDB1081A4741B00078EDF3 /* I32CollectionViewsAllPropertiesController.m in Sources */ = {isa = PBXBuildFile; fileRef = 46BDB1071A4741B00078EDF3 /* I32CollectionViewsAllPropertiesController.m */; };
 		6003F58E195388D20070C39A /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6003F58D195388D20070C39A /* Foundation.framework */; };
 		6003F590195388D20070C39A /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6003F58F195388D20070C39A /* CoreGraphics.framework */; };
 		6003F592195388D20070C39A /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6003F591195388D20070C39A /* UIKit.framework */; };
@@ -61,7 +31,6 @@
 		6003F59E195388D20070C39A /* I3AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 6003F59D195388D20070C39A /* I3AppDelegate.m */; };
 		6003F5A1195388D20070C39A /* Main_iPhone.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 6003F59F195388D20070C39A /* Main_iPhone.storyboard */; };
 		6003F5A4195388D20070C39A /* Main_iPad.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 6003F5A2195388D20070C39A /* Main_iPad.storyboard */; };
-		6003F5A7195388D20070C39A /* I32RearrangeableTablesViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6003F5A6195388D20070C39A /* I32RearrangeableTablesViewController.m */; };
 		6003F5A9195388D20070C39A /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 6003F5A8195388D20070C39A /* Images.xcassets */; };
 		6003F5B0195388D20070C39A /* XCTest.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6003F5AF195388D20070C39A /* XCTest.framework */; };
 		6003F5B1195388D20070C39A /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6003F58D195388D20070C39A /* Foundation.framework */; };
@@ -89,11 +58,6 @@
 		4633303E1A194BC800EBE25D /* I3CollectionFixture.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = I3CollectionFixture.m; sourceTree = "<group>"; };
 		463330401A1A205B00EBE25D /* UITableView+I3CollectionTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UITableView+I3CollectionTest.m"; sourceTree = "<group>"; };
 		463330451A1A299100EBE25D /* UICollectionView+I3CollectionTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UICollectionView+I3CollectionTest.m"; sourceTree = "<group>"; };
-		4659C8351A4319170076C645 /* I33CollectionsComplexConfigurationViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = I33CollectionsComplexConfigurationViewController.h; sourceTree = "<group>"; };
-		4659C8361A4319170076C645 /* I33CollectionsComplexConfigurationViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = I33CollectionsComplexConfigurationViewController.m; sourceTree = "<group>"; };
-		4659C8381A431EAA0076C645 /* I3SubtitleCollectionViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = I3SubtitleCollectionViewCell.h; sourceTree = "<group>"; };
-		4659C8391A431EAA0076C645 /* I3SubtitleCollectionViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = I3SubtitleCollectionViewCell.m; sourceTree = "<group>"; };
-		4659C83C1A4320A00076C645 /* I3SubtitleCollectionViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = I3SubtitleCollectionViewCell.xib; sourceTree = "<group>"; };
 		466BA2491A3C9CCB006CD452 /* I3GestureCoordinatorTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = I3GestureCoordinatorTests.m; sourceTree = "<group>"; };
 		466BA24D1A3F5DA5006CD452 /* I3CoordinatorCreationMethods.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = I3CoordinatorCreationMethods.h; sourceTree = "<group>"; };
 		466BA24E1A3F5DA5006CD452 /* I3CoordinatorCreationMethods.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = I3CoordinatorCreationMethods.m; sourceTree = "<group>"; };
@@ -102,62 +66,12 @@
 		466BA25A1A4077AA006CD452 /* EXPMatchers+haveStartedDrag.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "EXPMatchers+haveStartedDrag.m"; sourceTree = "<group>"; };
 		466BA25C1A4099D5006CD452 /* I3GestureCoordinatorDragStopTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = I3GestureCoordinatorDragStopTests.m; sourceTree = "<group>"; };
 		466BA25E1A41DB93006CD452 /* I3GestureCoordinatorDraggingTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = I3GestureCoordinatorDraggingTests.m; sourceTree = "<group>"; };
-		466BA2631A4230C6006CD452 /* I32TablesAllPropertiesViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = I32TablesAllPropertiesViewController.h; sourceTree = "<group>"; };
-		466BA2641A4230C6006CD452 /* I32TablesAllPropertiesViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = I32TablesAllPropertiesViewController.m; sourceTree = "<group>"; };
-		466BA2661A4231B2006CD452 /* I3SimpleData.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = I3SimpleData.h; sourceTree = "<group>"; };
-		466BA2671A4231B2006CD452 /* I3SimpleData.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = I3SimpleData.m; sourceTree = "<group>"; };
-		466BA26A1A423921006CD452 /* I3SubtitleTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = I3SubtitleTableViewCell.h; sourceTree = "<group>"; };
-		466BA26B1A423921006CD452 /* I3SubtitleTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = I3SubtitleTableViewCell.m; sourceTree = "<group>"; };
 		467AFC8519C5E20D00FFD1F4 /* LICENSE.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = LICENSE.md; path = ../LICENSE.md; sourceTree = "<group>"; };
 		467B35241A1F7AA70000A77C /* I3DataSourceControllerFixture.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = I3DataSourceControllerFixture.h; sourceTree = "<group>"; };
 		467B35251A1F7AA70000A77C /* I3DataSourceControllerFixture.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = I3DataSourceControllerFixture.m; sourceTree = "<group>"; };
-		467B35271A1F93050000A77C /* I32DropableTablesViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = I32DropableTablesViewController.h; sourceTree = "<group>"; };
-		467B35281A1F93050000A77C /* I32DropableTablesViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = I32DropableTablesViewController.m; sourceTree = "<group>"; };
-		4681C9191A214D5B00504DF6 /* I32DeleteableTablesViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = I32DeleteableTablesViewController.h; sourceTree = "<group>"; };
-		4681C91A1A214D5B00504DF6 /* I32DeleteableTablesViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = I32DeleteableTablesViewController.m; sourceTree = "<group>"; };
 		46866CFA19D42E1E00C45CCD /* I3DragArenaTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = I3DragArenaTest.m; sourceTree = "<group>"; };
 		46A1877A19CF46A20061B355 /* I3BasicRenderDelegateTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = I3BasicRenderDelegateTests.m; sourceTree = "<group>"; };
 		46A1877F19CF5DC20061B355 /* I3CloneViewTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = I3CloneViewTest.m; sourceTree = "<group>"; };
-		46BB1F291A4378EB006EC5A0 /* I3MasterViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = I3MasterViewController.h; sourceTree = "<group>"; };
-		46BB1F2A1A4378EB006EC5A0 /* I3MasterViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = I3MasterViewController.m; sourceTree = "<group>"; };
-		46BB1F2C1A4379D1006EC5A0 /* I3DetailViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = I3DetailViewController.h; sourceTree = "<group>"; };
-		46BB1F2D1A4379D1006EC5A0 /* I3DetailViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = I3DetailViewController.m; sourceTree = "<group>"; };
-		46BB1F2F1A43C72A006EC5A0 /* I3CustomerRenderDelegateViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = I3CustomerRenderDelegateViewController.h; sourceTree = "<group>"; };
-		46BB1F301A43C72A006EC5A0 /* I3CustomerRenderDelegateViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = I3CustomerRenderDelegateViewController.m; sourceTree = "<group>"; };
-		46BB1F321A444F56006EC5A0 /* I3FunkRenderDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = I3FunkRenderDelegate.h; sourceTree = "<group>"; };
-		46BB1F331A444F56006EC5A0 /* I3FunkRenderDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = I3FunkRenderDelegate.m; sourceTree = "<group>"; };
-		46BDB0D41A45E3D40078EDF3 /* I31Table1CollectionSiftRearrangeViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = I31Table1CollectionSiftRearrangeViewController.h; sourceTree = "<group>"; };
-		46BDB0D51A45E3D40078EDF3 /* I31Table1CollectionSiftRearrangeViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = I31Table1CollectionSiftRearrangeViewController.m; sourceTree = "<group>"; };
-		46BDB0D71A45E46E0078EDF3 /* I3SiftRearrangeRenderDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = I3SiftRearrangeRenderDelegate.h; sourceTree = "<group>"; };
-		46BDB0D81A45E46E0078EDF3 /* I3SiftRearrangeRenderDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = I3SiftRearrangeRenderDelegate.m; sourceTree = "<group>"; };
-		46BDB0DA1A45EE6F0078EDF3 /* I32TablesEditableMoveableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = I32TablesEditableMoveableViewController.h; sourceTree = "<group>"; };
-		46BDB0DB1A45EE6F0078EDF3 /* I32TablesEditableMoveableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = I32TablesEditableMoveableViewController.m; sourceTree = "<group>"; };
-		46BDB0DD1A460CFA0078EDF3 /* I32RearrangeableCollectionViewsController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = I32RearrangeableCollectionViewsController.h; sourceTree = "<group>"; };
-		46BDB0DE1A460CFA0078EDF3 /* I32RearrangeableCollectionViewsController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = I32RearrangeableCollectionViewsController.m; sourceTree = "<group>"; };
-		46BDB0E01A460ED60078EDF3 /* I3MoveableCollectionViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = I3MoveableCollectionViewCell.xib; sourceTree = "<group>"; };
-		46BDB0E21A460F0F0078EDF3 /* I3MoveableCollectionViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = I3MoveableCollectionViewCell.h; sourceTree = "<group>"; };
-		46BDB0E31A460F0F0078EDF3 /* I3MoveableCollectionViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = I3MoveableCollectionViewCell.m; sourceTree = "<group>"; };
-		46BDB0E51A4622FD0078EDF3 /* I3NetworkingDropViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = I3NetworkingDropViewController.h; sourceTree = "<group>"; };
-		46BDB0E61A4622FD0078EDF3 /* I3NetworkingDropViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = I3NetworkingDropViewController.m; sourceTree = "<group>"; };
-		46BDB0E81A4625E80078EDF3 /* I3Gist.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = I3Gist.h; sourceTree = "<group>"; };
-		46BDB0E91A4625E80078EDF3 /* I3Gist.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = I3Gist.m; sourceTree = "<group>"; };
-		46BDB0EB1A46270F0078EDF3 /* I3GistService.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = I3GistService.h; sourceTree = "<group>"; };
-		46BDB0EC1A46270F0078EDF3 /* I3GistService.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = I3GistService.m; sourceTree = "<group>"; };
-		46BDB0EE1A462A160078EDF3 /* I3GistRouting.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = I3GistRouting.h; sourceTree = "<group>"; };
-		46BDB0EF1A463A0B0078EDF3 /* I3GistCollectionViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = I3GistCollectionViewCell.h; sourceTree = "<group>"; };
-		46BDB0F01A463A0B0078EDF3 /* I3GistCollectionViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = I3GistCollectionViewCell.m; sourceTree = "<group>"; };
-		46BDB0F21A463BD00078EDF3 /* I3GistCollectionViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = I3GistCollectionViewCell.xib; sourceTree = "<group>"; };
-		46BDB0F51A46557D0078EDF3 /* I3AvailableGistCollectionViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = I3AvailableGistCollectionViewCell.xib; sourceTree = "<group>"; };
-		46BDB0F71A4655920078EDF3 /* I3AvailableGistCollectionViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = I3AvailableGistCollectionViewCell.h; sourceTree = "<group>"; };
-		46BDB0F81A4655920078EDF3 /* I3AvailableGistCollectionViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = I3AvailableGistCollectionViewCell.m; sourceTree = "<group>"; };
-		46BDB0FA1A47303D0078EDF3 /* I32DroppableCollectionViewsController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = I32DroppableCollectionViewsController.h; sourceTree = "<group>"; };
-		46BDB0FB1A47303D0078EDF3 /* I32DroppableCollectionViewsController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = I32DroppableCollectionViewsController.m; sourceTree = "<group>"; };
-		46BDB0FF1A47321A0078EDF3 /* icon_move_arrow@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "icon_move_arrow@2x.png"; sourceTree = "<group>"; };
-		46BDB1011A47326D0078EDF3 /* icon_move_arrow.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = icon_move_arrow.png; sourceTree = "<group>"; };
-		46BDB1031A473E520078EDF3 /* I32DeleteableCollectionViewsController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = I32DeleteableCollectionViewsController.h; sourceTree = "<group>"; };
-		46BDB1041A473E520078EDF3 /* I32DeleteableCollectionViewsController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = I32DeleteableCollectionViewsController.m; sourceTree = "<group>"; };
-		46BDB1061A4741B00078EDF3 /* I32CollectionViewsAllPropertiesController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = I32CollectionViewsAllPropertiesController.h; sourceTree = "<group>"; };
-		46BDB1071A4741B00078EDF3 /* I32CollectionViewsAllPropertiesController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = I32CollectionViewsAllPropertiesController.m; sourceTree = "<group>"; };
 		542B21470EB3452C810F4621 /* BetweenKit.podspec */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; name = BetweenKit.podspec; path = ../BetweenKit.podspec; sourceTree = "<group>"; };
 		6003F58A195388D20070C39A /* BetweenKit.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = BetweenKit.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		6003F58D195388D20070C39A /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
@@ -171,8 +85,6 @@
 		6003F59D195388D20070C39A /* I3AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = I3AppDelegate.m; sourceTree = "<group>"; };
 		6003F5A0195388D20070C39A /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main_iPhone.storyboard; sourceTree = "<group>"; };
 		6003F5A3195388D20070C39A /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main_iPad.storyboard; sourceTree = "<group>"; };
-		6003F5A5195388D20070C39A /* I32RearrangeableTablesViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = I32RearrangeableTablesViewController.h; sourceTree = "<group>"; };
-		6003F5A6195388D20070C39A /* I32RearrangeableTablesViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = I32RearrangeableTablesViewController.m; sourceTree = "<group>"; };
 		6003F5A8195388D20070C39A /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
 		6003F5AE195388D20070C39A /* Tests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = Tests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		6003F5AF195388D20070C39A /* XCTest.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = XCTest.framework; path = Library/Frameworks/XCTest.framework; sourceTree = DEVELOPER_DIR; };
@@ -212,35 +124,6 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		46141B511A45DE7000C0B72E /* 1 Table 1 Collection View - Sift Rearrange */ = {
-			isa = PBXGroup;
-			children = (
-				46BDB0D41A45E3D40078EDF3 /* I31Table1CollectionSiftRearrangeViewController.h */,
-				46BDB0D51A45E3D40078EDF3 /* I31Table1CollectionSiftRearrangeViewController.m */,
-				46BDB0D71A45E46E0078EDF3 /* I3SiftRearrangeRenderDelegate.h */,
-				46BDB0D81A45E46E0078EDF3 /* I3SiftRearrangeRenderDelegate.m */,
-			);
-			name = "1 Table 1 Collection View - Sift Rearrange";
-			sourceTree = "<group>";
-		};
-		4632574219E5DE3A00E1C633 /* 2 Tables - Rearrangeable */ = {
-			isa = PBXGroup;
-			children = (
-				6003F5A5195388D20070C39A /* I32RearrangeableTablesViewController.h */,
-				6003F5A6195388D20070C39A /* I32RearrangeableTablesViewController.m */,
-			);
-			name = "2 Tables - Rearrangeable";
-			sourceTree = "<group>";
-		};
-		4659C83B1A43208F0076C645 /* Views */ = {
-			isa = PBXGroup;
-			children = (
-				4659C83C1A4320A00076C645 /* I3SubtitleCollectionViewCell.xib */,
-				46BDB0E01A460ED60078EDF3 /* I3MoveableCollectionViewCell.xib */,
-			);
-			name = Views;
-			sourceTree = "<group>";
-		};
 		466BA2501A40687B006CD452 /* Creation Methods */ = {
 			isa = PBXGroup;
 			children = (
@@ -259,191 +142,6 @@
 			name = Matchers;
 			sourceTree = "<group>";
 		};
-		466BA2691A4231B6006CD452 /* Fixtures */ = {
-			isa = PBXGroup;
-			children = (
-				466BA2661A4231B2006CD452 /* I3SimpleData.h */,
-				466BA2671A4231B2006CD452 /* I3SimpleData.m */,
-				466BA26A1A423921006CD452 /* I3SubtitleTableViewCell.h */,
-				466BA26B1A423921006CD452 /* I3SubtitleTableViewCell.m */,
-				4659C8381A431EAA0076C645 /* I3SubtitleCollectionViewCell.h */,
-				4659C8391A431EAA0076C645 /* I3SubtitleCollectionViewCell.m */,
-				46BDB0E21A460F0F0078EDF3 /* I3MoveableCollectionViewCell.h */,
-				46BDB0E31A460F0F0078EDF3 /* I3MoveableCollectionViewCell.m */,
-			);
-			name = Fixtures;
-			sourceTree = "<group>";
-		};
-		467B350D1A1F5A1E0000A77C /* 2 Tables - Drop */ = {
-			isa = PBXGroup;
-			children = (
-				467B35271A1F93050000A77C /* I32DropableTablesViewController.h */,
-				467B35281A1F93050000A77C /* I32DropableTablesViewController.m */,
-			);
-			name = "2 Tables - Drop";
-			sourceTree = "<group>";
-		};
-		467B350E1A1F5A340000A77C /* 2 Tables - Deleteable */ = {
-			isa = PBXGroup;
-			children = (
-				4681C9191A214D5B00504DF6 /* I32DeleteableTablesViewController.h */,
-				4681C91A1A214D5B00504DF6 /* I32DeleteableTablesViewController.m */,
-			);
-			name = "2 Tables - Deleteable";
-			sourceTree = "<group>";
-		};
-		467B350F1A1F5A410000A77C /* 2 Tables - All Properties */ = {
-			isa = PBXGroup;
-			children = (
-				466BA2631A4230C6006CD452 /* I32TablesAllPropertiesViewController.h */,
-				466BA2641A4230C6006CD452 /* I32TablesAllPropertiesViewController.m */,
-			);
-			name = "2 Tables - All Properties";
-			sourceTree = "<group>";
-		};
-		467B35101A1F5A520000A77C /* 3 Collections - Complex Configuration */ = {
-			isa = PBXGroup;
-			children = (
-				4659C8351A4319170076C645 /* I33CollectionsComplexConfigurationViewController.h */,
-				4659C8361A4319170076C645 /* I33CollectionsComplexConfigurationViewController.m */,
-			);
-			name = "3 Collections - Complex Configuration";
-			sourceTree = "<group>";
-		};
-		467B35111A1F5A770000A77C /* 3 Collections - Rows, Items and Sections */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			name = "3 Collections - Rows, Items and Sections";
-			sourceTree = "<group>";
-		};
-		467B35121A1F5A950000A77C /* 2 Collection VIews - All Properties */ = {
-			isa = PBXGroup;
-			children = (
-				46BDB1061A4741B00078EDF3 /* I32CollectionViewsAllPropertiesController.h */,
-				46BDB1071A4741B00078EDF3 /* I32CollectionViewsAllPropertiesController.m */,
-			);
-			name = "2 Collection VIews - All Properties";
-			sourceTree = "<group>";
-		};
-		467B35131A1F5AC10000A77C /* 2 Collection Views - Deleteable */ = {
-			isa = PBXGroup;
-			children = (
-				46BDB1031A473E520078EDF3 /* I32DeleteableCollectionViewsController.h */,
-				46BDB1041A473E520078EDF3 /* I32DeleteableCollectionViewsController.m */,
-			);
-			name = "2 Collection Views - Deleteable";
-			sourceTree = "<group>";
-		};
-		467B35141A1F5ACC0000A77C /* 2 Collection Views - Droppable */ = {
-			isa = PBXGroup;
-			children = (
-				46BDB0FA1A47303D0078EDF3 /* I32DroppableCollectionViewsController.h */,
-				46BDB0FB1A47303D0078EDF3 /* I32DroppableCollectionViewsController.m */,
-			);
-			name = "2 Collection Views - Droppable";
-			sourceTree = "<group>";
-		};
-		467B35151A1F5AD90000A77C /* 2 Collection Views - Rearrangeable */ = {
-			isa = PBXGroup;
-			children = (
-				46BDB0DD1A460CFA0078EDF3 /* I32RearrangeableCollectionViewsController.h */,
-				46BDB0DE1A460CFA0078EDF3 /* I32RearrangeableCollectionViewsController.m */,
-			);
-			name = "2 Collection Views - Rearrangeable";
-			sourceTree = "<group>";
-		};
-		467B35161A1F5AE50000A77C /* 1 Table 1 Collection View - Editable / Moveable */ = {
-			isa = PBXGroup;
-			children = (
-				46BDB0DA1A45EE6F0078EDF3 /* I32TablesEditableMoveableViewController.h */,
-				46BDB0DB1A45EE6F0078EDF3 /* I32TablesEditableMoveableViewController.m */,
-			);
-			name = "1 Table 1 Collection View - Editable / Moveable";
-			sourceTree = "<group>";
-		};
-		467B35171A1F5B170000A77C /* Paint Me */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			name = "Paint Me";
-			sourceTree = "<group>";
-		};
-		467B35181A1F5B210000A77C /* Fluid UI */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			name = "Fluid UI";
-			sourceTree = "<group>";
-		};
-		467B35191A1F5B580000A77C /* Networking */ = {
-			isa = PBXGroup;
-			children = (
-				46BDB0F41A463BD90078EDF3 /* Views */,
-				46BDB0E51A4622FD0078EDF3 /* I3NetworkingDropViewController.h */,
-				46BDB0E61A4622FD0078EDF3 /* I3NetworkingDropViewController.m */,
-				46BDB0E81A4625E80078EDF3 /* I3Gist.h */,
-				46BDB0E91A4625E80078EDF3 /* I3Gist.m */,
-				46BDB0EB1A46270F0078EDF3 /* I3GistService.h */,
-				46BDB0EC1A46270F0078EDF3 /* I3GistService.m */,
-				46BDB0EE1A462A160078EDF3 /* I3GistRouting.h */,
-				46BDB0EF1A463A0B0078EDF3 /* I3GistCollectionViewCell.h */,
-				46BDB0F01A463A0B0078EDF3 /* I3GistCollectionViewCell.m */,
-				46BDB0F71A4655920078EDF3 /* I3AvailableGistCollectionViewCell.h */,
-				46BDB0F81A4655920078EDF3 /* I3AvailableGistCollectionViewCell.m */,
-			);
-			name = Networking;
-			sourceTree = "<group>";
-		};
-		467B351A1A1F5B980000A77C /* Split View Controller */ = {
-			isa = PBXGroup;
-			children = (
-				46BB1F291A4378EB006EC5A0 /* I3MasterViewController.h */,
-				46BB1F2A1A4378EB006EC5A0 /* I3MasterViewController.m */,
-				46BB1F2C1A4379D1006EC5A0 /* I3DetailViewController.h */,
-				46BB1F2D1A4379D1006EC5A0 /* I3DetailViewController.m */,
-			);
-			name = "Split View Controller";
-			sourceTree = "<group>";
-		};
-		467B351C1A1F5C410000A77C /* Custom Render Delegates */ = {
-			isa = PBXGroup;
-			children = (
-				46BB1F2F1A43C72A006EC5A0 /* I3CustomerRenderDelegateViewController.h */,
-				46BB1F301A43C72A006EC5A0 /* I3CustomerRenderDelegateViewController.m */,
-				46BB1F321A444F56006EC5A0 /* I3FunkRenderDelegate.h */,
-				46BB1F331A444F56006EC5A0 /* I3FunkRenderDelegate.m */,
-			);
-			name = "Custom Render Delegates";
-			sourceTree = "<group>";
-		};
-		4694A4B31A1A3DCE00E0AB9B /* Use Cases */ = {
-			isa = PBXGroup;
-			children = (
-				46BDB0FE1A4731F40078EDF3 /* Images */,
-				4659C83B1A43208F0076C645 /* Views */,
-				466BA2691A4231B6006CD452 /* Fixtures */,
-				467B351C1A1F5C410000A77C /* Custom Render Delegates */,
-				467B351A1A1F5B980000A77C /* Split View Controller */,
-				467B35191A1F5B580000A77C /* Networking */,
-				467B35181A1F5B210000A77C /* Fluid UI */,
-				467B35171A1F5B170000A77C /* Paint Me */,
-				46141B511A45DE7000C0B72E /* 1 Table 1 Collection View - Sift Rearrange */,
-				467B35161A1F5AE50000A77C /* 1 Table 1 Collection View - Editable / Moveable */,
-				467B35151A1F5AD90000A77C /* 2 Collection Views - Rearrangeable */,
-				467B35141A1F5ACC0000A77C /* 2 Collection Views - Droppable */,
-				467B35131A1F5AC10000A77C /* 2 Collection Views - Deleteable */,
-				467B35121A1F5A950000A77C /* 2 Collection VIews - All Properties */,
-				467B35101A1F5A520000A77C /* 3 Collections - Complex Configuration */,
-				467B35111A1F5A770000A77C /* 3 Collections - Rows, Items and Sections */,
-				467B350F1A1F5A410000A77C /* 2 Tables - All Properties */,
-				467B350E1A1F5A340000A77C /* 2 Tables - Deleteable */,
-				467B350D1A1F5A1E0000A77C /* 2 Tables - Drop */,
-				4632574219E5DE3A00E1C633 /* 2 Tables - Rearrangeable */,
-			);
-			name = "Use Cases";
-			sourceTree = "<group>";
-		};
 		46B5AA8619CE192600A51694 /* Fixtures */ = {
 			isa = PBXGroup;
 			children = (
@@ -455,24 +153,6 @@
 				467B35251A1F7AA70000A77C /* I3DataSourceControllerFixture.m */,
 			);
 			name = Fixtures;
-			sourceTree = "<group>";
-		};
-		46BDB0F41A463BD90078EDF3 /* Views */ = {
-			isa = PBXGroup;
-			children = (
-				46BDB0F21A463BD00078EDF3 /* I3GistCollectionViewCell.xib */,
-				46BDB0F51A46557D0078EDF3 /* I3AvailableGistCollectionViewCell.xib */,
-			);
-			name = Views;
-			sourceTree = "<group>";
-		};
-		46BDB0FE1A4731F40078EDF3 /* Images */ = {
-			isa = PBXGroup;
-			children = (
-				46BDB0FF1A47321A0078EDF3 /* icon_move_arrow@2x.png */,
-				46BDB1011A47326D0078EDF3 /* icon_move_arrow.png */,
-			);
-			name = Images;
 			sourceTree = "<group>";
 		};
 		6003F581195388D10070C39A = {
@@ -512,7 +192,6 @@
 		6003F593195388D20070C39A /* BetweenKit */ = {
 			isa = PBXGroup;
 			children = (
-				4694A4B31A1A3DCE00E0AB9B /* Use Cases */,
 				6003F59C195388D20070C39A /* I3AppDelegate.h */,
 				6003F59D195388D20070C39A /* I3AppDelegate.m */,
 				6003F59F195388D20070C39A /* Main_iPhone.storyboard */,
@@ -666,17 +345,11 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				46BDB0E11A460ED60078EDF3 /* I3MoveableCollectionViewCell.xib in Resources */,
 				467AFC8619C5E20D00FFD1F4 /* LICENSE.md in Resources */,
 				6003F5A4195388D20070C39A /* Main_iPad.storyboard in Resources */,
 				6003F5A9195388D20070C39A /* Images.xcassets in Resources */,
-				46BDB1021A47326D0078EDF3 /* icon_move_arrow.png in Resources */,
-				46BDB1001A47321A0078EDF3 /* icon_move_arrow@2x.png in Resources */,
 				6003F5A1195388D20070C39A /* Main_iPhone.storyboard in Resources */,
-				46BDB0F61A46557D0078EDF3 /* I3AvailableGistCollectionViewCell.xib in Resources */,
-				4659C83D1A4320A00076C645 /* I3SubtitleCollectionViewCell.xib in Resources */,
 				6003F598195388D20070C39A /* InfoPlist.strings in Resources */,
-				46BDB0F31A463BD00078EDF3 /* I3GistCollectionViewCell.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -758,33 +431,8 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				466BA2681A4231B2006CD452 /* I3SimpleData.m in Sources */,
-				46BDB0F91A4655920078EDF3 /* I3AvailableGistCollectionViewCell.m in Sources */,
 				6003F59E195388D20070C39A /* I3AppDelegate.m in Sources */,
-				46BDB0E71A4622FD0078EDF3 /* I3NetworkingDropViewController.m in Sources */,
-				6003F5A7195388D20070C39A /* I32RearrangeableTablesViewController.m in Sources */,
-				466BA26C1A423921006CD452 /* I3SubtitleTableViewCell.m in Sources */,
-				46BB1F341A444F56006EC5A0 /* I3FunkRenderDelegate.m in Sources */,
-				46BDB0DF1A460CFA0078EDF3 /* I32RearrangeableCollectionViewsController.m in Sources */,
 				6003F59A195388D20070C39A /* main.m in Sources */,
-				46BB1F2E1A4379D1006EC5A0 /* I3DetailViewController.m in Sources */,
-				46BDB1051A473E520078EDF3 /* I32DeleteableCollectionViewsController.m in Sources */,
-				46BDB0EA1A4625E80078EDF3 /* I3Gist.m in Sources */,
-				46BDB0F11A463A0B0078EDF3 /* I3GistCollectionViewCell.m in Sources */,
-				46BDB0ED1A46270F0078EDF3 /* I3GistService.m in Sources */,
-				466BA2651A4230C6006CD452 /* I32TablesAllPropertiesViewController.m in Sources */,
-				46BDB0DC1A45EE6F0078EDF3 /* I32TablesEditableMoveableViewController.m in Sources */,
-				4659C83A1A431EAA0076C645 /* I3SubtitleCollectionViewCell.m in Sources */,
-				46BDB0E41A460F0F0078EDF3 /* I3MoveableCollectionViewCell.m in Sources */,
-				4681C91B1A214D5B00504DF6 /* I32DeleteableTablesViewController.m in Sources */,
-				467B35291A1F93050000A77C /* I32DropableTablesViewController.m in Sources */,
-				46BDB0D61A45E3D40078EDF3 /* I31Table1CollectionSiftRearrangeViewController.m in Sources */,
-				46BB1F2B1A4378EB006EC5A0 /* I3MasterViewController.m in Sources */,
-				46BB1F311A43C72A006EC5A0 /* I3CustomerRenderDelegateViewController.m in Sources */,
-				46BDB0D91A45E46E0078EDF3 /* I3SiftRearrangeRenderDelegate.m in Sources */,
-				46BDB1081A4741B00078EDF3 /* I32CollectionViewsAllPropertiesController.m in Sources */,
-				4659C8371A4319170076C645 /* I33CollectionsComplexConfigurationViewController.m in Sources */,
-				46BDB0FC1A47303D0078EDF3 /* I32DroppableCollectionViewsController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
