@@ -7,13 +7,14 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		465EE608E158354661F688C4 /* libPods-15. Confirm Delete.a in Frameworks */ = {isa = PBXBuildFile; fileRef = C7A732D82FCA514D0696ECA0 /* libPods-15. Confirm Delete.a */; };
 		469FBD411A4F2A0D00334A3E /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 469FBD401A4F2A0D00334A3E /* main.m */; };
 		469FBD441A4F2A0D00334A3E /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 469FBD431A4F2A0D00334A3E /* AppDelegate.m */; };
-		469FBD471A4F2A0D00334A3E /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 469FBD461A4F2A0D00334A3E /* ViewController.m */; };
 		469FBD4A1A4F2A0D00334A3E /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 469FBD481A4F2A0D00334A3E /* Main.storyboard */; };
 		469FBD4C1A4F2A0D00334A3E /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 469FBD4B1A4F2A0D00334A3E /* Images.xcassets */; };
 		469FBD4F1A4F2A0D00334A3E /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = 469FBD4D1A4F2A0D00334A3E /* LaunchScreen.xib */; };
 		469FBD5B1A4F2A0D00334A3E /* _5__Confirm_DeleteTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 469FBD5A1A4F2A0D00334A3E /* _5__Confirm_DeleteTests.m */; };
+		469FBDED1A4F6BC600334A3E /* TableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 469FBDEC1A4F6BC600334A3E /* TableViewController.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -32,14 +33,17 @@
 		469FBD401A4F2A0D00334A3E /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		469FBD421A4F2A0D00334A3E /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		469FBD431A4F2A0D00334A3E /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
-		469FBD451A4F2A0D00334A3E /* ViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ViewController.h; sourceTree = "<group>"; };
-		469FBD461A4F2A0D00334A3E /* ViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ViewController.m; sourceTree = "<group>"; };
 		469FBD491A4F2A0D00334A3E /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		469FBD4B1A4F2A0D00334A3E /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
 		469FBD4E1A4F2A0D00334A3E /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/LaunchScreen.xib; sourceTree = "<group>"; };
 		469FBD541A4F2A0D00334A3E /* 15. Confirm DeleteTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "15. Confirm DeleteTests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
 		469FBD591A4F2A0D00334A3E /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		469FBD5A1A4F2A0D00334A3E /* _5__Confirm_DeleteTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = _5__Confirm_DeleteTests.m; sourceTree = "<group>"; };
+		469FBDEB1A4F6BC600334A3E /* TableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TableViewController.h; sourceTree = "<group>"; };
+		469FBDEC1A4F6BC600334A3E /* TableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TableViewController.m; sourceTree = "<group>"; };
+		BB790707A494ED36E515ACED /* Pods-15. Confirm Delete.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-15. Confirm Delete.release.xcconfig"; path = "Pods/Target Support Files/Pods-15. Confirm Delete/Pods-15. Confirm Delete.release.xcconfig"; sourceTree = "<group>"; };
+		C13B0455935842BB1EE1B42A /* Pods-15. Confirm Delete.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-15. Confirm Delete.debug.xcconfig"; path = "Pods/Target Support Files/Pods-15. Confirm Delete/Pods-15. Confirm Delete.debug.xcconfig"; sourceTree = "<group>"; };
+		C7A732D82FCA514D0696ECA0 /* libPods-15. Confirm Delete.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-15. Confirm Delete.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -47,6 +51,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				465EE608E158354661F688C4 /* libPods-15. Confirm Delete.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -60,12 +65,31 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		1180206B2C366157CA0041FE /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				C7A732D82FCA514D0696ECA0 /* libPods-15. Confirm Delete.a */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		2C7F01133F214B9E6F8BCFBF /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				C13B0455935842BB1EE1B42A /* Pods-15. Confirm Delete.debug.xcconfig */,
+				BB790707A494ED36E515ACED /* Pods-15. Confirm Delete.release.xcconfig */,
+			);
+			name = Pods;
+			sourceTree = "<group>";
+		};
 		469FBD321A4F2A0D00334A3E = {
 			isa = PBXGroup;
 			children = (
 				469FBD3D1A4F2A0D00334A3E /* 15. Confirm Delete */,
 				469FBD571A4F2A0D00334A3E /* 15. Confirm DeleteTests */,
 				469FBD3C1A4F2A0D00334A3E /* Products */,
+				2C7F01133F214B9E6F8BCFBF /* Pods */,
+				1180206B2C366157CA0041FE /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -83,8 +107,8 @@
 			children = (
 				469FBD421A4F2A0D00334A3E /* AppDelegate.h */,
 				469FBD431A4F2A0D00334A3E /* AppDelegate.m */,
-				469FBD451A4F2A0D00334A3E /* ViewController.h */,
-				469FBD461A4F2A0D00334A3E /* ViewController.m */,
+				469FBDEB1A4F6BC600334A3E /* TableViewController.h */,
+				469FBDEC1A4F6BC600334A3E /* TableViewController.m */,
 				469FBD481A4F2A0D00334A3E /* Main.storyboard */,
 				469FBD4B1A4F2A0D00334A3E /* Images.xcassets */,
 				469FBD4D1A4F2A0D00334A3E /* LaunchScreen.xib */,
@@ -126,9 +150,11 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 469FBD5E1A4F2A0D00334A3E /* Build configuration list for PBXNativeTarget "15. Confirm Delete" */;
 			buildPhases = (
+				CC3DFEDE23EB11C76409E038 /* Check Pods Manifest.lock */,
 				469FBD371A4F2A0D00334A3E /* Sources */,
 				469FBD381A4F2A0D00334A3E /* Frameworks */,
 				469FBD391A4F2A0D00334A3E /* Resources */,
+				C44C09B76A9B03DB220F000E /* Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -214,14 +240,47 @@
 		};
 /* End PBXResourcesBuildPhase section */
 
+/* Begin PBXShellScriptBuildPhase section */
+		C44C09B76A9B03DB220F000E /* Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Copy Pods Resources";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-15. Confirm Delete/Pods-15. Confirm Delete-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		CC3DFEDE23EB11C76409E038 /* Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Check Pods Manifest.lock";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [[ $? != 0 ]] ; then\n    cat << EOM\nerror: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\nEOM\n    exit 1\nfi\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
+
 /* Begin PBXSourcesBuildPhase section */
 		469FBD371A4F2A0D00334A3E /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				469FBD471A4F2A0D00334A3E /* ViewController.m in Sources */,
 				469FBD441A4F2A0D00334A3E /* AppDelegate.m in Sources */,
 				469FBD411A4F2A0D00334A3E /* main.m in Sources */,
+				469FBDED1A4F6BC600334A3E /* TableViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -343,6 +402,7 @@
 		};
 		469FBD5F1A4F2A0D00334A3E /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = C13B0455935842BB1EE1B42A /* Pods-15. Confirm Delete.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				INFOPLIST_FILE = "15. Confirm Delete/Info.plist";
@@ -353,6 +413,7 @@
 		};
 		469FBD601A4F2A0D00334A3E /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = BB790707A494ED36E515ACED /* Pods-15. Confirm Delete.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				INFOPLIST_FILE = "15. Confirm Delete/Info.plist";
@@ -414,6 +475,7 @@
 				469FBD601A4F2A0D00334A3E /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		469FBD611A4F2A0D00334A3E /* Build configuration list for PBXNativeTarget "15. Confirm DeleteTests" */ = {
 			isa = XCConfigurationList;
@@ -422,6 +484,7 @@
 				469FBD631A4F2A0D00334A3E /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};

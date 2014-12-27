@@ -1,0 +1,8 @@
+target '15. Confirm Delete' do
+  pod "BetweenKit", :path => "../../"
+end
+
+target '15. Confirm DeleteTests' do
+
+end
+
