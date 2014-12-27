@@ -9,11 +9,16 @@
 /* Begin PBXBuildFile section */
 		469FBD0F1A4F29FA00334A3E /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 469FBD0E1A4F29FA00334A3E /* main.m */; };
 		469FBD121A4F29FB00334A3E /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 469FBD111A4F29FA00334A3E /* AppDelegate.m */; };
-		469FBD151A4F29FB00334A3E /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 469FBD141A4F29FB00334A3E /* ViewController.m */; };
 		469FBD181A4F29FB00334A3E /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 469FBD161A4F29FB00334A3E /* Main.storyboard */; };
 		469FBD1A1A4F29FB00334A3E /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 469FBD191A4F29FB00334A3E /* Images.xcassets */; };
 		469FBD1D1A4F29FB00334A3E /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = 469FBD1B1A4F29FB00334A3E /* LaunchScreen.xib */; };
 		469FBD291A4F29FB00334A3E /* _4__Draggable_Item_DecorationsTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 469FBD281A4F29FB00334A3E /* _4__Draggable_Item_DecorationsTests.m */; };
+		469FBDE11A4F687300334A3E /* CollectionViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 469FBDE01A4F687300334A3E /* CollectionViewController.m */; };
+		469FBDE41A4F68C400334A3E /* icon_move_arrow.png in Resources */ = {isa = PBXBuildFile; fileRef = 469FBDE21A4F68C400334A3E /* icon_move_arrow.png */; };
+		469FBDE51A4F68C400334A3E /* icon_move_arrow@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 469FBDE31A4F68C400334A3E /* icon_move_arrow@2x.png */; };
+		469FBDE91A4F68D800334A3E /* MoveableCollectionViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 469FBDE71A4F68D800334A3E /* MoveableCollectionViewCell.m */; };
+		469FBDEA1A4F68D800334A3E /* MoveableCollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 469FBDE81A4F68D800334A3E /* MoveableCollectionViewCell.xib */; };
+		6716E8BCB516DD739D3CE24C /* libPods-14. Draggable Item Decorations.a in Frameworks */ = {isa = PBXBuildFile; fileRef = CD4FEEADBDD276A2877FFBE8 /* libPods-14. Draggable Item Decorations.a */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -27,19 +32,27 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		201178160CC03CB5327E7C97 /* Pods-14. Draggable Item Decorations.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-14. Draggable Item Decorations.debug.xcconfig"; path = "Pods/Target Support Files/Pods-14. Draggable Item Decorations/Pods-14. Draggable Item Decorations.debug.xcconfig"; sourceTree = "<group>"; };
 		469FBD091A4F29FA00334A3E /* 14. Draggable Item Decorations.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "14. Draggable Item Decorations.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		469FBD0D1A4F29FA00334A3E /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		469FBD0E1A4F29FA00334A3E /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		469FBD101A4F29FA00334A3E /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		469FBD111A4F29FA00334A3E /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
-		469FBD131A4F29FB00334A3E /* ViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ViewController.h; sourceTree = "<group>"; };
-		469FBD141A4F29FB00334A3E /* ViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ViewController.m; sourceTree = "<group>"; };
 		469FBD171A4F29FB00334A3E /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		469FBD191A4F29FB00334A3E /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
 		469FBD1C1A4F29FB00334A3E /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/LaunchScreen.xib; sourceTree = "<group>"; };
 		469FBD221A4F29FB00334A3E /* 14. Draggable Item DecorationsTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "14. Draggable Item DecorationsTests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
 		469FBD271A4F29FB00334A3E /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		469FBD281A4F29FB00334A3E /* _4__Draggable_Item_DecorationsTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = _4__Draggable_Item_DecorationsTests.m; sourceTree = "<group>"; };
+		469FBDDF1A4F687300334A3E /* CollectionViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CollectionViewController.h; sourceTree = "<group>"; };
+		469FBDE01A4F687300334A3E /* CollectionViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CollectionViewController.m; sourceTree = "<group>"; };
+		469FBDE21A4F68C400334A3E /* icon_move_arrow.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = icon_move_arrow.png; sourceTree = "<group>"; };
+		469FBDE31A4F68C400334A3E /* icon_move_arrow@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "icon_move_arrow@2x.png"; sourceTree = "<group>"; };
+		469FBDE61A4F68D800334A3E /* MoveableCollectionViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MoveableCollectionViewCell.h; sourceTree = "<group>"; };
+		469FBDE71A4F68D800334A3E /* MoveableCollectionViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MoveableCollectionViewCell.m; sourceTree = "<group>"; };
+		469FBDE81A4F68D800334A3E /* MoveableCollectionViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MoveableCollectionViewCell.xib; sourceTree = "<group>"; };
+		BFB8716CCC8B473A11341A99 /* Pods-14. Draggable Item Decorations.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-14. Draggable Item Decorations.release.xcconfig"; path = "Pods/Target Support Files/Pods-14. Draggable Item Decorations/Pods-14. Draggable Item Decorations.release.xcconfig"; sourceTree = "<group>"; };
+		CD4FEEADBDD276A2877FFBE8 /* libPods-14. Draggable Item Decorations.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-14. Draggable Item Decorations.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -47,6 +60,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				6716E8BCB516DD739D3CE24C /* libPods-14. Draggable Item Decorations.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -66,6 +80,8 @@
 				469FBD0B1A4F29FA00334A3E /* 14. Draggable Item Decorations */,
 				469FBD251A4F29FB00334A3E /* 14. Draggable Item DecorationsTests */,
 				469FBD0A1A4F29FA00334A3E /* Products */,
+				4DC42FF9FA6632D55A939A74 /* Pods */,
+				5D8EEE49B1C1808838AE2521 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -81,10 +97,15 @@
 		469FBD0B1A4F29FA00334A3E /* 14. Draggable Item Decorations */ = {
 			isa = PBXGroup;
 			children = (
+				469FBDE21A4F68C400334A3E /* icon_move_arrow.png */,
+				469FBDE31A4F68C400334A3E /* icon_move_arrow@2x.png */,
+				469FBDE61A4F68D800334A3E /* MoveableCollectionViewCell.h */,
+				469FBDE71A4F68D800334A3E /* MoveableCollectionViewCell.m */,
+				469FBDE81A4F68D800334A3E /* MoveableCollectionViewCell.xib */,
+				469FBDDF1A4F687300334A3E /* CollectionViewController.h */,
+				469FBDE01A4F687300334A3E /* CollectionViewController.m */,
 				469FBD101A4F29FA00334A3E /* AppDelegate.h */,
 				469FBD111A4F29FA00334A3E /* AppDelegate.m */,
-				469FBD131A4F29FB00334A3E /* ViewController.h */,
-				469FBD141A4F29FB00334A3E /* ViewController.m */,
 				469FBD161A4F29FB00334A3E /* Main.storyboard */,
 				469FBD191A4F29FB00334A3E /* Images.xcassets */,
 				469FBD1B1A4F29FB00334A3E /* LaunchScreen.xib */,
@@ -119,6 +140,23 @@
 			name = "Supporting Files";
 			sourceTree = "<group>";
 		};
+		4DC42FF9FA6632D55A939A74 /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				201178160CC03CB5327E7C97 /* Pods-14. Draggable Item Decorations.debug.xcconfig */,
+				BFB8716CCC8B473A11341A99 /* Pods-14. Draggable Item Decorations.release.xcconfig */,
+			);
+			name = Pods;
+			sourceTree = "<group>";
+		};
+		5D8EEE49B1C1808838AE2521 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				CD4FEEADBDD276A2877FFBE8 /* libPods-14. Draggable Item Decorations.a */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -126,9 +164,11 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 469FBD2C1A4F29FB00334A3E /* Build configuration list for PBXNativeTarget "14. Draggable Item Decorations" */;
 			buildPhases = (
+				68A68FF33DB5059F29D7AC80 /* Check Pods Manifest.lock */,
 				469FBD051A4F29FA00334A3E /* Sources */,
 				469FBD061A4F29FA00334A3E /* Frameworks */,
 				469FBD071A4F29FA00334A3E /* Resources */,
+				76688113ECAD58796709185E /* Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -199,9 +239,12 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				469FBDEA1A4F68D800334A3E /* MoveableCollectionViewCell.xib in Resources */,
 				469FBD181A4F29FB00334A3E /* Main.storyboard in Resources */,
+				469FBDE51A4F68C400334A3E /* icon_move_arrow@2x.png in Resources */,
 				469FBD1D1A4F29FB00334A3E /* LaunchScreen.xib in Resources */,
 				469FBD1A1A4F29FB00334A3E /* Images.xcassets in Resources */,
+				469FBDE41A4F68C400334A3E /* icon_move_arrow.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -214,14 +257,48 @@
 		};
 /* End PBXResourcesBuildPhase section */
 
+/* Begin PBXShellScriptBuildPhase section */
+		68A68FF33DB5059F29D7AC80 /* Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Check Pods Manifest.lock";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [[ $? != 0 ]] ; then\n    cat << EOM\nerror: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\nEOM\n    exit 1\nfi\n";
+			showEnvVarsInLog = 0;
+		};
+		76688113ECAD58796709185E /* Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Copy Pods Resources";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-14. Draggable Item Decorations/Pods-14. Draggable Item Decorations-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
+
 /* Begin PBXSourcesBuildPhase section */
 		469FBD051A4F29FA00334A3E /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				469FBD151A4F29FB00334A3E /* ViewController.m in Sources */,
+				469FBDE11A4F687300334A3E /* CollectionViewController.m in Sources */,
 				469FBD121A4F29FB00334A3E /* AppDelegate.m in Sources */,
 				469FBD0F1A4F29FA00334A3E /* main.m in Sources */,
+				469FBDE91A4F68D800334A3E /* MoveableCollectionViewCell.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -343,6 +420,7 @@
 		};
 		469FBD2D1A4F29FB00334A3E /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 201178160CC03CB5327E7C97 /* Pods-14. Draggable Item Decorations.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				INFOPLIST_FILE = "14. Draggable Item Decorations/Info.plist";
@@ -353,6 +431,7 @@
 		};
 		469FBD2E1A4F29FB00334A3E /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = BFB8716CCC8B473A11341A99 /* Pods-14. Draggable Item Decorations.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				INFOPLIST_FILE = "14. Draggable Item Decorations/Info.plist";
@@ -414,6 +493,7 @@
 				469FBD2E1A4F29FB00334A3E /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		469FBD2F1A4F29FB00334A3E /* Build configuration list for PBXNativeTarget "14. Draggable Item DecorationsTests" */ = {
 			isa = XCConfigurationList;
@@ -422,6 +502,7 @@
 				469FBD311A4F29FB00334A3E /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};

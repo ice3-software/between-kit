@@ -1,0 +1,8 @@
+target '14. Draggable Item Decorations' do
+  pod "BetweenKit", :path => "../../"
+end
+
+target '14. Draggable Item DecorationsTests' do
+
+end
+
