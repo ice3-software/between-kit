@@ -1,0 +1,8 @@
+target '16. Custom Render Delegate' do
+  pod "BetweenKit", :path => "../../"
+end
+
+target '16. Custom Render DelegateTests' do
+
+end
+

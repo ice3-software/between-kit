@@ -14,6 +14,9 @@
 		469FBD7E1A4F2A3600334A3E /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 469FBD7D1A4F2A3600334A3E /* Images.xcassets */; };
 		469FBD811A4F2A3600334A3E /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = 469FBD7F1A4F2A3600334A3E /* LaunchScreen.xib */; };
 		469FBD8D1A4F2A3600334A3E /* _6__Custom_Render_DelegateTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 469FBD8C1A4F2A3600334A3E /* _6__Custom_Render_DelegateTests.m */; };
+		469FBDF01A4F6F5A00334A3E /* FunkRenderDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 469FBDEF1A4F6F5A00334A3E /* FunkRenderDelegate.m */; };
+		469FBDF31A4F6FD000334A3E /* CustomRenderViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 469FBDF21A4F6FD000334A3E /* CustomRenderViewController.m */; };
+		F38B7C3ABA743A229D5055A9 /* libPods-16. Custom Render Delegate.a in Frameworks */ = {isa = PBXBuildFile; fileRef = C5A826026D38A437AFF95F75 /* libPods-16. Custom Render Delegate.a */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -27,6 +30,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		4694904AFA6A5474EA5B05B8 /* Pods-16. Custom Render Delegate.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-16. Custom Render Delegate.release.xcconfig"; path = "Pods/Target Support Files/Pods-16. Custom Render Delegate/Pods-16. Custom Render Delegate.release.xcconfig"; sourceTree = "<group>"; };
 		469FBD6D1A4F2A3600334A3E /* 16. Custom Render Delegate.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "16. Custom Render Delegate.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		469FBD711A4F2A3600334A3E /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		469FBD721A4F2A3600334A3E /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
@@ -40,6 +44,12 @@
 		469FBD861A4F2A3600334A3E /* 16. Custom Render DelegateTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "16. Custom Render DelegateTests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
 		469FBD8B1A4F2A3600334A3E /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		469FBD8C1A4F2A3600334A3E /* _6__Custom_Render_DelegateTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = _6__Custom_Render_DelegateTests.m; sourceTree = "<group>"; };
+		469FBDEE1A4F6F5A00334A3E /* FunkRenderDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FunkRenderDelegate.h; sourceTree = "<group>"; };
+		469FBDEF1A4F6F5A00334A3E /* FunkRenderDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FunkRenderDelegate.m; sourceTree = "<group>"; };
+		469FBDF11A4F6FD000334A3E /* CustomRenderViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CustomRenderViewController.h; sourceTree = "<group>"; };
+		469FBDF21A4F6FD000334A3E /* CustomRenderViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CustomRenderViewController.m; sourceTree = "<group>"; };
+		C5A826026D38A437AFF95F75 /* libPods-16. Custom Render Delegate.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-16. Custom Render Delegate.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		F25018186620AA0CB3858F4C /* Pods-16. Custom Render Delegate.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-16. Custom Render Delegate.debug.xcconfig"; path = "Pods/Target Support Files/Pods-16. Custom Render Delegate/Pods-16. Custom Render Delegate.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -47,6 +57,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				F38B7C3ABA743A229D5055A9 /* libPods-16. Custom Render Delegate.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -60,12 +71,23 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		400367640D5FADDC3B0F4557 /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				F25018186620AA0CB3858F4C /* Pods-16. Custom Render Delegate.debug.xcconfig */,
+				4694904AFA6A5474EA5B05B8 /* Pods-16. Custom Render Delegate.release.xcconfig */,
+			);
+			name = Pods;
+			sourceTree = "<group>";
+		};
 		469FBD641A4F2A3600334A3E = {
 			isa = PBXGroup;
 			children = (
 				469FBD6F1A4F2A3600334A3E /* 16. Custom Render Delegate */,
 				469FBD891A4F2A3600334A3E /* 16. Custom Render DelegateTests */,
 				469FBD6E1A4F2A3600334A3E /* Products */,
+				400367640D5FADDC3B0F4557 /* Pods */,
+				B692D0057113015964698C96 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -81,6 +103,10 @@
 		469FBD6F1A4F2A3600334A3E /* 16. Custom Render Delegate */ = {
 			isa = PBXGroup;
 			children = (
+				469FBDEE1A4F6F5A00334A3E /* FunkRenderDelegate.h */,
+				469FBDEF1A4F6F5A00334A3E /* FunkRenderDelegate.m */,
+				469FBDF11A4F6FD000334A3E /* CustomRenderViewController.h */,
+				469FBDF21A4F6FD000334A3E /* CustomRenderViewController.m */,
 				469FBD741A4F2A3600334A3E /* AppDelegate.h */,
 				469FBD751A4F2A3600334A3E /* AppDelegate.m */,
 				469FBD771A4F2A3600334A3E /* ViewController.h */,
@@ -119,6 +145,14 @@
 			name = "Supporting Files";
 			sourceTree = "<group>";
 		};
+		B692D0057113015964698C96 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				C5A826026D38A437AFF95F75 /* libPods-16. Custom Render Delegate.a */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -126,9 +160,11 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 469FBD901A4F2A3600334A3E /* Build configuration list for PBXNativeTarget "16. Custom Render Delegate" */;
 			buildPhases = (
+				3985F3DF065CC1EDFA59D892 /* Check Pods Manifest.lock */,
 				469FBD691A4F2A3600334A3E /* Sources */,
 				469FBD6A1A4F2A3600334A3E /* Frameworks */,
 				469FBD6B1A4F2A3600334A3E /* Resources */,
+				BFAD41F9597B17AA2626E901 /* Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -214,11 +250,46 @@
 		};
 /* End PBXResourcesBuildPhase section */
 
+/* Begin PBXShellScriptBuildPhase section */
+		3985F3DF065CC1EDFA59D892 /* Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Check Pods Manifest.lock";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [[ $? != 0 ]] ; then\n    cat << EOM\nerror: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\nEOM\n    exit 1\nfi\n";
+			showEnvVarsInLog = 0;
+		};
+		BFAD41F9597B17AA2626E901 /* Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Copy Pods Resources";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-16. Custom Render Delegate/Pods-16. Custom Render Delegate-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
+
 /* Begin PBXSourcesBuildPhase section */
 		469FBD691A4F2A3600334A3E /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				469FBDF31A4F6FD000334A3E /* CustomRenderViewController.m in Sources */,
+				469FBDF01A4F6F5A00334A3E /* FunkRenderDelegate.m in Sources */,
 				469FBD791A4F2A3600334A3E /* ViewController.m in Sources */,
 				469FBD761A4F2A3600334A3E /* AppDelegate.m in Sources */,
 				469FBD731A4F2A3600334A3E /* main.m in Sources */,
@@ -343,6 +414,7 @@
 		};
 		469FBD911A4F2A3600334A3E /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = F25018186620AA0CB3858F4C /* Pods-16. Custom Render Delegate.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				INFOPLIST_FILE = "16. Custom Render Delegate/Info.plist";
@@ -353,6 +425,7 @@
 		};
 		469FBD921A4F2A3600334A3E /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 4694904AFA6A5474EA5B05B8 /* Pods-16. Custom Render Delegate.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				INFOPLIST_FILE = "16. Custom Render Delegate/Info.plist";
@@ -414,6 +487,7 @@
 				469FBD921A4F2A3600334A3E /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		469FBD931A4F2A3600334A3E /* Build configuration list for PBXNativeTarget "16. Custom Render DelegateTests" */ = {
 			isa = XCConfigurationList;
@@ -422,6 +496,7 @@
 				469FBD951A4F2A3600334A3E /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
