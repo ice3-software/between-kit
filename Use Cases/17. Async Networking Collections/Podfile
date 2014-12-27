@@ -1,0 +1,9 @@
+target '17. Async Networking Collections' do
+  pod "BetweenKit", :path => "../../"
+  pod "AFNetworking"
+end
+
+target '17. Async Networking CollectionsTests' do
+
+end
+

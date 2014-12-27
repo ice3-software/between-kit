@@ -6,10 +6,10 @@
 //  Copyright (c) 2014 stephen fortune. All rights reserved.
 //
 
-#import "I3GistCollectionViewCell.h"
+#import "GistCollectionViewCell.h"
 
-NSString *const I3GistCollectionViewCellIdentifier = @"I3GistCollectionViewCell";
+NSString *const GistCollectionViewCellIdentifier = @"GistCollectionViewCell";
 
-@implementation I3GistCollectionViewCell
+@implementation GistCollectionViewCell
 
 @end

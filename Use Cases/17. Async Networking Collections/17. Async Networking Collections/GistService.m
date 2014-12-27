@@ -1,13 +1,13 @@
 //
-//  I3GistService.m
+//  GistService.m
 //  BetweenKit
 //
 //  Created by Stephen Fortune on 20/12/2014.
 //  Copyright (c) 2014 stephen fortune. All rights reserved.
 //
 
-#import "I3GistService.h"
-#import "I3GistRouting.h"
+#import "GistService.h"
+#import "Routing.h"
 #import <AFNetworking/AFHTTPRequestOperationManager.h>
 
 
@@ -17,16 +17,13 @@
 #define FAKE_NETWORK_LATENCY_SEC 2
 
 
-@interface I3GistService ()
-
-/// @note We should really be injecting this. Instead we're using a shared, static
-/// singleton, retrieved in the ctor.
+@interface GistService ()
 
 @property (nonatomic, strong) AFHTTPRequestOperationManager *requestManager;
 
 @end
 
-@implementation I3GistService
+@implementation GistService
 
 -(id) init{
     
@@ -69,7 +66,7 @@
         
         for(NSDictionary *gistJson in gists){
             
-            I3GistDescriptor *gistDescriptor = [[I3GistDescriptor alloc] init];
+            GistDescriptor *gistDescriptor = [[GistDescriptor alloc] init];
             
             gistDescriptor.githubId = gistJson[@"id"];
             gistDescriptor.gistDescription = gistJson[@"description"];
@@ -88,7 +85,7 @@
     }];
 }
 
--(void) findGistByGithubId:(NSString *)githubId withCompleteBlock:(void(^)(I3Gist *)) complete withFailBlock:(void(^)()) fail{
+-(void) findGistByGithubId:(NSString *)githubId withCompleteBlock:(void(^)(Gist *)) complete withFailBlock:(void(^)()) fail{
 
     
     [self.requestManager GET:GISTS_URL_FOR_GIST_WITH_ID(githubId) parameters:nil success:^(AFHTTPRequestOperation *operation, id responseObject) {
@@ -98,7 +95,7 @@
 
         [formatter setDateFormat:@"yyyy-MM-dd'T'HH:mm:ssZ"];
         
-        I3Gist *gist = [[I3Gist alloc] initWithGithubId:githubId];
+        Gist *gist = [[Gist alloc] initWithGithubId:githubId];
         
         gist.gistDescription = gistDictionary[@"description"];
         gist.ownerUrl = gistDictionary[@"owner"][@"url"];

@@ -1,15 +1,15 @@
 //
-//  I3GistData.m
+//  Gist.m
 //  BetweenKit
 //
 //  Created by Stephen Fortune on 20/12/2014.
 //  Copyright (c) 2014 stephen fortune. All rights reserved.
 //
 
-#import "I3Gist.h"
+#import "Gist.h"
 
 
-@implementation I3Gist
+@implementation Gist
 
 @dynamic formattedCreatedAt;
 
@@ -26,7 +26,7 @@
 
 -(id) copyWithZone:(NSZone *)zone{
     
-    I3Gist *copy = [[[self class] alloc] initWithGithubId:_githubId];
+    Gist *copy = [[[self class] alloc] initWithGithubId:_githubId];
     
     copy.ownerUrl = _ownerUrl;
     copy.commentsCount = _commentsCount;
@@ -50,11 +50,11 @@
 @end
 
 
-@implementation I3GistDescriptor
+@implementation GistDescriptor
 
 -(id) copyWithZone:(NSZone *)zone{
     
-    I3GistDescriptor *copy = [[[self class] alloc] init];
+    GistDescriptor *copy = [[[self class] alloc] init];
     
     copy.githubId = _githubId;
     copy.gistDescription = _gistDescription;

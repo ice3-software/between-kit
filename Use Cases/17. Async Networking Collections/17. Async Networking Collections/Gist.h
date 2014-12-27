@@ -1,5 +1,5 @@
 //
-//  I3GistData.h
+//  Gist.h
 //  BetweenKit
 //
 //  Created by Stephen Fortune on 20/12/2014.
@@ -17,7 +17,7 @@
  flag indicating the state of an associated full Gist download.
  
  */
-@interface I3GistDescriptor : NSObject<NSCopying>
+@interface GistDescriptor : NSObject<NSCopying>
 
 @property (nonatomic) BOOL hasFailed;
 
@@ -33,7 +33,7 @@
  The full Gist. Must be retrieved with a githubId.
  
  */
-@interface I3Gist : NSObject <NSCopying>
+@interface Gist : NSObject <NSCopying>
 
 @property (nonatomic, copy) NSString *githubId;
 

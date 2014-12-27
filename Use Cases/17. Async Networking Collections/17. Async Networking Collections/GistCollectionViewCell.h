@@ -8,9 +8,9 @@
 
 #import <UIKit/UIKit.h>
 
-extern NSString *const I3GistCollectionViewCellIdentifier;
+extern NSString *const GistCollectionViewCellIdentifier;
 
-@interface I3GistCollectionViewCell : UICollectionViewCell
+@interface GistCollectionViewCell : UICollectionViewCell
 
 @property (nonatomic, weak) IBOutlet UILabel *descriptionLabel;
 
