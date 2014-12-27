@@ -1,0 +1,8 @@
+target '11. 3 Collections' do
+  pod "BetweenKit", :path => "../../"
+end
+
+target '11. 3 CollectionsTests' do
+
+end
+
