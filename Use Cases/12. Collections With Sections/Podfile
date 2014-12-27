@@ -1,0 +1,8 @@
+target '12. Collections With Sections' do
+  pod "BetweenKit", :path => "../../"
+end
+
+target '12. Collections With SectionsTests' do
+
+end
+

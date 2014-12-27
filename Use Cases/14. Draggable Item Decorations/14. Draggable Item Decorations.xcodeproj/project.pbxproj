@@ -1,0 +1,429 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 46;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		469FBD0F1A4F29FA00334A3E /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 469FBD0E1A4F29FA00334A3E /* main.m */; };
+		469FBD121A4F29FB00334A3E /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 469FBD111A4F29FA00334A3E /* AppDelegate.m */; };
+		469FBD151A4F29FB00334A3E /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 469FBD141A4F29FB00334A3E /* ViewController.m */; };
+		469FBD181A4F29FB00334A3E /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 469FBD161A4F29FB00334A3E /* Main.storyboard */; };
+		469FBD1A1A4F29FB00334A3E /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 469FBD191A4F29FB00334A3E /* Images.xcassets */; };
+		469FBD1D1A4F29FB00334A3E /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = 469FBD1B1A4F29FB00334A3E /* LaunchScreen.xib */; };
+		469FBD291A4F29FB00334A3E /* _4__Draggable_Item_DecorationsTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 469FBD281A4F29FB00334A3E /* _4__Draggable_Item_DecorationsTests.m */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		469FBD231A4F29FB00334A3E /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 469FBD011A4F29FA00334A3E /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 469FBD081A4F29FA00334A3E;
+			remoteInfo = "14. Draggable Item Decorations";
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXFileReference section */
+		469FBD091A4F29FA00334A3E /* 14. Draggable Item Decorations.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "14. Draggable Item Decorations.app"; sourceTree = BUILT_PRODUCTS_DIR; };
+		469FBD0D1A4F29FA00334A3E /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		469FBD0E1A4F29FA00334A3E /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
+		469FBD101A4F29FA00334A3E /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
+		469FBD111A4F29FA00334A3E /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
+		469FBD131A4F29FB00334A3E /* ViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ViewController.h; sourceTree = "<group>"; };
+		469FBD141A4F29FB00334A3E /* ViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ViewController.m; sourceTree = "<group>"; };
+		469FBD171A4F29FB00334A3E /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
+		469FBD191A4F29FB00334A3E /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
+		469FBD1C1A4F29FB00334A3E /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/LaunchScreen.xib; sourceTree = "<group>"; };
+		469FBD221A4F29FB00334A3E /* 14. Draggable Item DecorationsTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "14. Draggable Item DecorationsTests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
+		469FBD271A4F29FB00334A3E /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		469FBD281A4F29FB00334A3E /* _4__Draggable_Item_DecorationsTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = _4__Draggable_Item_DecorationsTests.m; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		469FBD061A4F29FA00334A3E /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		469FBD1F1A4F29FB00334A3E /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		469FBD001A4F29FA00334A3E = {
+			isa = PBXGroup;
+			children = (
+				469FBD0B1A4F29FA00334A3E /* 14. Draggable Item Decorations */,
+				469FBD251A4F29FB00334A3E /* 14. Draggable Item DecorationsTests */,
+				469FBD0A1A4F29FA00334A3E /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		469FBD0A1A4F29FA00334A3E /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				469FBD091A4F29FA00334A3E /* 14. Draggable Item Decorations.app */,
+				469FBD221A4F29FB00334A3E /* 14. Draggable Item DecorationsTests.xctest */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		469FBD0B1A4F29FA00334A3E /* 14. Draggable Item Decorations */ = {
+			isa = PBXGroup;
+			children = (
+				469FBD101A4F29FA00334A3E /* AppDelegate.h */,
+				469FBD111A4F29FA00334A3E /* AppDelegate.m */,
+				469FBD131A4F29FB00334A3E /* ViewController.h */,
+				469FBD141A4F29FB00334A3E /* ViewController.m */,
+				469FBD161A4F29FB00334A3E /* Main.storyboard */,
+				469FBD191A4F29FB00334A3E /* Images.xcassets */,
+				469FBD1B1A4F29FB00334A3E /* LaunchScreen.xib */,
+				469FBD0C1A4F29FA00334A3E /* Supporting Files */,
+			);
+			path = "14. Draggable Item Decorations";
+			sourceTree = "<group>";
+		};
+		469FBD0C1A4F29FA00334A3E /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				469FBD0D1A4F29FA00334A3E /* Info.plist */,
+				469FBD0E1A4F29FA00334A3E /* main.m */,
+			);
+			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		469FBD251A4F29FB00334A3E /* 14. Draggable Item DecorationsTests */ = {
+			isa = PBXGroup;
+			children = (
+				469FBD281A4F29FB00334A3E /* _4__Draggable_Item_DecorationsTests.m */,
+				469FBD261A4F29FB00334A3E /* Supporting Files */,
+			);
+			path = "14. Draggable Item DecorationsTests";
+			sourceTree = "<group>";
+		};
+		469FBD261A4F29FB00334A3E /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				469FBD271A4F29FB00334A3E /* Info.plist */,
+			);
+			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		469FBD081A4F29FA00334A3E /* 14. Draggable Item Decorations */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 469FBD2C1A4F29FB00334A3E /* Build configuration list for PBXNativeTarget "14. Draggable Item Decorations" */;
+			buildPhases = (
+				469FBD051A4F29FA00334A3E /* Sources */,
+				469FBD061A4F29FA00334A3E /* Frameworks */,
+				469FBD071A4F29FA00334A3E /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = "14. Draggable Item Decorations";
+			productName = "14. Draggable Item Decorations";
+			productReference = 469FBD091A4F29FA00334A3E /* 14. Draggable Item Decorations.app */;
+			productType = "com.apple.product-type.application";
+		};
+		469FBD211A4F29FB00334A3E /* 14. Draggable Item DecorationsTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 469FBD2F1A4F29FB00334A3E /* Build configuration list for PBXNativeTarget "14. Draggable Item DecorationsTests" */;
+			buildPhases = (
+				469FBD1E1A4F29FB00334A3E /* Sources */,
+				469FBD1F1A4F29FB00334A3E /* Frameworks */,
+				469FBD201A4F29FB00334A3E /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				469FBD241A4F29FB00334A3E /* PBXTargetDependency */,
+			);
+			name = "14. Draggable Item DecorationsTests";
+			productName = "14. Draggable Item DecorationsTests";
+			productReference = 469FBD221A4F29FB00334A3E /* 14. Draggable Item DecorationsTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		469FBD011A4F29FA00334A3E /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				LastUpgradeCheck = 0610;
+				ORGANIZATIONNAME = "IceCube Software Ltd.";
+				TargetAttributes = {
+					469FBD081A4F29FA00334A3E = {
+						CreatedOnToolsVersion = 6.1.1;
+					};
+					469FBD211A4F29FB00334A3E = {
+						CreatedOnToolsVersion = 6.1.1;
+						TestTargetID = 469FBD081A4F29FA00334A3E;
+					};
+				};
+			};
+			buildConfigurationList = 469FBD041A4F29FA00334A3E /* Build configuration list for PBXProject "14. Draggable Item Decorations" */;
+			compatibilityVersion = "Xcode 3.2";
+			developmentRegion = English;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+				Base,
+			);
+			mainGroup = 469FBD001A4F29FA00334A3E;
+			productRefGroup = 469FBD0A1A4F29FA00334A3E /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				469FBD081A4F29FA00334A3E /* 14. Draggable Item Decorations */,
+				469FBD211A4F29FB00334A3E /* 14. Draggable Item DecorationsTests */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		469FBD071A4F29FA00334A3E /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				469FBD181A4F29FB00334A3E /* Main.storyboard in Resources */,
+				469FBD1D1A4F29FB00334A3E /* LaunchScreen.xib in Resources */,
+				469FBD1A1A4F29FB00334A3E /* Images.xcassets in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		469FBD201A4F29FB00334A3E /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		469FBD051A4F29FA00334A3E /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				469FBD151A4F29FB00334A3E /* ViewController.m in Sources */,
+				469FBD121A4F29FB00334A3E /* AppDelegate.m in Sources */,
+				469FBD0F1A4F29FA00334A3E /* main.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		469FBD1E1A4F29FB00334A3E /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				469FBD291A4F29FB00334A3E /* _4__Draggable_Item_DecorationsTests.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		469FBD241A4F29FB00334A3E /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 469FBD081A4F29FA00334A3E /* 14. Draggable Item Decorations */;
+			targetProxy = 469FBD231A4F29FB00334A3E /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
+/* Begin PBXVariantGroup section */
+		469FBD161A4F29FB00334A3E /* Main.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				469FBD171A4F29FB00334A3E /* Base */,
+			);
+			name = Main.storyboard;
+			sourceTree = "<group>";
+		};
+		469FBD1B1A4F29FB00334A3E /* LaunchScreen.xib */ = {
+			isa = PBXVariantGroup;
+			children = (
+				469FBD1C1A4F29FB00334A3E /* Base */,
+			);
+			name = LaunchScreen.xib;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
+
+/* Begin XCBuildConfiguration section */
+		469FBD2A1A4F29FB00334A3E /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.1;
+				MTL_ENABLE_DEBUG_INFO = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = iphoneos;
+				TARGETED_DEVICE_FAMILY = 2;
+			};
+			name = Debug;
+		};
+		469FBD2B1A4F29FB00334A3E /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = YES;
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.1;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				SDKROOT = iphoneos;
+				TARGETED_DEVICE_FAMILY = 2;
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		469FBD2D1A4F29FB00334A3E /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				INFOPLIST_FILE = "14. Draggable Item Decorations/Info.plist";
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Debug;
+		};
+		469FBD2E1A4F29FB00334A3E /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				INFOPLIST_FILE = "14. Draggable Item Decorations/Info.plist";
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Release;
+		};
+		469FBD301A4F29FB00334A3E /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(SDKROOT)/Developer/Library/Frameworks",
+					"$(inherited)",
+				);
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				INFOPLIST_FILE = "14. Draggable Item DecorationsTests/Info.plist";
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/14. Draggable Item Decorations.app/14. Draggable Item Decorations";
+			};
+			name = Debug;
+		};
+		469FBD311A4F29FB00334A3E /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(SDKROOT)/Developer/Library/Frameworks",
+					"$(inherited)",
+				);
+				INFOPLIST_FILE = "14. Draggable Item DecorationsTests/Info.plist";
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/14. Draggable Item Decorations.app/14. Draggable Item Decorations";
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		469FBD041A4F29FA00334A3E /* Build configuration list for PBXProject "14. Draggable Item Decorations" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				469FBD2A1A4F29FB00334A3E /* Debug */,
+				469FBD2B1A4F29FB00334A3E /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		469FBD2C1A4F29FB00334A3E /* Build configuration list for PBXNativeTarget "14. Draggable Item Decorations" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				469FBD2D1A4F29FB00334A3E /* Debug */,
+				469FBD2E1A4F29FB00334A3E /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+		};
+		469FBD2F1A4F29FB00334A3E /* Build configuration list for PBXNativeTarget "14. Draggable Item DecorationsTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				469FBD301A4F29FB00334A3E /* Debug */,
+				469FBD311A4F29FB00334A3E /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = 469FBD011A4F29FA00334A3E /* Project object */;
+}
