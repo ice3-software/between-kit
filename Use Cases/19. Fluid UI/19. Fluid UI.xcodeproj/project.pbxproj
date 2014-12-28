@@ -27,6 +27,14 @@
 		4689C4CF1A4FA45400DCD9D1 /* icon_plus_button@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 4689C4C91A4FA45400DCD9D1 /* icon_plus_button@2x.png */; };
 		4689C4D01A4FA45400DCD9D1 /* icon_plus_switch.png in Resources */ = {isa = PBXBuildFile; fileRef = 4689C4CA1A4FA45400DCD9D1 /* icon_plus_switch.png */; };
 		4689C4D11A4FA45400DCD9D1 /* icon_plus_switch@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 4689C4CB1A4FA45400DCD9D1 /* icon_plus_switch@2x.png */; };
+		4689C4D51A4FB14200DCD9D1 /* FormButtonCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 4689C4D41A4FB14200DCD9D1 /* FormButtonCell.m */; };
+		4689C4D71A4FB17700DCD9D1 /* FormButtonCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 4689C4D61A4FB17700DCD9D1 /* FormButtonCell.xib */; };
+		4689C4DB1A4FB1D100DCD9D1 /* FormTextFieldCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 4689C4D91A4FB1D100DCD9D1 /* FormTextFieldCell.m */; };
+		4689C4DC1A4FB1D100DCD9D1 /* FormTextFieldCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 4689C4DA1A4FB1D100DCD9D1 /* FormTextFieldCell.xib */; };
+		4689C4E01A4FB22800DCD9D1 /* FormTextAreaCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 4689C4DE1A4FB22800DCD9D1 /* FormTextAreaCell.m */; };
+		4689C4E11A4FB22800DCD9D1 /* FormTextAreaCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 4689C4DF1A4FB22800DCD9D1 /* FormTextAreaCell.xib */; };
+		4689C4E51A4FB28B00DCD9D1 /* FormSwitchCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 4689C4E31A4FB28B00DCD9D1 /* FormSwitchCell.m */; };
+		4689C4E61A4FB28B00DCD9D1 /* FormSwitchCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 4689C4E41A4FB28B00DCD9D1 /* FormSwitchCell.xib */; };
 		469FBE671A4F74B200334A3E /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 469FBE661A4F74B200334A3E /* main.m */; };
 		469FBE6A1A4F74B200334A3E /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 469FBE691A4F74B200334A3E /* AppDelegate.m */; };
 		469FBE701A4F74B200334A3E /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 469FBE6E1A4F74B200334A3E /* Main.storyboard */; };
@@ -69,6 +77,18 @@
 		4689C4C91A4FA45400DCD9D1 /* icon_plus_button@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "icon_plus_button@2x.png"; sourceTree = "<group>"; };
 		4689C4CA1A4FA45400DCD9D1 /* icon_plus_switch.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = icon_plus_switch.png; sourceTree = "<group>"; };
 		4689C4CB1A4FA45400DCD9D1 /* icon_plus_switch@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "icon_plus_switch@2x.png"; sourceTree = "<group>"; };
+		4689C4D31A4FB14200DCD9D1 /* FormButtonCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FormButtonCell.h; sourceTree = "<group>"; };
+		4689C4D41A4FB14200DCD9D1 /* FormButtonCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FormButtonCell.m; sourceTree = "<group>"; };
+		4689C4D61A4FB17700DCD9D1 /* FormButtonCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = FormButtonCell.xib; sourceTree = "<group>"; };
+		4689C4D81A4FB1D100DCD9D1 /* FormTextFieldCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FormTextFieldCell.h; sourceTree = "<group>"; };
+		4689C4D91A4FB1D100DCD9D1 /* FormTextFieldCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FormTextFieldCell.m; sourceTree = "<group>"; };
+		4689C4DA1A4FB1D100DCD9D1 /* FormTextFieldCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = FormTextFieldCell.xib; sourceTree = "<group>"; };
+		4689C4DD1A4FB22800DCD9D1 /* FormTextAreaCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FormTextAreaCell.h; sourceTree = "<group>"; };
+		4689C4DE1A4FB22800DCD9D1 /* FormTextAreaCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FormTextAreaCell.m; sourceTree = "<group>"; };
+		4689C4DF1A4FB22800DCD9D1 /* FormTextAreaCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = FormTextAreaCell.xib; sourceTree = "<group>"; };
+		4689C4E21A4FB28B00DCD9D1 /* FormSwitchCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FormSwitchCell.h; sourceTree = "<group>"; };
+		4689C4E31A4FB28B00DCD9D1 /* FormSwitchCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FormSwitchCell.m; sourceTree = "<group>"; };
+		4689C4E41A4FB28B00DCD9D1 /* FormSwitchCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = FormSwitchCell.xib; sourceTree = "<group>"; };
 		469FBE611A4F74B200334A3E /* 19. Fluid UI.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "19. Fluid UI.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		469FBE651A4F74B200334A3E /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		469FBE661A4F74B200334A3E /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
@@ -129,6 +149,25 @@
 			name = Icons;
 			sourceTree = "<group>";
 		};
+		4689C4D21A4FB10B00DCD9D1 /* Cells */ = {
+			isa = PBXGroup;
+			children = (
+				4689C4D31A4FB14200DCD9D1 /* FormButtonCell.h */,
+				4689C4D41A4FB14200DCD9D1 /* FormButtonCell.m */,
+				4689C4D61A4FB17700DCD9D1 /* FormButtonCell.xib */,
+				4689C4D81A4FB1D100DCD9D1 /* FormTextFieldCell.h */,
+				4689C4D91A4FB1D100DCD9D1 /* FormTextFieldCell.m */,
+				4689C4DA1A4FB1D100DCD9D1 /* FormTextFieldCell.xib */,
+				4689C4DD1A4FB22800DCD9D1 /* FormTextAreaCell.h */,
+				4689C4DE1A4FB22800DCD9D1 /* FormTextAreaCell.m */,
+				4689C4DF1A4FB22800DCD9D1 /* FormTextAreaCell.xib */,
+				4689C4E21A4FB28B00DCD9D1 /* FormSwitchCell.h */,
+				4689C4E31A4FB28B00DCD9D1 /* FormSwitchCell.m */,
+				4689C4E41A4FB28B00DCD9D1 /* FormSwitchCell.xib */,
+			);
+			name = Cells;
+			sourceTree = "<group>";
+		};
 		469FBE581A4F74B200334A3E = {
 			isa = PBXGroup;
 			children = (
@@ -152,6 +191,7 @@
 		469FBE631A4F74B200334A3E /* 19. Fluid UI */ = {
 			isa = PBXGroup;
 			children = (
+				4689C4D21A4FB10B00DCD9D1 /* Cells */,
 				4689C4B51A4FA30200DCD9D1 /* Icons */,
 				469FBE681A4F74B200334A3E /* AppDelegate.h */,
 				469FBE691A4F74B200334A3E /* AppDelegate.m */,
@@ -299,10 +339,13 @@
 				4689C4B91A4FA33700DCD9D1 /* icon_bomb@2x.png in Resources */,
 				4689C4CE1A4FA45400DCD9D1 /* icon_plus_button.png in Resources */,
 				4689C4B81A4FA33700DCD9D1 /* icon_bomb.png in Resources */,
+				4689C4D71A4FB17700DCD9D1 /* FormButtonCell.xib in Resources */,
 				4689C4CC1A4FA45400DCD9D1 /* icon_plus_text_area.png in Resources */,
+				4689C4E61A4FB28B00DCD9D1 /* FormSwitchCell.xib in Resources */,
 				4689C4D11A4FA45400DCD9D1 /* icon_plus_switch@2x.png in Resources */,
 				469FBE751A4F74B200334A3E /* LaunchScreen.xib in Resources */,
 				4689C4BC1A4FA36A00DCD9D1 /* icon_bug.png in Resources */,
+				4689C4DC1A4FB1D100DCD9D1 /* FormTextFieldCell.xib in Resources */,
 				4689C4C51A4FA3FB00DCD9D1 /* icon_plus_text_field@2x.png in Resources */,
 				4689C4AF1A4FA2CC00DCD9D1 /* icon_cube.png in Resources */,
 				4689C4C11A4FA3AB00DCD9D1 /* icon_bell@2x.png in Resources */,
@@ -313,6 +356,7 @@
 				4689C4BD1A4FA36A00DCD9D1 /* icon_bug@2x.png in Resources */,
 				469FBE721A4F74B200334A3E /* Images.xcassets in Resources */,
 				4689C4CF1A4FA45400DCD9D1 /* icon_plus_button@2x.png in Resources */,
+				4689C4E11A4FB22800DCD9D1 /* FormTextAreaCell.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -363,8 +407,12 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				4689C4D51A4FB14200DCD9D1 /* FormButtonCell.m in Sources */,
+				4689C4E51A4FB28B00DCD9D1 /* FormSwitchCell.m in Sources */,
 				4689C4A81A4FA09B00DCD9D1 /* FormItem.m in Sources */,
 				4689C4A51A4F9D4500DCD9D1 /* FluidUIViewController.m in Sources */,
+				4689C4E01A4FB22800DCD9D1 /* FormTextAreaCell.m in Sources */,
+				4689C4DB1A4FB1D100DCD9D1 /* FormTextFieldCell.m in Sources */,
 				469FBE6A1A4F74B200334A3E /* AppDelegate.m in Sources */,
 				469FBE671A4F74B200334A3E /* main.m in Sources */,
 			);

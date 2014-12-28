@@ -7,6 +7,11 @@
 //
 
 #import "FluidUIViewController.h"
+#import "FormButtonCell.h"
+#import "FormTextFieldCell.h"
+#import "FormTextAreaCell.h"
+#import "FormSwitchCell.h"
+#import "FormItem.h"
 #import <BetweenKit/I3GestureCoordinator.h>
 #import <BetweenKit/I3BasicRenderDelegate.h>
 
@@ -64,7 +69,11 @@ NSString *const kPlusSwitchIcon = @"icon_plus_switch.png";
     
     [self.tlToolbarCollection registerClass:[UICollectionViewCell class] forCellWithReuseIdentifier:DequeueReusableCell];
     [self.bToolbarCollection registerClass:[UICollectionViewCell class] forCellWithReuseIdentifier:DequeueReusableCell];
-    /// @todo Register cells for table
+    
+    [self.formTable registerNib:[UINib nibWithNibName:FormButtonCellIdentifier bundle:nil] forCellReuseIdentifier:FormButtonCellIdentifier];
+    [self.formTable registerNib:[UINib nibWithNibName:FormTextAreaCellIdentifier bundle:nil] forCellReuseIdentifier:FormTextAreaCellIdentifier];
+    [self.formTable registerNib:[UINib nibWithNibName:FormTextFieldCellIdentifier bundle:nil] forCellReuseIdentifier:FormTextFieldCellIdentifier];
+    [self.formTable registerNib:[UINib nibWithNibName:FormSwitchCellIdentifier bundle:nil] forCellReuseIdentifier:FormSwitchCellIdentifier];
     
     
     /// Setup the drag coordinator + customize rendering
@@ -73,6 +82,7 @@ NSString *const kPlusSwitchIcon = @"icon_plus_switch.png";
     
     I3BasicRenderDelegate *renderDelegate = (I3BasicRenderDelegate *)self.dragCoordinator.renderDelegate;
     renderDelegate.draggingItemOpacity = 0.3;
+    renderDelegate.rearrangeIsExchange = NO;
 
     
 }
@@ -86,14 +96,13 @@ NSString *const kPlusSwitchIcon = @"icon_plus_switch.png";
 
 
 -(NSMutableArray *)dataForCollectionView:(UIView *)collection{
-    
     return collection == self.tlToolbarCollection ? self.tlToolbarItems : self.bToolbarItems;
 }
 
 
 -(BOOL) isPointInScrapArea:(CGPoint) at fromView:(UIView *)view{
     
-    CGPoint localPoint = [view convertPoint:at fromView:view];
+    CGPoint localPoint = [self.scrapArea convertPoint:at fromView:view];
     return [self.scrapArea pointInside:localPoint withEvent:nil];
 }
 
@@ -108,6 +117,11 @@ NSString *const kPlusSwitchIcon = @"icon_plus_switch.png";
     UIAlertView *alert = [[UIAlertView alloc] initWithTitle:title message:message delegate:nil cancelButtonTitle:@"Ok" otherButtonTitles:nil];
     [alert show];
     
+}
+
+
+-(NSInteger) numberOfButtonsInForm{
+    return [self.formItems filteredArrayUsingPredicate:[NSPredicate predicateWithFormat:@"type = %d", FormItemTypeButton]].count;
 }
 
 
@@ -161,15 +175,43 @@ NSString *const kPlusSwitchIcon = @"icon_plus_switch.png";
     }
     else if([iconName isEqualToString:kPlusTextFieldIcon]){
         
+        FormItem *item = [[FormItem alloc] init];
+        item.type = FormItemTypeTextField;
+        item.value = @"";
+
+        [self.formItems insertObject:item atIndex:0];
+        [self.formTable insertRowsAtIndexPaths:@[[NSIndexPath indexPathForRow:0 inSection:0]] withRowAnimation:UITableViewRowAnimationLeft];
+
     }
     else if([iconName isEqualToString:kPlusTextAreaIcon]){
         
+        FormItem *item = [[FormItem alloc] init];
+        item.type = FormItemTypeTextArea;
+        item.value = @"Text area..";
+
+        [self.formItems insertObject:item atIndex:0];
+        [self.formTable insertRowsAtIndexPaths:@[[NSIndexPath indexPathForRow:0 inSection:0]] withRowAnimation:UITableViewRowAnimationLeft];
+
     }
     else if([iconName isEqualToString:kPlusButtonIcon]){
+        
+        FormItem *item = [[FormItem alloc] init];
+        item.type = FormItemTypeButton;
+        item.value = [NSString stringWithFormat:@"Button number %d", [self numberOfButtonsInForm]];
+        
+        [self.formItems insertObject:item atIndex:0];
+        [self.formTable insertRowsAtIndexPaths:@[[NSIndexPath indexPathForRow:0 inSection:0]] withRowAnimation:UITableViewRowAnimationLeft];
         
     }
     else if([iconName isEqualToString:kPlusSwitchIcon]){
         
+        FormItem *item = [[FormItem alloc] init];
+        item.type = FormItemTypeSwitch;
+        item.value = NO;
+        
+        [self.formItems insertObject:item atIndex:0];
+        [self.formTable insertRowsAtIndexPaths:@[[NSIndexPath indexPathForRow:0 inSection:0]] withRowAnimation:UITableViewRowAnimationLeft];
+
     }
 
     /// Cell selection animation
@@ -187,8 +229,68 @@ NSString *const kPlusSwitchIcon = @"icon_plus_switch.png";
 #pragma mark - UITableViewDataSource, UITableViewDelegate
 
 
+-(CGFloat) tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
+
+    CGFloat height;
+    
+    if(((FormItem *)self.formItems[indexPath.row]).type == FormItemTypeTextArea){
+        height = 100;
+    }
+    else{
+        height = 50;
+    }
+    
+    return height;
+}
+
+
 -(NSInteger) tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
-    return 0;
+    return self.formItems.count;
+}
+
+
+-(UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
+
+    FormItem *item = self.formItems[indexPath.row];
+    UITableViewCell *cell;
+    
+    NSLog(@"Type: %d", item.type);
+    NSLog(@"Value: %@", item.value);
+    
+    if(item.type == FormItemTypeButton){
+    
+        FormButtonCell *buttonCell = [tableView dequeueReusableCellWithIdentifier:FormButtonCellIdentifier forIndexPath:indexPath];
+        buttonCell.button.titleLabel.text = item.value;
+
+        cell = buttonCell;
+        
+    }
+    else if(item.type == FormItemTypeSwitch){
+
+        FormSwitchCell *switchCell = [tableView dequeueReusableCellWithIdentifier:FormSwitchCellIdentifier forIndexPath:indexPath];
+        switchCell.selected = [(NSNumber *)item.value boolValue];
+
+        cell = switchCell;
+
+    }
+    else if(item.type == FormItemTypeTextArea){
+    
+        FormTextAreaCell *textAreaCell = [tableView dequeueReusableCellWithIdentifier:FormTextAreaCellIdentifier forIndexPath:indexPath];
+        textAreaCell.textArea.text = item.value;
+        
+        cell = textAreaCell;
+
+    }
+    else if(item.type == FormItemTypeTextField){
+        
+        FormTextFieldCell *textFieldCell = [tableView dequeueReusableCellWithIdentifier:FormTextFieldCellIdentifier forIndexPath:indexPath];
+        textFieldCell.textField.text = item.value;
+
+        cell = textFieldCell;
+
+    }
+    
+    return cell;
 }
 
 
@@ -221,6 +323,9 @@ NSString *const kPlusSwitchIcon = @"icon_plus_switch.png";
 
 
 -(void) deleteItemAt:(NSIndexPath *)at inCollection:(UIView<I3Collection> *)collection{
+    
+    [self.formItems removeObjectAtIndex:at.row];
+    [self.formTable deleteItemsAtIndexPaths:@[at]];
 }
 
 
@@ -243,7 +348,16 @@ NSString *const kPlusSwitchIcon = @"icon_plus_switch.png";
         
     }
     else{
-        ///...
+
+        FormItem *item = self.formItems[from.row];
+        [self.formItems removeObject:item];
+        [self.formItems insertObject:item atIndex:to.row];
+        
+        [self.formTable beginUpdates];
+        [self.formTable deleteItemsAtIndexPaths:@[from]];
+        [self.formTable insertRowsAtIndexPaths:@[to] withRowAnimation:UITableViewRowAnimationNone];
+        [self.formTable endUpdates];
+
     }
 }
 

@@ -17,7 +17,7 @@ typedef NS_ENUM(NSInteger, FormItemType){
 
 @interface FormItem : NSObject
 
-@property (nonatomic) FormItemType type;
+@property (nonatomic, assign) FormItemType type;
 
 /** @var NSNumber | NSString | nil depending on value of type */
 
