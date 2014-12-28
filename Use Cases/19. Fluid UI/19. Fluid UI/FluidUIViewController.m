@@ -39,6 +39,8 @@ NSString *const kPlusSwitchIcon = @"icon_plus_switch.png";
 
 @property (nonatomic, strong) I3GestureCoordinator *dragCoordinator;
 
+@property (nonatomic, strong) UILongPressGestureRecognizer *recognizer;
+
 @end
 
 
@@ -75,10 +77,15 @@ NSString *const kPlusSwitchIcon = @"icon_plus_switch.png";
     [self.formTable registerNib:[UINib nibWithNibName:FormTextFieldCellIdentifier bundle:nil] forCellReuseIdentifier:FormTextFieldCellIdentifier];
     [self.formTable registerNib:[UINib nibWithNibName:FormSwitchCellIdentifier bundle:nil] forCellReuseIdentifier:FormSwitchCellIdentifier];
     
+    self.formTable.tableFooterView = [[UIView alloc] initWithFrame:CGRectZero];
+    
     
     /// Setup the drag coordinator + customize rendering
     
-    self.dragCoordinator = [I3GestureCoordinator basicGestureCoordinatorFromViewController:self withCollections:@[self.tlToolbarCollection, self.bToolbarCollection, self.formTable] withRecognizer:[[UILongPressGestureRecognizer alloc] init]];
+    self.recognizer = [[UILongPressGestureRecognizer alloc] init];
+    self.recognizer.delegate = self;
+    
+    self.dragCoordinator = [I3GestureCoordinator basicGestureCoordinatorFromViewController:self withCollections:@[self.tlToolbarCollection, self.bToolbarCollection, self.formTable] withRecognizer:self.recognizer];
     
     I3BasicRenderDelegate *renderDelegate = (I3BasicRenderDelegate *)self.dragCoordinator.renderDelegate;
     renderDelegate.draggingItemOpacity = 0.3;
@@ -197,7 +204,7 @@ NSString *const kPlusSwitchIcon = @"icon_plus_switch.png";
         
         FormItem *item = [[FormItem alloc] init];
         item.type = FormItemTypeButton;
-        item.value = [NSString stringWithFormat:@"Button number %d", [self numberOfButtonsInForm]];
+        item.value = [NSString stringWithFormat:@"Button number %ld", (long)[self numberOfButtonsInForm]];
         
         [self.formItems insertObject:item atIndex:0];
         [self.formTable insertRowsAtIndexPaths:@[[NSIndexPath indexPathForRow:0 inSection:0]] withRowAnimation:UITableViewRowAnimationLeft];
@@ -207,7 +214,7 @@ NSString *const kPlusSwitchIcon = @"icon_plus_switch.png";
         
         FormItem *item = [[FormItem alloc] init];
         item.type = FormItemTypeSwitch;
-        item.value = NO;
+        item.value = @NO;
         
         [self.formItems insertObject:item atIndex:0];
         [self.formTable insertRowsAtIndexPaths:@[[NSIndexPath indexPathForRow:0 inSection:0]] withRowAnimation:UITableViewRowAnimationLeft];
@@ -237,7 +244,7 @@ NSString *const kPlusSwitchIcon = @"icon_plus_switch.png";
         height = 100;
     }
     else{
-        height = 50;
+        height = 65;
     }
     
     return height;
@@ -251,11 +258,10 @@ NSString *const kPlusSwitchIcon = @"icon_plus_switch.png";
 
 -(UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
 
+    
     FormItem *item = self.formItems[indexPath.row];
     UITableViewCell *cell;
-    
-    NSLog(@"Type: %d", item.type);
-    NSLog(@"Value: %@", item.value);
+
     
     if(item.type == FormItemTypeButton){
     
@@ -290,6 +296,8 @@ NSString *const kPlusSwitchIcon = @"icon_plus_switch.png";
 
     }
     
+    cell.selectionStyle = UITableViewCellSelectionStyleNone;
+    
     return cell;
 }
 
@@ -298,7 +306,39 @@ NSString *const kPlusSwitchIcon = @"icon_plus_switch.png";
 
 
 -(BOOL) canItemBeDraggedAt:(NSIndexPath *)at inCollection:(UIView<I3Collection> *)collection{
-    return YES;
+    
+    BOOL canDrop;
+    
+    if(collection == self.formTable){
+
+        FormItem *item = self.formItems[at.row];
+        id cell = [self.formTable cellForRowAtIndexPath:at];
+        
+        self.view.layer.shadowColor;
+        self.view.layer.shadowOffset;
+        self.view.layer.shadowOpacity;
+        
+        if(item.type == FormItemTypeTextArea){
+            
+            FormTextAreaCell *textAreaCell = cell;
+            canDrop = [textAreaCell.moveAccessory pointInside:[self.dragCoordinator.gestureRecognizer locationInView:textAreaCell.moveAccessory] withEvent:nil];
+        }
+        else if(item.type == FormItemTypeTextField){
+
+            FormTextFieldCell *textFieldCell = cell;
+            canDrop = [textFieldCell.moveAccessory pointInside:[self.dragCoordinator.gestureRecognizer locationInView:textFieldCell.moveAccessory] withEvent:nil];
+
+        }
+        else{
+            // For now
+            canDrop = YES;
+        }
+    }
+    else{
+        canDrop = YES;
+    }
+    
+    return canDrop;
 }
 
 
@@ -383,6 +423,12 @@ NSString *const kPlusSwitchIcon = @"icon_plus_switch.png";
     
     [self dropItemAt:from fromCollection:fromCollection toItemAt:toIndex onCollection:toCollection];
 }
+
+
+#pragma mark - UIGestureRecognizerDelegate
+
+
+/// ...
 
 
 @end

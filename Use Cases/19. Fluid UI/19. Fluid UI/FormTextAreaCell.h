@@ -14,4 +14,6 @@ static NSString* FormTextAreaCellIdentifier = @"FormTextAreaCell";
 
 @property (nonatomic, weak) IBOutlet UITextView *textArea;
 
+@property (nonatomic, weak) IBOutlet UIView *moveAccessory;
+
 @end
