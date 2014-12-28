@@ -1,0 +1,8 @@
+target '19. Fluid UI' do
+  pod "BetweenKit", :path => "../../"
+end
+
+target '19. Fluid UITests' do
+
+end
+
