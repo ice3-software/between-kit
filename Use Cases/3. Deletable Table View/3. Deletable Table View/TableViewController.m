@@ -17,8 +17,6 @@ static NSString* DequeueReusableCell = @"DequeueReusableCell";
 
 @property (nonatomic, strong) I3GestureCoordinator *dragCoordinator;
 
-@property (nonatomic, strong) UILongPressGestureRecognizer *recognizer;
-
 @property (nonatomic, strong) NSMutableArray *data;
 
 @end
@@ -32,8 +30,7 @@ static NSString* DequeueReusableCell = @"DequeueReusableCell";
     [super viewDidLoad];
     
     self.data = [NSMutableArray arrayWithArray:@[@1, @2, @3, @4, @5, @6, @7, @8]];
-    self.recognizer = [[UILongPressGestureRecognizer alloc] initWithTarget:self action:@selector(handleLongPress:)];
-    self.dragCoordinator = [I3GestureCoordinator basicGestureCoordinatorFromViewController:self withCollections:@[self.tableView] withRecognizer:self.recognizer];
+    self.dragCoordinator = [I3GestureCoordinator basicGestureCoordinatorFromViewController:self withCollections:@[self.tableView] withRecognizer:[[UILongPressGestureRecognizer alloc] init]];
     [self.tableView registerClass:[UITableViewCell class] forCellReuseIdentifier:DequeueReusableCell];
 
 }
@@ -41,25 +38,6 @@ static NSString* DequeueReusableCell = @"DequeueReusableCell";
 
 -(void) didReceiveMemoryWarning{
     [super didReceiveMemoryWarning];
-}
-
-
-#pragma mark - Long press recognition
-
-
--(void) handleLongPress:(UIGestureRecognizer *)recongizer{
-    
-    if(self.recognizer.state == UIGestureRecognizerStateBegan){
-        [UIView animateWithDuration:0.2 animations:^{
-            self.deleteArea.alpha = 1;
-        }];
-    }
-    else if(self.recognizer.state != UIGestureRecognizerStateChanged){
-        [UIView animateWithDuration:0.2 animations:^{
-            self.deleteArea.alpha = 0.2;
-        }];
-    }
-    
 }
 
 

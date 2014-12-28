@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		4615C3CD1A4F892D00F6CBD3 /* I3SimpleData.m in Sources */ = {isa = PBXBuildFile; fileRef = 4615C3CA1A4F892D00F6CBD3 /* I3SimpleData.m */; };
+		4615C3CE1A4F892D00F6CBD3 /* I3SubtitleTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 4615C3CC1A4F892D00F6CBD3 /* I3SubtitleTableViewCell.m */; };
 		466D4FC71A4783BD00256C2C /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 466D4FC61A4783BD00256C2C /* main.m */; };
 		466D4FCA1A4783BD00256C2C /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 466D4FC91A4783BD00256C2C /* AppDelegate.m */; };
 		466D4FD21A4783BD00256C2C /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 466D4FD11A4783BD00256C2C /* Images.xcassets */; };
@@ -14,8 +16,6 @@
 		466D4FE11A4783BD00256C2C /* ___2_Table_Views_All_PropertiesTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 466D4FE01A4783BD00256C2C /* ___2_Table_Views_All_PropertiesTests.m */; };
 		466D4FEC1A47846500256C2C /* TableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 466D4FEB1A47846500256C2C /* TableViewController.m */; };
 		466D4FEE1A47849C00256C2C /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 466D4FED1A47849C00256C2C /* Main.storyboard */; };
-		466D4FF31A4784D900256C2C /* I3SimpleData.m in Sources */ = {isa = PBXBuildFile; fileRef = 466D4FF01A4784D900256C2C /* I3SimpleData.m */; };
-		466D4FF41A4784D900256C2C /* I3SubtitleTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 466D4FF21A4784D900256C2C /* I3SubtitleTableViewCell.m */; };
 		B25EA47F94A612110C53DB56 /* libPods-5. 2 Table Views All Properties.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 92492FFB47CA1D021CF171B9 /* libPods-5. 2 Table Views All Properties.a */; };
 /* End PBXBuildFile section */
 
@@ -31,6 +31,10 @@
 
 /* Begin PBXFileReference section */
 		31C95DEF29FA7C7B1FDB860B /* Pods-5. 2 Table Views All Properties.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-5. 2 Table Views All Properties.release.xcconfig"; path = "Pods/Target Support Files/Pods-5. 2 Table Views All Properties/Pods-5. 2 Table Views All Properties.release.xcconfig"; sourceTree = "<group>"; };
+		4615C3C91A4F892D00F6CBD3 /* I3SimpleData.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = I3SimpleData.h; path = ../../Utilities/Classes/I3SimpleData.h; sourceTree = "<group>"; };
+		4615C3CA1A4F892D00F6CBD3 /* I3SimpleData.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = I3SimpleData.m; path = ../../Utilities/Classes/I3SimpleData.m; sourceTree = "<group>"; };
+		4615C3CB1A4F892D00F6CBD3 /* I3SubtitleTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = I3SubtitleTableViewCell.h; path = ../../Utilities/Classes/I3SubtitleTableViewCell.h; sourceTree = "<group>"; };
+		4615C3CC1A4F892D00F6CBD3 /* I3SubtitleTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = I3SubtitleTableViewCell.m; path = ../../Utilities/Classes/I3SubtitleTableViewCell.m; sourceTree = "<group>"; };
 		466D4FC11A4783BD00256C2C /* 5. 2 Table Views All Properties.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "5. 2 Table Views All Properties.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		466D4FC51A4783BD00256C2C /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		466D4FC61A4783BD00256C2C /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
@@ -44,10 +48,6 @@
 		466D4FEA1A47846500256C2C /* TableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TableViewController.h; sourceTree = "<group>"; };
 		466D4FEB1A47846500256C2C /* TableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TableViewController.m; sourceTree = "<group>"; };
 		466D4FED1A47849C00256C2C /* Main.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Main.storyboard; sourceTree = "<group>"; };
-		466D4FEF1A4784D900256C2C /* I3SimpleData.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = I3SimpleData.h; sourceTree = "<group>"; };
-		466D4FF01A4784D900256C2C /* I3SimpleData.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = I3SimpleData.m; sourceTree = "<group>"; };
-		466D4FF11A4784D900256C2C /* I3SubtitleTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = I3SubtitleTableViewCell.h; sourceTree = "<group>"; };
-		466D4FF21A4784D900256C2C /* I3SubtitleTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = I3SubtitleTableViewCell.m; sourceTree = "<group>"; };
 		6189F11D7EF12C0676132509 /* Pods-5. 2 Table Views All Properties.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-5. 2 Table Views All Properties.debug.xcconfig"; path = "Pods/Target Support Files/Pods-5. 2 Table Views All Properties/Pods-5. 2 Table Views All Properties.debug.xcconfig"; sourceTree = "<group>"; };
 		92492FFB47CA1D021CF171B9 /* libPods-5. 2 Table Views All Properties.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-5. 2 Table Views All Properties.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
@@ -103,10 +103,10 @@
 		466D4FC31A4783BD00256C2C /* 5. 2 Table Views All Properties */ = {
 			isa = PBXGroup;
 			children = (
-				466D4FEF1A4784D900256C2C /* I3SimpleData.h */,
-				466D4FF01A4784D900256C2C /* I3SimpleData.m */,
-				466D4FF11A4784D900256C2C /* I3SubtitleTableViewCell.h */,
-				466D4FF21A4784D900256C2C /* I3SubtitleTableViewCell.m */,
+				4615C3C91A4F892D00F6CBD3 /* I3SimpleData.h */,
+				4615C3CA1A4F892D00F6CBD3 /* I3SimpleData.m */,
+				4615C3CB1A4F892D00F6CBD3 /* I3SubtitleTableViewCell.h */,
+				4615C3CC1A4F892D00F6CBD3 /* I3SubtitleTableViewCell.m */,
 				466D4FEA1A47846500256C2C /* TableViewController.h */,
 				466D4FEB1A47846500256C2C /* TableViewController.m */,
 				466D4FC81A4783BD00256C2C /* AppDelegate.h */,
@@ -288,9 +288,9 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				466D4FF41A4784D900256C2C /* I3SubtitleTableViewCell.m in Sources */,
+				4615C3CE1A4F892D00F6CBD3 /* I3SubtitleTableViewCell.m in Sources */,
 				466D4FCA1A4783BD00256C2C /* AppDelegate.m in Sources */,
-				466D4FF31A4784D900256C2C /* I3SimpleData.m in Sources */,
+				4615C3CD1A4F892D00F6CBD3 /* I3SimpleData.m in Sources */,
 				466D4FEC1A47846500256C2C /* TableViewController.m in Sources */,
 				466D4FC71A4783BD00256C2C /* main.m in Sources */,
 			);

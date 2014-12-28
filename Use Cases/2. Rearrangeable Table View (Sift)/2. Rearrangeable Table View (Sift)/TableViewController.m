@@ -14,7 +14,7 @@
 static NSString* DequeueReusableCell = @"DequeueReusableCell";
 
 
-@interface TableViewController()
+@interface TableViewController ()
 
 @property (nonatomic, strong) I3GestureCoordinator *dragCoordinator;
 

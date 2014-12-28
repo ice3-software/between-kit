@@ -18,7 +18,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" translatesAutoresizingMaskIntoConstraints="NO" id="xFG-Lo-y2W">
-                                <rect key="frame" x="0.0" y="0.0" width="307" height="600"/>
+                                <rect key="frame" x="0.0" y="0.0" width="296" height="600"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <connections>
                                     <outlet property="dataSource" destination="Zps-3z-Ygh" id="ISj-Re-SJm"/>
@@ -26,7 +26,7 @@
                                 </connections>
                             </tableView>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" translatesAutoresizingMaskIntoConstraints="NO" id="odz-cB-eNe">
-                                <rect key="frame" x="315" y="0.0" width="285" height="600"/>
+                                <rect key="frame" x="304" y="0.0" width="296" height="600"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <connections>
                                     <outlet property="dataSource" destination="Zps-3z-Ygh" id="WSU-lb-ZDz"/>
@@ -54,7 +54,7 @@
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                         <constraints>
-                            <constraint firstItem="odz-cB-eNe" firstAttribute="leading" secondItem="XmV-rH-ahy" secondAttribute="leadingMargin" constant="299" id="1uc-ZK-Zdp"/>
+                            <constraint firstItem="odz-cB-eNe" firstAttribute="width" secondItem="xFG-Lo-y2W" secondAttribute="width" id="7qn-HX-r1U"/>
                             <constraint firstItem="I4k-Z8-Baf" firstAttribute="bottom" secondItem="5EG-x9-t6S" secondAttribute="top" id="FaG-Rk-ThP"/>
                             <constraint firstItem="xFG-Lo-y2W" firstAttribute="top" secondItem="e45-cY-o5l" secondAttribute="bottom" constant="-20" id="LMl-iP-4Z7"/>
                             <constraint firstItem="odz-cB-eNe" firstAttribute="leading" secondItem="xFG-Lo-y2W" secondAttribute="trailing" constant="8" id="LUB-IA-ZY8"/>

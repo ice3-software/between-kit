@@ -18,7 +18,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" translatesAutoresizingMaskIntoConstraints="NO" id="C26-0o-U5q">
-                                <rect key="frame" x="0.0" y="0.0" width="307" height="600"/>
+                                <rect key="frame" x="0.0" y="0.0" width="296" height="600"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <connections>
                                     <outlet property="dataSource" destination="BYZ-38-t0r" id="jdi-4H-oD3"/>
@@ -26,7 +26,7 @@
                                 </connections>
                             </tableView>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" translatesAutoresizingMaskIntoConstraints="NO" id="DiY-1T-7tu">
-                                <rect key="frame" x="315" y="0.0" width="285" height="600"/>
+                                <rect key="frame" x="304" y="0.0" width="296" height="600"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <connections>
                                     <outlet property="dataSource" destination="BYZ-38-t0r" id="t5s-fg-6a8"/>
@@ -37,6 +37,7 @@
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                         <constraints>
                             <constraint firstItem="wfy-db-euE" firstAttribute="top" secondItem="DiY-1T-7tu" secondAttribute="bottom" id="3Fd-f7-D4M"/>
+                            <constraint firstItem="DiY-1T-7tu" firstAttribute="width" secondItem="C26-0o-U5q" secondAttribute="width" id="7n8-wY-LcR"/>
                             <constraint firstAttribute="trailingMargin" secondItem="DiY-1T-7tu" secondAttribute="trailing" constant="-16" id="9RW-3l-MaT"/>
                             <constraint firstItem="C26-0o-U5q" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leadingMargin" constant="-16" id="AoF-ec-Ng3"/>
                             <constraint firstItem="DiY-1T-7tu" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leadingMargin" constant="299" id="EEb-l8-6zW"/>
@@ -45,6 +46,11 @@
                             <constraint firstItem="C26-0o-U5q" firstAttribute="top" secondItem="y3c-jy-aDJ" secondAttribute="bottom" constant="-20" id="xXV-3v-CLb"/>
                             <constraint firstItem="DiY-1T-7tu" firstAttribute="top" secondItem="y3c-jy-aDJ" secondAttribute="bottom" constant="-20" id="ztU-gh-1Xi"/>
                         </constraints>
+                        <variation key="default">
+                            <mask key="constraints">
+                                <exclude reference="EEb-l8-6zW"/>
+                            </mask>
+                        </variation>
                     </view>
                     <connections>
                         <outlet property="leftTable" destination="C26-0o-U5q" id="UoU-TB-ajz"/>
