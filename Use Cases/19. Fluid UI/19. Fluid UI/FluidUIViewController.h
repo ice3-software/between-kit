@@ -11,7 +11,7 @@
 #import <BetweenKit/UICollectionView+I3Collection.h>
 #import <BetweenKit/UITableView+I3Collection.h>
 
-@interface FluidUIViewController : UIViewController <I3DragDataSource, UITableViewDelegate, UITableViewDataSource, UICollectionViewDataSource, UICollectionViewDelegate, UITextFieldDelegate, UITextViewDelegate>
+@interface FluidUIViewController : UIViewController <I3DragDataSource, UITableViewDelegate, UITableViewDataSource, UICollectionViewDataSource, UICollectionViewDelegate, UITextViewDelegate>
 
 @property (nonatomic, weak) IBOutlet UITableView *formTable;
 

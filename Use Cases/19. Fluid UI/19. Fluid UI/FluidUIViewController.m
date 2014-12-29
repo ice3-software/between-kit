@@ -301,9 +301,7 @@ NSString *const kPlusSwitchIcon = @"icon_plus_switch.png";
     else if(item.type == FormItemTypeSwitch){
 
         FormSwitchCell *switchCell = [tableView dequeueReusableCellWithIdentifier:FormSwitchCellIdentifier forIndexPath:indexPath];
-        
-        NSLog(@"Item's value: %@", item.value);
-        
+                
         switchCell.component.on = [(NSNumber *)item.value boolValue];
         [switchCell.component addTarget:self action:@selector(handleCellSwitchChange:) forControlEvents:UIControlEventValueChanged];
         
@@ -325,7 +323,6 @@ NSString *const kPlusSwitchIcon = @"icon_plus_switch.png";
         FormTextFieldCell *textFieldCell = [tableView dequeueReusableCellWithIdentifier:FormTextFieldCellIdentifier forIndexPath:indexPath];
         
         textFieldCell.component.text = item.value;
-        textFieldCell.component.delegate = self;
         [textFieldCell.component addTarget:self action:@selector(handleCellTextFieldChanged:) forControlEvents:UIControlEventEditingChanged];
         
         cell = textFieldCell;
@@ -452,17 +449,7 @@ NSString *const kPlusSwitchIcon = @"icon_plus_switch.png";
 }
 
 
-#pragma mark - UITextFieldDelegate, UITextViewDelegate
-
-
--(void) textFieldDidBeginEditing:(UITextField *)textField{
-    [self updateFormItemForTextField:(ParentAwareTextField *)textField];
-}
-
-
--(void) textFieldDidEndEditing:(UITextField *)textField{
-    [self updateFormItemForTextField:(ParentAwareTextField *)textField];
-}
+#pragma mark - UITextViewDelegate
 
 
 -(void) textViewDidChange:(UITextView *)textView{
