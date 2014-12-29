@@ -35,7 +35,7 @@
                                     <constraint firstItem="XFE-eC-vqq" firstAttribute="leading" secondItem="rGy-Fu-XH7" secondAttribute="leading" constant="15" id="xCS-Pf-UnL"/>
                                 </constraints>
                             </view>
-                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="w39-DP-6T9">
+                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="w39-DP-6T9" customClass="TableViewCellAwareTextField">
                                 <rect key="frame" x="110" y="0.0" width="142" height="55"/>
                                 <color key="backgroundColor" red="0.96193024859999998" green="0.96193024859999998" blue="0.96193024859999998" alpha="1" colorSpace="calibratedRGB"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>

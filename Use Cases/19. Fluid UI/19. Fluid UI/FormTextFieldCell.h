@@ -7,12 +7,13 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "TableViewCellAwareTextField.h"
 
 static NSString* FormTextFieldCellIdentifier = @"FormTextFieldCell";
 
 @interface FormTextFieldCell : UITableViewCell
 
-@property (nonatomic, weak) IBOutlet UITextField *textField;
+@property (nonatomic, weak) IBOutlet TableViewCellAwareTextField *textField;
 
 @property (nonatomic, weak) IBOutlet UIView *moveAccessory;
 

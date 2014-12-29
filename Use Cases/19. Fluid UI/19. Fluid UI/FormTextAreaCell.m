@@ -10,14 +10,10 @@
 
 @implementation FormTextAreaCell
 
-- (void)awakeFromNib {
-    // Initialization code
-}
-
-- (void)setSelected:(BOOL)selected animated:(BOOL)animated {
-    [super setSelected:selected animated:animated];
-
-    // Configure the view for the selected state
+-(void) setTextArea:(TableViewCellAwareTextView *)textArea{
+    
+    _textArea = textArea;
+    _textArea.parentCell = self;
 }
 
 @end

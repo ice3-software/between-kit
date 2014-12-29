@@ -10,14 +10,10 @@
 
 @implementation FormTextFieldCell
 
-- (void)awakeFromNib {
-    // Initialization code
-}
+-(void) setTextField:(TableViewCellAwareTextField *)textField{
 
-- (void)setSelected:(BOOL)selected animated:(BOOL)animated {
-    [super setSelected:selected animated:animated];
-
-    // Configure the view for the selected state
+    _textField = textField;
+    _textField.parentCell = self;
 }
 
 @end

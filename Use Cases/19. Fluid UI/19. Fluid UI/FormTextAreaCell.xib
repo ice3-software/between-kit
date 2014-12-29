@@ -17,7 +17,7 @@
                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="6mv-3W-Wwo">
                         <rect key="frame" x="8" y="8" width="304" height="113"/>
                         <subviews>
-                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="9TV-ye-50d">
+                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="9TV-ye-50d" customClass="TableViewCellAwareTextView">
                                 <rect key="frame" x="111" y="0.0" width="142" height="112"/>
                                 <color key="backgroundColor" red="0.96193024861878451" green="0.96193024861878451" blue="0.96193024861878451" alpha="1" colorSpace="calibratedRGB"/>
                                 <color key="textColor" red="0.25591332872928174" green="0.25591332872928174" blue="0.25591332872928174" alpha="1" colorSpace="calibratedRGB"/>
