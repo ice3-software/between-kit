@@ -99,6 +99,7 @@
 		4689C4EC1A51792D00DCD9D1 /* TableViewCellAwareTextField.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TableViewCellAwareTextField.m; sourceTree = "<group>"; };
 		4689C4EE1A51797100DCD9D1 /* TableViewCellAwareTextView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TableViewCellAwareTextView.h; sourceTree = "<group>"; };
 		4689C4EF1A51797100DCD9D1 /* TableViewCellAwareTextView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TableViewCellAwareTextView.m; sourceTree = "<group>"; };
+		4689C4F11A517ED000DCD9D1 /* TableViewCellAware.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TableViewCellAware.h; sourceTree = "<group>"; };
 		469FBE611A4F74B200334A3E /* 19. Fluid UI.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "19. Fluid UI.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		469FBE651A4F74B200334A3E /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		469FBE661A4F74B200334A3E /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
@@ -207,6 +208,7 @@
 				4689C4EF1A51797100DCD9D1 /* TableViewCellAwareTextView.m */,
 				4689C4EB1A51792D00DCD9D1 /* TableViewCellAwareTextField.h */,
 				4689C4EC1A51792D00DCD9D1 /* TableViewCellAwareTextField.m */,
+				4689C4F11A517ED000DCD9D1 /* TableViewCellAware.h */,
 				4689C4D21A4FB10B00DCD9D1 /* Cells */,
 				4689C4B51A4FA30200DCD9D1 /* Icons */,
 				469FBE681A4F74B200334A3E /* AppDelegate.h */,

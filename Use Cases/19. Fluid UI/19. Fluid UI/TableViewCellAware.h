@@ -1,15 +1,15 @@
+
 //
-//  TableViewCellAwareTextView.h
+//  TableViewCellAware.h
 //  19. Fluid UI
 //
 //  Created by Stephen Fortune on 29/12/2014.
 //  Copyright (c) 2014 IceCube Software Ltd. All rights reserved.
 //
 
-#import <UIKit/UIKit.h>
-#import "TableViewCellAware.h"
+@protocol TableViewCellAware <NSObject>
 
-@interface TableViewCellAwareTextView : UITextView <TableViewCellAware>
+@required
 
 @property (nonatomic, weak) UITableViewCell *parentCell;
 

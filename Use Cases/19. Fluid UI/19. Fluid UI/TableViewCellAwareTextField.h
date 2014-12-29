@@ -7,8 +7,9 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "TableViewCellAware.h"
 
-@interface TableViewCellAwareTextField : UITextField
+@interface TableViewCellAwareTextField : UITextField <TableViewCellAware>
 
 @property (nonatomic, weak) UITableViewCell *parentCell;
 

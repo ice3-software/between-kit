@@ -16,4 +16,13 @@
     _textArea.parentCell = self;
 }
 
+-(void) awakeFromNib{
+    
+    [super awakeFromNib];
+    
+    self.opaque = NO;
+    self.backgroundColor = [UIColor clearColor];
+    self.contentView.backgroundColor = [UIColor clearColor];
+}
+
 @end

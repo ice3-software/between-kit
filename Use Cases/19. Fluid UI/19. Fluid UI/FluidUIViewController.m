@@ -449,21 +449,36 @@ NSString *const kPlusSwitchIcon = @"icon_plus_switch.png";
 #pragma mark - UITextFieldDelegate, UITextViewDelegate
 
 
--(void) textFieldDidEndEditing:(UITextField *)textField{
+-(FormItem *)formItemForTableViewCellAware:(id<TableViewCellAware>) tableViewCellAware{
 
-    NSIndexPath *index = [self.formTable indexPathForCell:((TableViewCellAwareTextField *)textField).parentCell];
+    NSIndexPath *index = [self.formTable indexPathForCell:tableViewCellAware.parentCell];
     NSLog(@"Index: %@", index);
-    FormItem *item = self.formItems[index.row];
-    item.value = textField.text;
+    return self.formItems[index.row];
 }
 
 
--(void) textViewDidEndEditing:(UITextView *)textView{
+-(void) updateFormItemForTextField:(TableViewCellAwareTextField *)textField{
+    [self formItemForTableViewCellAware:textField].value = textField.text;
+}
 
-    NSIndexPath *index = [self.formTable indexPathForCell:((TableViewCellAwareTextView *)textView).parentCell];
-    NSLog(@"Index: %@", index);
-    FormItem *item = self.formItems[index.row];
-    item.value = textView.text;
+
+-(void) updateFormItemForTextView:(TableViewCellAwareTextView *)textView{
+    [self formItemForTableViewCellAware:textView].value = textView.text;
+}
+
+
+-(void) textFieldDidBeginEditing:(UITextField *)textField{
+    [self updateFormItemForTextField:(TableViewCellAwareTextField *)textField];
+}
+
+
+-(void) textFieldDidEndEditing:(UITextField *)textField{
+    [self updateFormItemForTextField:(TableViewCellAwareTextField *)textField];
+}
+
+
+-(void) textViewDidChange:(UITextView *)textView{
+    [self updateFormItemForTextView:(TableViewCellAwareTextView *)textView];
 }
 
 
