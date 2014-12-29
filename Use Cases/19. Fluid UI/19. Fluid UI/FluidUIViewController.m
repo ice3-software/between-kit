@@ -83,8 +83,7 @@ NSString *const kPlusSwitchIcon = @"icon_plus_switch.png";
     /// Setup the drag coordinator + customize rendering
     
     self.recognizer = [[UILongPressGestureRecognizer alloc] init];
-    self.recognizer.delegate = self;
-    
+
     self.dragCoordinator = [I3GestureCoordinator basicGestureCoordinatorFromViewController:self withCollections:@[self.tlToolbarCollection, self.bToolbarCollection, self.formTable] withRecognizer:self.recognizer];
     
     I3BasicRenderDelegate *renderDelegate = (I3BasicRenderDelegate *)self.dragCoordinator.renderDelegate;
@@ -127,8 +126,28 @@ NSString *const kPlusSwitchIcon = @"icon_plus_switch.png";
 }
 
 
--(NSInteger) numberOfButtonsInForm{
-    return [self.formItems filteredArrayUsingPredicate:[NSPredicate predicateWithFormat:@"type = %d", FormItemTypeButton]].count;
+-(NSIndexPath *)indexPathForParentAware:(id<ParentCellAware>) awareComponent{
+    return [self.formTable indexPathForCell:awareComponent.parentCell];
+}
+
+-(FormItem *)formItemForParentAware:(id<ParentCellAware>) cellAwareComponent{
+    
+    NSIndexPath *index = [self indexPathForParentAware:cellAwareComponent];
+    return self.formItems[index.row];
+}
+
+
+-(void) updateFormItemForTextField:(ParentAwareTextField *)textField{
+    
+    FormItem *item = [self formItemForParentAware:textField];
+    item.value = textField.text;
+}
+
+
+-(void) updateFormItemForTextView:(ParentAwareTextView *)textView{
+    
+    FormItem *item = [self formItemForParentAware:textView];
+    item.value = textView.text;
 }
 
 
@@ -196,7 +215,7 @@ NSString *const kPlusSwitchIcon = @"icon_plus_switch.png";
         
         FormItem *item = [[FormItem alloc] init];
         item.type = FormItemTypeTextArea;
-        item.value = @"Text area..";
+        item.value = nil;
 
         NSIndexPath *insertionIndex = [NSIndexPath indexPathForRow:self.formItems.count  inSection:0];
         
@@ -208,7 +227,6 @@ NSString *const kPlusSwitchIcon = @"icon_plus_switch.png";
         
         FormItem *item = [[FormItem alloc] init];
         item.type = FormItemTypeButton;
-        item.value = [NSString stringWithFormat:@"Button number %ld", (long)[self numberOfButtonsInForm]];
         
         NSIndexPath *insertionIndex = [NSIndexPath indexPathForRow:self.formItems.count  inSection:0];
         
@@ -275,8 +293,8 @@ NSString *const kPlusSwitchIcon = @"icon_plus_switch.png";
     
         FormButtonCell *buttonCell = [tableView dequeueReusableCellWithIdentifier:FormButtonCellIdentifier forIndexPath:indexPath];
         
-        buttonCell.component.titleLabel.text = item.value;
-
+        [buttonCell.component addTarget:self action:@selector(handleCellButtonPress:) forControlEvents:UIControlEventTouchUpInside];
+        
         cell = buttonCell;
         
     }
@@ -284,8 +302,11 @@ NSString *const kPlusSwitchIcon = @"icon_plus_switch.png";
 
         FormSwitchCell *switchCell = [tableView dequeueReusableCellWithIdentifier:FormSwitchCellIdentifier forIndexPath:indexPath];
         
-        switchCell.component.selected = [(NSNumber *)item.value boolValue];
-
+        NSLog(@"Item's value: %@", item.value);
+        
+        switchCell.component.on = [(NSNumber *)item.value boolValue];
+        [switchCell.component addTarget:self action:@selector(handleCellSwitchChange:) forControlEvents:UIControlEventValueChanged];
+        
         cell = switchCell;
 
     }
@@ -433,28 +454,6 @@ NSString *const kPlusSwitchIcon = @"icon_plus_switch.png";
 #pragma mark - UITextFieldDelegate, UITextViewDelegate
 
 
--(FormItem *)formItemForTableViewCellAware:(id<ParentCellAware>) cellAwareComponent{
-
-    NSIndexPath *index = [self.formTable indexPathForCell:cellAwareComponent.parentCell];
-    NSLog(@"Index: %@", index);
-    return self.formItems[index.row];
-}
-
-
--(void) updateFormItemForTextField:(ParentAwareTextField *)textField{
-    
-    FormItem *item = [self formItemForTableViewCellAware:textField];
-    item.value = textField.text;
-}
-
-
--(void) updateFormItemForTextView:(ParentAwareTextView *)textView{
-
-    FormItem *item = [self formItemForTableViewCellAware:textView];
-    item.value = textView.text;
-}
-
-
 -(void) textFieldDidBeginEditing:(UITextField *)textField{
     [self updateFormItemForTextField:(ParentAwareTextField *)textField];
 }
@@ -470,10 +469,24 @@ NSString *const kPlusSwitchIcon = @"icon_plus_switch.png";
 }
 
 
-#pragma mark - UIGestureRecognizerDelegate
+#pragma mark - Action methods for cell buttons / switches
 
 
-/// ...
+-(void) handleCellButtonPress:(ParentAwareButton *)button{
+
+    NSIndexPath *index = [self indexPathForParentAware:button];
+    NSString *message = [NSString stringWithFormat:@"You have tapped the button in form item number %d", index.row];
+    
+    UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Tap!" message:message delegate:nil cancelButtonTitle:@"Ok" otherButtonTitles:nil];
+    [alert show];
+}
+
+
+-(void) handleCellSwitchChange:(ParentAwareSwitch *)switchControl{
+
+    FormItem *item = [self formItemForParentAware:switchControl];
+    item.value = @(switchControl.isOn);
+}
 
 
 @end
