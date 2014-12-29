@@ -1,13 +1,16 @@
+
 //
-//  TableViewCellAwareTextField.m
+//  TableViewCellAware.h
 //  19. Fluid UI
 //
 //  Created by Stephen Fortune on 29/12/2014.
 //  Copyright (c) 2014 IceCube Software Ltd. All rights reserved.
 //
 
-#import "TableViewCellAwareTextField.h"
+@protocol ParentCellAware <NSObject>
 
-@implementation TableViewCellAwareTextField
+@required
+
+@property (nonatomic, weak) UITableViewCell *parentCell;
 
 @end

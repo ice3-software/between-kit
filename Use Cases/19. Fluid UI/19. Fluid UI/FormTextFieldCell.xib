@@ -10,7 +10,7 @@
         <tableViewCell opaque="NO" clipsSubviews="YES" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="FormTextFieldCell" rowHeight="72" id="GsA-uh-A7s" customClass="FormTextFieldCell">
             <rect key="frame" x="0.0" y="0.0" width="320" height="72"/>
             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-            <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="GsA-uh-A7s" id="Cva-jX-ZR6">
+            <tableViewCellContentView key="contentView" opaque="NO" multipleTouchEnabled="YES" contentMode="center" tableViewCell="GsA-uh-A7s" id="Cva-jX-ZR6">
                 <rect key="frame" x="0.0" y="0.0" width="320" height="43"/>
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
@@ -35,7 +35,7 @@
                                     <constraint firstItem="XFE-eC-vqq" firstAttribute="leading" secondItem="rGy-Fu-XH7" secondAttribute="leading" constant="15" id="xCS-Pf-UnL"/>
                                 </constraints>
                             </view>
-                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="w39-DP-6T9" customClass="TableViewCellAwareTextField">
+                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="w39-DP-6T9" customClass="ParentAwareTextField">
                                 <rect key="frame" x="110" y="0.0" width="142" height="55"/>
                                 <color key="backgroundColor" red="0.96193024859999998" green="0.96193024859999998" blue="0.96193024859999998" alpha="1" colorSpace="calibratedRGB"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
@@ -60,14 +60,6 @@
                             <constraint firstItem="rGy-Fu-XH7" firstAttribute="top" secondItem="ZZ3-6c-8ha" secondAttribute="top" constant="1" id="icX-C7-0FO"/>
                             <constraint firstAttribute="centerY" secondItem="mRy-Qw-9Sk" secondAttribute="centerY" id="vCz-ll-lVU"/>
                         </constraints>
-                        <userDefinedRuntimeAttributes>
-                            <userDefinedRuntimeAttribute type="color" keyPath="layer.shadowColor">
-                                <color key="value" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
-                            </userDefinedRuntimeAttribute>
-                            <userDefinedRuntimeAttribute type="number" keyPath="layer.shadowOffset">
-                                <real key="value" value="0.80000000000000004"/>
-                            </userDefinedRuntimeAttribute>
-                        </userDefinedRuntimeAttributes>
                     </view>
                 </subviews>
                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
@@ -80,8 +72,8 @@
             </tableViewCellContentView>
             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
             <connections>
+                <outlet property="component" destination="w39-DP-6T9" id="JS4-dK-nwx"/>
                 <outlet property="moveAccessory" destination="rGy-Fu-XH7" id="d6X-pi-tfc"/>
-                <outlet property="textField" destination="w39-DP-6T9" id="5vA-zG-Rnr"/>
             </connections>
             <point key="canvasLocation" x="261" y="83"/>
         </tableViewCell>

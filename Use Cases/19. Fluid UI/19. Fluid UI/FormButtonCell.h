@@ -7,11 +7,13 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "AbstractFormCell.h"
+#import "ParentAwareButton.h"
 
 static NSString* FormButtonCellIdentifier = @"FormButtonCell";
 
-@interface FormButtonCell : UITableViewCell
+@interface FormButtonCell : AbstractFormCell
 
-@property (nonatomic, weak) IBOutlet UIButton *button;
+@property (nonatomic, weak) IBOutlet ParentAwareButton *component;
 
 @end

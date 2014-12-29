@@ -1,5 +1,5 @@
 //
-//  TableViewCellAwareTextView.h
+//  TableViewCellAwareTextField.h
 //  19. Fluid UI
 //
 //  Created by Stephen Fortune on 29/12/2014.
@@ -7,9 +7,9 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "TableViewCellAware.h"
+#import "ParentCellAware.h"
 
-@interface TableViewCellAwareTextView : UITextView <TableViewCellAware>
+@interface ParentAwareTextField : UITextField <ParentCellAware>
 
 @property (nonatomic, weak) UITableViewCell *parentCell;
 

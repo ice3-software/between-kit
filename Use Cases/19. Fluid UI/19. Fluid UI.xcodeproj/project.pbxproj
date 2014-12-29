@@ -37,8 +37,11 @@
 		4689C4E61A4FB28B00DCD9D1 /* FormSwitchCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 4689C4E41A4FB28B00DCD9D1 /* FormSwitchCell.xib */; };
 		4689C4E91A50533D00DCD9D1 /* icon_move_arrow.png in Resources */ = {isa = PBXBuildFile; fileRef = 4689C4E71A50533D00DCD9D1 /* icon_move_arrow.png */; };
 		4689C4EA1A50533D00DCD9D1 /* icon_move_arrow@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 4689C4E81A50533D00DCD9D1 /* icon_move_arrow@2x.png */; };
-		4689C4ED1A51792D00DCD9D1 /* TableViewCellAwareTextField.m in Sources */ = {isa = PBXBuildFile; fileRef = 4689C4EC1A51792D00DCD9D1 /* TableViewCellAwareTextField.m */; };
-		4689C4F01A51797100DCD9D1 /* TableViewCellAwareTextView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4689C4EF1A51797100DCD9D1 /* TableViewCellAwareTextView.m */; };
+		4689C4ED1A51792D00DCD9D1 /* ParentAwareTextField.m in Sources */ = {isa = PBXBuildFile; fileRef = 4689C4EC1A51792D00DCD9D1 /* ParentAwareTextField.m */; };
+		4689C4F01A51797100DCD9D1 /* ParentAwareTextView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4689C4EF1A51797100DCD9D1 /* ParentAwareTextView.m */; };
+		4689C4F51A51863900DCD9D1 /* ParentAwareButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 4689C4F41A51863900DCD9D1 /* ParentAwareButton.m */; };
+		4689C4F81A51867C00DCD9D1 /* ParentAwareSwitch.m in Sources */ = {isa = PBXBuildFile; fileRef = 4689C4F71A51867C00DCD9D1 /* ParentAwareSwitch.m */; };
+		4689C4FB1A51C7ED00DCD9D1 /* AbstractFormCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 4689C4FA1A51C7ED00DCD9D1 /* AbstractFormCell.m */; };
 		469FBE671A4F74B200334A3E /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 469FBE661A4F74B200334A3E /* main.m */; };
 		469FBE6A1A4F74B200334A3E /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 469FBE691A4F74B200334A3E /* AppDelegate.m */; };
 		469FBE701A4F74B200334A3E /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 469FBE6E1A4F74B200334A3E /* Main.storyboard */; };
@@ -95,11 +98,17 @@
 		4689C4E41A4FB28B00DCD9D1 /* FormSwitchCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = FormSwitchCell.xib; sourceTree = "<group>"; };
 		4689C4E71A50533D00DCD9D1 /* icon_move_arrow.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = icon_move_arrow.png; sourceTree = "<group>"; };
 		4689C4E81A50533D00DCD9D1 /* icon_move_arrow@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "icon_move_arrow@2x.png"; sourceTree = "<group>"; };
-		4689C4EB1A51792D00DCD9D1 /* TableViewCellAwareTextField.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TableViewCellAwareTextField.h; sourceTree = "<group>"; };
-		4689C4EC1A51792D00DCD9D1 /* TableViewCellAwareTextField.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TableViewCellAwareTextField.m; sourceTree = "<group>"; };
-		4689C4EE1A51797100DCD9D1 /* TableViewCellAwareTextView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TableViewCellAwareTextView.h; sourceTree = "<group>"; };
-		4689C4EF1A51797100DCD9D1 /* TableViewCellAwareTextView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TableViewCellAwareTextView.m; sourceTree = "<group>"; };
-		4689C4F11A517ED000DCD9D1 /* TableViewCellAware.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TableViewCellAware.h; sourceTree = "<group>"; };
+		4689C4EB1A51792D00DCD9D1 /* ParentAwareTextField.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ParentAwareTextField.h; sourceTree = "<group>"; };
+		4689C4EC1A51792D00DCD9D1 /* ParentAwareTextField.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ParentAwareTextField.m; sourceTree = "<group>"; };
+		4689C4EE1A51797100DCD9D1 /* ParentAwareTextView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ParentAwareTextView.h; sourceTree = "<group>"; };
+		4689C4EF1A51797100DCD9D1 /* ParentAwareTextView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ParentAwareTextView.m; sourceTree = "<group>"; };
+		4689C4F11A517ED000DCD9D1 /* ParentCellAware.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ParentCellAware.h; sourceTree = "<group>"; };
+		4689C4F31A51863900DCD9D1 /* ParentAwareButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ParentAwareButton.h; sourceTree = "<group>"; };
+		4689C4F41A51863900DCD9D1 /* ParentAwareButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ParentAwareButton.m; sourceTree = "<group>"; };
+		4689C4F61A51867C00DCD9D1 /* ParentAwareSwitch.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ParentAwareSwitch.h; sourceTree = "<group>"; };
+		4689C4F71A51867C00DCD9D1 /* ParentAwareSwitch.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ParentAwareSwitch.m; sourceTree = "<group>"; };
+		4689C4F91A51C7ED00DCD9D1 /* AbstractFormCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AbstractFormCell.h; sourceTree = "<group>"; };
+		4689C4FA1A51C7ED00DCD9D1 /* AbstractFormCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AbstractFormCell.m; sourceTree = "<group>"; };
 		469FBE611A4F74B200334A3E /* 19. Fluid UI.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "19. Fluid UI.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		469FBE651A4F74B200334A3E /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		469FBE661A4F74B200334A3E /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
@@ -165,6 +174,7 @@
 		4689C4D21A4FB10B00DCD9D1 /* Cells */ = {
 			isa = PBXGroup;
 			children = (
+				4689C4F21A5185AF00DCD9D1 /* Components */,
 				4689C4D31A4FB14200DCD9D1 /* FormButtonCell.h */,
 				4689C4D41A4FB14200DCD9D1 /* FormButtonCell.m */,
 				4689C4D61A4FB17700DCD9D1 /* FormButtonCell.xib */,
@@ -177,8 +187,26 @@
 				4689C4E21A4FB28B00DCD9D1 /* FormSwitchCell.h */,
 				4689C4E31A4FB28B00DCD9D1 /* FormSwitchCell.m */,
 				4689C4E41A4FB28B00DCD9D1 /* FormSwitchCell.xib */,
+				4689C4F91A51C7ED00DCD9D1 /* AbstractFormCell.h */,
+				4689C4FA1A51C7ED00DCD9D1 /* AbstractFormCell.m */,
 			);
 			name = Cells;
+			sourceTree = "<group>";
+		};
+		4689C4F21A5185AF00DCD9D1 /* Components */ = {
+			isa = PBXGroup;
+			children = (
+				4689C4F11A517ED000DCD9D1 /* ParentCellAware.h */,
+				4689C4EE1A51797100DCD9D1 /* ParentAwareTextView.h */,
+				4689C4EF1A51797100DCD9D1 /* ParentAwareTextView.m */,
+				4689C4EB1A51792D00DCD9D1 /* ParentAwareTextField.h */,
+				4689C4EC1A51792D00DCD9D1 /* ParentAwareTextField.m */,
+				4689C4F31A51863900DCD9D1 /* ParentAwareButton.h */,
+				4689C4F41A51863900DCD9D1 /* ParentAwareButton.m */,
+				4689C4F61A51867C00DCD9D1 /* ParentAwareSwitch.h */,
+				4689C4F71A51867C00DCD9D1 /* ParentAwareSwitch.m */,
+			);
+			name = Components;
 			sourceTree = "<group>";
 		};
 		469FBE581A4F74B200334A3E = {
@@ -204,11 +232,6 @@
 		469FBE631A4F74B200334A3E /* 19. Fluid UI */ = {
 			isa = PBXGroup;
 			children = (
-				4689C4EE1A51797100DCD9D1 /* TableViewCellAwareTextView.h */,
-				4689C4EF1A51797100DCD9D1 /* TableViewCellAwareTextView.m */,
-				4689C4EB1A51792D00DCD9D1 /* TableViewCellAwareTextField.h */,
-				4689C4EC1A51792D00DCD9D1 /* TableViewCellAwareTextField.m */,
-				4689C4F11A517ED000DCD9D1 /* TableViewCellAware.h */,
 				4689C4D21A4FB10B00DCD9D1 /* Cells */,
 				4689C4B51A4FA30200DCD9D1 /* Icons */,
 				469FBE681A4F74B200334A3E /* AppDelegate.h */,
@@ -429,12 +452,15 @@
 			files = (
 				4689C4D51A4FB14200DCD9D1 /* FormButtonCell.m in Sources */,
 				4689C4E51A4FB28B00DCD9D1 /* FormSwitchCell.m in Sources */,
-				4689C4ED1A51792D00DCD9D1 /* TableViewCellAwareTextField.m in Sources */,
+				4689C4ED1A51792D00DCD9D1 /* ParentAwareTextField.m in Sources */,
 				4689C4A81A4FA09B00DCD9D1 /* FormItem.m in Sources */,
 				4689C4A51A4F9D4500DCD9D1 /* FluidUIViewController.m in Sources */,
 				4689C4E01A4FB22800DCD9D1 /* FormTextAreaCell.m in Sources */,
-				4689C4F01A51797100DCD9D1 /* TableViewCellAwareTextView.m in Sources */,
+				4689C4F81A51867C00DCD9D1 /* ParentAwareSwitch.m in Sources */,
+				4689C4F01A51797100DCD9D1 /* ParentAwareTextView.m in Sources */,
 				4689C4DB1A4FB1D100DCD9D1 /* FormTextFieldCell.m in Sources */,
+				4689C4FB1A51C7ED00DCD9D1 /* AbstractFormCell.m in Sources */,
+				4689C4F51A51863900DCD9D1 /* ParentAwareButton.m in Sources */,
 				469FBE6A1A4F74B200334A3E /* AppDelegate.m in Sources */,
 				469FBE671A4F74B200334A3E /* main.m in Sources */,
 			);

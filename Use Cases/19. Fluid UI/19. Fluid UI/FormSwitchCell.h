@@ -7,11 +7,13 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "AbstractFormCell.h"
+#import "ParentAwareSwitch.h"
 
 static NSString* FormSwitchCellIdentifier = @"FormSwitchCell";
 
-@interface FormSwitchCell : UITableViewCell
+@interface FormSwitchCell : AbstractFormCell
 
-@property (nonatomic, weak) IBOutlet UISwitch *switchControl;
+@property (nonatomic, weak) IBOutlet ParentAwareSwitch *component;
 
 @end

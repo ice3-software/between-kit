@@ -274,7 +274,8 @@ NSString *const kPlusSwitchIcon = @"icon_plus_switch.png";
     if(item.type == FormItemTypeButton){
     
         FormButtonCell *buttonCell = [tableView dequeueReusableCellWithIdentifier:FormButtonCellIdentifier forIndexPath:indexPath];
-        buttonCell.button.titleLabel.text = item.value;
+        
+        buttonCell.component.titleLabel.text = item.value;
 
         cell = buttonCell;
         
@@ -282,7 +283,8 @@ NSString *const kPlusSwitchIcon = @"icon_plus_switch.png";
     else if(item.type == FormItemTypeSwitch){
 
         FormSwitchCell *switchCell = [tableView dequeueReusableCellWithIdentifier:FormSwitchCellIdentifier forIndexPath:indexPath];
-        switchCell.selected = [(NSNumber *)item.value boolValue];
+        
+        switchCell.component.selected = [(NSNumber *)item.value boolValue];
 
         cell = switchCell;
 
@@ -291,9 +293,8 @@ NSString *const kPlusSwitchIcon = @"icon_plus_switch.png";
     
         FormTextAreaCell *textAreaCell = [tableView dequeueReusableCellWithIdentifier:FormTextAreaCellIdentifier forIndexPath:indexPath];
         
-        textAreaCell.textArea.text = item.value;
-        textAreaCell.textArea.tag = indexPath.row;
-        textAreaCell.textArea.delegate = self;
+        textAreaCell.component.text = item.value;
+        textAreaCell.component.delegate = self;
         
         cell = textAreaCell;
 
@@ -302,9 +303,8 @@ NSString *const kPlusSwitchIcon = @"icon_plus_switch.png";
         
         FormTextFieldCell *textFieldCell = [tableView dequeueReusableCellWithIdentifier:FormTextFieldCellIdentifier forIndexPath:indexPath];
         
-        textFieldCell.textField.text = item.value;
-        textFieldCell.textField.tag = indexPath.row;
-        textFieldCell.textField.delegate = self;
+        textFieldCell.component.text = item.value;
+        textFieldCell.component.delegate = self;
         
         cell = textFieldCell;
 
@@ -336,24 +336,8 @@ NSString *const kPlusSwitchIcon = @"icon_plus_switch.png";
     
     if(collection == self.formTable){
 
-        FormItem *item = self.formItems[at.row];
-        id cell = [self.formTable cellForRowAtIndexPath:at];
-        
-        if(item.type == FormItemTypeTextArea){
-            
-            FormTextAreaCell *textAreaCell = cell;
-            canDrop = [textAreaCell.moveAccessory pointInside:[self.dragCoordinator.gestureRecognizer locationInView:textAreaCell.moveAccessory] withEvent:nil];
-        }
-        else if(item.type == FormItemTypeTextField){
-
-            FormTextFieldCell *textFieldCell = cell;
-            canDrop = [textFieldCell.moveAccessory pointInside:[self.dragCoordinator.gestureRecognizer locationInView:textFieldCell.moveAccessory] withEvent:nil];
-
-        }
-        else{
-            // For now
-            canDrop = YES;
-        }
+        AbstractFormCell *cell = (AbstractFormCell *)[self.formTable cellForRowAtIndexPath:at];
+        canDrop = [cell.moveAccessory pointInside:[self.dragCoordinator.gestureRecognizer locationInView:cell.moveAccessory] withEvent:nil];
     }
     else{
         canDrop = YES;
@@ -449,36 +433,40 @@ NSString *const kPlusSwitchIcon = @"icon_plus_switch.png";
 #pragma mark - UITextFieldDelegate, UITextViewDelegate
 
 
--(FormItem *)formItemForTableViewCellAware:(id<TableViewCellAware>) tableViewCellAware{
+-(FormItem *)formItemForTableViewCellAware:(id<ParentCellAware>) cellAwareComponent{
 
-    NSIndexPath *index = [self.formTable indexPathForCell:tableViewCellAware.parentCell];
+    NSIndexPath *index = [self.formTable indexPathForCell:cellAwareComponent.parentCell];
     NSLog(@"Index: %@", index);
     return self.formItems[index.row];
 }
 
 
--(void) updateFormItemForTextField:(TableViewCellAwareTextField *)textField{
-    [self formItemForTableViewCellAware:textField].value = textField.text;
+-(void) updateFormItemForTextField:(ParentAwareTextField *)textField{
+    
+    FormItem *item = [self formItemForTableViewCellAware:textField];
+    item.value = textField.text;
 }
 
 
--(void) updateFormItemForTextView:(TableViewCellAwareTextView *)textView{
-    [self formItemForTableViewCellAware:textView].value = textView.text;
+-(void) updateFormItemForTextView:(ParentAwareTextView *)textView{
+
+    FormItem *item = [self formItemForTableViewCellAware:textView];
+    item.value = textView.text;
 }
 
 
 -(void) textFieldDidBeginEditing:(UITextField *)textField{
-    [self updateFormItemForTextField:(TableViewCellAwareTextField *)textField];
+    [self updateFormItemForTextField:(ParentAwareTextField *)textField];
 }
 
 
 -(void) textFieldDidEndEditing:(UITextField *)textField{
-    [self updateFormItemForTextField:(TableViewCellAwareTextField *)textField];
+    [self updateFormItemForTextField:(ParentAwareTextField *)textField];
 }
 
 
 -(void) textViewDidChange:(UITextView *)textView{
-    [self updateFormItemForTextView:(TableViewCellAwareTextView *)textView];
+    [self updateFormItemForTextView:(ParentAwareTextView *)textView];
 }
 
 

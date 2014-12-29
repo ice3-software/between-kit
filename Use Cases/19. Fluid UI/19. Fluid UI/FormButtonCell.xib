@@ -7,32 +7,79 @@
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
         <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
-        <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="FormButtonCell" id="Jjn-Mx-YUa" customClass="FormButtonCell">
-            <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
-            <autoresizingMask key="autoresizingMask"/>
-            <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="Jjn-Mx-YUa" id="77R-W1-fa6">
+        <tableViewCell opaque="NO" clipsSubviews="YES" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="FormButtonCell" rowHeight="72" id="Z1K-ft-rXD" customClass="FormButtonCell">
+            <rect key="frame" x="0.0" y="0.0" width="320" height="72"/>
+            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+            <tableViewCellContentView key="contentView" opaque="NO" multipleTouchEnabled="YES" contentMode="center" tableViewCell="Z1K-ft-rXD" id="CPE-4J-8hM">
+                <rect key="frame" x="0.0" y="0.0" width="320" height="43"/>
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
-                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Fog-Pc-Yve">
-                        <rect key="frame" x="13" y="13" width="294" height="17"/>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                        <state key="normal" title="Button">
-                            <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
-                        </state>
-                    </button>
+                    <view opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="uL0-cl-Fy2">
+                        <rect key="frame" x="8" y="8" width="304" height="55"/>
+                        <subviews>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="bo8-Rx-uEA">
+                                <rect key="frame" x="254" y="1" width="50" height="53"/>
+                                <subviews>
+                                    <imageView userInteractionEnabled="NO" alpha="0.69999998807907104" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="icon_move_arrow.png" translatesAutoresizingMaskIntoConstraints="NO" id="zlS-5r-jRa">
+                                        <rect key="frame" x="15" y="17" width="20" height="20"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="20" id="gvC-Lj-T1W"/>
+                                            <constraint firstAttribute="width" constant="20" id="mfB-8F-Dw3"/>
+                                        </constraints>
+                                    </imageView>
+                                </subviews>
+                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="50" id="NMQ-wN-Drl"/>
+                                    <constraint firstAttribute="centerY" secondItem="zlS-5r-jRa" secondAttribute="centerY" id="ON7-Lg-9kd"/>
+                                    <constraint firstItem="zlS-5r-jRa" firstAttribute="leading" secondItem="bo8-Rx-uEA" secondAttribute="leading" constant="15" id="y4N-tG-YV0"/>
+                                </constraints>
+                            </view>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Button:" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="4yb-FC-IfX">
+                                <rect key="frame" x="8" y="18" width="57" height="21"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <color key="textColor" red="0.48031767959999999" green="0.48031767959999999" blue="0.48031767959999999" alpha="1" colorSpace="calibratedRGB"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Fog-Pc-Yve" customClass="ParentAwareButton">
+                                <rect key="frame" x="110" y="0.0" width="142" height="56"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <state key="normal" title="Tap Here">
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                            </button>
+                        </subviews>
+                        <color key="backgroundColor" red="0.87415832179999997" green="0.87415832179999997" blue="0.87415832179999997" alpha="1" colorSpace="calibratedRGB"/>
+                        <constraints>
+                            <constraint firstAttribute="bottom" secondItem="bo8-Rx-uEA" secondAttribute="bottom" constant="1" id="Apy-gB-pgB"/>
+                            <constraint firstItem="Fog-Pc-Yve" firstAttribute="leading" secondItem="uL0-cl-Fy2" secondAttribute="leading" constant="110" id="LcV-Vz-eY7"/>
+                            <constraint firstItem="bo8-Rx-uEA" firstAttribute="top" secondItem="uL0-cl-Fy2" secondAttribute="top" constant="1" id="UQt-xw-DmK"/>
+                            <constraint firstItem="Fog-Pc-Yve" firstAttribute="top" secondItem="uL0-cl-Fy2" secondAttribute="top" id="eJW-sO-A2v"/>
+                            <constraint firstAttribute="bottom" secondItem="Fog-Pc-Yve" secondAttribute="bottom" constant="-1" id="hGo-8A-GJI"/>
+                            <constraint firstAttribute="trailing" secondItem="bo8-Rx-uEA" secondAttribute="trailing" id="k1f-yT-Ad2"/>
+                            <constraint firstAttribute="trailing" secondItem="Fog-Pc-Yve" secondAttribute="trailing" constant="52" id="km8-zO-9N8"/>
+                            <constraint firstItem="4yb-FC-IfX" firstAttribute="leading" secondItem="uL0-cl-Fy2" secondAttribute="leading" constant="8" id="nQl-R7-Jdw"/>
+                            <constraint firstAttribute="centerY" secondItem="4yb-FC-IfX" secondAttribute="centerY" constant="-1" id="ut8-dU-hu9"/>
+                        </constraints>
+                    </view>
                 </subviews>
-                <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
+                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                 <constraints>
-                    <constraint firstItem="Fog-Pc-Yve" firstAttribute="leading" secondItem="77R-W1-fa6" secondAttribute="leadingMargin" constant="5" id="5vW-RH-YA6"/>
-                    <constraint firstItem="Fog-Pc-Yve" firstAttribute="top" secondItem="77R-W1-fa6" secondAttribute="topMargin" constant="5" id="CO7-x9-C4N"/>
-                    <constraint firstAttribute="bottomMargin" secondItem="Fog-Pc-Yve" secondAttribute="bottom" constant="5" id="Npb-LG-Z1D"/>
-                    <constraint firstAttribute="trailingMargin" secondItem="Fog-Pc-Yve" secondAttribute="trailing" constant="5" id="Tdg-5Y-DbL"/>
+                    <constraint firstItem="uL0-cl-Fy2" firstAttribute="trailing" secondItem="CPE-4J-8hM" secondAttribute="trailingMargin" id="59U-QV-4uN"/>
+                    <constraint firstItem="uL0-cl-Fy2" firstAttribute="bottom" secondItem="CPE-4J-8hM" secondAttribute="bottomMargin" id="D28-Yr-Bdi"/>
+                    <constraint firstItem="uL0-cl-Fy2" firstAttribute="top" secondItem="CPE-4J-8hM" secondAttribute="topMargin" id="DAd-Jo-Wpi"/>
+                    <constraint firstItem="uL0-cl-Fy2" firstAttribute="leading" secondItem="CPE-4J-8hM" secondAttribute="leadingMargin" id="I5D-HS-vBw"/>
                 </constraints>
             </tableViewCellContentView>
+            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
             <connections>
-                <outlet property="button" destination="Fog-Pc-Yve" id="8eM-J7-UpY"/>
+                <outlet property="component" destination="Fog-Pc-Yve" id="S10-o2-kk5"/>
+                <outlet property="moveAccessory" destination="bo8-Rx-uEA" id="04Q-cd-PRH"/>
             </connections>
-            <point key="canvasLocation" x="133" y="111"/>
+            <point key="canvasLocation" x="244" y="-18"/>
         </tableViewCell>
     </objects>
+    <resources>
+        <image name="icon_move_arrow.png" width="25" height="25"/>
+    </resources>
 </document>

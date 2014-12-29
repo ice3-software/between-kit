@@ -7,14 +7,13 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "TableViewCellAwareTextField.h"
+#import "AbstractFormCell.h"
+#import "ParentAwareTextField.h"
 
 static NSString* FormTextFieldCellIdentifier = @"FormTextFieldCell";
 
-@interface FormTextFieldCell : UITableViewCell
+@interface FormTextFieldCell : AbstractFormCell
 
-@property (nonatomic, weak) IBOutlet TableViewCellAwareTextField *textField;
-
-@property (nonatomic, weak) IBOutlet UIView *moveAccessory;
+@property (nonatomic, weak) IBOutlet ParentAwareTextField *component;
 
 @end
