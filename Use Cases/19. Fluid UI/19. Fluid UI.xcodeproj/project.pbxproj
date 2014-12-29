@@ -236,14 +236,14 @@
 				4689C4B51A4FA30200DCD9D1 /* Icons */,
 				469FBE681A4F74B200334A3E /* AppDelegate.h */,
 				469FBE691A4F74B200334A3E /* AppDelegate.m */,
-				469FBE6E1A4F74B200334A3E /* Main.storyboard */,
-				469FBE711A4F74B200334A3E /* Images.xcassets */,
-				469FBE731A4F74B200334A3E /* LaunchScreen.xib */,
-				469FBE641A4F74B200334A3E /* Supporting Files */,
 				4689C4A31A4F9D4500DCD9D1 /* FluidUIViewController.h */,
 				4689C4A41A4F9D4500DCD9D1 /* FluidUIViewController.m */,
 				4689C4A61A4FA09B00DCD9D1 /* FormItem.h */,
 				4689C4A71A4FA09B00DCD9D1 /* FormItem.m */,
+				469FBE6E1A4F74B200334A3E /* Main.storyboard */,
+				469FBE711A4F74B200334A3E /* Images.xcassets */,
+				469FBE731A4F74B200334A3E /* LaunchScreen.xib */,
+				469FBE641A4F74B200334A3E /* Supporting Files */,
 			);
 			path = "19. Fluid UI";
 			sourceTree = "<group>";
