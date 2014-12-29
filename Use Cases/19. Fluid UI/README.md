@@ -1,6 +1,6 @@
 #Use Case 19: _Fluid UI_
 
-- Demonstrates how one might use `BetweenKit` to build a completely customizable user interface, which allows their users to specify
+- Demonstrates how one might use `BetweenKit` to build a completely customizable user interface.
 - 2 'toolbar' collection views, one containing arbitrary icons (top left) and another containing a series of '+' icons (bottom).
 - All the icons can be rearranged as well as dropped between the 2 toolbars.
 - When selected, arbitrary icons will just show an alert view with some simple text inside. These are the available arbitrary icons:
