@@ -37,6 +37,8 @@ NSString *const kPlusSwitchIcon = @"icon_plus_switch.png";
 
 @property (nonatomic, strong) NSMutableArray *formItems;
 
+@property (nonatomic, strong) NSArray *arbitraryIconNames;
+
 @property (nonatomic, strong) I3GestureCoordinator *dragCoordinator;
 
 @property (nonatomic, strong) UILongPressGestureRecognizer *recognizer;
@@ -56,6 +58,7 @@ NSString *const kPlusSwitchIcon = @"icon_plus_switch.png";
     self.tlToolbarItems = [NSMutableArray arrayWithArray:@[kCommentsIcon, kCubeIcon, kBombIcon, kBugIcon, kBellIcon]];
     self.bToolbarItems = [NSMutableArray arrayWithArray:@[kPlusTextFieldIcon, kPlusTextAreaIcon, kPlusButtonIcon, kPlusSwitchIcon]];
     self.formItems = [[NSMutableArray alloc] init];
+    self.arbitraryIconNames = @[kCommentsIcon, kCubeIcon, kBombIcon, kBugIcon, kBellIcon];
     
     
     /// Setup the collection views and table view
@@ -77,6 +80,7 @@ NSString *const kPlusSwitchIcon = @"icon_plus_switch.png";
     [self.formTable registerNib:[UINib nibWithNibName:FormTextFieldCellIdentifier bundle:nil] forCellReuseIdentifier:FormTextFieldCellIdentifier];
     [self.formTable registerNib:[UINib nibWithNibName:FormSwitchCellIdentifier bundle:nil] forCellReuseIdentifier:FormSwitchCellIdentifier];
     
+    self.formTable.contentInset = UIEdgeInsetsMake(0, 0, 75, 0);
     self.formTable.tableFooterView = [[UIView alloc] initWithFrame:CGRectZero];
     
     
@@ -122,11 +126,11 @@ NSString *const kPlusSwitchIcon = @"icon_plus_switch.png";
     
     UIAlertView *alert = [[UIAlertView alloc] initWithTitle:title message:message delegate:nil cancelButtonTitle:@"Ok" otherButtonTitles:nil];
     [alert show];
-    
 }
 
 
 -(NSIndexPath *)indexPathForParentAware:(id<ParentCellAware>) awareComponent{
+    
     return [self.formTable indexPathForCell:awareComponent.parentCell];
 }
 
@@ -137,17 +141,60 @@ NSString *const kPlusSwitchIcon = @"icon_plus_switch.png";
 }
 
 
--(void) updateFormItemForTextField:(ParentAwareTextField *)textField{
+-(BOOL) isIconWithNameArbitrary:(NSString *)iconName{
     
-    FormItem *item = [self formItemForParentAware:textField];
-    item.value = textField.text;
+    return [self.arbitraryIconNames containsObject:iconName];
 }
 
 
--(void) updateFormItemForTextView:(ParentAwareTextView *)textView{
+-(void) handleSelectArbitraryIconWithName:(NSString *)iconName{
+
+    if([iconName isEqualToString:kBellIcon]){
+        [self showAlertWithTitle:@"Bell" andMessage:@"Ding ding!"];
+    }
+    else if([iconName isEqualToString:kBombIcon]){
+        [self showAlertWithTitle:@"Bomb" andMessage:@"Boooooom."];
+    }
+    else if([iconName isEqualToString:kBugIcon]){
+        [self showAlertWithTitle:@"Bug" andMessage:@"See JIRA"];
+    }
+    else if([iconName isEqualToString:kCubeIcon]){
+        [self showAlertWithTitle:@"Cube" andMessage:@"IceCube Software"];
+    }
+    else if([iconName isEqualToString:kCommentsIcon]){
+        [self showAlertWithTitle:@"Comments" andMessage:@"Hey... hows you?"];
+    }
+
+}
+
+
+-(void) handleSelectAddIconWithName:(NSString *)iconName{
+
+    FormItem *item = [[FormItem alloc] init];
+
+    if([iconName isEqualToString:kPlusTextFieldIcon]){
+        
+        item.type = FormItemTypeTextField;
+    }
+    else if([iconName isEqualToString:kPlusTextAreaIcon]){
+        
+        item.type = FormItemTypeTextArea;
+    }
+    else if([iconName isEqualToString:kPlusButtonIcon]){
+        
+        item.type = FormItemTypeButton;
+    }
+    else if([iconName isEqualToString:kPlusSwitchIcon]){
+
+        item.type = FormItemTypeSwitch;
+        item.value = @NO;
+    }
+
+    NSIndexPath *insertionIndex = [NSIndexPath indexPathForRow:0 inSection:0];
     
-    FormItem *item = [self formItemForParentAware:textView];
-    item.value = textView.text;
+    [self.formItems insertObject:item atIndex:insertionIndex.row];
+    [self.formTable insertRowsAtIndexPaths:@[insertionIndex] withRowAnimation:UITableViewRowAnimationLeft];
+
 }
 
 
@@ -179,72 +226,14 @@ NSString *const kPlusSwitchIcon = @"icon_plus_switch.png";
 
 -(void) collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath{
 
-    
     NSArray *data = [self dataForCollectionView:collectionView];
     NSString *iconName = data[indexPath.item];
     
-    
-    if([iconName isEqualToString:kBellIcon]){
-        [self showAlertWithTitle:@"Bell" andMessage:@"Ding ding!"];
+    if([self isIconWithNameArbitrary:iconName]){
+        [self handleSelectArbitraryIconWithName:iconName];
     }
-    else if([iconName isEqualToString:kBombIcon]){
-        [self showAlertWithTitle:@"Bomb" andMessage:@"Boooommmb."];
-    }
-    else if([iconName isEqualToString:kBugIcon]){
-        [self showAlertWithTitle:@"Bug" andMessage:@"5 + 5 = 10.00000345"];
-    }
-    else if([iconName isEqualToString:kCubeIcon]){
-        [self showAlertWithTitle:@"Cube" andMessage:@"IceCube Software Ltd."];
-    }
-    else if([iconName isEqualToString:kCommentsIcon]){
-        [self showAlertWithTitle:@"Comments" andMessage:@"Hey... hows you?"];
-    }
-    else if([iconName isEqualToString:kPlusTextFieldIcon]){
-        
-        FormItem *item = [[FormItem alloc] init];
-        item.type = FormItemTypeTextField;
-        item.value = @"";
-
-        NSIndexPath *insertionIndex = [NSIndexPath indexPathForRow:self.formItems.count  inSection:0];
-        
-        [self.formItems insertObject:item atIndex:insertionIndex.row];
-        [self.formTable insertRowsAtIndexPaths:@[insertionIndex] withRowAnimation:UITableViewRowAnimationLeft];
-
-    }
-    else if([iconName isEqualToString:kPlusTextAreaIcon]){
-        
-        FormItem *item = [[FormItem alloc] init];
-        item.type = FormItemTypeTextArea;
-        item.value = nil;
-
-        NSIndexPath *insertionIndex = [NSIndexPath indexPathForRow:self.formItems.count  inSection:0];
-        
-        [self.formItems insertObject:item atIndex:insertionIndex.row];
-        [self.formTable insertRowsAtIndexPaths:@[insertionIndex] withRowAnimation:UITableViewRowAnimationLeft];
-
-    }
-    else if([iconName isEqualToString:kPlusButtonIcon]){
-        
-        FormItem *item = [[FormItem alloc] init];
-        item.type = FormItemTypeButton;
-        
-        NSIndexPath *insertionIndex = [NSIndexPath indexPathForRow:self.formItems.count  inSection:0];
-        
-        [self.formItems insertObject:item atIndex:insertionIndex.row];
-        [self.formTable insertRowsAtIndexPaths:@[insertionIndex] withRowAnimation:UITableViewRowAnimationLeft];
-        
-    }
-    else if([iconName isEqualToString:kPlusSwitchIcon]){
-        
-        FormItem *item = [[FormItem alloc] init];
-        item.type = FormItemTypeSwitch;
-        item.value = @NO;
-        
-        NSIndexPath *insertionIndex = [NSIndexPath indexPathForRow:self.formItems.count  inSection:0];
-        
-        [self.formItems insertObject:item atIndex:insertionIndex.row];
-        [self.formTable insertRowsAtIndexPaths:@[insertionIndex] withRowAnimation:UITableViewRowAnimationLeft];
-
+    else{
+        [self handleSelectAddIconWithName:iconName];
     }
 
     /// Cell selection animation
@@ -284,10 +273,10 @@ NSString *const kPlusSwitchIcon = @"icon_plus_switch.png";
 
 -(UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
 
-    
     FormItem *item = self.formItems[indexPath.row];
     UITableViewCell *cell;
 
+    /// Dequeue and configure the cell from the form item based on its type
     
     if(item.type == FormItemTypeButton){
     
@@ -332,17 +321,6 @@ NSString *const kPlusSwitchIcon = @"icon_plus_switch.png";
     cell.selectionStyle = UITableViewCellSelectionStyleNone;
     
     return cell;
-}
-
-
--(void) tableView:(UITableView *)tableView didEndEditingRowAtIndexPath:(NSIndexPath *)indexPath{
-    NSLog(@"Finished editting...");
-}
-
-
--(void) tableView:(UITableView *)tableView performAction:(SEL)action forRowAtIndexPath:(NSIndexPath *)indexPath withSender:(id)sender{
-
-    NSLog(@"Selector: %@", NSStringFromSelector(action));
 }
 
 
@@ -453,15 +431,19 @@ NSString *const kPlusSwitchIcon = @"icon_plus_switch.png";
 
 
 -(void) textViewDidChange:(UITextView *)textView{
-    [self updateFormItemForTextView:(ParentAwareTextView *)textView];
+
+    FormItem *item = [self formItemForParentAware:(ParentAwareTextView *)textView];
+    item.value = textView.text;
 }
 
 
-#pragma mark - Action methods for cell buttons / switches
+#pragma mark - Target / action methods
 
 
--(void) handleCellTextFieldChanged:(ParentAwareTextField *)field{
-    [self updateFormItemForTextField:field];
+-(void) handleCellTextFieldChanged:(ParentAwareTextField *)textField{
+
+    FormItem *item = [self formItemForParentAware:textField];
+    item.value = textField.text;
 }
 
 
