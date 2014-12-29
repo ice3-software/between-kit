@@ -326,6 +326,7 @@ NSString *const kPlusSwitchIcon = @"icon_plus_switch.png";
         
         textFieldCell.component.text = item.value;
         textFieldCell.component.delegate = self;
+        [textFieldCell.component addTarget:self action:@selector(handleCellTextFieldChanged:) forControlEvents:UIControlEventEditingChanged];
         
         cell = textFieldCell;
 
@@ -470,6 +471,11 @@ NSString *const kPlusSwitchIcon = @"icon_plus_switch.png";
 
 
 #pragma mark - Action methods for cell buttons / switches
+
+
+-(void) handleCellTextFieldChanged:(ParentAwareTextField *)field{
+    [self updateFormItemForTextField:field];
+}
 
 
 -(void) handleCellButtonPress:(ParentAwareButton *)button{
