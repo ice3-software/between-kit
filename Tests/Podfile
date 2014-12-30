@@ -1,6 +1,5 @@
 target 'BetweenKit', :exclusive => true do
   pod "BetweenKit", :path => "../"
-  pod "AFNetworking"
 end
 
 target 'Tests', :exclusive => true do
