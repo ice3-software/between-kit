@@ -3,7 +3,7 @@ iOS Drag-n-Drop Between Helper
 
 Objective-C helper class(es) for the iOS platform that handle drag and drop logic between 2 UITableView s and/or UICollectionView s.
 
-__Note that this is the legacy version 1.1.1. It is no longer maintainced or supported - please migrate to version 2.0.0 (BetweenKit). Because BetweenKit it has been rebuilt from the ground up to address the design flaws of 1.*, it is completely backwards-incompatible; see the [migration guide]() and [change log]() for details.__
+__Note that this is the legacy version 1.1.1. It is no longer maintained or supported - please migrate to version 2.0.0 (BetweenKit). Because BetweenKit has been rebuilt from the ground up to address the design flaws of version 1, it is completely backwards-incompatible; see the [migration guide]() and [change log]() for details.__
 
 
 Installation
