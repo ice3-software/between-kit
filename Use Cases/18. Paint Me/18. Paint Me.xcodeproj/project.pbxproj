@@ -7,13 +7,15 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		4689C5051A52FBFF00DCD9D1 /* Note.m in Sources */ = {isa = PBXBuildFile; fileRef = 4689C5041A52FBFF00DCD9D1 /* Note.m */; };
 		469FBE351A4F74A400334A3E /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 469FBE341A4F74A400334A3E /* main.m */; };
 		469FBE381A4F74A400334A3E /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 469FBE371A4F74A400334A3E /* AppDelegate.m */; };
-		469FBE3B1A4F74A400334A3E /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 469FBE3A1A4F74A400334A3E /* ViewController.m */; };
+		469FBE3B1A4F74A400334A3E /* PaintMeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 469FBE3A1A4F74A400334A3E /* PaintMeViewController.m */; };
 		469FBE3E1A4F74A400334A3E /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 469FBE3C1A4F74A400334A3E /* Main.storyboard */; };
 		469FBE401A4F74A400334A3E /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 469FBE3F1A4F74A400334A3E /* Images.xcassets */; };
 		469FBE431A4F74A400334A3E /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = 469FBE411A4F74A400334A3E /* LaunchScreen.xib */; };
 		469FBE4F1A4F74A400334A3E /* _8__Paint_MeTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 469FBE4E1A4F74A400334A3E /* _8__Paint_MeTests.m */; };
+		A685F50961343CF1C40AE83A /* libPods-18. Paint Me.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 8E0D1CB3D6020052A7D3533C /* libPods-18. Paint Me.a */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -27,19 +29,24 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		459C44558B0C33BD6AB5A98E /* Pods-18. Paint Me.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-18. Paint Me.debug.xcconfig"; path = "Pods/Target Support Files/Pods-18. Paint Me/Pods-18. Paint Me.debug.xcconfig"; sourceTree = "<group>"; };
+		4689C5031A52FBFF00DCD9D1 /* Note.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Note.h; sourceTree = "<group>"; };
+		4689C5041A52FBFF00DCD9D1 /* Note.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Note.m; sourceTree = "<group>"; };
 		469FBE2F1A4F74A400334A3E /* 18. Paint Me.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "18. Paint Me.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		469FBE331A4F74A400334A3E /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		469FBE341A4F74A400334A3E /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		469FBE361A4F74A400334A3E /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		469FBE371A4F74A400334A3E /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
-		469FBE391A4F74A400334A3E /* ViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ViewController.h; sourceTree = "<group>"; };
-		469FBE3A1A4F74A400334A3E /* ViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ViewController.m; sourceTree = "<group>"; };
+		469FBE391A4F74A400334A3E /* PaintMeViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PaintMeViewController.h; sourceTree = "<group>"; };
+		469FBE3A1A4F74A400334A3E /* PaintMeViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PaintMeViewController.m; sourceTree = "<group>"; };
 		469FBE3D1A4F74A400334A3E /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		469FBE3F1A4F74A400334A3E /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
 		469FBE421A4F74A400334A3E /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/LaunchScreen.xib; sourceTree = "<group>"; };
 		469FBE481A4F74A400334A3E /* 18. Paint MeTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "18. Paint MeTests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
 		469FBE4D1A4F74A400334A3E /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		469FBE4E1A4F74A400334A3E /* _8__Paint_MeTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = _8__Paint_MeTests.m; sourceTree = "<group>"; };
+		4E61A6AD74A6699C13BC7C18 /* Pods-18. Paint Me.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-18. Paint Me.release.xcconfig"; path = "Pods/Target Support Files/Pods-18. Paint Me/Pods-18. Paint Me.release.xcconfig"; sourceTree = "<group>"; };
+		8E0D1CB3D6020052A7D3533C /* libPods-18. Paint Me.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-18. Paint Me.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -47,6 +54,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				A685F50961343CF1C40AE83A /* libPods-18. Paint Me.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -66,6 +74,8 @@
 				469FBE311A4F74A400334A3E /* 18. Paint Me */,
 				469FBE4B1A4F74A400334A3E /* 18. Paint MeTests */,
 				469FBE301A4F74A400334A3E /* Products */,
+				4AC6AF5C1BB8E3B60D8777C1 /* Pods */,
+				9AC77174963AD99F6ED7D95D /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -81,10 +91,12 @@
 		469FBE311A4F74A400334A3E /* 18. Paint Me */ = {
 			isa = PBXGroup;
 			children = (
+				4689C5031A52FBFF00DCD9D1 /* Note.h */,
+				4689C5041A52FBFF00DCD9D1 /* Note.m */,
 				469FBE361A4F74A400334A3E /* AppDelegate.h */,
 				469FBE371A4F74A400334A3E /* AppDelegate.m */,
-				469FBE391A4F74A400334A3E /* ViewController.h */,
-				469FBE3A1A4F74A400334A3E /* ViewController.m */,
+				469FBE391A4F74A400334A3E /* PaintMeViewController.h */,
+				469FBE3A1A4F74A400334A3E /* PaintMeViewController.m */,
 				469FBE3C1A4F74A400334A3E /* Main.storyboard */,
 				469FBE3F1A4F74A400334A3E /* Images.xcassets */,
 				469FBE411A4F74A400334A3E /* LaunchScreen.xib */,
@@ -119,6 +131,23 @@
 			name = "Supporting Files";
 			sourceTree = "<group>";
 		};
+		4AC6AF5C1BB8E3B60D8777C1 /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				459C44558B0C33BD6AB5A98E /* Pods-18. Paint Me.debug.xcconfig */,
+				4E61A6AD74A6699C13BC7C18 /* Pods-18. Paint Me.release.xcconfig */,
+			);
+			name = Pods;
+			sourceTree = "<group>";
+		};
+		9AC77174963AD99F6ED7D95D /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				8E0D1CB3D6020052A7D3533C /* libPods-18. Paint Me.a */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -126,9 +155,11 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 469FBE521A4F74A400334A3E /* Build configuration list for PBXNativeTarget "18. Paint Me" */;
 			buildPhases = (
+				8958CD611FE3AD74B0873C33 /* Check Pods Manifest.lock */,
 				469FBE2B1A4F74A400334A3E /* Sources */,
 				469FBE2C1A4F74A400334A3E /* Frameworks */,
 				469FBE2D1A4F74A400334A3E /* Resources */,
+				B3FD948472E3943F7C6C6C7B /* Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -214,14 +245,48 @@
 		};
 /* End PBXResourcesBuildPhase section */
 
+/* Begin PBXShellScriptBuildPhase section */
+		8958CD611FE3AD74B0873C33 /* Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Check Pods Manifest.lock";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [[ $? != 0 ]] ; then\n    cat << EOM\nerror: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\nEOM\n    exit 1\nfi\n";
+			showEnvVarsInLog = 0;
+		};
+		B3FD948472E3943F7C6C6C7B /* Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Copy Pods Resources";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-18. Paint Me/Pods-18. Paint Me-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
+
 /* Begin PBXSourcesBuildPhase section */
 		469FBE2B1A4F74A400334A3E /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				469FBE3B1A4F74A400334A3E /* ViewController.m in Sources */,
+				469FBE3B1A4F74A400334A3E /* PaintMeViewController.m in Sources */,
 				469FBE381A4F74A400334A3E /* AppDelegate.m in Sources */,
 				469FBE351A4F74A400334A3E /* main.m in Sources */,
+				4689C5051A52FBFF00DCD9D1 /* Note.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -343,6 +408,7 @@
 		};
 		469FBE531A4F74A400334A3E /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 459C44558B0C33BD6AB5A98E /* Pods-18. Paint Me.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				INFOPLIST_FILE = "18. Paint Me/Info.plist";
@@ -353,6 +419,7 @@
 		};
 		469FBE541A4F74A400334A3E /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 4E61A6AD74A6699C13BC7C18 /* Pods-18. Paint Me.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				INFOPLIST_FILE = "18. Paint Me/Info.plist";
@@ -414,6 +481,7 @@
 				469FBE541A4F74A400334A3E /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		469FBE551A4F74A400334A3E /* Build configuration list for PBXNativeTarget "18. Paint MeTests" */ = {
 			isa = XCConfigurationList;
@@ -422,6 +490,7 @@
 				469FBE571A4F74A400334A3E /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};

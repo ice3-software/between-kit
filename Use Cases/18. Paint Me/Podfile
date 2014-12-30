@@ -1,0 +1,8 @@
+target '18. Paint Me' do
+  pod "BetweenKit", :path => "../../"
+end
+
+target '18. Paint MeTests' do
+
+end
+
