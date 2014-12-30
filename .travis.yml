@@ -1,3 +1,3 @@
 language: objective-c
 before_install: cd Tests && pod install
-script: xctool test -workspace BetweenKit.xcworkspace -scheme BetweenKit -sdk iphonesimulator ONLY_ACTIVE_ARCH=NO
+script: xctool -workspace BetweenKit.xcworkspace -scheme BetweenKitTests test -sdk iphonesimulator ONLY_ACTIVE_ARCH=NO
