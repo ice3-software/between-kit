@@ -5,4 +5,5 @@ before_install:
 script:
 - xctool -workspace BetweenKit.xcworkspace -scheme BetweenKitTests test -sdk iphonesimulator ONLY_ACTIVE_ARCH=NO TEST_AFTER_BUILD=YES TEST_HOST= GCC_INSTRUMENT_PROGRAM_FLOW_ARCS=YES GCC_GENERATE_TEST_COVERAGE_FILES=YES
 after_success:
+- ls .
 - coveralls -e Tests -e Pods -e BetweenKit
