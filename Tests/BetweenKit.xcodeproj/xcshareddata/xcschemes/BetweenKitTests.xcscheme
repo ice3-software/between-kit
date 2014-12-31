@@ -14,21 +14,7 @@
             buildForAnalyzing = "YES">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "506B2C4E8A04B772F798ED84"
-               BuildableName = "libPods-BetweenKit-BetweenKit.a"
-               BlueprintName = "Pods-BetweenKit-BetweenKit"
-               ReferencedContainer = "container:Pods/Pods.xcodeproj">
-            </BuildableReference>
-         </BuildActionEntry>
-         <BuildActionEntry
-            buildForTesting = "YES"
-            buildForRunning = "YES"
-            buildForProfiling = "YES"
-            buildForArchiving = "YES"
-            buildForAnalyzing = "YES">
-            <BuildableReference
-               BuildableIdentifier = "primary"
-               BlueprintIdentifier = "98948B08C4096EA1B9885F12"
+               BlueprintIdentifier = "BD6BBCB9C5AFA9A2FCB8E56C"
                BuildableName = "libPods-BetweenKit.a"
                BlueprintName = "Pods-BetweenKit"
                ReferencedContainer = "container:Pods/Pods.xcodeproj">
@@ -42,65 +28,9 @@
             buildForAnalyzing = "YES">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "7EEFDBE0BB3774A64545F3E0"
+               BlueprintIdentifier = "4CE319D5D5D6B3CA29841AF8"
                BuildableName = "libPods-Tests.a"
                BlueprintName = "Pods-Tests"
-               ReferencedContainer = "container:Pods/Pods.xcodeproj">
-            </BuildableReference>
-         </BuildActionEntry>
-         <BuildActionEntry
-            buildForTesting = "YES"
-            buildForRunning = "YES"
-            buildForProfiling = "YES"
-            buildForArchiving = "YES"
-            buildForAnalyzing = "YES">
-            <BuildableReference
-               BuildableIdentifier = "primary"
-               BlueprintIdentifier = "CFF9595201E3416089719ABC"
-               BuildableName = "libPods-Tests-BetweenKit.a"
-               BlueprintName = "Pods-Tests-BetweenKit"
-               ReferencedContainer = "container:Pods/Pods.xcodeproj">
-            </BuildableReference>
-         </BuildActionEntry>
-         <BuildActionEntry
-            buildForTesting = "YES"
-            buildForRunning = "YES"
-            buildForProfiling = "YES"
-            buildForArchiving = "YES"
-            buildForAnalyzing = "YES">
-            <BuildableReference
-               BuildableIdentifier = "primary"
-               BlueprintIdentifier = "1F3524DE38B662E51995041F"
-               BuildableName = "libPods-Tests-Expecta.a"
-               BlueprintName = "Pods-Tests-Expecta"
-               ReferencedContainer = "container:Pods/Pods.xcodeproj">
-            </BuildableReference>
-         </BuildActionEntry>
-         <BuildActionEntry
-            buildForTesting = "YES"
-            buildForRunning = "YES"
-            buildForProfiling = "YES"
-            buildForArchiving = "YES"
-            buildForAnalyzing = "YES">
-            <BuildableReference
-               BuildableIdentifier = "primary"
-               BlueprintIdentifier = "46960E46298D391E292BB351"
-               BuildableName = "libPods-Tests-OCMock.a"
-               BlueprintName = "Pods-Tests-OCMock"
-               ReferencedContainer = "container:Pods/Pods.xcodeproj">
-            </BuildableReference>
-         </BuildActionEntry>
-         <BuildActionEntry
-            buildForTesting = "YES"
-            buildForRunning = "YES"
-            buildForProfiling = "YES"
-            buildForArchiving = "YES"
-            buildForAnalyzing = "YES">
-            <BuildableReference
-               BuildableIdentifier = "primary"
-               BlueprintIdentifier = "0BF71C55B64C40BECF3318D2"
-               BuildableName = "libPods-Tests-Specta.a"
-               BlueprintName = "Pods-Tests-Specta"
                ReferencedContainer = "container:Pods/Pods.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
@@ -130,20 +60,6 @@
                BuildableName = "BetweenKit.xctest"
                BlueprintName = "Tests"
                ReferencedContainer = "container:BetweenKit.xcodeproj">
-            </BuildableReference>
-         </BuildActionEntry>
-         <BuildActionEntry
-            buildForTesting = "YES"
-            buildForRunning = "YES"
-            buildForProfiling = "YES"
-            buildForArchiving = "YES"
-            buildForAnalyzing = "YES">
-            <BuildableReference
-               BuildableIdentifier = "primary"
-               BlueprintIdentifier = "C9DAF4606FDB37198C4DDD86"
-               BuildableName = "BetweenKit.bundle"
-               BlueprintName = "BetweenKit"
-               ReferencedContainer = "container:Pods/Pods.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
       </BuildActionEntries>
