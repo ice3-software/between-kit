@@ -3,7 +3,6 @@ before_install:
 - cd Tests && pod install
 - sudo easy_install cpp-coveralls
 script:
-- xctool -workspace BetweenKit.xcworkspace -scheme BetweenKitTests test -sdk iphonesimulator ONLY_ACTIVE_ARCH=NO TEST_AFTER_BUILD=YES TEST_HOST= GCC_INSTRUMENT_PROGRAM_FLOW_ARCS=YES GCC_GENERATE_TEST_COVERAGE_FILES=YES
+- xctool -workspace BetweenKit.xcworkspace -scheme BetweenKitTests test -arch i386 -sdk iphonesimulator ONLY_ACTIVE_ARCH=NO TEST_AFTER_BUILD=YES TEST_HOST= GCC_INSTRUMENT_PROGRAM_FLOW_ARCS=YES GCC_GENERATE_TEST_COVERAGE_FILES=YES
 after_success:
-- ls .
-- coveralls -e Tests -e Pods -e BetweenKit
+- ./Coveralls/coveralls.rb --extension m --exclude-folder Tests --exclude-folder BetweenKit --exclude-folder Pods
