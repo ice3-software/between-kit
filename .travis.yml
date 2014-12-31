@@ -9,4 +9,4 @@ script:
 - cd ../
 
 after_success:
-- ./Tests/Coveralls/coveralls.rb --extension m --exclude-folder Tests --exclude-folder "Use Cases" --exclude-folder Legacy
+- ./Tests/Coveralls/coveralls.rb --extension m --exclude-folder Tests --exclude-folder Use Cases --exclude-folder Legacy
