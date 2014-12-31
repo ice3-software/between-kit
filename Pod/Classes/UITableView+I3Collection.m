@@ -15,11 +15,6 @@
 #pragma mark - I3Collection implementation
 
 
--(UIView *)collectionView{
-    return self;
-}
-
-
 -(NSIndexPath *)indexPathForItemAtPoint:(CGPoint) at{
     return [self indexPathForRowAtPoint:at];
 }

@@ -15,11 +15,6 @@
 #pragma mark - I3Collection implementation
 
 
--(UIView *)collectionView{
-    return self;
-}
-
-
 -(UIView *)itemAtIndexPath:(NSIndexPath *)index{
     return [self cellForItemAtIndexPath:index];
 }
