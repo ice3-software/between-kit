@@ -1,0 +1,216 @@
+#!/usr/bin/env python
+
+import os
+import sys
+import json
+import argparse
+import re
+import shlex
+import StringIO
+import glob
+import itertools
+
+
+SUPPORTED_COMPILERS = [
+    "clang",
+    "clang\+\+",
+    "llvm-cpp-4.2",
+    "llvm-g\+\+",
+    "llvm-g\+\+-4.2",
+    "llvm-gcc",
+    "llvm-gcc-4.2",
+    "arm-apple-darwin10-llvm-g\+\+-4.2",
+    "arm-apple-darwin10-llvm-gcc-4.2",
+    "i686-apple-darwin10-llvm-g\+\+-4.2",
+    "i686-apple-darwin10-llvm-gcc-4.2",
+    "gcc",
+    "g\+\+",
+    "c\+\+",
+    "cc"
+]
+
+DEFAULT_INPUT_FILE = "xcodebuild.log"
+
+JSON_COMPILATION_DATABASE = "compile_commands.json"
+
+
+_find_unsafe = re.compile('[ "\\\\]').search
+
+def clang_quote(s):
+    """
+    Return a minimally-escaped version of the string *s* that clang-based tools understand.
+    (See http://clang.llvm.org/docs/JSONCompilationDatabase.html)
+    ex:
+      clang_quote('aa') == r'aa'
+      clang_quote('a"a') == r'"a\"a"'
+      clang_quote('--my-option=a"a') == r'"--my-option=a\"a"'
+    """
+    if not s:
+        return '""'
+
+    if _find_unsafe(s) is None:
+        return s
+
+    return '"' + s.replace('\\', '\\\\').replace('"', '\\"') + '"'
+
+
+_find_quoting = re.compile('[\'"\\\\]').search
+
+def tokenize_command(c):
+    """Compute the list of shell arguments in *c* using shlex.split (note: make an explicit call to StringIO for compatibility with Python 2)."""
+    if _find_quoting(c) is None:
+        return map(str.strip, c.strip().split(' '))
+    else:
+        return shlex.split(StringIO.StringIO(c))
+
+# global table to map pth files to (source) pch files
+_pch_dictionary = {}
+
+def register_source_for_pth_file(clang_command, directory):
+    tokens = iter(tokenize_command(clang_command))
+    src_file = ""
+    pth_file = ""
+    try:
+        while 1:
+            tok = tokens.next()
+            if tok == '-c':
+                file = tokens.next()
+                src_file = file
+            elif tok == '-o':
+                file = tokens.next()
+                if file.endswith('.pch.pth') or file.endswith('.pch.pch') or file.endswith('.h.pch'):
+                    pth_file = file
+    except StopIteration:
+        if src_file and pth_file:
+            _pch_dictionary[pth_file] = src_file
+
+def get_source_for_pth_file(file):
+    src_file = _pch_dictionary.get(file + '.pth')
+    if src_file is not None:
+        return src_file
+    return _pch_dictionary.get(file + '.pch')
+
+def process_clang_command(clang_command, directory):
+    tokens = iter(tokenize_command(clang_command))
+    command = []
+    source_file = None
+
+    try:
+        while 1:
+            tok = tokens.next()
+            if tok == '-include':
+                include_file = tokens.next()
+                if not os.path.isfile(include_file):
+                    src_file = get_source_for_pth_file(include_file)
+                    if src_file is not None:
+                        include_file = src_file
+                    else:
+                        print "cannot find original pch source file for %s" % include_file
+                        exit(3)
+                command.append(tok)
+                command.append(clang_quote(include_file))
+
+            elif tok == '-c':
+                source_file = tokens.next()
+                command.append(tok)
+                command.append(clang_quote(source_file))
+
+            else:
+                command.append(clang_quote(tok))
+
+    except StopIteration:
+        return {"directory": directory, "command": " ".join(command), "file": os.path.normpath(source_file)}
+
+
+def read_directory(line):
+    tokens = tokenize_command(line)
+    if tokens[0] == "cd":
+        return tokens[1]
+    else:
+        return ""
+
+def convert(input_file, output_file, is_excluded=None):
+    json_input_mode = input_file.endswith('.json')
+
+    find_compileC = re.compile("CompileC").search
+
+    find_processPCH = re.compile("ProcessPCH").search
+
+    find_clang_command = re.compile("(" + "|".join(SUPPORTED_COMPILERS) + ") .* -c .* -o ").search
+
+    if is_excluded is None:
+        is_excluded = (lambda x: False)
+
+    with open(output_file, "w") as output:
+        with open(input_file, "r") as input:
+            if json_input_mode:
+                lines = itertools.chain(*(json.loads(line).get('command', '').encode("utf8").splitlines(True) for line in input))
+            else:
+                lines = input
+            try:
+                output.write("[")
+                cr = "\n"
+                while 1:
+                    log_line = lines.next()
+                    compilation_section_re = find_compileC(log_line)
+                    if compilation_section_re:
+                        directory = read_directory(lines.next())
+                        if is_excluded(directory):
+                            continue
+                        while 1:
+                            log_line = lines.next()
+                            if not find_clang_command(log_line):
+                                continue
+                            output_record = process_clang_command(log_line, directory)
+                            output.write(cr)
+                            output.write(json.dumps(output_record, indent=2))
+                            cr = ",\n"
+                            break
+                        continue
+                    compilation_section_re = find_processPCH(log_line)
+                    if compilation_section_re:
+                        directory = read_directory(lines.next())
+                        if is_excluded(directory):
+                            continue
+                        while 1:
+                            log_line = lines.next()
+                            if not find_clang_command(log_line):
+                                continue
+                            register_source_for_pth_file(log_line, directory)
+                            break
+                        continue
+            except StopIteration:
+                output.write("\n]\n");
+
+def main():
+    arg_parser = argparse.ArgumentParser(description='Converts xcodebuild logs or xctool-json-reporter logs to compile_commands.json')
+    arg_parser.add_argument("-e", "-exclude", dest="exclusion", help="Directory exclusion pattern (regular expression)")
+    arg_parser.add_argument("-o", "-output", dest="output_file", help="Output json file (default: ./%s)" % JSON_COMPILATION_DATABASE)
+    arg_parser.add_argument(metavar="FILE", nargs='?', dest="input_file", help="Input log file (default: ./%s)" % DEFAULT_INPUT_FILE)
+
+    args = arg_parser.parse_args()
+
+    if args.input_file:
+        input_file = args.input_file
+    else:
+        input_file = DEFAULT_INPUT_FILE
+
+    if args.output_file:
+        output_file = args.output_file
+    else:
+        output_file = JSON_COMPILATION_DATABASE
+
+    if not os.path.isfile(input_file):
+        print "Error: %s not found." % input_file
+        exit(1)
+
+    if args.exclusion:
+        is_excluded = re.compile(args.exclusion).match
+    else:
+        is_excluded = None
+
+    convert(input_file, output_file, is_excluded)
+
+
+if __name__ == '__main__':
+    main()

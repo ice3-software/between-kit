@@ -4,3 +4,5 @@ xcshareddata/
 !xcshareddata/xcschemes/BetweenKitTests.xcscheme
 Pods/
 *.xcworkspace/
+compile_commands.json
+mess_report.html
