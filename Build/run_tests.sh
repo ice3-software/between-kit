@@ -6,7 +6,7 @@ xctool -workspace Tests/BetweenKit.xcworkspace  			\
 	-arch i386							\
 	-reporter pretty					 	\
 	-reporter json-compilation-database:compile_commands.json 	\
-	test	 							\
+	clean test	 						\
 	ONLY_ACTIVE_ARCH=NO 						\
 	TEST_AFTER_BUILD=YES 						\
 	TEST_HOST= 							\
