@@ -23,7 +23,8 @@ Alternatively, if for whatever reason you aren't using CocoaPods, you can:
 
 		cd <Path to your application>
 		git init # If you haven't already initialised the directory as a repo
-		git submodule add https://github.com/ice3-software/between-kit.git		git submodule update --init --recursive
+		git submodule add https://github.com/ice3-software/between-kit.git
+		git submodule update --init --recursive
 		
 		# Checkout version of your choice
 		
