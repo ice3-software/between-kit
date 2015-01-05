@@ -41,6 +41,13 @@ Alternatively, if for whatever reason you aren't using CocoaPods, you can:
 
 Note that the preffered method of installation is via CocoaPods.
 
+
+#Dependencies and Requirements
+
+BetweenKit is written in Objective-C with ARC enabled - Swift is not yet supported but [will be in the future](). Its main dependency is [UIKit](https://developer.apple.com/library/ios/documentation/UIKit/Reference/UIKit_Framework/).
+
+BetweenKit _should_ be compatible with iOS 6 upwards, however development is currently done in an XCode 6 environment and tests are run on iOS 8.* simulators alongside a couple of iOS 8.0/7.1 devices. 
+
 ____
 
 <u>Documenation</u>: BetweenKit 2.0.0
