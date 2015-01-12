@@ -21,10 +21,12 @@ PODS:
     - AFNetworking/NSURLConnection
     - AFNetworking/NSURLSession
   - BetweenKit (2.0.0)
+  - Touchpose (1.2.0)
 
 DEPENDENCIES:
   - AFNetworking
   - BetweenKit (from `../../`)
+  - Touchpose
 
 EXTERNAL SOURCES:
   BetweenKit:
@@ -32,6 +34,7 @@ EXTERNAL SOURCES:
 
 SPEC CHECKSUMS:
   AFNetworking: 0aabc6fae66d6e5d039eeb21c315843c7aae51ab
-  BetweenKit: ac21cbb247927c7b2b00615c6bb28a9d8d5b36d2
+  BetweenKit: 7b6c5f43f853ee691a0f3b9d8cdbae8533dca58b
+  Touchpose: a03b3143c6d1d9d20a881313e6056f6e223596f6
 
 COCOAPODS: 0.35.0

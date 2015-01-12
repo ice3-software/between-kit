@@ -18,8 +18,8 @@
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <subviews>
                             <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="BNO-pi-P5N">
-                                <rect key="frame" x="0.0" y="422" width="584" height="178"/>
-                                <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                <rect key="frame" x="0.0" y="422" width="600" height="178"/>
+                                <color key="backgroundColor" red="0.21674292127071826" green="0.21674292127071826" blue="0.21674292127071826" alpha="1" colorSpace="calibratedRGB"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="178" id="j0y-SO-Ksd"/>
                                 </constraints>
@@ -80,7 +80,7 @@
                             <constraint firstAttribute="trailingMargin" secondItem="eWb-4f-mwE" secondAttribute="trailing" constant="-16" id="c0k-kK-CoG"/>
                             <constraint firstItem="BNO-pi-P5N" firstAttribute="leading" secondItem="Ggg-kw-1RX" secondAttribute="leadingMargin" constant="-16" id="ej9-ei-Rtc"/>
                             <constraint firstItem="ANg-ic-17E" firstAttribute="top" secondItem="BNO-pi-P5N" secondAttribute="bottom" id="hNa-Vv-2DF"/>
-                            <constraint firstAttribute="trailingMargin" secondItem="BNO-pi-P5N" secondAttribute="trailing" id="lyW-5t-QhZ"/>
+                            <constraint firstAttribute="trailingMargin" secondItem="BNO-pi-P5N" secondAttribute="trailing" constant="-16" id="lyW-5t-QhZ"/>
                         </constraints>
                     </view>
                     <tabBarItem key="tabBarItem" title="Item 1" id="2CQ-TS-7tm"/>

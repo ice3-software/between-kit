@@ -12,34 +12,55 @@ It isn't particulary easy to build smooth drag-and-drop into your iOS applicatio
 
 `BetweenKit` relies on a series of premises about drag-and-drop-ing from which we model the domain.
 
-- Gesture starts: `GestureStart`
-- Gesture is within bounds of collection: `InCollection`
-- Gesture is within bounds of an item in collection: `InItem`
-- Gesture is within bounds of an item only if its in the bounds of a collection: 
+######Drag Start
+
+- Gesture started: `GestureStarted`
+- Gesture started within bounds of collection: `StartedInCollection`
+- Gesture started within bounds of an item in collection: `StartedInItem`
+- Gesture started within bounds of an item only if its in the bounds of a collection: 
 		
-		InItem → InCollection
+		StartedInItem → StartedInCollection
 
 - Item in collection is draggable: `ItemDraggable`
-- Drag has started: `DragStart`
-- Drags starts if and only if a gesture starts within the coordinates of a draggable item in a collection:
+- Drag started: `DragStarted`
+- A drag started if and only if a gesture starts within the coordinates of a draggable item in a collection:
 	
-		DragStart ⇔ GestureStart ∧ InItem ∧ ItemDraggable
+		DragStarted ⇔ GestureStarted ∧ StartedInItem ∧ ItemDraggable
 
-- Drag has started: `DragStarted`
 - Gesture is being performed: `GesturePerforming`
 - Dragging occurs if and only if a drag has started and a gesture is currently being performed: 
 
-		Dragging ⇔ GesturePerforming ∧ DragStart
+		Dragging ⇔ GesturePerforming ∧ DragStarted
 
 - Gesture stops: `GestureStop`
+- Drag stops if and only if a drag has been started and a gesture stops:
+
+		DragStop ⇔ DragStarted ∧ GestureStop
+
 - Gesture is at deleteable point: `AtDeleteablePoint`
-- Dragging item is deleted if a drag has been started and the gesture stops at a point that is deletable:
+- Item is deleted if a drag stops at a point that is deletable:
 
-		Delete → GestureStop ∧ AtDeleteablePoint ∧ DragStart
+		DragStop ∧ AtDeleteablePoint → Delete 
 
-- Items are rearranged in a collection if a drag has been started and the gesture stops at a point in the same collection as it started on at a different item:
+- Gesture stops within bounds of a collection: `StopsInCollection`
+- Gesture stops within a different collection to which it started in: `StopsInNewCollection`
+- Gesture can stop in new collection only if it stops in a collection
 
-		Rearrange → GestureStop ∧ InCollection ∧ InAnotherItem
+		StopsInNewCollection → StopsInCollection
+
+- Gesture stops within bounds of item of collection: `StopsInItem`
+- Gesture stops within bounds of an item only if its in the bounds of a collection: 
+		
+		StopInItem → StopInCollection
+
+- Gesture stops within bounds of the same item as it started on: `StopInSameItem`
+- Gesture stops within bounds of the same item only if it stops within the same collection
+
+		¬StopsInNewCollection →
+
+- Items are rearranged in a collection if a drag has been started, the gesture stops at a point in the same collection as it started, the gesture stops in an item in the collection and the item  is not the item as where the gesture started:
+
+		DragStop ∧ StopInSameCollection → Rearrange
 
 
 - Core Components

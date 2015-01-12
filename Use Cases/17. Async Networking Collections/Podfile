@@ -1,5 +1,6 @@
 target '17. Async Networking Collections' do
   pod "BetweenKit", :path => "../../"
+  pod "Touchpose"
   pod "AFNetworking"
 end
 
