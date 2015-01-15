@@ -54,7 +54,7 @@ UITableView *table2 = ...
 
 /// Create a drag arena
 
-I3DragArena *arena = [I3DragArena alloc] initWithSuperview:superview containingCollections:@[table1, table2]];
+I3DragArena *arena = [[I3DragArena alloc] initWithSuperview:superview containingCollections:@[table1, table2]];
 
 /// You can manipulate the registered ordered set of collections
 
@@ -68,10 +68,17 @@ UITableView *table4 = ...
 
 ```
 
+The next component is responsible for listening for and coordinating gestures in order to recognize drags: it realises the premises defined in the 'Problem Domain' section.
+
+It has a couple of hard dependency: 
+
+- the drag arena which should be injected via the constructor
+- a `UIGestureRecongizer` configured to listen to the arena's superview, which can either be injected or will be created 'behind the scenes' as a `UIPanGestureRecongizer` if `nil` is passed
+
+
 
 - `I3DragDataSource`
 - `I3DragRenderDelegate`
-- `I3DragCoordinator`
 
 
 - Core Components
