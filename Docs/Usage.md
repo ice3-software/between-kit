@@ -17,8 +17,8 @@ It isn't particulary easy to build smooth drag-and-drop into your iOS applicatio
 - <u>__Dragging__</u> occurs if and only if, immediately after a drag has been started, the location of the gesture changes within the drag arena.
 - A drag <u>__stops__</u> if and only if immediately after dragging the gesture stops, is cancelled or finishes.
 - A <u>__deletion__</u> occurs if and only if the drag stops at a point which is specified as being <u>__deleteable__</u>. For example, the user may designate certain bounds within the drag arena to be 'delete on drop' areas.
-- A <u>__rearrange__</u> occurs if and only if the drag stops within the bounds of the collection that it started in, on a different item in that collection which is specified as being <u>__rearrangeable__</u>, and on a point in the drag arena that is not specified as being <u>__deleteable__</u>
-- A <u>__drop__</u> occurs if and only if the drag stops within the bounds of another collection in the drag arena, on a specific item or point that is specified as <u>__droppable__</u> within that collection, and on a point in the drag arena which is not specified as being <u>__deleteable__</u>.
+- A <u>__rearrange__</u> occurs if and only if the drag stops within the bounds of the collection that it started in, on a different item in that collection which is specified as being <u>__rearrangeable__</u>, and on a point in the drag arena that is not specified as being deleteable.
+- A <u>__drop__</u> occurs if and only if the drag stops within the bounds of another collection in the drag arena, on a specific item or point that is specified as <u>__droppable__</u> within that collection, and on a point in the drag arena which is not specified as being deleteable.
 
 
 
