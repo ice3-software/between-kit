@@ -21,6 +21,53 @@ It isn't particulary easy to build smooth drag-and-drop into your iOS applicatio
 - A <u>__drop__</u> occurs if and only if the drag stops within the bounds of another collection in the drag arena, on a specific item or point that is specified as <u>__droppable__</u> within that collection, and on a point in the drag arena which is not specified as being deleteable.
 
 
+###Core Components
+
+Classes that conform to the `I3Collection` protocol are our <u>__collections__</u>, and should be subclasses of `UIView`. Implementations of `I3Collection` should use `NSIndexPath`s to access its child items for obvious conventional reasons.
+
+The framework comes bundled with some convenient implementations of this protocol in the form of class categories for `UITableView` and `UICollectionView`, but there's no reason why you can't implement your own if required. This is a good example of the framework's loose coupling - its dependent on an interface not on concrete types.
+
+`I3DragArena` is our <u>__drag arena__</u>. Its only hard dependency is a `superview` which should be injected via its constructor. You can register collections in the drag arena by adding them to its `collections` property, which is an `NSMutableOrderedSet`.
+
+Note that it is your responsibillity to make sure the following preconditions to using the `I3DragArena` are met:
+
+- That the `superview` is not `nil`
+- That the `superview` is a eventual superview of any view added to the `collections` set
+- That any instance added to the `collections` set is of the type `UIView<I3Collection>`
+
+The following snippet demonstrates building a `I3DragArena` using the provided `UITableView` category implementations:
+
+```Objective-C
+
+#import <BetweenKit/UITableView+I3CollectionView.h>
+#import <BetweenKit/I3DragArea.h>
+
+/// Dependencies are pulled form somewhere
+
+UIView *superview = ...
+UITableView *table1 = ...
+UITableView *table2 = ...
+
+/// Create a drag arena
+
+I3DragArena *arena = [I3DragArena alloc] initWithSuperview:superview containingCollections:@[table1, table2]];
+
+/// You can manipulate the registered ordered set of collections
+
+UITableView *table3 = ...
+UITableView *table4 = ...
+
+[arena.collections addObject:table3];
+[arena.collections insertObject:table4 atIndex:1];
+[arena.collections removeObjectAtIndex:0];
+
+
+```
+
+
+- `I3DragDataSource`
+- `I3DragRenderDelegate`
+- `I3DragCoordinator`
 
 
 - Core Components
