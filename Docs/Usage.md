@@ -39,8 +39,12 @@ The following snippet demonstrates building a `I3DragArena` using the provided `
 
 ```Objective-C
 
-#import <BetweenKit/UITableView+I3CollectionView.h>
+#import <BetweenKit/UITableView+I3Collection.h>
 #import <BetweenKit/I3DragArea.h>
+
+.
+.
+.
 
 /// Dependencies are pulled form somewhere
 
