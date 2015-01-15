@@ -6,61 +6,21 @@ This document, in tandem with the framework's use cases and unit tests, aims to 
 
 ###Problem Domain
 
-It isn't particulary easy to build smooth drag-and-drop into your iOS applications, especially when you are dealing with multiple data-view components such as tables and collections. To achieve drag-and-drop in the past I've found myself building complex view controllers that deal with all manner of things including gesture handling, geometric conversion, data manipulation and rendering. The view controllers quickly became difficult to maintain and the tightly coupled nature of the drag-and-drop functionallity ment that reusing and extending it was impossible.
+It isn't particulary easy to build smooth drag-and-drop into your iOS applications, especially when you are dealing with multiple data-view components such as tables and collections. To achieve drag-and-drop in the past I've found myself building complex view controllers that deal with all manner of things including gesture handling, geometric conversion, data manipulation and rendering. The view controllers quickly became difficult to maintain and the unsegregated nature of the drag-and-drop functionallity ment that reusing and extending it was nearly impossible.
 
-`BetweenKit` aims to abstracting away the various `UIKit` interactions required to implement drag-and-drop, and expose a clean API.
+`BetweenKit` aims to abstracting away the various `UIKit` interactions required to implement drag-and-drop, and expose a clean API. It relies on a series of premises about drag-and-drop-ing from which we can model the domain:
 
-`BetweenKit` relies on a series of premises about drag-and-drop-ing from which we model the domain.
+- A <u>__collection__</u> is a view that contains and array of child <u>__items__</u>
+- A <u>__drag arena__</u> consists of a <u>__superview__</u> and an ordered set of <u>__collections__</u> that exist as subviews within that superview.
+- The order of the collections in the drag arena determine their drag / drop priority. That is, if a collection sits at the beginning of the drag arena's ordered set of collections, then drags and drops occuring on that collection will be recognized in place of any of the later collections in the set.
+- A drag <u>__starts__</u> if and only if a gesture is started within the bounds of a <u>__draggable__</u> item of a collection in the drag arena.
+- <u>__Dragging__</u> occurs if and only if, immediately after a drag has been started, the location of the gesture changes within the drag arena.
+- A drag <u>__stops__</u> if and only if immediately after dragging the gesture stops, is cancelled or finishes.
+- A <u>__deletion__</u> occurs if and only if the drag stops at a point which is specified as being <u>__deleteable__</u>. For example, the user may designate certain bounds within the drag arena to be 'delete on drop' areas.
+- A <u>__rearrange__</u> occurs if and only if the drag stops within the bounds of the collection that it started in, on a different item in that collection which is specified as being <u>__rearrangeable__</u>, and on a point in the drag arena that is not specified as being <u>__deleteable__</u>
+- A <u>__drop__</u> occurs if and only if the drag stops within the bounds of another collection in the drag arena, on a specific item or point that is specified as <u>__droppable__</u> within that collection, and on a point in the drag arena which is not specified as being <u>__deleteable__</u>.
 
-######Drag Start
 
-- Gesture started: `GestureStarted`
-- Gesture started within bounds of collection: `StartedInCollection`
-- Gesture started within bounds of an item in collection: `StartedInItem`
-- Gesture started within bounds of an item only if its in the bounds of a collection: 
-		
-		StartedInItem → StartedInCollection
-
-- Item in collection is draggable: `ItemDraggable`
-- Drag started: `DragStarted`
-- A drag started if and only if a gesture starts within the coordinates of a draggable item in a collection:
-	
-		DragStarted ⇔ GestureStarted ∧ StartedInItem ∧ ItemDraggable
-
-- Gesture is being performed: `GesturePerforming`
-- Dragging occurs if and only if a drag has started and a gesture is currently being performed: 
-
-		Dragging ⇔ GesturePerforming ∧ DragStarted
-
-- Gesture stops: `GestureStop`
-- Drag stops if and only if a drag has been started and a gesture stops:
-
-		DragStop ⇔ DragStarted ∧ GestureStop
-
-- Gesture is at deleteable point: `AtDeleteablePoint`
-- Item is deleted if a drag stops at a point that is deletable:
-
-		DragStop ∧ AtDeleteablePoint → Delete 
-
-- Gesture stops within bounds of a collection: `StopsInCollection`
-- Gesture stops within a different collection to which it started in: `StopsInNewCollection`
-- Gesture can stop in new collection only if it stops in a collection
-
-		StopsInNewCollection → StopsInCollection
-
-- Gesture stops within bounds of item of collection: `StopsInItem`
-- Gesture stops within bounds of an item only if its in the bounds of a collection: 
-		
-		StopInItem → StopInCollection
-
-- Gesture stops within bounds of the same item as it started on: `StopInSameItem`
-- Gesture stops within bounds of the same item only if it stops within the same collection
-
-		¬StopsInNewCollection →
-
-- Items are rearranged in a collection if a drag has been started, the gesture stops at a point in the same collection as it started, the gesture stops in an item in the collection and the item  is not the item as where the gesture started:
-
-		DragStop ∧ StopInSameCollection → Rearrange
 
 
 - Core Components
