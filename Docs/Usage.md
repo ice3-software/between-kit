@@ -8,6 +8,8 @@ This document, in tandem with the framework's use cases and unit tests, aims to 
 
 It isn't particulary easy to build smooth drag-and-drop into your iOS applications, especially when you are dealing with multiple data-view components such as tables and collections. To achieve drag-and-drop in the past I've found myself building complex view controllers that deal with all manner of things including gesture handling, geometric conversion, data manipulation and rendering. The view controllers quickly became difficult to maintain and the unsegregated nature of the drag-and-drop functionallity ment that reusing and extending it was nearly impossible.
 
+###Premises
+
 `BetweenKit` aims to abstracting away the various `UIKit` interactions required to implement drag-and-drop, and expose a clean API. It relies on a series of premises about drag-and-drop-ing from which we can model the domain:
 
 - A <u>__collection__</u> is a view that contains and array of child <u>__items__</u>
@@ -42,9 +44,7 @@ The following snippet demonstrates building a `I3DragArena` using the provided `
 #import <BetweenKit/UITableView+I3Collection.h>
 #import <BetweenKit/I3DragArea.h>
 
-.
-.
-.
+...
 
 /// Dependencies are pulled form somewhere
 
@@ -68,21 +68,112 @@ UITableView *table4 = ...
 
 ```
 
-The next component is responsible for listening for and coordinating gestures in order to recognize drags: it realises the premises defined in the 'Problem Domain' section.
+The next component is responsible for listening for and coordinating gestures in order to recognize the drag/drop events defined in the premises.
 
 It has a couple of hard dependency: 
 
 - the drag arena which should be injected via the constructor
 - a `UIGestureRecongizer` configured to listen to the arena's superview, which can either be injected or will be created 'behind the scenes' as a `UIPanGestureRecongizer` if `nil` is passed
 
+And a couple of soft dependencies:
+
+- an object implementing the `I3DragDataSource` protocol
+- an object implementing the `I3DragRenderDelegate` protocol
+
+Classes that conform to `I3DragDataSource` act as our data sources. This (again, for obvious convential reasons) closely resembles the data source pattern used by `UITableView`s and `UICollectionView`s. 
+
+Our data source is repsonsible for managing all the data associated with items in the environment's collections. It exposes a set of assertion methods, which are used to by the coordinator to determine whether a particular item or point has a particular property. For example the results of
+
+``` Objective-C
+-(BOOL) canItemBeDraggedAt:(NSIndexPath *)at inCollection:(UIView<I3Collection> *)collection;
+```
+
+is used by the data source to determine whether a drag can start on particular item at a given index path in a given collection. Typically the implementation of assertion methods do not mutate the object, that is they should normally provide an interface by which the gesture coordinator can query how the collections should be handled without having to worry about side affects.
+
+Our data source also implements some methods for mutating the data, for example
+
+``` Objective-C
+-(void) dropItemAt:(NSIndexPath *)from fromCollection:(UIView<I3Collection> *)fromCollection toItemAt:(NSIndexPath *)to onCollection:(UIView<I3Collection> *)toCollection;
+```
+
+should be implemented to update the data in the event that an item at `from` is dropped from the `fromCollection` to the item at `to` in the `toCollection`. These methods are called by the gesture coordinator whenever the relevant drag/drop event occurs.
+
+This snippet demonstrates a very basic examples of an `I3DragDataSource` implementation
 
 
-- `I3DragDataSource`
-- `I3DragRenderDelegate`
+``` Objective-C
+
+#import.... 
+
+...
+
+@implementation
+
+...
 
 
-- Core Components
-- Interfaces and boundaries
+#pragma mark - I3DragDataSource assertions
+
+
+-(BOOL) canItemBeDraggedAt:(NSIndexPath *)at inCollection:(UIView<I3Collection> *)collection{
+	return YES;
+}
+
+
+-(BOOL) canItemFrom:(NSIndexPath *)from beRearrangedWithItemAt:(NSIndexPath *)to inCollection:(UIView<I3Collection> *)collection{
+	return YES;
+}
+
+
+-(BOOL) canItemAt:(NSIndexPath *)from fromCollection:(UIView<I3Collection> *)fromCollection beDroppedAtPoint:(CGPoint) at onCollection:(UIView<I3Collection> *)toCollection{
+	return YES;
+}
+
+
+#pragma mark - I3DragDataSource update methods
+
+
+-(void) rearrangeItemAt:(NSIndexPath *)from withItemAt:(NSIndexPath *)to inCollection:(UIView<I3Collection> *)collection{
+    
+    UITableView *targetTableView = (UITableView *)collection;
+    NSMutableArray *targetDataset = targetTableView == self.leftTable ? self.leftData : self.rightData;
+    
+    [targetDataset exchangeObjectAtIndex:to.row withObjectAtIndex:from.row];
+    [targetTableView reloadRowsAtIndexPaths:@[to, from] withRowAnimation:UITableViewRowAnimationFade];
+    [self logUpdatedData];
+}
+
+
+-(void) dropItemAt:(NSIndexPath *)fromIndex fromCollection:(UIView<I3Collection> *)fromCollection toItemAt:(NSIndexPath *)toIndex onCollection:(UIView<I3Collection> *)toCollection{
+    
+    UITableView *fromTable = (UITableView *)fromCollection;
+    UITableView *toTable = (UITableView *)toCollection;
+    
+    /** Determine the `from` and `to` datasets */
+    
+    BOOL isFromLeftTable = fromTable == self.leftTable;
+    
+    NSNumber *exchangingData = isFromLeftTable ? [self.leftData objectAtIndex:fromIndex.row] : [self.rightData objectAtIndex:fromIndex.row];
+    NSMutableArray *fromDataset = isFromLeftTable ? self.leftData : self.rightData;
+    NSMutableArray *toDataset = isFromLeftTable ? self.rightData : self.leftData;
+    
+    
+    /** Update the data source and the individual table view rows */
+    
+    [fromDataset removeObjectAtIndex:fromIndex.row];
+    [toDataset insertObject:exchangingData atIndex:toIndex.row];
+    
+    [fromTable deleteRowsAtIndexPaths:@[[NSIndexPath indexPathForRow:fromIndex.row inSection:0]] withRowAnimation:UITableViewRowAnimationFade];
+    [toTable insertRowsAtIndexPaths:@[[NSIndexPath indexPathForRow:toIndex.row inSection:0]] withRowAnimation:UITableViewRowAnimationFade];
+        
+}
+
+```
+
+
+
+
+
 - Preconditions / Postconditions
 - Secondary / Utility Components
 
