@@ -25,6 +25,7 @@ It isn't particulary easy to build smooth drag-and-drop into your iOS applicatio
 
 ###Core Components
 
+
 Classes that conform to the `I3Collection` protocol are our <u>__collections__</u>, and should be subclasses of `UIView`. Implementations of `I3Collection` should use `NSIndexPath`s to access its child items for obvious conventional reasons.
 
 The framework comes bundled with some convenient implementations of this protocol in the form of class categories for `UITableView` and `UICollectionView`, but there's no reason why you can't implement your own if required. This is a good example of the framework's loose coupling - its dependent on an interface not on concrete types.
@@ -68,7 +69,7 @@ UITableView *table4 = ...
 
 ```
 
-The next component is responsible for listening for and coordinating gestures in order to recognize the drag/drop events defined in the premises.
+The next component is responsible for listening for and coordinating gestures in order to recognize the drag/drop events defined in the premises: the `I3GestureCoordinator`
 
 It has a couple of hard dependency: 
 
@@ -98,7 +99,7 @@ Our data source also implements some methods for mutating the data, for example
 
 should be implemented to update the data in the event that an item at `from` is dropped from the `fromCollection` to the item at `to` in the `toCollection`. These methods are called by the gesture coordinator whenever the relevant drag/drop event occurs.
 
-This snippet demonstrates a very basic examples of an `I3DragDataSource` implementation
+This snippet demonstrates a very basic `I3DragDataSource` implementation
 
 
 ``` Objective-C
@@ -170,12 +171,55 @@ This snippet demonstrates a very basic examples of an `I3DragDataSource` impleme
 
 ```
 
+The second soft dependencies of our gesture coordinator is an object that conforms to the `I3DragRenderDelegate` protocol. Implementations of this protocol are responsible for rendering the drag/drop events on-screen.
+
+The framework provides a basic implementation of the `I3DragRenderDelegate` in the form of the `I3BasicRenderDelegate`. There's nothing stopping you extending `I3BasicRenderDelegate` or even implementing your own render delegate from scratch by conforming to `I3DragRenderDelegate`.
+
+The gesture coordinator will call the render delegate whenever it wants to render a particularly event. Note that implementations of the render delegate may assume that its methods will be called by the coordinator in a specific order and it may maintain manage the lifecycle of its state based on the order in-which its methods are called. As a general rule, its best never to call the `I3DragRenderDelegate` directly - just let the coordinator call them.
+
+Its also worth noting that the gestire coordinator retains a _strong_ reference to the render delegate at present, to avoid you having to retain it yourself unecessarily. For this reason, take when implementing render delegate that 'knows' about its gesture coordinator and remain mindful of potential retain cycles.
+
+So to top it off, here is a snippet demonstrating setting up a drag/drop environment using all of the core components:
 
 
+``` Objective-C
+
+UIView *superview = ...
+id<I3DragDataSource> dataSource = ...
+
+I3DragArena *arena = [[I3DragArena alloc] initWithSuperview:superview containingCollections:@[collection1, collection2, ...]];
+I3GestureCoordinator *coordinator = [[I3GestureCoordinator alloc] initWithDragArena:arena withGestureRecognizer:[[UILongPressGestureRecognizer alloc] init]];
+
+coordinator.renderDelegate = [[I3BasicRenderDelegate alloc] init];
+coordinator.dragDataSource = dataSource;
 
 
-- Preconditions / Postconditions
-- Secondary / Utility Components
+```
+
+As you can see, the gesture coordinator is dependent mainly on abstractions (the `I3DragDataSource` protocol, the `I3DragRenderDelegate` protocol, the abstract `UIGestureRecongizer` class, etc), which leaves room for a great deal of extension.
+
+
+The `I3GestureCoordinator` provides a couple of helpful factory methods in the form of class methods:
+
+``` Objective-C
+
++(instancetype) basicGestureCoordinatorFromViewController:(UIViewController *)viewController withCollections:(NSArray *)collections withRecognizer:(UIGestureRecognizer *)recognizer;
+
++(instancetype) basicGestureCoordinatorFromViewController:(UIViewController *)viewController withCollections:(NSArray *)collections;
+
+```
+
+You can use these methods in place of all the setup boilerplate where possible, for example
+
+``` Objective-C
+
+UIView *superview = ...
+I3DragCoordinator *coordinator = [I3GestureCoordinator basicGestureCoordinatorFromViewController:superview withCollections:@[collection1, collection2, ...]];
+
+```
+
+
+###Secondary / Utility Components
 
 ###Setting up a Drag/Drop Environment
 
