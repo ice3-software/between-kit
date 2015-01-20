@@ -104,14 +104,11 @@ This snippet demonstrates a very basic `I3DragDataSource` implementation
 
 ``` Objective-C
 
-#import.... 
+#import <BetweenKit/I3DragDataSource.h>
 
 ...
 
 @implementation
-
-...
-
 
 #pragma mark - I3DragDataSource assertions
 
@@ -169,7 +166,11 @@ This snippet demonstrates a very basic `I3DragDataSource` implementation
         
 }
 
+@end
+
 ```
+
+A common convention is to implement `I3DragDataSource` in your `UIViewController`.
 
 The second soft dependencies of our gesture coordinator is an object that conforms to the `I3DragRenderDelegate` protocol. Implementations of this protocol are responsible for rendering the drag/drop events on-screen.
 
@@ -183,6 +184,15 @@ So to top it off, here is a snippet demonstrating setting up a drag/drop environ
 
 
 ``` Objective-C
+
+#import <BetweenKit/I3GestureCoordinator.h>
+#import <BetweenKit/I3BasicRenderDelegate.h>
+#import <BetweenKit/I3DragDataSource.h>
+#import <BetweenKit/I3BasicRenderDeleagte.h>
+#import <BetweenKit/UITableView+I3Collection.h>
+#import <BetweenKit/UICollectionView+I3Collection.h>
+
+...
 
 UIView *superview = ...
 id<I3DragDataSource> dataSource = ...
