@@ -188,7 +188,6 @@ So to top it off, here is a snippet demonstrating setting up a drag/drop environ
 #import <BetweenKit/I3GestureCoordinator.h>
 #import <BetweenKit/I3BasicRenderDelegate.h>
 #import <BetweenKit/I3DragDataSource.h>
-#import <BetweenKit/I3BasicRenderDeleagte.h>
 #import <BetweenKit/UITableView+I3Collection.h>
 #import <BetweenKit/UICollectionView+I3Collection.h>
 
