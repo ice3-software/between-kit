@@ -2,7 +2,7 @@
 
 ###Overview
 
-This document, in tandem with the framework's use cases and unit tests, aims to describe how you can use BetweenKit in your app. It briefly introduces the problem domain and framework components, and then proceeds to explain how to leverage these components with a series of step-by-step usage guides.
+This document aims to describe how you can use BetweenKit in your app. It  introduces the domain concepts in a series of premises and then intrpduces the core framework components. It provides example code snippets where possible; for full working examples, see the various Use Cases and unit tests.
 
 ###Problem Domain
 
@@ -23,19 +23,22 @@ It isn't particulary easy to build smooth drag-and-drop into your iOS applicatio
 - A <u>__drop__</u> occurs if and only if the drag stops within the bounds of another collection in the drag arena, on a specific item or point that is specified as <u>__droppable__</u> within that collection, and on a point in the drag arena which is not specified as being deleteable.
 
 
-###Core Components
+###Collections
 
 
-Classes that conform to the `I3Collection` protocol are our <u>__collections__</u>, and should be subclasses of `UIView`. Implementations of `I3Collection` should use `NSIndexPath`s to access its child items for obvious conventional reasons.
+Classes that conform to the `I3Collection` protocol are our <u>__collections__</u> and should be subclasses of `UIView`. Implementations of `I3Collection` should use `NSIndexPath`s to access its child items for obvious conventional reasons.
 
 The framework comes bundled with some convenient implementations of this protocol in the form of class categories for `UITableView` and `UICollectionView`, but there's no reason why you can't implement your own if required. This is a good example of the framework's loose coupling - its dependent on an interface not on concrete types.
+
+
+###Drag Arena
 
 `I3DragArena` is our <u>__drag arena__</u>. Its only hard dependency is a `superview` which should be injected via its constructor. You can register collections in the drag arena by adding them to its `collections` property, which is an `NSMutableOrderedSet`.
 
 Note that it is your responsibillity to make sure the following preconditions to using the `I3DragArena` are met:
 
 - That the `superview` is not `nil`
-- That the `superview` is a eventual superview of any view added to the `collections` set
+- That in the `superview` is a eventual superview of any view added to the `collections` set
 - That any instance added to the `collections` set is of the type `UIView<I3Collection>`
 
 The following snippet demonstrates building a `I3DragArena` using the provided `UITableView` category implementations:
@@ -69,27 +72,31 @@ UITableView *table4 = ...
 
 ```
 
-The next component is responsible for listening for and coordinating gestures in order to recognize the drag/drop events defined in the premises: the `I3GestureCoordinator`
+###Gesture Coordinator
 
-It has a couple of hard dependency: 
+The next component is responsible for listening for and coordinating gestures in order to recognize the different drag/drop: the `I3GestureCoordinator`.
 
-- the drag arena which should be injected via the constructor
-- a `UIGestureRecongizer` configured to listen to the arena's superview, which can either be injected or will be created 'behind the scenes' as a `UIPanGestureRecongizer` if `nil` is passed
+It has a couple of hard dependencies: 
+
+- The drag arena, which should be injected via the constructor
+- A `UIGestureRecongizer` configured to listen to the arena's superview, which can either be injected or will be created 'behind the scenes' as a `UIPanGestureRecongizer` if `nil` is passed
 
 And a couple of soft dependencies:
 
-- an object implementing the `I3DragDataSource` protocol
-- an object implementing the `I3DragRenderDelegate` protocol
+- An object implementing the `I3DragDataSource` protocol
+- An object implementing the `I3DragRenderDelegate` protocol
+
+###Data Source
 
 Classes that conform to `I3DragDataSource` act as our data sources. This (again, for obvious convential reasons) closely resembles the data source pattern used by `UITableView`s and `UICollectionView`s. 
 
-Our data source is repsonsible for managing all the data associated with items in the environment's collections. It exposes a set of assertion methods, which are used to by the coordinator to determine whether a particular item or point has a particular property. For example the results of
+Our data source is repsonsible for managing all the data associated with items in the environment's collections. It exposes a set of assertion methods, which are used to by the coordinator to determine whether a particular item or point has a particular property. For example the result of
 
 ``` Objective-C
 -(BOOL) canItemBeDraggedAt:(NSIndexPath *)at inCollection:(UIView<I3Collection> *)collection;
 ```
 
-is used by the data source to determine whether a drag can start on particular item at a given index path in a given collection. Typically the implementation of assertion methods do not mutate the object, that is they should normally provide an interface by which the gesture coordinator can query how the collections should be handled without having to worry about side affects.
+is used by the coordinator to determine whether a drag can start on particular item at a given index path in a given collection. Typically the implementation of assertion methods do not mutate the state of the data source, that is they should normally provide an interface by which the gesture coordinator can query how the collections should be handled without having to worry about any side affects.
 
 Our data source also implements some methods for mutating the data, for example
 
@@ -147,16 +154,11 @@ This snippet demonstrates a very basic `I3DragDataSource` implementation
     UITableView *fromTable = (UITableView *)fromCollection;
     UITableView *toTable = (UITableView *)toCollection;
     
-    /** Determine the `from` and `to` datasets */
-    
     BOOL isFromLeftTable = fromTable == self.leftTable;
     
     NSNumber *exchangingData = isFromLeftTable ? [self.leftData objectAtIndex:fromIndex.row] : [self.rightData objectAtIndex:fromIndex.row];
     NSMutableArray *fromDataset = isFromLeftTable ? self.leftData : self.rightData;
     NSMutableArray *toDataset = isFromLeftTable ? self.rightData : self.leftData;
-    
-    
-    /** Update the data source and the individual table view rows */
     
     [fromDataset removeObjectAtIndex:fromIndex.row];
     [toDataset insertObject:exchangingData atIndex:toIndex.row];
@@ -171,6 +173,28 @@ This snippet demonstrates a very basic `I3DragDataSource` implementation
 ```
 
 A common convention is to implement `I3DragDataSource` in your `UIViewController`.
+
+All data source methods are optional apart from the 'drag start' assertion: 
+
+``` Objective-C
+-(BOOL) canItemBeDraggedAt:(NSIndexPath *)at inCollection:(UIView<I3Collection> *)collection
+```
+
+Every data update method has an associated assertion method; the gesture coordinator will only respond to an event if and only if, both the update methods and its associated assertion have been implemented. For example, if you implement:
+
+``` Objective-C
+-(void) rearrangeItemAt:(NSIndexPath *)from withItemAt:(NSIndexPath *)to inCollection:(UIView<I3Collection> *)collection
+```
+
+but not
+
+``` Objective-C
+-(BOOL) canItemFrom:(NSIndexPath *)from beRearrangedWithItemAt:(NSIndexPath *)to inCollection:(UIView<I3Collection> *)collection
+```
+
+then the coordinator will assume that we don't want to rearrange anything. In this respect, it can be quite opinionated.
+
+###Render Delegate
 
 The second soft dependencies of our gesture coordinator is an object that conforms to the `I3DragRenderDelegate` protocol. Implementations of this protocol are responsible for rendering the drag/drop events on-screen.
 
@@ -222,41 +246,10 @@ You can use these methods in place of all the setup boilerplate where possible, 
 
 ``` Objective-C
 
-UIView *superview = ...
-I3DragCoordinator *coordinator = [I3GestureCoordinator basicGestureCoordinatorFromViewController:superview withCollections:@[collection1, collection2, ...]];
+MyViewController *viewController = ...
+I3DragCoordinator *coordinator = [I3GestureCoordinator basicGestureCoordinatorFromViewController:viewController withCollections:@[collection1, collection2, ...]];
 
 ```
-
-
-###Secondary / Utility Components
-
-###Setting up a Drag/Drop Environment
-
-- Using helper class methods
-- What assumptions do these methods make?
-
-- From scratch
-- When would one want to set one up from scratch instead of using the class methods?
-
-###Implementing a data source
-
-- A data source is required
-- How does one implement a data source?
-- Which methods should one implement?
-- Which methods are optional?
-
-###Collections
-
-- Go into detail about the existing class categories
-- The ins-and-outs of what you can do with them
-- Maybe even implementing your own... ?
-
-###Custom Rendering
-
-- Point to use case
-- Extending basic delegate
-- Conforming to the delegate protocol
-
 ___
 
 <u>Documenation</u>: BetweenKit 2.0.0
