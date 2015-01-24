@@ -2,7 +2,7 @@
 
 ###Overview
 
-This document aims to describe how you can use BetweenKit in your app. It  introduces the domain concepts in a series of premises and then intrpduces the core framework components. It provides example code snippets where possible; for full working examples, see the various Use Cases and unit tests.
+This document describes how you can use BetweenKit in your application. It introduces the concepts of the domain in a series of premises and then explores the core framework components. It provides example code snippets where possible; for full working examples, see the various Use Cases and unit tests.
 
 ###Problem Domain
 
@@ -10,7 +10,7 @@ It isn't particulary easy to build smooth drag-and-drop into your iOS applicatio
 
 ###Premises
 
-`BetweenKit` aims to abstracting away the various `UIKit` interactions required to implement drag-and-drop, and expose a clean API. It relies on a series of premises about drag-and-drop-ing from which we can model the domain:
+`BetweenKit` aims to abstracting away the various `UIKit` interactions required to implement drag-and-drop, and expose a clean API. It relies on a series of premises about drag-and-drop from which we can model the domain:
 
 - A <u>__collection__</u> is a view that contains and array of child <u>__items__</u>
 - A <u>__drag arena__</u> consists of a <u>__superview__</u> and an ordered set of <u>__collections__</u> that exist as subviews within that superview.
@@ -74,7 +74,7 @@ UITableView *table4 = ...
 
 ###Gesture Coordinator
 
-The next component is responsible for listening for and coordinating gestures in order to recognize the different drag/drop: the `I3GestureCoordinator`.
+The next component is responsible for listening for and coordinating gestures in order to recognize the different drag/drop events: the `I3GestureCoordinator`.
 
 It has a couple of hard dependencies: 
 
