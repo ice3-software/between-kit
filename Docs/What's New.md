@@ -2,7 +2,7 @@
 
 This document, as the title suggests, details what's new in the  `2.0.0` release of this codebase (`BetweenKit`) and how its moved on since the original `1.0.0` release (`i3-dragndrop`).
 
-We've used the feedback recieved over the past year to re-design the original `i3-dragndrop` helper and develop the concept into a fully-fledged user interface framework for iOS. An unfortunate caveat is that `BetweenKit` is completely backwards in-compatible with the `i3-dragndrop` helper, which has now deprecated.
+We've used the feedback recieved over the past year to re-design the original `i3-dragndrop` helper and develop the concept into a fully-fledged user interface framework for iOS. An unfortunate caveat is that `BetweenKit` is completely backwards in-compatible with `i3-dragndrop`, which has now deprecated.
 
 Hopefully this guide will provide some useful pointers for migrating your codebase to the new release.
 ###Protocols
@@ -14,7 +14,11 @@ Well no more! We have 2 replacement protocols for you:
 - `I3Collection`
 - `I3DragDataSource`
 
-`I3Collection`s are the dynamic replacement for the old `dstView` and `srcView`s, which could only be either of type `UICollectionView` or `UITableView`. We've variablized the concepts `dst` and `src` such that you can have any number of collection views on your screen, and you can even implement your own. As long as they are of type `UIView<I3Collection>`, you're good to go.
+`I3Collection`s are the dynamic replacement for the old `dstView` and `srcView`s, which could only be either of type `UICollectionView` or `UITableView`. We've variablized the concepts `dst` and `src` such that you can have any number of collection views on your screen, and you can even implement your own. As long as they are of type `UIView<I3Collection>`, you're good to go. 
+
+By registering your collections with the `I3DragArena` in a particular order, you can also control their drag-and-drop priority.
+ 
+__This resolves: #5, #6, #7, #16 and #22__
 
 The `I3DragDataSource` is the shiny new replacement for the `I3DragBetweenDelegate`, which clearly defines 2 sets of methods: assertions and mutations. 
 
@@ -22,39 +26,30 @@ The the assertion methods can be loosely mapped from the `I3DragBetweenDelegate`
 
 	isCell... -> can...
 
-The responsibillity of mutating the data source wasn't really well defined in the original `I3DragBetweenDelegate` and is much harder to map.
+The responsibillity of mutating the data source wasn't really well defined in the original `I3DragBetweenDelegate` and is much harder to map. 
+
+__This resolves:  #15__
 
 The 'rendering' capabillities of the codebase were also completely private, and there was no way of extending how drag-and-drops _looked and felt_ on the screen. As the `I3DragBetweenDelegate` did not expressly define extension points the only way one could customize the drag-and-drop rendering would be to extend the `I3DragBetweenDelegate` and start hack-ily overriding private methods. 
 
 Now we have the `I3DragRenderDelegate` protocol, which will allow you to completely customize how the rendering of the drag-and-drops is dealt with is you so desire.
 ###Drops
-Details about how drops can now both be recognized as being on a particular item in a collection or at a particular points (addressing various concerns)###Collections
+Drops can now be recongized in 2 forms:
+- Drops on a specific item in a collection
+- Drops on a specific point in a collection
 
-Details about how there are now much less hard coded constraint in place for collections. 
+Which means that now, you can drop things on the empty part of your collections! The previous suggested work-around to this limitation was to add a static 'placeholder' cell to your collection and configure it to recieve drops. No longer a problem.
 
-- They can be anything that implementings I3Collection- You can add as many as you want
-- Collection priority as order in the aren'a mutable ordered set. Allows great control over overlapping collections
-Compare how the helper only allowed you to add 2 collections of predefined types.###Gesture Recongizer
-Can be injected, so:
-- you can use any type of recognizer
-- have great control over how that recongizer is dealt with along side other gesture recongizers
-
-Note editing / moving
-
+__This resolves: #15__
+###Gesture Recongizer
+Much like the rendering capabillities of `i3-dragndrop`, the `UIGestureRecongizer` that was used to listen for drag-and-drop events was created and configured privately. This was problematic as it _forced_ you to create 1 new `UIPanGestureRecongizer` and have it listen to your `superview`, which lead no room for customization and even caused problems when integrating with some `UITableView`'s features such as `moving` and `editing`.
+Now you have the option to inject an instance of `UIGestureRecongizer` into the framework that will be used to recongize drags, or just leave it to create it own `UIPanGestureRecongizer` 'behind the scenes'.We've found that the best way to integrate with the `UITableView`s `moving` and `editing` properties, is to inject a `UILongPressGestureRecongizer` into the framework to recongizer drags whenever a long press gesture occurs on a `UITableViewCell`.__This resolves: #14__
 
 ###Cloning Instabillity
 
-Note how the previous helper's use of key archiver / unarchiver caused frequent crashes and issues with custom table view and collection view cells.
+This was clearly a massive issue with `i3-dragndrop`: we used the `NSKeyArchiver` and `NSKeyUnarchiver` to create copies of the dragging item in question. It often caused hard crashes due to various conflicting `UIView` properties and also made it very difficult to create your own subclasses of `UITableViewCell` to drag about.
 
-Now we're using a much more robust method of cloning items: rendering into a uiimage using the clone view.
+We've fixed that now with the use of the new `I3CloneView`. This class simply renders the given `sourceView` into a `UIImage` off-screen and then renders the `UIImage` into its frame on `drawRect`, which so far, has worked pretty flawlessly.
 
-Details...
-
-
-###Re-designed
-
-- Redesigned the framework from the ground up to adhere to SOLID design principals
-- Fully testable
-- More extensible, customizable
-- Caveat is that its completely backwards incompatible, anyone using the helper will have to migrate to using the helper
+__This resolves: #8, #23, #12, #29__
 ___<u>Documenation</u>: BetweenKit 2.0.0
