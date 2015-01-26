@@ -50,4 +50,4 @@ BetweenKit _should_ be compatible with iOS 6 upwards, however development is cur
 
 ____
 
-<u>Documenation</u>: BetweenKit 2.0.0
+<u>Documentation</u>: BetweenKit 2.0.0

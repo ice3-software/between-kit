@@ -6,4 +6,4 @@
 
 - Required unit test coverage
 - If significant, required use case application
-- Documentation and comments___<u>Documenation</u>: BetweenKit 2.0.0
+- Documentation and comments___<u>Documentation</u>: BetweenKit 2.0.0
