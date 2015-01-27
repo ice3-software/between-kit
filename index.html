@@ -29,12 +29,12 @@
       </header>
       <section>
         <h1>
-<a id="usage" class="anchor" href="#usage" aria-hidden="true"><span class="octicon octicon-link"></span></a>Usage</h1>
+<a id="betweenkit-usage-guide" class="anchor" href="#betweenkit-usage-guide" aria-hidden="true"><span class="octicon octicon-link"></span></a>BetweenKit Usage Guide</h1>
 
 <h3>
 <a id="overview" class="anchor" href="#overview" aria-hidden="true"><span class="octicon octicon-link"></span></a>Overview</h3>
 
-<p>This document describes how you can use <code>BetweenKit</code> in your application. It introduces the concepts of the domain and then explores the core framework components. It provides example code snippets where possible but for full working examples, see the various <a href="">use cases</a> and <a href="">unit tests</a>.</p>
+<p>This document describes how you can use <code>BetweenKit</code> in your application. It introduces the concepts of the domain and then explores the core framework components. It provides example code snippets where possible but for full working examples, see the various <a href="https://github.com/ice3-software/between-kit/tree/master/Use%20Cases">use cases</a> and <a href="https://github.com/ice3-software/between-kit/tree/master/Tests">unit tests</a>.</p>
 
 <h3>
 <a id="problem-domain" class="anchor" href="#problem-domain" aria-hidden="true"><span class="octicon octicon-link"></span></a>Problem Domain</h3>
@@ -71,7 +71,7 @@
 
 <p><code>I3DragArena</code> is our <strong>drag arena</strong>. Its only hard dependency is a <code>superview</code>, which should be injected via its constructor. You can register collections in the drag arena by adding them to its <code>collections</code> property, which is an <code>NSMutableOrderedSet</code>.</p>
 
-<p>Note that it is your responsibillity to make sure the following preconditions to using the <code>I3DragArena</code> are met:</p>
+<p>Note that it is your responsibility to make sure the following preconditions to using the <code>I3DragArena</code> are met:</p>
 
 <ul>
 <li>That the <code>superview</code> is not <code>nil</code>
