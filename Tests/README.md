@@ -27,3 +27,6 @@ The unit tests come bundled with some utilities that should help you write clean
 ###Assertions
 
 - `EXPMatchers+haveStartedDrag`: a custom Expecta matcher for asserting whether a drag has started in a coordinator at a given point.
+
+
+___<u>Documentation</u>: BetweenKit 2.0.0
