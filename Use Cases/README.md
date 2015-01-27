@@ -1,6 +1,6 @@
 #Use Cases
 
-Here lies functional use cases applications, demonstrating `BetweenKit` in action.
+Here lies functional use case applications, demonstrating `BetweenKit` in action.
 
 
 - ###Basic Tables
