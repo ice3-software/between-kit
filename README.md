@@ -1,4 +1,4 @@
-# BetweenKit [![Build Status](https://travis-ci.org/ice3-software/between-kit.svg?branch=task-28-build-2.0.0)](https://travis-ci.org/ice3-software/between-kit) [![Coverage Status](https://coveralls.io/repos/ice3-software/between-kit/badge.png?branch=task-52-static-analysis-mess-detection)](https://coveralls.io/r/ice3-software/between-kit?branch=task-52-static-analysis-mess-detection)
+#&#xf0ec; BetweenKit [![Build Status](https://travis-ci.org/ice3-software/between-kit.svg?branch=task-28-build-2.0.0)](https://travis-ci.org/ice3-software/between-kit) [![Coverage Status](https://coveralls.io/repos/ice3-software/between-kit/badge.png?branch=task-52-static-analysis-mess-detection)](https://coveralls.io/r/ice3-software/between-kit?branch=task-52-static-analysis-mess-detection)
 
 ###Overview
 
