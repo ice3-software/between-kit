@@ -24,3 +24,6 @@ Check out the [website](http://ice3-software.github.io/between-kit/) and [docume
 
 - __Reliable__: tried, tested, refined, re-tried and re-tested once more.
 
+###License 
+
+BetweenKit is licensed under the MIT License. See [here](Docs/Licenses/BetweenKit - LICENSE.txt). 
