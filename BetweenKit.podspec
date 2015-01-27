@@ -10,7 +10,7 @@
 Pod::Spec.new do |s|
   s.name             = 'BetweenKit'
   s.version          = '2.0.0'
-  s.summary          = 'A robust drag-and-drop framework for iOS apps.'
+  s.summary          = 'A robust drag and drop framework for iOS.'
   s.homepage         = 'https://github.com/ice3-software/i3-dragndrop'
   s.license          = 'MIT'
   s.author           = { 'Stephen Fortune' => 'steve.fortune@icecb.com' }
