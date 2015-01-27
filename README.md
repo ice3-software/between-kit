@@ -4,7 +4,7 @@
 
 ###Overview
 
-`BetweenKit` is a robust framework, built on `UIKit` that allows you to build drag-and-drop functionallity into your iOS application user interfaces. 
+BetweenKit is a robust framework, built on `UIKit` that allows you to build drag-and-drop functionallity into your iOS application user interfaces. 
 
 BetweenKit is based on the concepts of the original [i3-dragndrop](https://github.com/ice3-software/between-kit/tree/1.1.1) helper, re-engineered from the ground up.
 
@@ -18,7 +18,7 @@ Check out the [website](http://ice3-software.github.io/between-kit/) and [docume
 
 - __Fully extensible__: customize everything from the drag/drop properties of individual items in a collection, to how the various drag/drop events are rendered on-screen. SOLID design of its core components gives you the flexibillity to [inject](http://en.wikipedia.org/wiki/Dependency_inversion_principle), [extend](http://en.wikipedia.org/wiki/Open/closed_principle), [override](http://en.wikipedia.org/wiki/Liskov_substitution_principle), [conform](http://en.wikipedia.org/wiki/Interface_segregation_principle) and [take control](http://i3.ytimg.com/vi/j4cokDb68jc/hqdefault.jpg).
 
-- __Fully tested__: ~100% unit test coverage, 20 functional use case applications, used in production applications on the [App Store](Docs/Production Cases.md). It also comes bundled with a few test utilities to make it easier for contributors to write clean unit tests.
+- __Fully tested__: ~100% unit test coverage, 20 functional use case applications, used in [production applications](Docs/Production Cases.md) on the App Store. It also comes bundled with a few test utilities to make it easier for contributors to write clean unit tests.
 
 - __Fully documented__: full written documentation, extensive inline comments and example code provided in the 20 use cases.
 
