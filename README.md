@@ -4,9 +4,9 @@
 
 ###Overview
 
-BetweenKit is a robust framework, built on `UIKit` that allows you to build 'drag and drop' functionallity into your iOS application user interfaces. 
+`BetweenKit` is a robust framework, built on `UIKit` that allows you to build drag-and-drop functionallity into your iOS application user interfaces. 
 
-BetweenKit is based on the concepts of the original [i3-dragndrop]() helper, re-engineered from the ground up.
+BetweenKit is based on the concepts of the original [i3-dragndrop](https://github.com/ice3-software/between-kit/tree/1.1.1) helper, re-engineered from the ground up.
 
 Check out the [website](http://ice3-software.github.io/between-kit/) and [documentation](Docs/) for more.
 
