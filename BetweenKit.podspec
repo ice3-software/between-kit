@@ -8,8 +8,9 @@
 #
 
 Pod::Spec.new do |s|
+
   s.name             = 'BetweenKit'
-  s.version          = '2.0.0'
+  s.version          = '2.0.1'
   s.summary          = 'A robust drag and drop framework for iOS.'
   s.homepage         = 'https://github.com/ice3-software/i3-dragndrop'
   s.license          = 'MIT'
@@ -18,11 +19,7 @@ Pod::Spec.new do |s|
 
   s.platform     = :ios, '6.0'
   s.requires_arc = true
-
   s.source_files = 'Pod/Classes'
-  s.resource_bundles = {
-    'BetweenKit' => ['Pod/Assets/*.png']
-  }
-
   s.frameworks = 'UIKit'
+
 end

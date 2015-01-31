@@ -1,7 +1,7 @@
 PODS:
-  - BetweenKit (2.0.0)
+  - BetweenKit (2.0.1)
   - Expecta (0.3.1)
-  - OCMock (3.1.1)
+  - OCMock (3.1.2)
   - Specta (0.3.0.beta1)
 
 DEPENDENCIES:
@@ -23,9 +23,9 @@ CHECKOUT OPTIONS:
     :tag: v0.3.0.beta1
 
 SPEC CHECKSUMS:
-  BetweenKit: 7b6c5f43f853ee691a0f3b9d8cdbae8533dca58b
+  BetweenKit: 665d0d7ca3c4341edd86129bbe37c295d131ef6d
   Expecta: 03aabd0a89d8dea843baecb19a7fd7466a69a31d
-  OCMock: f6cb8c162ab9d5620dddf411282c7b2c0ee78854
+  OCMock: ecdd510b73ef397f2f97274785c1e87fd147c49f
   Specta: 63e8ac8e07db6675c7096d37f77a266a1be4c02d
 
 COCOAPODS: 0.35.0
