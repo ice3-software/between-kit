@@ -12,7 +12,7 @@ It isn't particularly easy to build smooth drag-and-drop into your iOS applicati
 
 `BetweenKit` aims to abstracting away the various `UIKit` interactions required to implement drag-and-drop, and expose a clean API. It relies on a series of premises about drag-and-drop from which we can model the domain:
 
-- A <u>__collection__</u> is a view that contains and array of child <u>__items__</u>.
+- A <u>__collection__</u> is a view that contains an array of child <u>__items__</u>.
 - A <u>__drag arena__</u> consists of a <u>__superview__</u> and an ordered set of <u>__collections__</u> that exist as subviews within that superview.
 - The order of the collections in the drag arena determines their drag / drop priority. That is, if a collection sits at the beginning of the drag arena's ordered set of collections, then drags and drops occurring on that collection will be recognized in place of any of the later collections in the set.
 - A drag <u>__starts__</u> if and only if a gesture is started within the bounds of a <u>__draggable__</u> item of a collection in the drag arena.
@@ -50,7 +50,7 @@ The following snippet demonstrates building a `I3DragArena` using the provided `
 
 ...
 
-/// Dependencies are pulled form somewhere
+/// Dependencies are pulled from somewhere
 
 UIView *superview = ...
 UITableView *table1 = ...
@@ -146,7 +146,7 @@ This snippet demonstrates a very basic `I3DragDataSource` implementation that su
 -(void) rearrangeItemAt:(NSIndexPath *)from withItemAt:(NSIndexPath *)to inCollection:(UIView<I3Collection> *)collection{
 
     UITableView *targetTableView = (UITableView *)collection;
-    NSMutableArray *targetDataset = [self dataSetForCollection:collection]
+    NSMutableArray *targetDataset = [self dataForCollection:collection];
 
     [targetDataset exchangeObjectAtIndex:to.row withObjectAtIndex:from.row];
     [targetTableView reloadRowsAtIndexPaths:@[to, from] withRowAnimation:UITableViewRowAnimationFade];
@@ -183,7 +183,7 @@ All data source methods are optional apart from the 'drag start' assertion:
 -(BOOL) canItemBeDraggedAt:(NSIndexPath *)at inCollection:(UIView<I3Collection> *)collection
 ```
 
-Every data update method has an associated assertion method; the gesture coordinator will only respond to an event if and only if, both the update methods and its associated assertion have been implemented. For example, if you implement:
+Every data update method has an associated assertion method; the gesture coordinator will respond to an event if and only if both the update methods and its associated assertion have been implemented. For example, if you implement:
 
 ``` Objective-C
 -(void) rearrangeItemAt:(NSIndexPath *)from withItemAt:(NSIndexPath *)to inCollection:(UIView<I3Collection> *)collection
