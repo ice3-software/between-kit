@@ -1,6 +1,6 @@
 #Build Scripts
 
-This directory contains a series of shell scripts to be run at different intervals during the build process: 
+This directory contains a series of shell scripts to be run at different intervals during the build process:
 
 - Scripts prefixed with `before_` are intended to be first in order to setup any necessary dependencies.
 

@@ -3,7 +3,7 @@ iOS Drag-n-Drop Between Helper
 
 Objective-C helper class(es) for the iOS platform that handle drag and drop logic between 2 UITableView s and/or UICollectionView s.
 
-###This is the legacy version 1.1.1 (`i3-dragndrop`). It is now deprecated, please migrate to version 2.0.0 (`BetweenKit`). 
+###This is the legacy version 1.1.1 (`i3-dragndrop`). It is now deprecated, please migrate to version 2.0.0 (`BetweenKit`).
 
 ###Because BetweenKit has been rebuilt from the ground up it is unfortunately backwards-incompatible. See the [What's New](../Docs/What's New.md) documentation for pointers on how to migrate.
 
@@ -36,8 +36,8 @@ Here is a simple example of how to configure the helper:
 	UIView* view = self.view // View controller's main view
 	UITableView* sourceTable = self.sourceTable; // A table configured for the View controller via IB
 	UITableView* destinationTable = self.destinationTable // A table configured for the View controller via IB
-	
-	I3DragBetweenHelper* helper = [[I3DragBetweenHelper alloc] initWithSuperview:view 
+
+	I3DragBetweenHelper* helper = [[I3DragBetweenHelper alloc] initWithSuperview:view
                                 						 				 srcView:sourceTable
                                                						  	 dstView:destinationTable];
 
@@ -148,4 +148,3 @@ Recent Changes
 
 - The helper no longer uses the actual sub view for the dragging cell - now, instead it generates a dummy cell for dragging. Its left up to the user to 'hide' the cell whilst its being dragged in the appropriate delegate methods, see Example Case 1. This breaks anything using the previous version.
 - 'Hide' functionality has been added back to the helper in the form of the hide[Dst | Src]DraggingCell properties. This sets the original cell's alpha value to 0.001 while dragging is taking place. We have re-introducted this concept because UICollectionView sometimes returned nil for cellForItemAtIndexPath in the helper's delegate, after the collection had been reordered. This resulted in a buggy 'sometimes hidden' collection cell whilst dragging.
-

@@ -7,7 +7,7 @@
 - All the icons can be rearranged as well as dropped between the 2 toolbars.
 
 - When selected, arbitrary icons will just show an alert view with some simple text inside. These are the available arbitrary icons:
-	
+
 	- Comments
 	- Cube
 	- Bomb
@@ -21,8 +21,8 @@
 	- Button fields
 	- Switch fields
 	- Text fields
-	- Text areas 
-	
+	- Text areas
+
 - Once added, the position of these custom form fields can be  changed within the form or they can be deleted via the 'Scrap Field' area.
 
 - Note that this uses the `UILongPressGestureRecognizer` to detect drags; dragging in the form fields can only be initiated inside of their 'move' icons.

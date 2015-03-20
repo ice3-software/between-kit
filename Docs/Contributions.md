@@ -1,1 +1,35 @@
-#Contributions###Issue TrackerPlease raise issues for new features, improvements and bugs [here](https://github.com/ice3-software/between-kit/issues). If you are raising a bug report, please try to provide:- Steps to recreate the bug- Relevant logs and crash reports- Information about the environment that the bug occurred in (e.g. an iPhone 4S running on iOS 7.1)###Pull RequestsPlease raise pull requests [here](https://github.com/ice3-software/between-kit/pulls).The following requirements must be met in order for your patches to be approved:- A passing Travis build.- Unit test coverage.The following would also be nice:- Additional documentation if your patch introduces a new feature or makes a significant change.- Formatted method, class, function and property comments.- A new use case application if your patch introduces a significant new feature.Please make your pull requests to the `dev` branch. Changes will be merged into `master` in subsequent releases.___<u>Documentation</u>: BetweenKit 2.0.0
+#Contributions
+
+###Issue Tracker
+
+Please raise issues for new features, improvements and bugs [here](https://github.com/ice3-software/between-kit/issues).
+
+
+If you are raising a bug report, please try to provide:
+
+- Steps to recreate the bug
+- Relevant logs and crash reports
+- Information about the environment that the bug occurred in (e.g. an iPhone 4S running on iOS 7.1)
+
+
+
+###Pull Requests
+
+Please raise pull requests [here](https://github.com/ice3-software/between-kit/pulls).
+
+The following requirements must be met in order for your patches to be approved:
+
+- A passing Travis build.
+- Unit test coverage.
+
+The following would also be nice:
+
+- Additional documentation if your patch introduces a new feature or makes a significant change.
+- Formatted method, class, function and property comments.
+- A new use case application if your patch introduces a significant new feature.
+
+Please make your pull requests to the `dev` branch. Changes will be merged into `master` in subsequent releases.
+
+___
+
+<u>Documentation</u>: BetweenKit 2.0.0

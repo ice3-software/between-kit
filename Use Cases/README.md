@@ -5,7 +5,7 @@ Here lies functional use case applications, demonstrating `BetweenKit` in action
 
 - ###Basic Tables
 
-	- Rearrangeable Table (Exchange) 
+	- Rearrangeable Table (Exchange)
 	- Rearrangeable Table (Sift)
 	- Deletable Table
 	- 2 Droppable Tables
@@ -36,4 +36,6 @@ Here lies functional use case applications, demonstrating `BetweenKit` in action
 	- Split View Controller
 
 
-___<u>Documentation</u>: BetweenKit 2.0.0
+___
+
+<u>Documentation</u>: BetweenKit 2.0.0

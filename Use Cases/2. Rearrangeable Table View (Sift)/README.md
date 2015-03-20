@@ -6,5 +6,3 @@
 - On drop, the dragging cell is deleted from its origin and inserted into the table at the destination index. The intermediate cells are 'sifted' up one index.
 - Drills into `I3BasicRenderDelegate` to turn 'exchange' animation off.
 - Recreates the behaviour of the traditional `moving` property of the `UITableView`
-
-
