@@ -15,7 +15,7 @@ export -f bumpCp
 
 for folder in "${SRC_FOLDERS[@]}"
 do
-    find "./$folder" \( -name "*.h" -o -name "*.m" \) -exec bash -c 'bumpCp "$0"' {} \;
+    find "./$folder" \( -name "*.h" -o -name "*.m" -o -name "*.xib" \) -exec bash -c 'bumpCp "$0"' {} \;
 done
 
 bumpCp "./LICENSE"
