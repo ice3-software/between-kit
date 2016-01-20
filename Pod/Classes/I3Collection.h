@@ -3,7 +3,7 @@
 //  BetweenKit
 //
 //  Created by Stephen Fortune on 14/09/2014.
-//  Copyright (c) 2013 IceCube Software Ltd. All rights reserved.
+//  Copyright (c) 2016 IceCube Software Ltd. All rights reserved.
 //
 
 #import <Foundation/Foundation.h>

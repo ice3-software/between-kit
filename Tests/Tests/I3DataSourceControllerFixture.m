@@ -3,7 +3,7 @@
 //  BetweenKit
 //
 //  Created by Stephen Fortune on 21/11/2014.
-//  Copyright (c) 2014 stephen fortune. All rights reserved.
+//  Copyright (c) 2016 stephen fortune. All rights reserved.
 //
 
 #import "I3DataSourceControllerFixture.h"

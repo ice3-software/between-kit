@@ -3,7 +3,7 @@
 //  12. Collections With Sections
 //
 //  Created by Stephen Fortune on 27/12/2014.
-//  Copyright (c) 2014 IceCube Software Ltd. All rights reserved.
+//  Copyright (c) 2016 IceCube Software Ltd. All rights reserved.
 //
 
 #import "AppDelegate.h"
